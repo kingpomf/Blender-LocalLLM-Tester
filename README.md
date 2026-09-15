@@ -8,9 +8,11 @@ The first challenge is one deliberately simple low-poly go-kart. The test is suc
 
 1. Open Blender and connect the BlenderMCP add-on.
 2. From this repository, run `opencode mcp list` and confirm `blenderMCP connected`.
-3. Start OpenCode in this repository. The project config selects `ollama/gemma4-agent:26b`, enables only Ollama, and exposes only the BlenderMCP plus minimal local file/git operations.
-4. Run `/kart-start` in OpenCode.
-5. Review `BUILD_STATUS.md` and the evidence under `artifacts/` after every stage.
+3. Confirm your global OpenCode config already defines the `ollama` provider and `gemma4-agent:26b`. The repository deliberately does not publish machine-specific host addresses or filesystem paths.
+4. Confirm `uvx` is available on your shell `PATH` with `command -v uvx`.
+5. Start OpenCode in this repository. The project config selects `ollama/gemma4-agent:26b`, enables only Ollama, and exposes only BlenderMCP plus minimal local file/git operations.
+6. Run `/kart-start` in OpenCode.
+7. Review `BUILD_STATUS.md` and the evidence under `artifacts/` after every stage.
 
 Do not run OpenCode `/init`; this repository already contains a deliberate `AGENTS.md`.
 
@@ -26,4 +28,3 @@ Do not run OpenCode `/init`; this repository already contains a deliberate `AGEN
 ## Design intent
 
 This is a capability test, not an Aiden Kart Racing production asset. Keep it isolated and disposable. If a stage fails, stop there, record evidence, and resume from that checkpoint after the requirement or workflow is corrected.
-

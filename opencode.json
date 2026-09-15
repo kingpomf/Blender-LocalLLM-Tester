@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/gemma4-agent:26b",
+  "small_model": "ollama/gemma4-agent:26b",
+  "enabled_providers": ["ollama"],
+  "instructions": ["AGENTS.md"],
+  "share": "disabled",
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 8000
+  },
+  "watcher": {
+    "ignore": [
+      ".git/**",
+      "artifacts/blend/**",
+      "artifacts/exports/**",
+      "artifacts/renders/**"
+    ]
+  },
+  "mcp": {
+    "blenderMCP": {
+      "type": "local",
+      "command": ["/usr/bin/env", "uvx", "--python", "3.11", "blender-mcp"],
+      "enabled": true,
+      "timeout": 15000
+    }
+  },
+  "permission": {
+    "*": "deny",
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "edit": "allow",
+    "todowrite": "allow",
+    "bash": {
+      "*": "deny",
+      "pwd": "allow",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow"
+    },
+    "blenderMCP_*": "allow"
+  }
+}
