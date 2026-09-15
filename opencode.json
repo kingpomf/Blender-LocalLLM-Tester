@@ -19,11 +19,20 @@
     ]
   },
   "mcp": {
+    "unityMCP": {
+      "enabled": false
+    },
     "blenderMCP": {
       "type": "local",
       "command": ["/usr/bin/env", "uvx", "--python", "3.11", "blender-mcp"],
       "enabled": true,
       "timeout": 15000
+    },
+    "audioMCP": {
+      "enabled": false
+    },
+    "appleCreatorMCP": {
+      "enabled": false
     }
   },
   "permission": {
