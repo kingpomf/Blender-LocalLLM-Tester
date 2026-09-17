@@ -78,6 +78,9 @@
     "todowrite": "allow",
     "bash": {
       "*": "deny",
+      "ls": "allow",
+      "ls *": "allow",
+      "test *": "allow",
       "pwd": "allow",
       "git status*": "allow",
       "git diff*": "allow",
