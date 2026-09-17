@@ -1,7 +1,41 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "ollama/gemma4-agent:26b",
-  "small_model": "ollama/gemma4-agent:26b",
+  "plugin": [
+    [
+      "opencode-auto-resume",
+      {
+        "chunkTimeoutMs": 45000,
+        "gracePeriodMs": 3000,
+        "checkIntervalMs": 5000,
+        "maxRetries": 3,
+        "loopMaxContinues": 2,
+        "loopWindowMs": 60000
+      }
+    ]
+  ],
+  "provider": {
+   "ollama": {
+     "npm": "@ai-sdk/openai-compatible",
+     "name": "Ollama (Windows LLM Host)",
+     "options": {
+       "baseURL": "http://192.168.4.35:11434/v1"
+    },
+    "models": {
+      "gemma4:12b-q4-64k": {
+        "name" : "Gemma 4 12B Q4 64K",
+        "limit": {
+          "context": 65536,
+          "output": 8192
+        },
+        "options": {
+          "reasoningEffort": "minimal"
+        }
+      }
+    }
+  }
+},
+  "model": "ollama/gemma4:12b-q4-64k",
+  "small_model": "ollama/gemma4:12b-q4-64k",
   "enabled_providers": ["ollama"],
   "instructions": ["AGENTS.md"],
   "share": "disabled",
