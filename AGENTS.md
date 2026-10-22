@@ -6,6 +6,11 @@ Build one low-poly go-kart, `Kart01`, using the requirements in `spec/kart-01/00
 
 Start by reading `BUILD_STATUS.md`, `HANDOFF.md`, `WORKER_GUIDE.md`, and the specifications needed to plan the work. Run `python3 scripts/check_resume.py` before submitting work. If it flags stale/contradictory progress, reconcile the saved artifacts and accepted jobs before continuing; do not start over or delete them. You may inspect any relevant project files, consult Blender API documentation, use applicable skills, and ask clarification questions. Keep work focused on this asset.
 
+**Current trial:** use one fresh 262,144-token session with project automatic
+compaction and tool-output pruning disabled. Do not manually compact or change
+those settings mid-run. If context is exhausted, save the checkpoints and report
+that outcome; a new session is a separate trial, not uninterrupted continuation.
+
 ## Blender workflow
 
 - Use `z6-blender-worker` for Blender operations. Check connectivity and `authoring.available=true` before submitting work.
@@ -26,6 +31,7 @@ Start by reading `BUILD_STATUS.md`, `HANDOFF.md`, `WORKER_GUIDE.md`, and the spe
 
 ## Diagnose and verify
 
+- Python LSP is explicitly enabled with Blender 4.5 typing support; see `LSP_SETUP.md`. After writing/editing a saved authoring script, inspect its LSP diagnostics or run `.venv/bin/pyright artifacts/scripts/STAGE_FILE.py` before submitting it. Fix syntax and confirmed API/signature errors; verify generated-stub false positives against the actual worker API rather than guessing replacements.
 - Local Python, image/GLB inspection, checksums, and other relevant diagnostic tools are permitted. Read-only supporting files outside the repository may be consulted when relevant; keep generated work in this repository.
 - Ordinary API errors or failed checks may be diagnosed, fixed, and rechecked. Keep the stage FAIL until its checks pass; do not advance dependent stages with unresolved failures. After three unsuccessful repair attempts on the same issue, report the evidence and ask for help.
 - Failed CPU jobs are terminal: call `blender_job_diagnostics(job_id)` once for the traceback. Do not cycle through `artifact_fetch` filenames for a failed job; that endpoint only serves completed jobs. If diagnostics is missing from the tool catalog, report BLOCKED and request an OpenCode restart.

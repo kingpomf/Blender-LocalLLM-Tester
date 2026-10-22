@@ -1,6 +1,6 @@
 # Blender specialist model — native 256K setup
 
-Installed and verified on Z6 on 2026-10-22, then raised from 65,536 to 102,400 and now **262,144 tokens**. This is model setup evidence, not a Kart01 stage PASS. The 256K update does not reset or repair the active attempt; see `SESSION_REVIEW_2026-10-22.md` before resuming it.
+Installed and verified on Z6 on 2026-10-22, then raised from 65,536 to 102,400 and now **262,144 tokens**. This is model setup evidence, not a Kart01 stage PASS. After the context upgrade, the stuck attempt was separately archived and the project reset for a fresh no-compaction trial.
 
 ## Selected model
 
@@ -11,7 +11,7 @@ Installed and verified on Z6 on 2026-10-22, then raised from 65,536 to 102,400 a
 - File: `a3b-apex-abl-blender-v1-merged.gguf`, 16,478,599,264 bytes.
 - Verified SHA-256: `379571667085706be63119716ad59dec8e66c7c180b8cd4d592546a2c95ba279`.
 - The publisher's merged GGUF is used directly; no separate LoRA or re-quantization.
-- Server and OpenCode context: **262,144 tokens**. OpenCode output budget: **16,384 tokens**, sharing the total context window. The existing 8,000-token compaction reserve remains configured; compaction can still occur below the total window limit.
+- Server and OpenCode context: **262,144 tokens**. OpenCode output budget: **16,384 tokens**, sharing the total context window. For the current trial, `compaction.auto=false` and `compaction.prune=false`; the reserve value is retained but automatic compaction is disabled. Do not manually compact this trial.
 - Text input/output, reasoning and tool calls. No vision projector is configured for this model.
 
 The existing `z6-llama` provider's authentication and endpoint are inherited. Both project `model` and `small_model` select this model to avoid title/helper requests switching to a different coding model. Global defaults and existing model entries are preserved. The project publishes a matching 262,144-token model metadata override.
@@ -57,13 +57,13 @@ Those original checks verified window allocation and short-request integration, 
 - Post-request memory: GPU 0 used 10271 MiB/free 1632 MiB; GPU 1 used 9923 MiB/free 1989 MiB. Gateway health is ok with no diagnostic errors.
 - A fresh OpenCode process passed the real read-tool smoke with 262,144-token metadata, session `ses_e9be350a6ffer1oH7vguyzGdZi`.
 - This proves native-window allocation and capacity above the old limit, not saturated 256K throughput, long-document retrieval quality, or reliable Blender validation.
-- No current build artifacts, ledger PASS claims, or source scenes were repaired or reset by the context upgrade.
+- The context upgrade itself preserved the existing attempt. A subsequent reset archived that work under `artifacts/archive/blender35b-100k-stalled-2026-10-22/`; no previous source or stage claim carries into the new trial.
 
 ## Start the test
 
 1. Quit and restart OpenCode in this repository.
 2. Open a new session; confirm the selected model is **Qwen3.8 35B A3B Blender v1 (256K)**.
-3. Review `SESSION_REVIEW_2026-10-22.md` and reconcile the current inconsistent ledger/handoff before resuming with `/kart-start`. A context increase is not a new asset build or an acceptance result.
+3. Run `/kart-start` in that new session. The ledger/handoff are now reset and the preflight should report a fresh run. Keep the trial in one session without manual compaction; record a context-limit stop if it occurs.
 
 The existing worker guide remains important: unconditional stage calls, explicit `source_job` chaining, and actual scene/report verification still apply.
 

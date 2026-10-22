@@ -1,0 +1,9 @@
+{
+  "include": ["artifacts/scripts", "scripts", "tests"],
+  "exclude": ["artifacts/archive", ".opencode", ".venv"],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.11",
+  "typeCheckingMode": "basic",
+  "reportMissingModuleSource": "none"
+}

@@ -17,14 +17,21 @@
   },
   "instructions": ["AGENTS.md"],
   "share": "disabled",
+  "lsp": {
+    "pyright": {
+      "command": ["./.venv/bin/pyright-langserver", "--stdio"],
+      "extensions": [".py", ".pyi"]
+    }
+  },
   "compaction": {
-    "auto": true,
-    "prune": true,
+    "auto": false,
+    "prune": false,
     "reserved": 8000
   },
   "watcher": {
     "ignore": [
       ".git/**",
+      ".venv/**",
       "artifacts/archive/**",
       "artifacts/downloads/**",
       "artifacts/blend/**",
@@ -79,6 +86,7 @@
       "python artifacts/scripts/*": "allow",
       "python3 artifacts/scripts/*": "allow",
       "python3 scripts/check_resume.py": "allow",
+      ".venv/bin/pyright *": "allow",
       "sips *": "allow",
       "file artifacts/*": "allow",
       "du *": "allow",
