@@ -63,7 +63,7 @@ Those original checks verified window allocation and short-request integration, 
 
 1. Quit and restart OpenCode in this repository.
 2. Open a new session; confirm the selected model is **Qwen3.8 35B A3B Blender v1 (256K)**.
-3. Run `/kart-start` in that new session. The ledger/handoff are now reset and the preflight should report a fresh run. Keep the trial in one session without manual compaction; record a context-limit stop if it occurs.
+3. Run `/bowling-start` in that new session for the current bowling assignment. The model-installation and kart-trial evidence above is historical; use the current ledger/handoff for build state. Keep the trial in one session without manual compaction; record a context-limit stop if it occurs.
 
 The existing worker guide remains important: unconditional stage calls, explicit `source_job` chaining, and actual scene/report verification still apply.
 

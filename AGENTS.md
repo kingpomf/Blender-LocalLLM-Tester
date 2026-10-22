@@ -1,8 +1,8 @@
-# Kart01 Agent Test
+# BowlingPair01 Agent Test
 
 ## Goal
 
-Build one low-poly go-kart, `Kart01`, using the requirements in `spec/kart-01/00-CONTRACT.md` through `09-DELIVERY.md`. The specifications define acceptance; do not weaken them to obtain a pass.
+Build a modular, game-ready bowling alley pair, `BowlingPair01`, using `spec/bowling-pair-01/00-CONTRACT.md` through `09-DELIVERY.md`. Include two lanes, twenty pins, three bowling balls, gutters, a shared ball return, and alley dressing. The specifications define acceptance; do not weaken them to obtain a pass. This is a fresh bowling assignment authorized by the operator; the kart trial is historical evidence only.
 
 Start by reading `BUILD_STATUS.md`, `HANDOFF.md`, `WORKER_GUIDE.md`, and the specifications needed to plan the work. Run `python3 scripts/check_resume.py` before submitting work. If it flags stale/contradictory progress, reconcile the saved artifacts and accepted jobs before continuing; do not start over or delete them. You may inspect any relevant project files, consult Blender API documentation, use applicable skills, and ask clarification questions. Keep work focused on this asset.
 
@@ -19,7 +19,7 @@ that outcome; a new session is a separate trial, not uninterrupted continuation.
 - Author code runs with `__name__="__blender_author__"`. Execute stage functions with an unconditional top-level call; a `__main__`-only guard skips them. Fetch and read `scene.json` and `report.json`: `result.json.passed` means execution succeeded, not that stage requirements passed.
 - Save each submitted authoring script under `artifacts/scripts/`. Record accepted job IDs and source IDs in `BUILD_STATUS.md` before polling. Poll existing jobs; never replay an uncertain submission.
 - Worker Python runs inside `/job`, without access to Mac paths. Write extra outputs as flat files there, fetch verified artifacts, and record their actual paths. Use `blender_render` for queued GPU renders.
-- Keep a hash-verified current checkpoint at `artifacts/blend/Kart01.blend`. Update it after every passed stage, including later corrections. Deliver renders, reports, and exports at the specification paths.
+- Keep a hash-verified current checkpoint at `artifacts/blend/BowlingPair01.blend`. Update it after every passed stage, including later corrections. Deliver renders, reports, and exports at the specification paths.
 
 ## Durable progress and session handoff
 
@@ -36,6 +36,7 @@ that outcome; a new session is a separate trial, not uninterrupted continuation.
 - Ordinary API errors or failed checks may be diagnosed, fixed, and rechecked. Keep the stage FAIL until its checks pass; do not advance dependent stages with unresolved failures. After three unsuccessful repair attempts on the same issue, report the evidence and ask for help.
 - Failed CPU jobs are terminal: call `blender_job_diagnostics(job_id)` once for the traceback. Do not cycle through `artifact_fetch` filenames for a failed job; that endpoint only serves completed jobs. If diagnostics is missing from the tool catalog, report BLOCKED and request an OpenCode restart.
 - Validate actual evaluated geometry, dimensions, transforms, hierarchy, materials, and triangle counts rather than intended parameters. Save machine-readable validation at `artifacts/reports/validation.json`.
+- Validate reusable pin/ball exports and their pivots, the full pair, and static collision proxies independently. Use the same final revision for all deliveries. Do not build game code, simulation, or unrelated assets for this assignment.
 - Inspect the rendered images and camera framing. File existence alone is not proof that a render shows the asset. If image viewing is unavailable, use geometric framing checks and report any remaining visual-review limitation.
 - Revalidate affected stages after corrections. The delivered `.blend`, GLB, PNGs, and reports must correspond to the same final asset revision.
 - Update `BUILD_STATUS.md` and `artifacts/reports/BUILD_REPORT.md` with objective PASS/FAIL/BLOCKED evidence. Mark COMPLETE only when every Stage 00–09 requirement passes; any failed required check means FAIL.

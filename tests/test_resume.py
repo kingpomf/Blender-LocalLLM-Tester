@@ -38,7 +38,7 @@ class ResumeTests(unittest.TestCase):
 
     def test_consistent_resume_still_requires_independent_scene_verification(self):
         self.write_state('IN_PROGRESS', 'PASS', self.job, self.job, 'verified scene and report')
-        path = self.root / 'artifacts/blend/Kart01.blend'
+        path = self.root / 'artifacts/blend/BowlingPair01.blend'
         path.parent.mkdir(parents=True)
         path.write_bytes(b'fixture only')
         result = check(self.root)
@@ -51,7 +51,7 @@ class ResumeTests(unittest.TestCase):
 
     def test_markdown_formatted_source_ids_are_accepted(self):
         self.write_state('IN_PROGRESS', 'PASS', f'`{self.job}`', self.job, 'verified evidence')
-        path = self.root / 'artifacts/blend/Kart01.blend'
+        path = self.root / 'artifacts/blend/BowlingPair01.blend'
         path.parent.mkdir(parents=True)
         path.write_bytes(b'fixture only')
         self.assertTrue(check(self.root)['passed'])
@@ -62,6 +62,15 @@ class ResumeTests(unittest.TestCase):
         self.assertFalse(result['passed'])
         self.assertTrue(any('objective evidence' in issue for issue in result['issues']))
         self.assertTrue(any('all ten' in issue for issue in result['issues']))
+
+    def test_historical_kart_checkpoint_cannot_satisfy_bowling_resume(self):
+        self.write_state('IN_PROGRESS', 'PASS', self.job, self.job, 'claimed evidence')
+        path = self.root / 'artifacts/blend/Kart01.blend'
+        path.parent.mkdir(parents=True)
+        path.write_bytes(b'historical fixture only')
+        result = check(self.root)
+        self.assertFalse(result['passed'])
+        self.assertTrue(any('BowlingPair01.blend' in issue for issue in result['issues']))
 
 
 if __name__ == '__main__':

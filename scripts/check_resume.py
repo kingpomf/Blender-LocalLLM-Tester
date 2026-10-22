@@ -50,8 +50,8 @@ def check(root):
             issues.append('Passed stages require a last verified same-host CPU source job ID.')
         if not JOB.search(accepted):
             issues.append('Passed stages require accepted job IDs in the metadata summary.')
-        if not (root / 'artifacts/blend/Kart01.blend').is_file():
-            issues.append('Passed stages require the saved local Kart01.blend checkpoint.')
+        if not (root / 'artifacts/blend/BowlingPair01.blend').is_file():
+            issues.append('Passed stages require the saved local BowlingPair01.blend checkpoint.')
     incomplete = next((s[0] for s in stages if s[2] != 'PASS'), None)
     if incomplete and not status.get('Next stage', '').startswith(incomplete + ' '):
         issues.append('Next stage must identify the first non-PASS stage.')

@@ -1,6 +1,6 @@
 # Blender Worker Quick Guide
 
-Read this before the first authoring submission. These notes describe the current worker interface; the asset requirements remain in `spec/kart-01/`.
+Read this before the first authoring submission. These notes describe the current worker interface; the active asset requirements are in `spec/bowling-pair-01/`.
 
 ## Session resume preflight
 
@@ -64,9 +64,9 @@ After completion, fetch and read `scene.json` and `report.json`; compare them wi
 
 ## 4. Save on the worker, deliver on the Mac
 
-The worker automatically saves `/job/scene.blend`. Do not save to `artifacts/blend/Kart01.blend` inside worker Python: that is a local project delivery path, not a worker path. Extra outputs should be flat `/job/filename` files.
+The worker automatically saves `/job/scene.blend`. Do not save to `artifacts/blend/BowlingPair01.blend` inside worker Python: that is a local project delivery path, not a worker path. Extra outputs should be flat `/job/filename` files.
 
-Fetch `scene.blend` using `blender_artifact_fetch`, copy the verified download to `artifacts/blend/Kart01.blend`, and verify its SHA-256 against the manifest. Fetch/copy renders, exports, and reports similarly. Update the local checkpoint after corrections too.
+Fetch `scene.blend` using `blender_artifact_fetch`, copy the verified download to `artifacts/blend/BowlingPair01.blend`, and verify its SHA-256 against the manifest. Fetch/copy renders, exports, and reports similarly. Update the local checkpoint after corrections too.
 
 ## 5. Use Blender's actual data API
 
@@ -80,7 +80,7 @@ Fetch `scene.blend` using `blender_artifact_fetch`, copy the verified download t
 ## 6. Render the actual asset
 
 - Before rendering, verify the scene has asset geometry and the intended active camera. Check camera framing against world-space asset bounds.
-- Select a named camera in an authoring revision with `scene.camera = bpy.data.objects['CAM_Kart01_Front']`. Aim it explicitly, e.g. `(target - camera.location).to_track_quat('-Z', 'Y').to_euler()` using a mathutils Vector target. Merely creating/moving a camera does not select it. A null active camera can cause the renderer to add its generic fallback camera; that is not proof the requested view rendered.
+- Select a named camera in an authoring revision with `scene.camera = bpy.data.objects['CAM_BowlingPair01_Overview']`. Aim it explicitly, e.g. `(target - camera.location).to_track_quat('-Z', 'Y').to_euler()` using a mathutils Vector target. Merely creating/moving a camera does not select it. A null active camera can cause the renderer to add its generic fallback camera; that is not proof the requested view rendered.
 - `blender_render(frames=[1, 2, 3, 4])` renders timeline frames, not four named cameras. Select cameras through authored timeline camera markers or separate source revisions with the correct active camera.
 - `blender_scene_modify` edits existing named meshes; it does not create a render sequence by accepting an arbitrary name such as `render_frames`.
 - `video_generate` is unrelated AI-video synthesis. It does not render the `.blend` and is not a substitute for the four required PNGs. `blender_video_preview` only assembles an already completed Blender render.
@@ -104,6 +104,6 @@ finally:
 ```
 
 - If a focused repair actually needs an active object, the assignment is `bpy.context.view_layer.objects.active = obj`; selection is `obj.select_set(True)`. `scene.active_object` and `view_layer.active_object` are not valid APIs, `bpy.context.active_object` is read-only, and `bpy.ops.object.select_set` is not an operator. Selection alone does not establish an active mesh for mode-sensitive operators. These errors are not evidence that Blender 4.5 lacks Edit mode.
-- Count wheels from actual scene objects, not the required-name list. Measure world-space bounds, wheel dimensions, ground contact, tracks, and wheelbase. Check every required material/camera/light and collection/hierarchy rule; do not replace any check with an assumption or an unconditional True.
+- Count pins/balls/lanes from actual scene objects, not the required-name list. Measure world-space bounds, pin spacing and contact, ball diameter, lane lengths/widths, gutter cross-sections and prop clearances. Check every required material/camera/light and collection/hierarchy rule; do not replace any check with an assumption or an unconditional True.
 - Ground/cameras/lights are presentation objects and must not be children of the asset root. Verify local delivered render files on the Mac at the exact specification paths; worker Python cannot see those Mac paths.
 - After any failed attempt, compare the proposed repair with the submitted source and traceback before resubmitting. Identical code against the same source does not become a repair by changing the narration. Stop after the bounded attempts in AGENTS.md; record FAIL/BLOCKED and the exact unresolved error rather than issuing an unlimited sequence.
