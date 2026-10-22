@@ -1,9 +1,11 @@
 .DS_Store
 *.blend1
 *.blend2
+artifacts/archive/**/*.blend
+artifacts/archive/**/*.json
+artifacts/downloads/
 artifacts/blend/*.blend
 artifacts/exports/*.glb
 artifacts/exports/*.fbx
 artifacts/renders/*.png
 artifacts/reports/*.json
-

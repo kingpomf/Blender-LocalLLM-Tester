@@ -1,42 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [
-    [
-      "opencode-auto-resume",
-      {
-        "chunkTimeoutMs": 45000,
-        "gracePeriodMs": 3000,
-        "checkIntervalMs": 5000,
-        "maxRetries": 3,
-        "loopMaxContinues": 2,
-        "loopWindowMs": 60000
-      }
-    ]
-  ],
-  "provider": {
-   "ollama": {
-     "npm": "@ai-sdk/openai-compatible",
-     "name": "Ollama (Windows LLM Host)",
-     "options": {
-       "baseURL": "http://192.168.4.35:11434/v1"
-    },
-    "models": {
-      "gemma4:12b-q4-64k": {
-        "name" : "Gemma 4 12B Q4 64K",
-        "limit": {
-          "context": 65536,
-          "output": 8192
-        },
-        "options": {
-          "reasoningEffort": "minimal"
-        }
-      }
-    }
-  }
-},
-  "model": "ollama/gemma4:12b-q4-64k",
-  "small_model": "ollama/gemma4:12b-q4-64k",
-  "enabled_providers": ["ollama"],
+  "model": "z6-llama/qwen38-27b",
+  "small_model": "z6-llama/qwen38-27b",
+  "enabled_providers": ["z6-llama"],
   "instructions": ["AGENTS.md"],
   "share": "disabled",
   "compaction": {
@@ -47,26 +13,30 @@
   "watcher": {
     "ignore": [
       ".git/**",
+      "artifacts/archive/**",
+      "artifacts/downloads/**",
       "artifacts/blend/**",
       "artifacts/exports/**",
       "artifacts/renders/**"
     ]
   },
   "mcp": {
-    "unityMCP": {
-      "enabled": false
-    },
-    "blenderMCP": {
+    "unityMCP": { "enabled": false },
+    "blenderMCP": { "enabled": false },
+    "audioMCP": { "enabled": false },
+    "appleCreatorMCP": { "enabled": false },
+    "imageMCP": { "enabled": false },
+    "elitedesk-blender-worker": { "enabled": false },
+    "z6-blender-worker": {
       "type": "local",
-      "command": ["/usr/bin/env", "uvx", "--python", "3.11", "blender-mcp"],
+      "command": [
+        "uv", "--directory", "/Users/start/Development/blender-new-llm-setup",
+        "run", "--frozen", "--extra", "mcp", "python", "-m", "blender_worker.mcp_server"
+      ],
       "enabled": true,
-      "timeout": 15000
-    },
-    "audioMCP": {
-      "enabled": false
-    },
-    "appleCreatorMCP": {
-      "enabled": false
+      "environment": {
+        "BLENDER_DOWNLOADS": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads"
+      }
     }
   },
   "permission": {
@@ -84,8 +54,10 @@
       "pwd": "allow",
       "git status*": "allow",
       "git diff*": "allow",
-      "git log*": "allow"
+      "git log*": "allow",
+      "cp artifacts/downloads/* artifacts/*": "allow",
+      "shasum -a 256 artifacts/*": "allow"
     },
-    "blenderMCP_*": "allow"
+    "z6-blender-worker_*": "allow"
   }
 }

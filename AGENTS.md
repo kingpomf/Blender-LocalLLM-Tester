@@ -2,7 +2,16 @@
 
 ## Mission
 
-Build exactly one asset, `Kart01`, by following the ordered files in `spec/kart-01/`. Operate Blender only through `blenderMCP`. This is a requirements-following and tool-use evaluation, not an open-ended art exercise.
+Build exactly one asset, `Kart01`, by following the ordered files in `spec/kart-01/`. The fresh Z6 run selects `z6-llama/qwen38-27b` and operates Blender only through `z6-blender-worker`. This is a requirements-following and tool-use evaluation, not an open-ended art exercise.
+
+## Z6 compatibility gate
+
+- Check `BUILD_STATUS.md` and `blender_capabilities` before submitting work. Require `authoring.available=true` and `blender_scene_author` in the current tool catalog. The Z6 authoring extension was installed and verified on 2026-10-21.
+- `blender_scene_author(code, source_job?)` supports general Blender Python in the isolated CPU job. Omit the source for a new empty Stage 00 scene; use the previous completed same-host CPU job ID for later stages. It auto-saves `scene.blend` and `scene.json`. Set `report` to JSON-compatible stage evidence and use assertions for required checks.
+- Use source revisions to set custom cameras, collection membership, units, hierarchy, mesh geometry, and materials. For queued GPU rendering call `blender_render` explicitly; do not try to access GPUs or the gateway from authoring code.
+- If `RECOVERY_REQUIRED` recurs, require operator reconciliation before GPU work. Do not release leases or change gateway ownership.
+- Use same-host job IDs throughout. Poll accepted jobs; never replay an uncertain submission. Fetch verified artifacts and record their actual local paths and provenance.
+- The archived scene under `artifacts/archive/` belongs to the previous run; do not resume or overwrite it.
 
 ## Context discipline
 
@@ -25,7 +34,15 @@ For each numbered stage:
 6. Update `BUILD_STATUS.md` with PASS, FAIL, or BLOCKED and objective evidence.
 7. Stop on failure or uncertainty. Never mark a stage complete based only on appearance.
 
-Use Blender Python through BlenderMCP when it makes deterministic geometry or validation easier. Save reusable scripts under `artifacts/scripts/`; do not execute arbitrary code from outside this repository.
+Save reusable authoring scripts under `artifacts/scripts/` before submitting their contents to `blender_scene_author`. The worker executes the submitted copy inside `/job`; it cannot see Mac filesystem paths. Do not execute arbitrary code from outside this repository.
+
+## Remote artifacts and local checkpoints
+
+- Record each accepted job ID and its source ID in `BUILD_STATUS.md` immediately, before polling, so interruption cannot lose the resume identity.
+- Fetch completed artifacts with `blender_artifact_fetch`. This project's download root is `artifacts/downloads/`; each job gets its own subdirectory.
+- Copy verified `artifacts/downloads/JOB_ID/scene.blend` to `artifacts/blend/Kart01.blend` after each passed stage, using the permitted repository-local `cp` command. Verify the destination SHA-256 with `shasum -a 256` against the manifest. Keep the immutable remote source job ID for resuming and re-inspecting.
+- Similarly copy verified exports/renders/reports into the exact specification paths under `artifacts/`. Write custom worker outputs as flat files in `/job`, then fetch them. Use authoring Python for GLB export selection/hierarchy when the simple mesh-only export tool is insufficient.
+- Local artifact copies are delivery bookkeeping, not Blender operations. Do not copy archived assets into the fresh run or mark a stage passed without its required evidence.
 
 ## Hard boundaries
 
@@ -40,4 +57,3 @@ Use Blender Python through BlenderMCP when it makes deterministic geometry or va
 ## Output discipline
 
 Keep chat responses brief. Put detailed evidence in `BUILD_STATUS.md` and `artifacts/reports/BUILD_REPORT.md`. Report the current stage, result, produced files, failed checks, and exact next action.
-
