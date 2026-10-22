@@ -9,3 +9,5 @@ artifacts/exports/*.glb
 artifacts/exports/*.fbx
 artifacts/renders/*.png
 artifacts/reports/*.json
+!artifacts/archive/**/ARCHIVE_MANIFEST.json
+!artifacts/archive/**/reports/*-diagnostics.json

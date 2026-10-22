@@ -1,0 +1,97 @@
+[
+  {
+    "path": "AGENTS.md",
+    "bytes": 3739,
+    "sha256": "5ef448b7e75e153b921c371e9de6fee3bc7434801d446471e13b39d6b1721131"
+  },
+  {
+    "path": "ATTEMPT_NOTES.md",
+    "bytes": 1238,
+    "sha256": "a5a478cbc1912b6e9d1b003c6c347a921c2dbd04551c1d7e42c4d2721c271654"
+  },
+  {
+    "path": "BUILD_STATUS.md",
+    "bytes": 3240,
+    "sha256": "052125468a73050c7eaa75bb2b906c86b977698ca6c202ca5c95280ff2630472"
+  },
+  {
+    "path": "MODEL_SETUP.md",
+    "bytes": 4318,
+    "sha256": "5b02ecb9be41e027c7a684d53c4f87f4ef68e631f4735778c0037cb99fe361ad"
+  },
+  {
+    "path": "README.md",
+    "bytes": 3251,
+    "sha256": "0cfd34dc6d9c8c9ea65a63604c5535413671ecd5d86bed06a01cab4eda9b55f4"
+  },
+  {
+    "path": "WORKER_GUIDE.md",
+    "bytes": 4906,
+    "sha256": "7ed6d50bad10e6dd4950a299bd271bf9ab1990f82e0d83a527ea089c749c24ab"
+  },
+  {
+    "path": "blend/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "exports/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "kart-start.md",
+    "bytes": 1260,
+    "sha256": "7f407d79d9410561b91dd0d56c46c10f29633b86d8a2311ab8e4f52fc318fedb"
+  },
+  {
+    "path": "opencode.json",
+    "bytes": 2094,
+    "sha256": "2dd3d515e2cda716e96e03a16e3c5e795f7e0ad5c486b55fdbd798636349ff12"
+  },
+  {
+    "path": "renders/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "reports/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "reports/a4c413e4b8404b5781ae8c98ca5643e0-diagnostics.json",
+    "bytes": 1438,
+    "sha256": "6dd56d1323f6a29c9f19a1d5ef21c2020e23030b05c44dbc7ac77b9f34ac4b32"
+  },
+  {
+    "path": "reports/c0a9de59b206405a83aaa9cd8482e5df-diagnostics.json",
+    "bytes": 1403,
+    "sha256": "afe11d0772a8c27cba78c8a4028ef2c12929fdd5af4f30f0bfda10ade269353b"
+  },
+  {
+    "path": "reports/first-submitted-author.py",
+    "bytes": 964,
+    "sha256": "e9b82b32623c48f917c5ae727da25a5c8768e3b74608051f0cb2c50edeec0dc6"
+  },
+  {
+    "path": "reports/retry-submitted-author.py",
+    "bytes": 943,
+    "sha256": "558ca6d1fd6461570351dde124e3a30a5fd002c6d9a765ccb1954e48c7929908"
+  },
+  {
+    "path": "scripts/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "scripts/check_z6_models.py",
+    "bytes": 1604,
+    "sha256": "1a72b73c3aa83581a80c1a756ae93f986afa7a34675f2cd14a79c332a40a423d"
+  },
+  {
+    "path": "scripts/stage00.py",
+    "bytes": 943,
+    "sha256": "558ca6d1fd6461570351dde124e3a30a5fd002c6d9a765ccb1954e48c7929908"
+  }
+]

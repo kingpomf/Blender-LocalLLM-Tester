@@ -1,0 +1,162 @@
+[
+  {
+    "path": "AGENTS.md",
+    "bytes": 3739,
+    "sha256": "5ef448b7e75e153b921c371e9de6fee3bc7434801d446471e13b39d6b1721131"
+  },
+  {
+    "path": "ATTEMPT_NOTES.md",
+    "bytes": 1196,
+    "sha256": "5a409149a0c6e52d1ac8e8ee39b931bedf0a683fd1ae1547ed7a82ce8c2416be"
+  },
+  {
+    "path": "BUILD_STATUS.md",
+    "bytes": 3420,
+    "sha256": "3fca87cd676cb9edffeae52030f88fc9addf4be890c9539942e381c47d60d529"
+  },
+  {
+    "path": "README.md",
+    "bytes": 2722,
+    "sha256": "902b924ef711a1e4a08234140c4364b7b914b0bf13de5dba4885aae4cdace009"
+  },
+  {
+    "path": "WORKER_GUIDE.md",
+    "bytes": 4906,
+    "sha256": "7ed6d50bad10e6dd4950a299bd271bf9ab1990f82e0d83a527ea089c749c24ab"
+  },
+  {
+    "path": "blend/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "downloads/2ef6b732ca1e493e835b29ebe4937a62/scene.json",
+    "bytes": 25413,
+    "sha256": "f75bfbfc408e53bb094937def46a4a92f287d254910e676a2311e1b7066c3651"
+  },
+  {
+    "path": "downloads/31a29efc3bdc4f5598833e66e05c4cd6/scene.json",
+    "bytes": 20188,
+    "sha256": "a7b4ee1e920270935b77574c49f008287b013eda64c0ae9c0c63d89c1c97b0d2"
+  },
+  {
+    "path": "downloads/3cc1493e3ce144f982b5d483cc2c116d/scene.json",
+    "bytes": 11828,
+    "sha256": "e03a1008bc92b670a01f0f34997c3c8e3a8b5b3af66b65dfaafbc7e53ac647ed"
+  },
+  {
+    "path": "downloads/5f957d4f144848abb4ab495ad33458a0/scene.json",
+    "bytes": 13918,
+    "sha256": "3409a313397b77a13ce43fcec51500fa9d3851fbe8aeef57c4785537e9c7c692"
+  },
+  {
+    "path": "downloads/653a1e6cbede4e36ab622fae44317bdc/scene.json",
+    "bytes": 16008,
+    "sha256": "b4763f1b1bd706750395b266741852707ac2367d4e22d339dc8c5fa92e92605d"
+  },
+  {
+    "path": "downloads/6d4ddfe4c0a242e5958e2b6b0b225872/scene.json",
+    "bytes": 17053,
+    "sha256": "8de893d35da347c5e4422dfc5a59d23c413526918963bbf93cb0340dee5b21e8"
+  },
+  {
+    "path": "downloads/7399670c3256418f99c46714161d6a0f/scene.json",
+    "bytes": 645,
+    "sha256": "16b22b09df1e992555a3a33302ac9e5c06c0a9e836f60fbcfd0e46feb935253f"
+  },
+  {
+    "path": "downloads/73e3a0e2917c4c4b8148e5d074d0391e/scene.json",
+    "bytes": 25413,
+    "sha256": "f75bfbfc408e53bb094937def46a4a92f287d254910e676a2311e1b7066c3651"
+  },
+  {
+    "path": "downloads/742a1f200bac450382529e18594f4e99/scene.json",
+    "bytes": 10789,
+    "sha256": "dc917301c4a368b42cbfe108280dec1b89bc1d966341955a4636a2ea493d6f27"
+  },
+  {
+    "path": "downloads/758f2e3d850340ba916ace3211aaf3b2/scene.json",
+    "bytes": 12873,
+    "sha256": "8fc9bf761798915c24ac7bba4d6f14d1f5fc70d5d8baba6c34692a7b1df1f283"
+  },
+  {
+    "path": "downloads/7668658357a1435abab49b63677ef4c4/scene.json",
+    "bytes": 14963,
+    "sha256": "3cc2d4a0733dd439b9c130987166652919f9063fc96b14fd956bb746b0aeb617"
+  },
+  {
+    "path": "downloads/77f1e46c37f040349cab7efe426a4531/scene.json",
+    "bytes": 18098,
+    "sha256": "9bfea0c582cf5ec6713a2eb18c6a63baf49b90001e6be4a614db7300da00e9f4"
+  },
+  {
+    "path": "downloads/92681e5cc93d4a7b94203ac94a1356ae/result.json",
+    "bytes": 122,
+    "sha256": "e2505f584049c7c5cf630e4431702b2c93017768b1904d531809593b119af88b"
+  },
+  {
+    "path": "downloads/9fa70acdc2414b1594979a50b2af46ff/scene.json",
+    "bytes": 26458,
+    "sha256": "801f0a8181ff5e6061e015948e7551d88a7b2c905e553cf32329dfbbf422e299"
+  },
+  {
+    "path": "downloads/b15dcc974e10499aa034bdaabf2c6d66/scene.json",
+    "bytes": 24368,
+    "sha256": "ebacad579b3f88bcd44485066aa3d4acba3b2afa853c4e574eb22ee4b377f344"
+  },
+  {
+    "path": "downloads/d310ea9ad59d4ae39e16cc2db228b67e/scene.json",
+    "bytes": 21233,
+    "sha256": "bd9e29c1b31e6a32ea2ec1006e33b1531dbc63c80de1b29f4b9fb12e9e0e816d"
+  },
+  {
+    "path": "downloads/d62318cb3a214e2e86cd451fca5f181f/scene.json",
+    "bytes": 19143,
+    "sha256": "8ee35cf8c0cc3ffa5f87b12c0b52a54fe700a95cf9fca850860e4a6ecdbb4ec5"
+  },
+  {
+    "path": "downloads/d6669a67de3a495d9fca878f93af173f/scene.json",
+    "bytes": 22278,
+    "sha256": "8f74a43ff2cae325c881e1afb0a27d52694839843c794442de9f464958cb9dfc"
+  },
+  {
+    "path": "downloads/f5fc8056542b4474add92c42f13bbf99/scene.json",
+    "bytes": 23323,
+    "sha256": "595108d6ec0aee0348c5f59e6efe03406d9ad106426d000ab536ff8cbaf9ce08"
+  },
+  {
+    "path": "exports/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "kart-start.md",
+    "bytes": 1260,
+    "sha256": "7f407d79d9410561b91dd0d56c46c10f29633b86d8a2311ab8e4f52fc318fedb"
+  },
+  {
+    "path": "opencode.json",
+    "bytes": 2078,
+    "sha256": "22966370f9e7599b42f6a9c8530ba09a113e6549105d6fa6e0804145969193ec"
+  },
+  {
+    "path": "renders/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "reports/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "scripts/.gitkeep",
+    "bytes": 1,
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  {
+    "path": "scripts/check_z6_models.py",
+    "bytes": 1604,
+    "sha256": "1a72b73c3aa83581a80c1a756ae93f986afa7a34675f2cd14a79c332a40a423d"
+  }
+]

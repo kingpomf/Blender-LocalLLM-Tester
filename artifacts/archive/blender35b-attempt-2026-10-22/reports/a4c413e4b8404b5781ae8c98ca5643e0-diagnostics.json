@@ -1,0 +1,24 @@
+{
+  "id": "a4c413e4b8404b5781ae8c98ca5643e0",
+  "state": "failed",
+  "error": "blender_exit_1; see blender.log",
+  "source_job": null,
+  "logs": {
+    "blender.log": {
+      "available": true,
+      "total_bytes": 751,
+      "returned_bytes": 751,
+      "truncated": false,
+      "text": "could not get a list of mounted file-systems\nBlender 4.5.14 LTS (hash 62c1db4208e8 built 2026-09-15 01:31:19)\nTraceback (most recent call last):\n  File \"/payload.py\", line 309, in <module>\n    main()\n  File \"/payload.py\", line 211, in main\n    author(spec)\n  File \"/payload.py\", line 128, in author\n    exec(compile(code, '/job/author.py', 'exec'), namespace)\n  File \"/job/author.py\", line 33, in <module>\n    report = run_stage()\n             ^^^^^^^^^^^\n  File \"/job/author.py\", line 6, in run_stage\n    bpy.data.objects.remove(bpy.data.objects[\"Cube\"], do_unlink=True)\n                            ~~~~~~~~~~~~~~~~^^^^^^^^\nKeyError: 'bpy_prop_collection[key]: key \"Cube\" not found'\n\nError: script failed, file: '/payload.py', exiting.\n\nBlender quit\n"
+    },
+    "python-output.txt": {
+      "available": true,
+      "total_bytes": 0,
+      "returned_bytes": 0,
+      "truncated": false,
+      "text": ""
+    }
+  },
+  "max_bytes_per_log": 16384,
+  "next_action": "Terminal job: read diagnostics once. Completed-artifact fetch cannot retrieve failed outputs; repair code in a new revision or report the blocker."
+}

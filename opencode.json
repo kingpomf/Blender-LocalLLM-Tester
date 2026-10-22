@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "z6-llama/qwen38-27b",
-  "small_model": "z6-llama/qwen38-27b",
+  "model": "z6-llama/qwen38-blender-35b",
+  "small_model": "z6-llama/qwen38-blender-35b",
   "instructions": ["AGENTS.md"],
   "share": "disabled",
   "compaction": {

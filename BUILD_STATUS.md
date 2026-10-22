@@ -1,12 +1,12 @@
 # Kart01 Build Status
 
-## Fresh test — reset after interrupted Defiant Fable attempt, 2026-10-22
+## Fresh test — reset after Blender-specialist attempt and diagnostics repair, 2026-10-22
 
 - Status: NOT_STARTED
 - Next stage: 00 — Contract and scene safety
 - Active source job: none
 - Accepted job IDs: none for this run
-- Default model: `z6-llama/qwen38-27b`; the operator may select another configured model before `/kart-start`.
+- Default model: `z6-llama/qwen38-blender-35b` — Qwen3.8 35B A3B Blender v1, 65,536-token context; the operator may select another configured model before `/kart-start`.
 - Actual model used: not yet recorded
 - Execution host: Z6 (`z6-blender-worker`)
 - Operator intervention: none in this run
@@ -33,6 +33,8 @@ Read `WORKER_GUIDE.md`, check current worker capabilities, record the actual sel
 
 ## Historical evidence
 
+- The failed Blender-specialist attempt is preserved in `artifacts/archive/blender35b-attempt-2026-10-22/`, including Stage 00 source, exact remote submissions, diagnostics, and setup snapshots. No stage PASS is reused.
+- The latest Qwen27B attempt is preserved in `artifacts/archive/qwen27b-attempt-2026-10-22/`, including its original ledger, 19 downloaded job-metadata directories, and setup snapshots. See `ATTEMPT_NOTES.md`. Its claimed stage results are not reused.
 - The interrupted Defiant Fable attempt is preserved in `artifacts/archive/defiant-fable-2026-10-22/`. See `ATTEMPT_REVIEW.md` for the execution-guard diagnosis and historical job IDs. No stage was independently verified as PASS.
 - The reviewed run, original rules/configuration, scripts, downloads, outputs, and independent review are preserved in `artifacts/archive/pre-reset-2026-10-22/`.
 - The earlier run remains in `artifacts/archive/pre-z6-2026-10-21/`.
@@ -40,10 +42,9 @@ Read `WORKER_GUIDE.md`, check current worker capabilities, record the actual sel
 
 ## Reset verification (setup evidence, not a build PASS)
 
-- Installed OpenCode `1.18.34` successfully loaded the revised configuration with `opencode debug config`.
-- `opencode mcp list` confirmed `z6-blender-worker` connected; the other six configured MCP servers remain disabled.
 - All 10 stages are NOT_STARTED; active blend/export/render/download/report directories contain no generated outputs.
-- `spec/kart-01/` is unchanged from Git HEAD; `git diff --check` passed.
-- The previous reset archive retains its original 66-file manifest. The Defiant Fable archive contains 33 SHA-256-indexed files in its own `ARCHIVE_MANIFEST.json`; the diagnosed empty scene's hash was verified. Archived files are not current build evidence.
-- Both known AI-video jobs from the interrupted attempt were checked and were already completed. No new remote build/render/generation jobs were submitted during reset.
-- Start a new OpenCode session after restarting to avoid inherited conversation context. No build job has been submitted for this run.
+- `artifacts/scripts/` retains only its placeholder and the unchanged model-discovery utility.
+- `spec/kart-01/` is unchanged. Agent/worker/kickoff guidance now describes zero-object startup, exact scene/unit API, and bounded failed-job diagnostics. The 65,536-token Blender-specialist model remains selected.
+- Historical archives are retained. The latest archive includes a SHA-256 file manifest; archived metadata is not current build evidence.
+- Worker diagnostics runtime `6cd1b81` is installed on Z6; installed CPU/CUDA fixtures and the separately labelled guided model recovery check passed. The strict unguided model recovery check failed and remains documented in the worker's diagnostics report. Those fixture jobs are not Kart01 build stages.
+- Start a new OpenCode session to avoid inherited conversation context. No build job has been submitted for this run.

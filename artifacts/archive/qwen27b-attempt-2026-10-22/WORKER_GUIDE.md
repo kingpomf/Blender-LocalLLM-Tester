@@ -1,0 +1,65 @@
+# Blender Worker Quick Guide
+
+Read this before the first authoring submission. These notes describe the current worker interface; the asset requirements remain in `spec/kart-01/`.
+
+## 1. Make sure your code actually executes
+
+`blender_scene_author` executes Python using `__name__="__blender_author__"`, not `"__main__"`. Define helpers normally, but call your stage function unconditionally at the top level:
+
+```python
+import bpy
+
+def run_stage():
+    # Inspect/change the scene, assert this stage's actual requirements,
+    # and return JSON-compatible validation evidence.
+    ...
+
+report = run_stage()
+```
+
+Replace the placeholder with your stage implementation. A script ending only with `if __name__ == "__main__": run_stage()` will not call the function in this worker. Returning a report from a function is not enough: assign it to the top-level `report` variable. Assertions should fail when required checks fail.
+
+## 2. Carry the scene forward explicitly
+
+- First fresh Stage 00 author call: omit `source_job` to get an empty scene.
+- Every later stage: set `source_job` to the previous **verified, completed same-host authoring job ID**.
+- Jobs are isolated; omitting `source_job` does not reuse the last scene. It starts over.
+- Record each accepted ID and its source immediately in `BUILD_STATUS.md`, then poll that ID.
+- After a failed revision, repair from the last verified source, not the failed job.
+
+## 3. Understand the evidence files
+
+| Artifact | What it proves |
+| --- | --- |
+| `result.json` | The worker operation completed; `passed: true` is not asset acceptance |
+| `scene.json` | Actual saved objects, collections, transforms, materials, camera, and topology |
+| `report.json` | Your stage-specific measurable checks, assigned through top-level `report` |
+| `python-output.txt` | Captured stdout/stderr from your authoring code |
+| `author.py` | The exact submitted source, useful for reconciling local script differences |
+| `scene.blend` | The saved scene for the next authoring revision and local checkpoint |
+
+After completion, fetch and read `scene.json` and `report.json`; compare them with the stage's required state before declaring PASS. Empty output and `{}` reports are not stage evidence. Stage 00 must contain its required collections; later geometry stages must actually contain their named meshes.
+
+## 4. Save on the worker, deliver on the Mac
+
+The worker automatically saves `/job/scene.blend`. Do not save to `artifacts/blend/Kart01.blend` inside worker Python: that is a local project delivery path, not a worker path. Extra outputs should be flat `/job/filename` files.
+
+Fetch `scene.blend` using `blender_artifact_fetch`, copy the verified download to `artifacts/blend/Kart01.blend`, and verify its SHA-256 against the manifest. Fetch/copy renders, exports, and reports similarly. Update the local checkpoint after corrections too.
+
+## 5. Use Blender's actual data API
+
+- Link objects with `collection.objects.link(obj)`. An `obj["collection"]` custom property is metadata, not collection membership. `scene.objects.link` is not the modern linking API.
+- Construct meshes with `mesh.from_pydata(vertices, edges, faces)` or BMesh; check face indices and nonzero areas. Count evaluated triangles, not polygon faces.
+- Set Principled material values through inputs, e.g. `node.inputs["Base Color"].default_value`; append materials to empty mesh material lists.
+- Set light power on `light_object.data.energy`. Use real documented operators; there is no standard `bpy.ops.outpath.rollover()` requirement.
+- Consult the installed Blender version's documentation when uncertain. Derive acceptance from measured scene data rather than comments or intended constants.
+
+## 6. Render the actual asset
+
+- Before rendering, verify the scene has asset geometry and the intended active camera. Check camera framing against world-space asset bounds.
+- `blender_render(frames=[1, 2, 3, 4])` renders timeline frames, not four named cameras. Select cameras through authored timeline camera markers or separate source revisions with the correct active camera.
+- `blender_scene_modify` edits existing named meshes; it does not create a render sequence by accepting an arbitrary name such as `render_frames`.
+- `video_generate` is unrelated AI-video synthesis. It does not render the `.blend` and is not a substitute for the four required PNGs. `blender_video_preview` only assembles an already completed Blender render.
+- On a render failure, first inspect the source's `scene.json`. Do not repeatedly vary frame counts/resolution without evidence for that hypothesis. If failed-job logs are inaccessible through MCP, report that limitation and ask for log diagnosis after the bounded repair attempts in `AGENTS.md`.
+
+Read the four PNGs before final acceptance, and verify that the GLB contains only the required asset hierarchy. Record any unavailable visual review honestly.
