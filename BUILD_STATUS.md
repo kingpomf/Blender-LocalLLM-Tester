@@ -1,12 +1,12 @@
 # Kart01 Build Status
 
-## Fresh test — reset after Blender-specialist attempt and diagnostics repair, 2026-10-22
+## Fresh test — 100K context and durable-handoff reset, 2026-10-22
 
 - Status: NOT_STARTED
 - Next stage: 00 — Contract and scene safety
 - Active source job: none
 - Accepted job IDs: none for this run
-- Default model: `z6-llama/qwen38-blender-35b` — Qwen3.8 35B A3B Blender v1, 65,536-token context; the operator may select another configured model before `/kart-start`.
+- Default model: `z6-llama/qwen38-blender-35b` — Qwen3.8 35B A3B Blender v1, 102,400-token context; the operator may select another configured model before `/kart-start`.
 - Actual model used: not yet recorded
 - Execution host: Z6 (`z6-blender-worker`)
 - Operator intervention: none in this run
@@ -29,10 +29,11 @@
 
 ## Start instruction
 
-Read `WORKER_GUIDE.md`, check current worker capabilities, record the actual selected model, and begin Stage 00 with a new empty isolated scene. Do not supply a historical `source_job`. Call stage functions unconditionally, then chain later stages using the preceding verified authoring job ID. Fetch/read `scene.json` and `report.json` before declaring stage PASS. Record each accepted job ID before polling and save verified outputs at the required paths.
+Read `HANDOFF.md` and `WORKER_GUIDE.md`, run `python3 scripts/check_resume.py`, check current worker capabilities, and record the actual selected model. This reset is verified fresh, so begin Stage 00 with a new empty isolated scene and no historical `source_job`. Keep this file and HANDOFF.md current after each accepted ID before polling and after every result. Later sessions must reconcile/resume their recorded source and pending job rather than assume the run is fresh.
 
 ## Historical evidence
 
+- The latest 65K build is preserved in `artifacts/archive/blender35b-65k-build-2026-10-22/`. Its ledger claimed Stage 00 PASS but still said NOT_STARTED/no active source; that inconsistency and all local work are preserved for review. No stage PASS is reused.
 - The failed Blender-specialist attempt is preserved in `artifacts/archive/blender35b-attempt-2026-10-22/`, including Stage 00 source, exact remote submissions, diagnostics, and setup snapshots. No stage PASS is reused.
 - The latest Qwen27B attempt is preserved in `artifacts/archive/qwen27b-attempt-2026-10-22/`, including its original ledger, 19 downloaded job-metadata directories, and setup snapshots. See `ATTEMPT_NOTES.md`. Its claimed stage results are not reused.
 - The interrupted Defiant Fable attempt is preserved in `artifacts/archive/defiant-fable-2026-10-22/`. See `ATTEMPT_REVIEW.md` for the execution-guard diagnosis and historical job IDs. No stage was independently verified as PASS.
@@ -44,7 +45,7 @@ Read `WORKER_GUIDE.md`, check current worker capabilities, record the actual sel
 
 - All 10 stages are NOT_STARTED; active blend/export/render/download/report directories contain no generated outputs.
 - `artifacts/scripts/` retains only its placeholder and the unchanged model-discovery utility.
-- `spec/kart-01/` is unchanged. Agent/worker/kickoff guidance now describes zero-object startup, exact scene/unit API, and bounded failed-job diagnostics. The 65,536-token Blender-specialist model remains selected.
+- `spec/kart-01/` is unchanged. The Blender-specialist model is now configured and runtime-verified at 102,400 tokens. HANDOFF.md and the read-only resume preflight guard against stale ledger restarts.
 - Historical archives are retained. The latest archive includes a SHA-256 file manifest; archived metadata is not current build evidence.
 - Worker diagnostics runtime `6cd1b81` is installed on Z6; installed CPU/CUDA fixtures and the separately labelled guided model recovery check passed. The strict unguided model recovery check failed and remains documented in the worker's diagnostics report. Those fixture jobs are not Kart01 build stages.
 - Start a new OpenCode session to avoid inherited conversation context. No build job has been submitted for this run.

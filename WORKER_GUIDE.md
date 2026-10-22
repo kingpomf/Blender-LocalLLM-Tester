@@ -2,6 +2,17 @@
 
 Read this before the first authoring submission. These notes describe the current worker interface; the asset requirements remain in `spec/kart-01/`.
 
+## Session resume preflight
+
+Read `BUILD_STATUS.md` and `HANDOFF.md`, then run `python3 scripts/check_resume.py`.
+The checker is read-only: it flags contradictory stage/status/source metadata,
+unrecorded pending jobs, missing local checkpoints, and active artifacts paired
+with NOT_STARTED. It does not infer a PASS or change scene files. On failure,
+inspect the listed candidate jobs and reconcile the documents before new work.
+Record accepted IDs immediately, and checkpoint both files after every result;
+automatic compaction may occur without giving you time to write a last-minute
+summary. Full chat history is not a durable build ledger.
+
 ## 1. Make sure your code actually executes
 
 `blender_scene_author` executes Python using `__name__="__blender_author__"`, not `"__main__"`. Define helpers normally, but call your stage function unconditionally at the top level:

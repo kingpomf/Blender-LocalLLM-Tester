@@ -2,6 +2,19 @@
   "$schema": "https://opencode.ai/config.json",
   "model": "z6-llama/qwen38-blender-35b",
   "small_model": "z6-llama/qwen38-blender-35b",
+  "provider": {
+    "z6-llama": {
+      "models": {
+        "qwen38-blender-35b": {
+          "name": "Qwen3.8 35B A3B Blender v1 (100K)",
+          "limit": {"context": 102400, "output": 16384},
+          "tool_call": true,
+          "reasoning": true,
+          "modalities": {"input": ["text"], "output": ["text"]}
+        }
+      }
+    }
+  },
   "instructions": ["AGENTS.md"],
   "share": "disabled",
   "compaction": {
@@ -65,6 +78,7 @@
       "git log*": "allow",
       "python artifacts/scripts/*": "allow",
       "python3 artifacts/scripts/*": "allow",
+      "python3 scripts/check_resume.py": "allow",
       "sips *": "allow",
       "file artifacts/*": "allow",
       "du *": "allow",

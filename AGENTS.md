@@ -4,7 +4,7 @@
 
 Build one low-poly go-kart, `Kart01`, using the requirements in `spec/kart-01/00-CONTRACT.md` through `09-DELIVERY.md`. The specifications define acceptance; do not weaken them to obtain a pass.
 
-Start by reading `BUILD_STATUS.md`, `WORKER_GUIDE.md`, and the specifications needed to plan the work. You may inspect any relevant project files, consult Blender API documentation, use applicable skills, and ask clarification questions. Keep work focused on this asset.
+Start by reading `BUILD_STATUS.md`, `HANDOFF.md`, `WORKER_GUIDE.md`, and the specifications needed to plan the work. Run `python3 scripts/check_resume.py` before submitting work. If it flags stale/contradictory progress, reconcile the saved artifacts and accepted jobs before continuing; do not start over or delete them. You may inspect any relevant project files, consult Blender API documentation, use applicable skills, and ask clarification questions. Keep work focused on this asset.
 
 ## Blender workflow
 
@@ -15,6 +15,14 @@ Start by reading `BUILD_STATUS.md`, `WORKER_GUIDE.md`, and the specifications ne
 - Save each submitted authoring script under `artifacts/scripts/`. Record accepted job IDs and source IDs in `BUILD_STATUS.md` before polling. Poll existing jobs; never replay an uncertain submission.
 - Worker Python runs inside `/job`, without access to Mac paths. Write extra outputs as flat files there, fetch verified artifacts, and record their actual paths. Use `blender_render` for queued GPU renders.
 - Keep a hash-verified current checkpoint at `artifacts/blend/Kart01.blend`. Update it after every passed stage, including later corrections. Deliver renders, reports, and exports at the specification paths.
+
+## Durable progress and session handoff
+
+- Immediately after each accepted submission, update **both** `BUILD_STATUS.md` and `HANDOFF.md` with the stage, job ID, source ID, and pending state **before polling**. The source remains the last verified completed scene, not the newest unverified job.
+- After every terminal result, record PASS/FAIL/BLOCKED evidence, verified artifact paths/hashes, last verified source, and the exact next action in both files. Mark pending job `none` only once that job has been reconciled.
+- Saving these checkpoints is part of finishing a stage: do it before beginning the next stage, reporting completion, or ending the session. Do not defer documentation until the full build finishes or a compaction warning appears.
+- After compaction or in a new session, reread both checkpoints and rerun the consistency check. Poll a recorded pending job; otherwise inspect/resume the verified source. If artifacts exist but the ledger says NOT_STARTED, reconstruct progress from actual jobs/scenes/reports instead of submitting a new empty scene. Script filenames alone do not prove a stage passed.
+- Run `python3 scripts/check_resume.py` after updating stage progress. This checks handoff consistency, not scene correctness; the normal measured acceptance checks still apply.
 
 ## Diagnose and verify
 
