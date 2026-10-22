@@ -6,10 +6,12 @@
 - Accepted job IDs: none
 - Default model: `z6-llama/qwen38-blender-35b` — 262,144-token context
 - Actual model used: not yet recorded
-- Execution host: Z6 (`z6-blender-worker`)
-- Operator intervention: new bowling assignment prepared; no bowling jobs submitted
-- Trial mode: automatic compaction and pruning OFF; no manual compaction
-- Active checkpoint: artifacts/blend/BowlingPair01.blend (not yet created)
+- Execution host: Z6, MCP `bowling-blender52`
+- Runtime: Blender 5.2.3 LTS, CPU rendering
+- Trial queue: /home/kingpomf/Development/blender-new-llm-setup/var/bowling52-guarded-20261022
+- Operator intervention: authorized fresh reset after unchanged-code loop; guarded toolchain installed; no bowling source or PASS reused
+- Trial mode: automatic compaction/pruning OFF; maximum 60 agent steps per user turn; one stage per invocation
+- Active checkpoint: none
 
 ## Stage ledger
 
@@ -28,18 +30,22 @@
 
 ## Next action
 
-Read AGENTS.md, HANDOFF.md, WORKER_GUIDE.md and all ten bowling specifications.
-Run `python3 scripts/check_resume.py`, verify capabilities and record the actual
-selected model. Start Stage 00 with no source_job only while this run is fresh.
-Record every accepted ID and its source here and in HANDOFF.md before polling.
-After verification, save the hash-verified native checkpoint and update both
-documents before advancing. A failed required check remains FAIL.
+Restart OpenCode in this checkout and open a new session. Run `/bowling-start`.
+First call `bowling-blender52` capabilities: require `runtime_verified=true`,
+`actual_version="Blender 5.2.3 LTS"`, and the trial queue above. If this distinct
+tool connection is absent, STOP and ask the operator to restart; never substitute
+`z6-blender-worker`. Run `python3 scripts/check_resume.py`. Start Stage 00 from an
+empty scene only while this trial is fresh. Complete and verify one stage, then
+checkpoint and return to the user. On a tool STOP, report BLOCKED immediately.
 
-## Previous project
+## History and qualification
 
-Kart work and its original claims are preserved verbatim under
-`artifacts/archive/kart256k-before-bowling-2026-10-22/`, with a SHA-256 manifest.
-Those claims were not independently certified during setup. Large native scenes
-and job metadata remain local ignored archive files; the snapshot commit also
-preserves the prior tracked setup. Older archives and `spec/kart-01/` remain
-historical. No historical job, source, script or PASS belongs to this bowling run.
+The previous trial (session ses_e9b45ccf7ffeWVraf3YntlLFE6) and local outputs,
+original checkpoint ledgers, and prior tooling are archived at
+`artifacts/archive/bowling-loop-2026-10-22/` with SHA-256 manifest. It ran on 4.5.14,
+not 5.2, and repeated one identical Stage 03 submission 33 times. Historical PASS
+claims are unverified. No archived script, scene, or job is this trial's source.
+
+`testing/blender52-guarded/runtime-evidence.json` holds separate infrastructure
+qualification jobs, including intentional failures. Their queue ends in
+`-qualification`; they do not consume this trial's budget or count as stage work.

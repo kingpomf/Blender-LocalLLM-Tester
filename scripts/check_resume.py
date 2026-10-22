@@ -31,6 +31,8 @@ def check(root):
         if state in {'PASS', 'FAIL', 'BLOCKED'} and not evidence.strip():
             issues.append(f'Stage {number} needs objective evidence for {state}.')
     source = status.get('Active source job', '').strip('`')
+    if source != 'none' and not JOB.fullmatch(source):
+        issues.append('Active source job must be a bare 32-character job ID or none; put stage/status commentary in a separate field.')
     accepted = status.get('Accepted job IDs', '')
     run_status = status.get('Status', '')
     if run_status not in {'NOT_STARTED', 'IN_PROGRESS', 'FAIL', 'BLOCKED', 'COMPLETE'}:
@@ -64,6 +66,23 @@ def check(root):
     pending = handoff.get('Pending job', '').strip('`')
     if pending != 'none' and (not JOB.fullmatch(pending) or pending not in text):
         issues.append('Pending job must be none or an accepted job ID recorded in BUILD_STATUS.md.')
+    # Consult the tool-owned ledger when present. Markdown cannot turn an
+    # accepted/failed job into a verified source or hide an uncertain submission.
+    guard_path = root / '.runtime/blender52/submissions.sqlite'
+    if guard_path.is_file():
+        import sqlite3
+        with sqlite3.connect(f'file:{guard_path}?mode=ro', uri=True) as db:
+            rows = db.execute('SELECT job,state FROM attempts').fetchall()
+        db.close()
+        known = dict(rows)
+        if any(job is None for job, _ in rows):
+            issues.append('Tool ledger has an uncertain submission; operator reconciliation required.')
+        if run_status == 'NOT_STARTED' and rows:
+            issues.append('NOT_STARTED contradicts the durable tool ledger.')
+        if source != 'none' and known.get(source) != 'completed':
+            issues.append('Active source is not completed in this trial tool ledger; never use a pending/failed/historical job as verified source.')
+        if pending != 'none' and known.get(pending) in {'failed', 'cancelled', 'completed'}:
+            issues.append('Recorded pending job is terminal in the tool ledger; reconcile its result.')
     candidates = sorted({p.parent.name for p in (root / 'artifacts/downloads').glob('*/scene.json') if JOB.fullmatch(p.parent.name)})
     return {'passed': not issues, 'run_status': run_status, 'next_stage': incomplete,
             'last_verified_source': source, 'pending_job': pending, 'issues': issues,

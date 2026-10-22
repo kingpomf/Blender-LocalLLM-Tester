@@ -6,13 +6,16 @@
 - Pending job: none
 - Pending source job: none
 - Latest verified local checkpoint: none
-- Next action: Run the resume preflight, read the bowling specifications, verify Z6 authoring/diagnostics, record the model, then submit a fresh empty Stage 00 scene.
-- Trial mode: 262,144-token session; automatic compaction/pruning OFF; no manual compaction
+- Next action: New OpenCode process/session; `/bowling-start`; require bowling-blender52 capabilities and actual Blender 5.2.3 LTS, then build and verify Stage 00 only.
+- Trial mode: guarded 5.2 trial; 60 Build-agent steps per turn; automatic compaction/pruning OFF
 
-Update this file and BUILD_STATUS.md immediately after each accepted submission,
-before polling, and after every verification result. Record stage, job, source,
-artifact paths/hashes and exact next action. Resume pending work rather than
-replaying it. If context fills, checkpoint and report that outcome.
+Keep source IDs bare, without parenthetical text. The verified source stays
+unchanged when submitting a job; put its new ID in Pending job and record its
+source separately. Update both checkpoints before polling and after each result.
+Execution success is not measured stage acceptance. A failed/pending job is never
+the verified source. Tool-owned `.runtime/blender52/submissions.sqlite` also
+records accepted IDs, uncertain submissions and durable failure budgets.
 
-The kart project is archived at
-`artifacts/archive/kart256k-before-bowling-2026-10-22/`. It is not a bowling source.
+On any STOP/circuit-breaker error, save evidence and return BLOCKED. Do not clear
+guard state, change tools, switch queues or repeatedly call a blocked submission.
+Original work is preserved in `artifacts/archive/bowling-loop-2026-10-22/`.

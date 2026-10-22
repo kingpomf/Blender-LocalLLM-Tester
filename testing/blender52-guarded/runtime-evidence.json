@@ -1,0 +1,384 @@
+{
+  "passed": true,
+  "jobs": {
+    "author": {
+      "id": "b5439c6f94eb4e7c89708c1c3fe1e619",
+      "state": "completed",
+      "error": null,
+      "manifest": {
+        "schema_version": 1,
+        "worker_version": "0.1.0",
+        "blender_version": "5.2.3 LTS",
+        "device": "CPU",
+        "wall_seconds": 2.823073409963399,
+        "sampled_peak_tree_rss_kib": 348608,
+        "artifacts": [
+          {
+            "path": "author.py",
+            "bytes": 1979,
+            "sha256": "0bc36c123a2d8b8c90690e6ab1334f4d11db1e88d20817a852816771c3141f20"
+          },
+          {
+            "path": "fixture.glb",
+            "bytes": 1092,
+            "sha256": "c3a6d7bebefc210fec15c8f919cd061c7ece8483214c4d6b60c42b6a4f59c7a2"
+          },
+          {
+            "path": "python-output.txt",
+            "bytes": 384,
+            "sha256": "f29f2472cb8548070e215e1a377b94738b871b2c371d2592bab5eabafa70ace8"
+          },
+          {
+            "path": "report.json",
+            "bytes": 114,
+            "sha256": "3d54dca6e9f8d00481a0c02d262ebd642e767dfbaeac9d61a8f07f0a91f36885"
+          },
+          {
+            "path": "result.json",
+            "bytes": 227,
+            "sha256": "cf78aae5b18175d755f9b62d6912781a01dd891c43ab73a9cec99c1d2f909a0e"
+          },
+          {
+            "path": "scene.blend",
+            "bytes": 89471,
+            "sha256": "37bbcf0e06e4703a4b65dd906cfd4da941b981cdeec93213bf5669b30df187e1"
+          },
+          {
+            "path": "scene.json",
+            "bytes": 4994,
+            "sha256": "88d72d56debae879a1a56e0df7f7f2f2b38508610ffe6ed0e550c845192cf6e1"
+          }
+        ]
+      },
+      "progress": null
+    },
+    "reopen_roundtrip": {
+      "id": "6e512b2451434283a85903b1ccb284d4",
+      "state": "completed",
+      "error": null,
+      "manifest": {
+        "schema_version": 1,
+        "worker_version": "0.1.0",
+        "blender_version": "5.2.3 LTS",
+        "device": "CPU",
+        "wall_seconds": 2.845832805032842,
+        "sampled_peak_tree_rss_kib": 347364,
+        "artifacts": [
+          {
+            "path": "author.py",
+            "bytes": 894,
+            "sha256": "4261a2dbbc480f0be2f122981b6f4d4c0907930668295f5def8e6941dff282d1"
+          },
+          {
+            "path": "python-output.txt",
+            "bytes": 547,
+            "sha256": "4270a0ab2b2dd7ecd2a93d606588a91422f75f2a8ecad22db98390414637a50a"
+          },
+          {
+            "path": "report.json",
+            "bytes": 118,
+            "sha256": "c59a7f7e512223dc98de69ff93731698e50fa62eed5bdbda9598e7aa8b550908"
+          },
+          {
+            "path": "result.json",
+            "bytes": 257,
+            "sha256": "9092e07be2dc2266da24db86fb3ef09aa15010644ce11ba68876d71ecff4226e"
+          },
+          {
+            "path": "roundtrip.glb",
+            "bytes": 1092,
+            "sha256": "c3a6d7bebefc210fec15c8f919cd061c7ece8483214c4d6b60c42b6a4f59c7a2"
+          },
+          {
+            "path": "scene.blend",
+            "bytes": 89718,
+            "sha256": "f3b7d8d089adf6942a7fb51bb32fdae013f90955baed80ee843f7c9d2e0bbb84"
+          },
+          {
+            "path": "scene.json",
+            "bytes": 3331,
+            "sha256": "64cd7b15ef2f1da1e73fda1a2dd2982160d295107956a95793a268b0eb809baa"
+          }
+        ]
+      },
+      "progress": null
+    },
+    "cpu_render": {
+      "id": "920eff70083b4875924b4b7de396b0da",
+      "state": "completed",
+      "error": null,
+      "manifest": {
+        "schema_version": 1,
+        "worker_version": "0.1.0",
+        "blender_version": "5.2.3 LTS",
+        "device": "CPU",
+        "wall_seconds": 2.8731742210220546,
+        "sampled_peak_tree_rss_kib": 463516,
+        "artifacts": [
+          {
+            "path": "frame-0001.png",
+            "bytes": 36686,
+            "sha256": "711904f747988c89e9360c066f4667c6d96a05c2c1eac250858cdc122c10da3c"
+          },
+          {
+            "path": "result.json",
+            "bytes": 120,
+            "sha256": "a85cc8c37042c4df4b817b8aec7e09c967382bbdca975df6453240292fc159b6"
+          },
+          {
+            "path": "scene.blend",
+            "bytes": 89455,
+            "sha256": "1decb14ebe8af350d483a38513d7c041a70bb876d347463f0f59509c7c7e2e64"
+          },
+          {
+            "path": "scene.json",
+            "bytes": 4994,
+            "sha256": "88d72d56debae879a1a56e0df7f7f2f2b38508610ffe6ed0e550c845192cf6e1"
+          }
+        ]
+      },
+      "progress": {
+        "frames_completed": 1,
+        "frames_total": 1
+      }
+    },
+    "intentional_failure_1": {
+      "id": "118da573c2004b21a9216c6d89e997ad",
+      "state": "failed",
+      "error": "blender_exit_1; see blender.log",
+      "manifest": null,
+      "progress": null,
+      "diagnostics": {
+        "tool": "blender_job_diagnostics",
+        "next_action": "Terminal job: read diagnostics once. Completed-artifact fetch cannot retrieve failed outputs; repair code in a new revision or report the blocker."
+      }
+    },
+    "intentional_failure_2": {
+      "id": "bbb100951893406289c7fb194c1b1e84",
+      "state": "failed",
+      "error": "blender_exit_1; see blender.log",
+      "manifest": null,
+      "progress": null,
+      "diagnostics": {
+        "tool": "blender_job_diagnostics",
+        "next_action": "Terminal job: read diagnostics once. Completed-artifact fetch cannot retrieve failed outputs; repair code in a new revision or report the blocker."
+      }
+    },
+    "intentional_failure_3": {
+      "id": "bb231c85fac94893bfbbd0152b338837",
+      "state": "failed",
+      "error": "blender_exit_1; see blender.log",
+      "manifest": null,
+      "progress": null,
+      "diagnostics": {
+        "tool": "blender_job_diagnostics",
+        "next_action": "Terminal job: read diagnostics once. Completed-artifact fetch cannot retrieve failed outputs; repair code in a new revision or report the blocker."
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/testing/blender52-guarded/downloads/b5439c6f94eb4e7c89708c1c3fe1e619/report.json",
+      "bytes": 114,
+      "sha256": "3d54dca6e9f8d00481a0c02d262ebd642e767dfbaeac9d61a8f07f0a91f36885",
+      "name": "report.json"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/testing/blender52-guarded/downloads/b5439c6f94eb4e7c89708c1c3fe1e619/fixture.glb",
+      "bytes": 1092,
+      "sha256": "c3a6d7bebefc210fec15c8f919cd061c7ece8483214c4d6b60c42b6a4f59c7a2",
+      "name": "fixture.glb"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/testing/blender52-guarded/downloads/b5439c6f94eb4e7c89708c1c3fe1e619/scene.blend",
+      "bytes": 89471,
+      "sha256": "37bbcf0e06e4703a4b65dd906cfd4da941b981cdeec93213bf5669b30df187e1",
+      "name": "scene.blend"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/testing/blender52-guarded/downloads/b5439c6f94eb4e7c89708c1c3fe1e619/scene.json",
+      "bytes": 4994,
+      "sha256": "88d72d56debae879a1a56e0df7f7f2f2b38508610ffe6ed0e550c845192cf6e1",
+      "name": "scene.json"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/testing/blender52-guarded/downloads/6e512b2451434283a85903b1ccb284d4/report.json",
+      "bytes": 118,
+      "sha256": "c59a7f7e512223dc98de69ff93731698e50fa62eed5bdbda9598e7aa8b550908",
+      "name": "report.json"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/testing/blender52-guarded/downloads/920eff70083b4875924b4b7de396b0da/frame-0001.png",
+      "bytes": 36686,
+      "sha256": "711904f747988c89e9360c066f4667c6d96a05c2c1eac250858cdc122c10da3c",
+      "name": "frame-0001.png"
+    }
+  ],
+  "capabilities": {
+    "runtime_verified": true,
+    "actual_version": "Blender 5.2.3 LTS",
+    "binary": "/home/kingpomf/Development/blender-new-llm-setup/tools/blender-5.2.3-linux-x64/blender",
+    "root": "/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-guarded-20261022-qualification",
+    "runners": [
+      {
+        "pid": "2324899",
+        "binary": "/home/kingpomf/Development/blender-new-llm-setup/tools/blender-5.2.3-linux-x64/blender"
+      }
+    ],
+    "authoring": {
+      "available": true,
+      "fresh_scene_objects": [],
+      "execution_name": "__blender_author__"
+    },
+    "render_devices": [
+      "CPU"
+    ],
+    "guard": {
+      "accepted_jobs": [
+        {
+          "fingerprint": "dc0a67f330e12c842e02e2cbd46ac0978bcb751825bcd8626bb7372ae157546a",
+          "source": "EMPTY",
+          "operation": "author",
+          "job": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "state": "completed"
+        },
+        {
+          "fingerprint": "ce481c85ba3d09e0d0a2b43446269ba0c02025f131c2262d3116bae4019c136a",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "author",
+          "job": "6e512b2451434283a85903b1ccb284d4",
+          "state": "completed"
+        },
+        {
+          "fingerprint": "e809ee619f01cf0ec4e7a09f66e37ea5a361155f6eb416e9d7ce249a6b3ab005",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "render",
+          "job": "920eff70083b4875924b4b7de396b0da",
+          "state": "completed"
+        },
+        {
+          "fingerprint": "53ffc25f9d06747fc21cb166e034bc3cbbbd6e3e55c4b857753b59c2dba558ed",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "author",
+          "job": "118da573c2004b21a9216c6d89e997ad",
+          "state": "failed"
+        },
+        {
+          "fingerprint": "6a6b32ef7d831d44bbfeb5f0f5f87a3b8f9911d02afc3183604364b35cdb6589",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "author",
+          "job": "bbb100951893406289c7fb194c1b1e84",
+          "state": "failed"
+        },
+        {
+          "fingerprint": "489086c50f8de4822720edf289c7e458b1b2d84071f1950f37deb9df94ac30be",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "author",
+          "job": "bb231c85fac94893bfbbd0152b338837",
+          "state": "failed"
+        }
+      ],
+      "uncertain_submissions": [],
+      "failed_count": 3,
+      "failure_limit_per_source": 3,
+      "failure_limit_total": 6
+    }
+  },
+  "gpu_rejected_before_submission": true,
+  "failure_diagnostics": {
+    "id": "118da573c2004b21a9216c6d89e997ad",
+    "state": "failed",
+    "error": "blender_exit_1; see blender.log",
+    "source_job": "b5439c6f94eb4e7c89708c1c3fe1e619",
+    "logs": {
+      "blender.log": {
+        "available": true,
+        "total_bytes": 1012,
+        "returned_bytes": 1012,
+        "truncated": false,
+        "text": "00:00.118  system.path      | WARNING Could not get a list of mounted file-systems\n00:01.888  blend            | Read blend: \"/job/input.blend\"\n00:01.896  system.path      | WARNING Could not get a list of mounted file-systems\nTraceback (most recent call last):\n  File \"/payload.py\", line 314, in <module>\n    main()\n    ~~~~^^\n  File \"/payload.py\", line 216, in main\n    author(spec)\n    ~~~~~~^^^^^^\n  File \"/payload.py\", line 130, in author\n    exec(compile(code, '/job/author.py', 'exec'), namespace)\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/job/author.py\", line 3, in <module>\n    exec(compile(\"raise ValueError('guard fixture 1')\", '/job/submitted.py', 'exec'), globals())\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/job/submitted.py\", line 1, in <module>\nValueError: guard fixture 1\n\nError: script failed, file: '/payload.py', exiting.\nBlender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:35:05)\n\nBlender quit\n"
+      },
+      "python-output.txt": {
+        "available": true,
+        "total_bytes": 514,
+        "returned_bytes": 514,
+        "truncated": false,
+        "text": "Traceback (most recent call last):\n  File \"/payload.py\", line 130, in author\n    exec(compile(code, '/job/author.py', 'exec'), namespace)\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/job/author.py\", line 3, in <module>\n    exec(compile(\"raise ValueError('guard fixture 1')\", '/job/submitted.py', 'exec'), globals())\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/job/submitted.py\", line 1, in <module>\nValueError: guard fixture 1\n"
+      }
+    },
+    "max_bytes_per_log": 16384,
+    "next_action": "Terminal job: read diagnostics once. Completed-artifact fetch cannot retrieve failed outputs; repair code in a new revision or report the blocker."
+  },
+  "duplicate_failed_code_blocked": true,
+  "fourth_failure_attempt_blocked": true,
+  "final_capabilities": {
+    "runtime_verified": true,
+    "actual_version": "Blender 5.2.3 LTS",
+    "binary": "/home/kingpomf/Development/blender-new-llm-setup/tools/blender-5.2.3-linux-x64/blender",
+    "root": "/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-guarded-20261022-qualification",
+    "runners": [
+      {
+        "pid": "2324899",
+        "binary": "/home/kingpomf/Development/blender-new-llm-setup/tools/blender-5.2.3-linux-x64/blender"
+      }
+    ],
+    "authoring": {
+      "available": true,
+      "fresh_scene_objects": [],
+      "execution_name": "__blender_author__"
+    },
+    "render_devices": [
+      "CPU"
+    ],
+    "guard": {
+      "accepted_jobs": [
+        {
+          "fingerprint": "dc0a67f330e12c842e02e2cbd46ac0978bcb751825bcd8626bb7372ae157546a",
+          "source": "EMPTY",
+          "operation": "author",
+          "job": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "state": "completed"
+        },
+        {
+          "fingerprint": "ce481c85ba3d09e0d0a2b43446269ba0c02025f131c2262d3116bae4019c136a",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "author",
+          "job": "6e512b2451434283a85903b1ccb284d4",
+          "state": "completed"
+        },
+        {
+          "fingerprint": "e809ee619f01cf0ec4e7a09f66e37ea5a361155f6eb416e9d7ce249a6b3ab005",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "render",
+          "job": "920eff70083b4875924b4b7de396b0da",
+          "state": "completed"
+        },
+        {
+          "fingerprint": "53ffc25f9d06747fc21cb166e034bc3cbbbd6e3e55c4b857753b59c2dba558ed",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "author",
+          "job": "118da573c2004b21a9216c6d89e997ad",
+          "state": "failed"
+        },
+        {
+          "fingerprint": "6a6b32ef7d831d44bbfeb5f0f5f87a3b8f9911d02afc3183604364b35cdb6589",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "author",
+          "job": "bbb100951893406289c7fb194c1b1e84",
+          "state": "failed"
+        },
+        {
+          "fingerprint": "489086c50f8de4822720edf289c7e458b1b2d84071f1950f37deb9df94ac30be",
+          "source": "b5439c6f94eb4e7c89708c1c3fe1e619",
+          "operation": "author",
+          "job": "bb231c85fac94893bfbbd0152b338837",
+          "state": "failed"
+        }
+      ],
+      "uncertain_submissions": [],
+      "failed_count": 3,
+      "failure_limit_per_source": 3,
+      "failure_limit_total": 6
+    }
+  }
+}

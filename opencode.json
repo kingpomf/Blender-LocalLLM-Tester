@@ -17,6 +17,7 @@
   },
   "instructions": ["AGENTS.md"],
   "share": "disabled",
+  "agent": {"build": {"steps": 60}},
   "lsp": {
     "pyright": {
       "command": ["./.venv/bin/pyright-langserver", "--stdio"],
@@ -46,16 +47,14 @@
     "appleCreatorMCP": { "enabled": false },
     "imageMCP": { "enabled": false },
     "elitedesk-blender-worker": { "enabled": false },
-    "z6-blender-worker": {
+    "z6-blender-worker": {"enabled": false},
+    "bowling-blender52": {
       "type": "local",
       "command": [
-        "uv", "--directory", "/Users/start/Development/blender-new-llm-setup",
-        "run", "--frozen", "--extra", "mcp", "python", "-m", "blender_worker.mcp_server"
+        "/Users/start/Development/blender-new-llm-setup/.venv/bin/python",
+        "/Users/start/Development/Blender-LocalLLM-Tester/scripts/blender52_mcp.py"
       ],
-      "enabled": true,
-      "environment": {
-        "BLENDER_DOWNLOADS": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads"
-      }
+      "enabled": true
     }
   },
   "permission": {
@@ -93,6 +92,8 @@
       "cp artifacts/downloads/* artifacts/*": "allow",
       "shasum -a 256 artifacts/*": "allow"
     },
-    "z6-blender-worker_*": "allow"
+    "z6-blender-worker_*": "deny",
+    "bowling-blender52_*": "allow",
+    "doom_loop": "deny"
   }
 }

@@ -72,6 +72,24 @@ class ResumeTests(unittest.TestCase):
         self.assertFalse(result['passed'])
         self.assertTrue(any('BowlingPair01.blend' in issue for issue in result['issues']))
 
+    def test_source_annotation_has_actionable_error(self):
+        self.write_state(source=self.job + ' (Stage 03 in progress)')
+        result = check(self.root)
+        self.assertTrue(any('bare 32-character' in issue for issue in result['issues']))
+
+    def test_tool_ledger_rejects_failed_source_claimed_as_pass(self):
+        from scripts.submission_guard import SubmissionGuard
+        self.write_state('IN_PROGRESS', 'PASS', self.job, self.job, 'claimed evidence')
+        checkpoint = self.root / 'artifacts/blend/BowlingPair01.blend'
+        checkpoint.parent.mkdir(parents=True)
+        checkpoint.write_bytes(b'fixture')
+        guard = SubmissionGuard(self.root / '.runtime/blender52/submissions.sqlite')
+        with guard.connect() as db:
+            db.execute('INSERT INTO attempts VALUES(?,?,?,?,?)', ('hash', 'EMPTY', 'author', self.job, 'failed'))
+        result = check(self.root)
+        self.assertFalse(result['passed'])
+        self.assertTrue(any('not completed in this trial' in issue for issue in result['issues']))
+
 
 if __name__ == '__main__':
     unittest.main()

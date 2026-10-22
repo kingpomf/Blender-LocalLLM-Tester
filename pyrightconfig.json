@@ -3,6 +3,10 @@
   "exclude": ["artifacts/archive", ".opencode", ".venv"],
   "venvPath": ".",
   "venv": ".venv",
+  "extraPaths": [
+    "/Users/start/Development/blender-new-llm-setup",
+    "/Users/start/Development/blender-new-llm-setup/.venv/lib/python3.14/site-packages"
+  ],
   "pythonVersion": "3.11",
   "typeCheckingMode": "basic",
   "reportMissingModuleSource": "none"

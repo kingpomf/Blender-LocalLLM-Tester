@@ -1,0 +1,193 @@
+{
+  "purpose": "Preserve failed bowling attempt and pre-guard runtime setup before authorized reset; PASS claims unverified",
+  "files": {
+    "AGENTS.md": {
+      "bytes": 7321,
+      "sha256": "2b3a2948ce3769f141bb996eaea8f98db1d6010e303e623090a20fe937b348f1"
+    },
+    "BUILD_STATUS.md": {
+      "bytes": 3142,
+      "sha256": "fc86e66971e3349bafbbf77fad3935015741d5091e229b8426356c9c95b89cdc"
+    },
+    "HANDOFF.md": {
+      "bytes": 1428,
+      "sha256": "975dd8fc36bf4d0a0d39b8e49b19bfb2fb7a792b98f1bb415c154ce72a4cbe79"
+    },
+    "LSP_SETUP.md": {
+      "bytes": 2847,
+      "sha256": "4baa880389811e97e5c2a8f82fd5715740736e7a762247002c9286ad9eb091bb"
+    },
+    "MODEL_SETUP.md": {
+      "bytes": 8808,
+      "sha256": "53ff4f25852a3dd56eac5618bc5799cc4f5f6994273b81eae76eb780d720d0db"
+    },
+    "README.md": {
+      "bytes": 3482,
+      "sha256": "a0421c6864b6a43db5d190f9b6b7f42426166427eca8ca548d68b5b403c80980"
+    },
+    "RUNTIME_52.md": {
+      "bytes": 5201,
+      "sha256": "2478814cf1fe7a4307aab9148d62924f8848c466ff58d13b7630329f8ebe3523"
+    },
+    "WORKER_GUIDE.md": {
+      "bytes": 9820,
+      "sha256": "3d942ffe58392eca69aeaa88ea55ce4dc6df3cf8c51526ce286b632cbd4b84e5"
+    },
+    "blend/BowlingPair01.blend": {
+      "bytes": 552905,
+      "sha256": "af5a71084b9b9c1a002b133003918c77b268781de33d372fb69bc0ca479f3aa1"
+    },
+    "bowling-start.md": {
+      "bytes": 1933,
+      "sha256": "12d60a394ae069418ef2f3e3be119498b54166eedcd545a0a384974fcd22e390"
+    },
+    "downloads/085da980f1f0400ca9d40101c773cb7f/frame-0001.png": {
+      "bytes": 36686,
+      "sha256": "dd7d2c55cfd44a1a95087373cb9e2a93fbbb27132c77be02a030c4862c0eda8d"
+    },
+    "downloads/69331f6eb0ee40e88b2a01bde90980c0/scene.json": {
+      "bytes": 1233,
+      "sha256": "d306e90bc25f0e0e8209ef47686c8e032e11d094eb26e722c09bf19c71d2d788"
+    },
+    "downloads/78d06de2f63d4273b0eb3178b585accf/report.json": {
+      "bytes": 118,
+      "sha256": "c59a7f7e512223dc98de69ff93731698e50fa62eed5bdbda9598e7aa8b550908"
+    },
+    "downloads/c0015706160d4e8c959508dd011e2074/scene.blend": {
+      "bytes": 377734,
+      "sha256": "f830c5752b17a275264be2c3434d3ae88cf23ef7f13b63fbde26cbf8c6dc0d28"
+    },
+    "downloads/c0015706160d4e8c959508dd011e2074/scene.json": {
+      "bytes": 2624,
+      "sha256": "83ae4aecbe9ae1528ef73952a8cf70b722b140942a9f3c30a5d66766fb7224ce"
+    },
+    "downloads/d53cac634a2b41ab89dcc92b61fc4976/scene.blend": {
+      "bytes": 552905,
+      "sha256": "af5a71084b9b9c1a002b133003918c77b268781de33d372fb69bc0ca479f3aa1"
+    },
+    "downloads/d53cac634a2b41ab89dcc92b61fc4976/scene.json": {
+      "bytes": 48581,
+      "sha256": "521115df6f558bf06437db9a3134500dfacaf2f593a844aa6a51bb97aae0a21f"
+    },
+    "downloads/d5c68e4d5c834c378c60a77882ab00be/report.json": {
+      "bytes": 405,
+      "sha256": "86f2417fa8592c54fcc04cf3ae79582adf279f409e7c91d806c026777407bcb2"
+    },
+    "downloads/d5c68e4d5c834c378c60a77882ab00be/scene.blend": {
+      "bytes": 373422,
+      "sha256": "b15ff084653abb28bae4f44f3a55efda83ec04df2b9d0512cf0c3f4923a6ce04"
+    },
+    "downloads/d5c68e4d5c834c378c60a77882ab00be/scene.json": {
+      "bytes": 1665,
+      "sha256": "84e465b4610dd30d8bac8877d5aae1feca366030273c0f9be66dbd4dbca27d42"
+    },
+    "downloads/dd05ed88004845078c02193dac32cf19/fixture.glb": {
+      "bytes": 1092,
+      "sha256": "c3a6d7bebefc210fec15c8f919cd061c7ece8483214c4d6b60c42b6a4f59c7a2"
+    },
+    "downloads/dd05ed88004845078c02193dac32cf19/report.json": {
+      "bytes": 114,
+      "sha256": "3d54dca6e9f8d00481a0c02d262ebd642e767dfbaeac9d61a8f07f0a91f36885"
+    },
+    "downloads/dd05ed88004845078c02193dac32cf19/scene.blend": {
+      "bytes": 89453,
+      "sha256": "d7313c54cae86342438482c67d0ed12eaea65218cd443907789bc5dc7eac99a0"
+    },
+    "downloads/dd05ed88004845078c02193dac32cf19/scene.json": {
+      "bytes": 4994,
+      "sha256": "88d72d56debae879a1a56e0df7f7f2f2b38508610ffe6ed0e550c845192cf6e1"
+    },
+    "downloads/f9e66e648a9b4456b8a1de03bacb8de5/scene.blend": {
+      "bytes": 515824,
+      "sha256": "4be9fb8295d3e39f5e6f47a96deed64776b336b7f6953a5515c45a0fe2146c07"
+    },
+    "downloads/f9e66e648a9b4456b8a1de03bacb8de5/scene.json": {
+      "bytes": 39060,
+      "sha256": "8dd87720a8e50f93ba414310c8b43e654c160c8f069b779ff2865ecbf3e4d7a1"
+    },
+    "opencode.json": {
+      "bytes": 3038,
+      "sha256": "db803327de9159c18eacabfb3cc097753522d84d5b18a99e5ca307c7ee8c75c6"
+    },
+    "pyproject.toml": {
+      "bytes": 231,
+      "sha256": "5070a55e933ae8a5430af49690029bac2d203b7ef6234d03c980011aa2b764fb"
+    },
+    "pyrightconfig.json": {
+      "bytes": 417,
+      "sha256": "c0af216a6a6deb4721cb5b5eb7dfdd142cc67c4509acc966f91f5fef020c20e1"
+    },
+    "scripts/stage00.py": {
+      "bytes": 1668,
+      "sha256": "23aaa71a1567dea5c1d5dfed290995918bd85fe5fdeb1889c3f2cedf5a608b2a"
+    },
+    "scripts/stage00_repair.py": {
+      "bytes": 1809,
+      "sha256": "244602cbf77dd1d052241e3abbc2fd40382eff9ec502533b4653e8f82461756e"
+    },
+    "scripts/stage01.py": {
+      "bytes": 5814,
+      "sha256": "c272b1b7b97e0df3b9d6cc509aefce794b0478e78cfe153f76391ce8f14d8f3b"
+    },
+    "scripts/stage02.py": {
+      "bytes": 5844,
+      "sha256": "cb1b1c5ff2ff4ed129f04f60cb940a7a11fbc454fca005333207d84b39c987c8"
+    },
+    "scripts/stage03.py": {
+      "bytes": 4693,
+      "sha256": "78d4fceee178cc6a94ff6adfdb09b2dc1a619b61b14178cadae400dba6e9322e"
+    },
+    "testing/blender52/README.md": {
+      "bytes": 337,
+      "sha256": "bceecf6ecd3138c17e064c8980df741546a167c5a9e7c728cb88b5f496f673ab"
+    },
+    "testing/blender52/before-BUILD_STATUS.md": {
+      "bytes": 2261,
+      "sha256": "56ca75474b0b0b4fea1e507f51e7788b524f30d4cde82d7777425a979461a821"
+    },
+    "testing/blender52/before-HANDOFF.md": {
+      "bytes": 1041,
+      "sha256": "e9b364a86c608c3472b261246fc1fe91ab0b4db655dcf2206f7215e308352ce0"
+    },
+    "testing/blender52/mcp.log": {
+      "bytes": 647,
+      "sha256": "b944a5a110d68f273da3f18c9eed1b3b630f4f95d18726ba13e959ec53a164b1"
+    },
+    "testing/blender52/negative.py": {
+      "bytes": 230,
+      "sha256": "a4d468fddb63b06f21d3abc33183fec6271ea4ad139172599a3f069922b4fec4"
+    },
+    "testing/blender52/positive.py": {
+      "bytes": 673,
+      "sha256": "206d581c2e536957091ca1ab672610e29d8c49a2ff15942841094ad8a27aaf13"
+    },
+    "testing/blender52/runtime-evidence.json": {
+      "bytes": 9886,
+      "sha256": "bcc480fbefe7a25095464a3e009c67a10b53131b811eb044e443ac661761a4aa"
+    },
+    "tooling/blender52_mcp.py": {
+      "bytes": 2311,
+      "sha256": "f1b1983b5ca3a470b2e3bd25f5afbd66ca69a76f2c2784d3f9e97fb55ec03ad5"
+    },
+    "tooling/check_resume.py": {
+      "bytes": 4705,
+      "sha256": "d63a46ff668a18f6111112bc97f4c6aacf59335fee83812126a43e7288ed2ad8"
+    },
+    "tooling/install_blender52.py": {
+      "bytes": 1966,
+      "sha256": "daac79f41b89e4c8061e80fb828a41b1dcc3abb74b515022c055474a9130a972"
+    },
+    "tooling/migrate_blender52_source.py": {
+      "bytes": 2126,
+      "sha256": "64661b25277aa2f5b124f405e18f1a6f5f6dd1b0f6417e60e2a073c773c9ef7d"
+    },
+    "tooling/verify_blender52.py": {
+      "bytes": 8546,
+      "sha256": "2bf2b3e59b6803fd8660008952d48bc22491326a4166d2854a6a1bbf8d8d21be"
+    },
+    "uv.lock": {
+      "bytes": 3368,
+      "sha256": "ab0c78aeb3b4d25b2a4e3da3e9efea4151c2d419a97a3cfd544f557c56074091"
+    }
+  }
+}

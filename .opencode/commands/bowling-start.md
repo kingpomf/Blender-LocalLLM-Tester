@@ -1,29 +1,34 @@
 ---
-description: Build or resume the staged BowlingPair01 alley asset challenge
+description: Verify the 5.2 toolchain and build or resume ONE bowling stage
+agent: build
 ---
 
-Build the active BowlingPair01 assignment. Read AGENTS.md, BUILD_STATUS.md,
-HANDOFF.md, WORKER_GUIDE.md, LSP_SETUP.md and all ten files in
-spec/bowling-pair-01/. Run `python3 scripts/check_resume.py` before submitting.
-Reconcile any inconsistent progress; poll a recorded pending job rather than
-starting over. Historical kart artifacts are not sources for this build.
+Build or resume exactly one stage of BowlingPair01, then checkpoint and return
+to the user. Read AGENTS.md, BUILD_STATUS.md, HANDOFF.md, RUNTIME_52.md,
+WORKER_GUIDE.md and the relevant specifications. Before initial Stage 00, read
+all ten files in spec/bowling-pair-01/ to plan the assembly.
 
-Verify Z6 connectivity, authoring availability and job diagnostics. Record the
-actual selected model. Work through Stages 00–09 in order. Only a fresh run starts
-with no source_job and zero objects; every later stage uses the last verified
-same-host source. Save each script and inspect LSP/Pyright diagnostics before
-submission. Execute stage functions unconditionally at top level.
+FIRST call capabilities through the distinct `bowling-blender52` connection.
+Require runtime_verified=true, actual_version="Blender 5.2.3 LTS", and root ending
+`var/bowling52-guarded-20261022`. If this connection is missing, STOP and ask for a
+full OpenCode restart. Do not use z6-blender-worker or other Blender tools.
+Run `python3 scripts/check_resume.py`. Reconcile pending work before submission.
 
-Record accepted job ID, stage, source and pending state in BOTH checkpoints
-before polling. Fetch/read scene.json and meaningful report.json, measure actual
-geometry, and save a hash-verified BowlingPair01.blend after each passed stage.
-Execution success alone is not acceptance. Use bounded traceback-specific repairs
-and revalidate affected requirements. Keep the 256K trial in one session with no
-manual compaction; checkpoint and report context exhaustion if needed.
+Record the actual selected model. Only a fresh NOT_STARTED run begins without a
+source_job. Later work uses the last verified completed 5.2 source. Save each
+script and check its LSP/Pyright diagnostics before submission; call functions
+unconditionally and assign a meaningful top-level report. Runtime assertions in
+the wrapper do not prove stage acceptance. Measure actual geometry and reopen
+saved native scenes to verify persistence.
 
-Create the two-lane alley, reusable props and collision proxies, then render all
-four specified views using real cameras. Export and round-trip the pair, pin,
-three balls and collision GLBs; verify portable materials, units, pivots, counts
-and hashes. Keep game-integration notes and objective validation evidence. Mark
-COMPLETE only after every required check passes. Preserve archives and protected
-workloads. Do not commit or push without approval.
+Record each accepted job, source and pending state in BOTH checkpoints before
+polling. Keep Active source / Last verified source as the previous verified bare
+job ID until the new scene passes. Save a hash-verified native checkpoint after
+acceptance. Never mark a stage PASS based on constants or script existence.
+
+On any tool STOP, duplicate-rejection or exhausted budget, save evidence and
+return BLOCKED immediately. No repeated blocked calls, guard resets or bypasses.
+The Build-agent turn has a 60-step limit. Complete the current stage or checkpoint
+partial work, then return for the operator to invoke the next stage. Preserve the
+256K/no-compaction settings. Use CPU renders only. Do not edit test infrastructure,
+commit or push. All archived attempts are evidence, not starting assets.

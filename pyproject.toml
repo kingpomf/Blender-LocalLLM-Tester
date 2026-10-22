@@ -6,7 +6,7 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-    "fake-bpy-module-4.5==20260730",
+    "fake-bpy-module-5.2==20260730",
     "pyright==1.1.414",
 ]
 

@@ -1,82 +1,65 @@
-# Python LSP and Blender typing
+# Python LSP and Blender 5.2 typing
 
-Enabled locally on 2026-10-22 at the operator's request. This is a tooling change
-to the active 256K attempt, not a new build or a stage PASS.
+Updated 2026-10-22 for the project-only Blender 5.2.3 test. This is a tooling
+intervention, not a repaired bowling asset or stage PASS. See `RUNTIME_52.md`.
 
 ## Configuration
 
-- `opencode.json` explicitly enables the `pyright` server for `.py` and `.pyi`
-  using `./.venv/bin/pyright-langserver --stdio`. The existing LSP tool permission
-  remains allowed. In OpenCode 1.18.34, omitting `lsp` leaves language servers off;
-  permission to call a tool does not enable the server.
-- `pyproject.toml` / `uv.lock` pin **Pyright 1.1.414** and
-  **fake-bpy-module-4.5 20260730** in a project-local development environment.
-- `pyrightconfig.json` selects the `.venv` imports, Python 3.11 target and basic
-  type checking. Current scripts/helpers/tests are included; historical archives,
-  `.opencode`, and `.venv` are excluded from workspace scanning.
-- Existing 262,144-token model selection and disabled compaction/pruning are
-  retained. No remote worker dependencies or model services are changed.
+- `opencode.json` enables Pyright with `./.venv/bin/pyright-langserver --stdio`.
+- `pyproject.toml` and `uv.lock` pin **Pyright 1.1.414** and
+  **fake-bpy-module-5.2 20260730**. The old 4.5 stub package was uninstalled.
+- `pyrightconfig.json` uses project Python 3.11, basic checking, and excludes
+  historical archives. The worker source is an extra import path for the local
+  MCP launcher/operator utilities. Their execution uses the worker's environment.
+- Model context and compaction settings are unchanged.
 
-The `fake-bpy-module` package provides **type stubs**, not a working Blender
-runtime. Use this environment for checking only. Execute actual `bpy` scripts
-through the Blender worker, not local Python.
-
-## Install or restore
-
-From the repository root:
+Type stubs do not implement Blender. Execute bpy scripts through the worker,
+not local Python. To restore the pinned checker environment:
 
 ```sh
 uv sync --frozen --python 3.11 --group dev
 ```
 
-Quit and restart OpenCode after configuration changes, then resume the existing
-session/checkpoint. Configuration is not hot-reloaded into running sessions. The
-active attempt is preserved; no reset or automatic repairs are performed here.
+Quit and restart OpenCode to reload the language server and project MCP entry.
+Read both checkpoints; the guarded trial is reset to a fresh Stage 00.
 
-## Check before submitting authoring code
-
-```sh
-.venv/bin/pyright artifacts/scripts/stage09.py
-```
-
-To inspect the actual OpenCode LSP integration:
+## Check authoring code before submission
 
 ```sh
-opencode debug lsp diagnostics /absolute/path/to/artifacts/scripts/stage09.py
+.venv/bin/pyright artifacts/scripts/stage01.py
+opencode debug lsp diagnostics /Users/start/Development/Blender-LocalLLM-Tester/artifacts/scripts/stage01.py
 ```
 
-Fix syntax errors and confirmed API/signature errors before resubmission. A
-completed diagnostic command with reported errors means the checker is working,
-not that the script passed. Do not repeatedly rewrite unrelated string formatting
-when the diagnostic identifies a duplicate keyword or unknown exporter option.
+The previous model-authored scripts are archived, not active LSP inputs. They were
+not repaired or certified by this installation. Fix confirmed API errors before
+resubmitting. `obj.children.link`, `view_layer.objects.link`, unsupported operator
+calls, and duplicate keywords must not be waved away as stub false positives.
 
-## Verified behavior
+## Verified checker behavior
 
-- Both Pyright CLI and **OpenCode's actual LSP diagnostics command** return
-  diagnostics for the existing Stage 09 script, including
-  `Parameter "export_texcoords" is already assigned`,
-  `Parameter "export_apply" is already assigned`, and unsupported exporter keywords.
-- An isolated negative fixture flags invalid `bpy.scene` and a duplicate keyword.
-- An isolated positive fixture using Blender 4.5 export arguments and typed
-  Scene/ViewLayer references reports zero errors. Fixtures were analyzed only,
-  not executed, and do not repair the actual asset.
+- `.venv/bin/pyright testing/blender52/positive.py`: **zero errors**.
+- Actual OpenCode LSP diagnostics for that same fixture: **empty diagnostic list**.
+- `.venv/bin/pyright testing/blender52/negative.py`: **three expected errors**
+  for invalid children.link, bpy.scene and collection_links_add APIs.
+- The negative file is intentional and outside normal workspace include paths;
+  an explicit check must fail. Diagnostic categories have not been disabled.
 
-## Typing limitations
+## Generated-stub limitations
 
-Generated Blender stubs approximate a dynamic API. In this pinned version,
-Pyright can misinfer `bpy.context.view_layer` as `MethodType` and incorrectly flag
-the valid `.objects.active` access. A narrow type annotation can disambiguate it:
+Dynamic `bpy.context` values and mathutils iteration may still be misinferred.
+Use narrow types after verifying the API, e.g.:
 
 ```python
 from typing import cast
 import bpy
 
+scene = cast(bpy.types.Scene, bpy.context.scene)
 view_layer = cast(bpy.types.ViewLayer, bpy.context.view_layer)
-view_layer.objects.active = obj  # obj is an actual Blender Object
 ```
 
-This is typing assistance, not a runtime check. Verify questionable diagnostics
-against the worker version's API rather than inventing replacement properties.
-LSP checks do not validate dimensions, rendering angles, source provenance, or
-whether every required acceptance check was actually performed. Failed validation
-must remain FAIL even when its Python program executed successfully.
+For a vector use explicit coordinates `[obj.location.x, obj.location.y,
+obj.location.z]` if the stub lacks iteration typing. These annotations do not
+change runtime behavior. Check questionable diagnostics against the actual
+5.2 API and runtime evidence, individually; never assume an entire error list
+is false positives. LSP success does not prove geometry, dimensions, persistence,
+render framing, export portability or acceptance.

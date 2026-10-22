@@ -1,0 +1,333 @@
+{
+  "passed": true,
+  "jobs": {
+    "author": {
+      "id": "dd05ed88004845078c02193dac32cf19",
+      "state": "completed",
+      "progress": null,
+      "error": null,
+      "manifest": {
+        "schema_version": 1,
+        "worker_version": "0.1.0",
+        "blender_version": "5.2.3 LTS",
+        "device": "CPU",
+        "wall_seconds": 2.83958198397886,
+        "sampled_peak_tree_rss_kib": 348552,
+        "artifacts": [
+          {
+            "path": "author.py",
+            "bytes": 1790,
+            "sha256": "f62c148142d02bc3ce0010a0af08f3e8b1c5f0669c1b622df98d0d7b74074d36"
+          },
+          {
+            "path": "fixture.glb",
+            "bytes": 1092,
+            "sha256": "c3a6d7bebefc210fec15c8f919cd061c7ece8483214c4d6b60c42b6a4f59c7a2"
+          },
+          {
+            "path": "python-output.txt",
+            "bytes": 384,
+            "sha256": "8d0ea9e313575625fed7a111a3454e00a4eb80c2aab0d91f096b0321b5e05acb"
+          },
+          {
+            "path": "report.json",
+            "bytes": 114,
+            "sha256": "3d54dca6e9f8d00481a0c02d262ebd642e767dfbaeac9d61a8f07f0a91f36885"
+          },
+          {
+            "path": "result.json",
+            "bytes": 227,
+            "sha256": "10a62823520f38ecf756c1f1a2577e964b16a40382105b6da4cdc5927865b9be"
+          },
+          {
+            "path": "scene.blend",
+            "bytes": 89453,
+            "sha256": "d7313c54cae86342438482c67d0ed12eaea65218cd443907789bc5dc7eac99a0"
+          },
+          {
+            "path": "scene.json",
+            "bytes": 4994,
+            "sha256": "88d72d56debae879a1a56e0df7f7f2f2b38508610ffe6ed0e550c845192cf6e1"
+          }
+        ]
+      }
+    },
+    "reopen_roundtrip": {
+      "id": "78d06de2f63d4273b0eb3178b585accf",
+      "state": "completed",
+      "progress": null,
+      "error": null,
+      "manifest": {
+        "schema_version": 1,
+        "worker_version": "0.1.0",
+        "blender_version": "5.2.3 LTS",
+        "device": "CPU",
+        "wall_seconds": 2.807688056025654,
+        "sampled_peak_tree_rss_kib": 346268,
+        "artifacts": [
+          {
+            "path": "author.py",
+            "bytes": 730,
+            "sha256": "e7f11066f8c1d0372a15afb963cd1a5e8677f4d96e168a1b072cde752bc5c5a0"
+          },
+          {
+            "path": "python-output.txt",
+            "bytes": 548,
+            "sha256": "c53327d89e88352d14aa2983998ff5fb03d9f849efad1ca266aa66c2b008a4a6"
+          },
+          {
+            "path": "report.json",
+            "bytes": 118,
+            "sha256": "c59a7f7e512223dc98de69ff93731698e50fa62eed5bdbda9598e7aa8b550908"
+          },
+          {
+            "path": "result.json",
+            "bytes": 257,
+            "sha256": "4887a6c229d1ca316ffb7f9eb733d52d955630a11c4d00c039525bfd26ec7411"
+          },
+          {
+            "path": "roundtrip.glb",
+            "bytes": 1092,
+            "sha256": "c3a6d7bebefc210fec15c8f919cd061c7ece8483214c4d6b60c42b6a4f59c7a2"
+          },
+          {
+            "path": "scene.blend",
+            "bytes": 89716,
+            "sha256": "0792992b0a6d5ae5bcd56dcdd348a55bc0a125f6bbb1455061f2f460346bfb0a"
+          },
+          {
+            "path": "scene.json",
+            "bytes": 3331,
+            "sha256": "64cd7b15ef2f1da1e73fda1a2dd2982160d295107956a95793a268b0eb809baa"
+          }
+        ]
+      }
+    },
+    "cpu_render": {
+      "id": "085da980f1f0400ca9d40101c773cb7f",
+      "state": "completed",
+      "progress": {
+        "frames_completed": 1,
+        "frames_total": 1
+      },
+      "error": null,
+      "manifest": {
+        "schema_version": 1,
+        "worker_version": "0.1.0",
+        "blender_version": "5.2.3 LTS",
+        "device": "CPU",
+        "wall_seconds": 2.9433078749570996,
+        "sampled_peak_tree_rss_kib": 469952,
+        "artifacts": [
+          {
+            "path": "frame-0001.png",
+            "bytes": 36686,
+            "sha256": "dd7d2c55cfd44a1a95087373cb9e2a93fbbb27132c77be02a030c4862c0eda8d"
+          },
+          {
+            "path": "result.json",
+            "bytes": 120,
+            "sha256": "a85cc8c37042c4df4b817b8aec7e09c967382bbdca975df6453240292fc159b6"
+          },
+          {
+            "path": "scene.blend",
+            "bytes": 89456,
+            "sha256": "fc7e87d6a75ac35284ab1f070745046f3f5631f3a944932ee31066919f40278b"
+          },
+          {
+            "path": "scene.json",
+            "bytes": 4994,
+            "sha256": "88d72d56debae879a1a56e0df7f7f2f2b38508610ffe6ed0e550c845192cf6e1"
+          }
+        ]
+      }
+    },
+    "migrated_source_inspection": {
+      "id": "69331f6eb0ee40e88b2a01bde90980c0",
+      "state": "completed",
+      "progress": null,
+      "error": null,
+      "manifest": {
+        "schema_version": 1,
+        "worker_version": "0.1.0",
+        "blender_version": "5.2.3 LTS",
+        "device": "CPU",
+        "wall_seconds": 2.1960960899014026,
+        "sampled_peak_tree_rss_kib": 311864,
+        "artifacts": [
+          {
+            "path": "result.json",
+            "bytes": 121,
+            "sha256": "599ad4e64681746b9ff66c2abd06fc83e46c1d94ff4ba87d75072445f38e5964"
+          },
+          {
+            "path": "scene.blend",
+            "bytes": 424754,
+            "sha256": "49bcb5d8335279b0921699374415cfdce87f404bcc0fe9e1f4092d16c432b40e"
+          },
+          {
+            "path": "scene.json",
+            "bytes": 1233,
+            "sha256": "d306e90bc25f0e0e8209ef47686c8e032e11d094eb26e722c09bf19c71d2d788"
+          }
+        ]
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/dd05ed88004845078c02193dac32cf19/report.json",
+      "bytes": 114,
+      "sha256": "3d54dca6e9f8d00481a0c02d262ebd642e767dfbaeac9d61a8f07f0a91f36885",
+      "name": "report.json"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/dd05ed88004845078c02193dac32cf19/fixture.glb",
+      "bytes": 1092,
+      "sha256": "c3a6d7bebefc210fec15c8f919cd061c7ece8483214c4d6b60c42b6a4f59c7a2",
+      "name": "fixture.glb"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/dd05ed88004845078c02193dac32cf19/scene.blend",
+      "bytes": 89453,
+      "sha256": "d7313c54cae86342438482c67d0ed12eaea65218cd443907789bc5dc7eac99a0",
+      "name": "scene.blend"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/dd05ed88004845078c02193dac32cf19/scene.json",
+      "bytes": 4994,
+      "sha256": "88d72d56debae879a1a56e0df7f7f2f2b38508610ffe6ed0e550c845192cf6e1",
+      "name": "scene.json"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/78d06de2f63d4273b0eb3178b585accf/report.json",
+      "bytes": 118,
+      "sha256": "c59a7f7e512223dc98de69ff93731698e50fa62eed5bdbda9598e7aa8b550908",
+      "name": "report.json"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/085da980f1f0400ca9d40101c773cb7f/frame-0001.png",
+      "bytes": 36686,
+      "sha256": "dd7d2c55cfd44a1a95087373cb9e2a93fbbb27132c77be02a030c4862c0eda8d",
+      "name": "frame-0001.png"
+    },
+    {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/69331f6eb0ee40e88b2a01bde90980c0/scene.json",
+      "bytes": 1233,
+      "sha256": "d306e90bc25f0e0e8209ef47686c8e032e11d094eb26e722c09bf19c71d2d788",
+      "name": "scene.json"
+    }
+  ],
+  "capabilities": {
+    "worker_version": "0.1.0",
+    "observed_at": 1792691175.8793082,
+    "cpu_available": true,
+    "gateway": {
+      "configured": false,
+      "reason": "Project-scoped Blender 5.2 trial; CPU rendering only"
+    },
+    "authoring": {
+      "available": true,
+      "operation": "author",
+      "max_code_bytes": 48000,
+      "device": "CPU",
+      "network": false,
+      "host_filesystem": false,
+      "empty_scenes": true,
+      "fresh_scene_objects": [],
+      "execution_name": "__blender_author__",
+      "diagnostics_tool": "blender_job_diagnostics",
+      "report_artifact": "report.json"
+    },
+    "project_runtime": {
+      "expected_version": "5.2.3",
+      "binary": "/home/kingpomf/Development/blender-new-llm-setup/tools/blender-5.2.3-linux-x64/blender",
+      "root": "/home/kingpomf/Development/blender-new-llm-setup/var/bowling-blender52",
+      "render_devices": [
+        "CPU"
+      ]
+    }
+  },
+  "gpu_rejected_before_submission": true,
+  "migrated_source_scene": {
+    "blender_version": "5.2.3 LTS",
+    "frame": 1,
+    "frame_start": 1,
+    "frame_end": 250,
+    "fps": 24.0,
+    "scene": "Scene",
+    "units": {
+      "system": "METRIC",
+      "scale_length": 1.0
+    },
+    "active_camera": null,
+    "render_engine": "BLENDER_EEVEE",
+    "collections": [
+      {
+        "name": "Scene Collection",
+        "objects": [
+          "BowlingPair01_ROOT"
+        ],
+        "children": []
+      }
+    ],
+    "materials": [],
+    "objects": [
+      {
+        "name": "BowlingPair01_ROOT",
+        "type": "EMPTY",
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "dimensions": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent": null,
+        "collections": [
+          "Scene Collection"
+        ],
+        "matrix_world": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "materials": []
+      }
+    ]
+  }
+}

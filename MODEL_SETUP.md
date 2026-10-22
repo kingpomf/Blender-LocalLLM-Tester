@@ -1,5 +1,9 @@
 # Blender specialist model — native 256K setup
 
+**Current runtime override:** this repository now tests Blender 5.2.3 LTS with
+matching 5.2 stubs and a separate CPU queue. See `RUNTIME_52.md`. The 4.5 worker
+details and original model installation checks below are historical evidence.
+
 Installed and verified on Z6 on 2026-10-22, then raised from 65,536 to 102,400 and now **262,144 tokens**. This is model setup evidence, not a Kart01 stage PASS. After the context upgrade, the stuck attempt was separately archived and the project reset for a fresh no-compaction trial.
 
 ## Selected model

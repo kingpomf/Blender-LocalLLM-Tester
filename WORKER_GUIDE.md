@@ -2,6 +2,12 @@
 
 Read this before the first authoring submission. These notes describe the current worker interface; the active asset requirements are in `spec/bowling-pair-01/`.
 
+Use the distinct `bowling-blender52` connection, Blender 5.2.3 and the fresh
+`var/bowling52-guarded-20261022` CPU queue. Read `RUNTIME_52.md`. Capabilities
+must confirm actual runtime verification before work. The old connection is
+disabled. On any tool STOP, checkpoint and return BLOCKED, not another tool loop.
+Use `blender_render` with `device="CPU"`.
+
 ## Session resume preflight
 
 Read `BUILD_STATUS.md` and `HANDOFF.md`, then run `python3 scripts/check_resume.py`.
@@ -71,6 +77,7 @@ Fetch `scene.blend` using `blender_artifact_fetch`, copy the verified download t
 ## 5. Use Blender's actual data API
 
 - Link objects with `collection.objects.link(obj)`. An `obj["collection"]` custom property is metadata, not collection membership. `scene.objects.link` is not the modern linking API.
+- Link each collection to the scene with `scene.collection.children.link(collection)` and parent objects with `obj.parent = root`. `root.children` is a read-only tuple, not a link API. A datablock inventory before saving does not prove scene membership or persistence: reopen the native revision and inspect it before accepting a foundation stage.
 - Scene and units: `scene = bpy.context.scene`; `scene.unit_settings.system = 'METRIC'`; `scene.unit_settings.scale_length = 1.0`. There is no `bpy.scene` or `scene.unit_system` property.
 - Construct meshes with `mesh.from_pydata(vertices, edges, faces)` or BMesh; check face indices and nonzero areas. Count evaluated triangles, not polygon faces.
 - Set Principled material values through inputs, e.g. `node.inputs["Base Color"].default_value`; append materials to empty mesh material lists.
@@ -103,7 +110,7 @@ finally:
     evaluated.to_mesh_clear()
 ```
 
-- If a focused repair actually needs an active object, the assignment is `bpy.context.view_layer.objects.active = obj`; selection is `obj.select_set(True)`. `scene.active_object` and `view_layer.active_object` are not valid APIs, `bpy.context.active_object` is read-only, and `bpy.ops.object.select_set` is not an operator. Selection alone does not establish an active mesh for mode-sensitive operators. These errors are not evidence that Blender 4.5 lacks Edit mode.
+- If a focused repair actually needs an active object, the assignment is `bpy.context.view_layer.objects.active = obj`; selection is `obj.select_set(True)`. `scene.active_object` and `view_layer.active_object` are not valid APIs, `bpy.context.active_object` is read-only, and `bpy.ops.object.select_set` is not an operator. Selection alone does not establish an active mesh for mode-sensitive operators. These errors are not evidence that the installed Blender lacks Edit mode.
 - Count pins/balls/lanes from actual scene objects, not the required-name list. Measure world-space bounds, pin spacing and contact, ball diameter, lane lengths/widths, gutter cross-sections and prop clearances. Check every required material/camera/light and collection/hierarchy rule; do not replace any check with an assumption or an unconditional True.
 - Ground/cameras/lights are presentation objects and must not be children of the asset root. Verify local delivered render files on the Mac at the exact specification paths; worker Python cannot see those Mac paths.
 - After any failed attempt, compare the proposed repair with the submitted source and traceback before resubmitting. Identical code against the same source does not become a repair by changing the narration. Stop after the bounded attempts in AGENTS.md; record FAIL/BLOCKED and the exact unresolved error rather than issuing an unlimited sequence.
