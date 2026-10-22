@@ -6,7 +6,7 @@
 - Next stage: 00 — Contract and scene safety
 - Active source job: none
 - Accepted job IDs: none for this run
-- Default model: `z6-llama/qwen38-blender-35b` — Qwen3.8 35B A3B Blender v1, 102,400-token context; the operator may select another configured model before `/kart-start`.
+- Default model: `z6-llama/qwen38-blender-35b` — Qwen3.8 35B A3B Blender v1, 262,144-token context; the operator may select another configured model before `/kart-start`.
 - Actual model used: not yet recorded
 - Execution host: Z6 (`z6-blender-worker`)
 - Operator intervention: none in this run

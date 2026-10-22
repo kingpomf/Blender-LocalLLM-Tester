@@ -80,9 +80,30 @@ Fetch `scene.blend` using `blender_artifact_fetch`, copy the verified download t
 ## 6. Render the actual asset
 
 - Before rendering, verify the scene has asset geometry and the intended active camera. Check camera framing against world-space asset bounds.
+- Select a named camera in an authoring revision with `scene.camera = bpy.data.objects['CAM_Kart01_Front']`. Aim it explicitly, e.g. `(target - camera.location).to_track_quat('-Z', 'Y').to_euler()` using a mathutils Vector target. Merely creating/moving a camera does not select it. A null active camera can cause the renderer to add its generic fallback camera; that is not proof the requested view rendered.
 - `blender_render(frames=[1, 2, 3, 4])` renders timeline frames, not four named cameras. Select cameras through authored timeline camera markers or separate source revisions with the correct active camera.
 - `blender_scene_modify` edits existing named meshes; it does not create a render sequence by accepting an arbitrary name such as `render_frames`.
 - `video_generate` is unrelated AI-video synthesis. It does not render the `.blend` and is not a substitute for the four required PNGs. `blender_video_preview` only assembles an already completed Blender render.
 - On a CPU render failure, read `blender_job_diagnostics` and inspect the verified source's `scene.json`. Do not repeatedly vary frame counts/resolution without evidence for that hypothesis. GPU-prefixed failures still require operator log review; the new diagnostics tool is CPU-only.
 
 Read the four PNGs before final acceptance, and verify that the GLB contains only the required asset hierarchy. Record any unavailable visual review honestly.
+
+## 7. Measure validation results; do not repair the scene while validating
+
+- Submit the actual saved validation script contents as `code`. A Mac file is not uploaded into `/job` by naming it, and a source revision only carries the native scene, not arbitrary scripts or render files from earlier jobs.
+- Validate scales by reading `obj.scale`; do not call `transform_apply` and then report a successful measurement. Likewise, count evaluated triangles without entering Edit mode or triangulating the source mesh:
+
+```python
+evaluated = obj.evaluated_get(bpy.context.evaluated_depsgraph_get())
+mesh = evaluated.to_mesh()
+try:
+    mesh.calc_loop_triangles()
+    triangle_count = len(mesh.loop_triangles)
+finally:
+    evaluated.to_mesh_clear()
+```
+
+- If a focused repair actually needs an active object, the assignment is `bpy.context.view_layer.objects.active = obj`; selection is `obj.select_set(True)`. `scene.active_object` and `view_layer.active_object` are not valid APIs, `bpy.context.active_object` is read-only, and `bpy.ops.object.select_set` is not an operator. Selection alone does not establish an active mesh for mode-sensitive operators. These errors are not evidence that Blender 4.5 lacks Edit mode.
+- Count wheels from actual scene objects, not the required-name list. Measure world-space bounds, wheel dimensions, ground contact, tracks, and wheelbase. Check every required material/camera/light and collection/hierarchy rule; do not replace any check with an assumption or an unconditional True.
+- Ground/cameras/lights are presentation objects and must not be children of the asset root. Verify local delivered render files on the Mac at the exact specification paths; worker Python cannot see those Mac paths.
+- After any failed attempt, compare the proposed repair with the submitted source and traceback before resubmitting. Identical code against the same source does not become a repair by changing the narration. Stop after the bounded attempts in AGENTS.md; record FAIL/BLOCKED and the exact unresolved error rather than issuing an unlimited sequence.

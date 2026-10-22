@@ -6,8 +6,8 @@
     "z6-llama": {
       "models": {
         "qwen38-blender-35b": {
-          "name": "Qwen3.8 35B A3B Blender v1 (100K)",
-          "limit": {"context": 102400, "output": 16384},
+          "name": "Qwen3.8 35B A3B Blender v1 (256K)",
+          "limit": {"context": 262144, "output": 16384},
           "tool_call": true,
           "reasoning": true,
           "modalities": {"input": ["text"], "output": ["text"]}
