@@ -2,7 +2,6 @@
   "$schema": "https://opencode.ai/config.json",
   "model": "z6-llama/qwen38-27b",
   "small_model": "z6-llama/qwen38-27b",
-  "enabled_providers": ["z6-llama"],
   "instructions": ["AGENTS.md"],
   "share": "disabled",
   "compaction": {
@@ -40,14 +39,23 @@
     }
   },
   "permission": {
-    "*": "deny",
+    "*": "ask",
     "read": "allow",
     "glob": "allow",
     "grep": "allow",
     "edit": "allow",
     "todowrite": "allow",
+    "question": "allow",
+    "skill": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "lsp": "allow",
+    "external_directory": {
+      "*": "ask",
+      "/Users/start/Library/CloudStorage/OneDrive-Personal/AI-Creative/Review/**": "allow"
+    },
     "bash": {
-      "*": "deny",
+      "*": "ask",
       "ls": "allow",
       "ls *": "allow",
       "test *": "allow",
@@ -55,6 +63,11 @@
       "git status*": "allow",
       "git diff*": "allow",
       "git log*": "allow",
+      "python artifacts/scripts/*": "allow",
+      "python3 artifacts/scripts/*": "allow",
+      "sips *": "allow",
+      "file artifacts/*": "allow",
+      "du *": "allow",
       "cp artifacts/downloads/* artifacts/*": "allow",
       "shasum -a 256 artifacts/*": "allow"
     },

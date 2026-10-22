@@ -1,38 +1,33 @@
 # Blender LocalLLM Tester
 
-An isolated, evidence-driven test of whether a local model can build a game-ready asset from staged Markdown requirements. The fresh run selects **Qwen3.8 27B Dense on the Z6**, with **Z6 Blender execution**.
+An isolated test of whether an agent can build one low-poly go-kart from measurable requirements: a Blender scene, GLB export, four review PNGs, and validation evidence.
 
-The challenge remains one low-poly go-kart: a Blender file, GLB export, four review renders, and a validation report, without silently relaxing the specification.
+## Current state: reset and ready for a fresh test
 
-## Current state: reset, ready for a fresh model run
+All build stages are NOT_STARTED and active output directories are empty. The interrupted Defiant Fable attempt is preserved under `artifacts/archive/defiant-fable-2026-10-22/`, including its diagnosis and historical job IDs. Previous work and its independent review remain under `artifacts/archive/pre-reset-2026-10-22/`; the earlier archive is also retained. No historical scene or PASS is reused.
 
-The authoring upgrade and all three review repairs are installed and verified
-on Z6. Topology inspection is accurate, supported texture dependencies survive
-scene revisions, and deployment cleanup/rollback regressions pass. The review
-hold is cleared. Details: `artifacts/reports/Z6_RESET.md`.
+Agent instructions now allow project-wide inspection, Blender documentation, local diagnostic scripts, clarification questions, and bounded repair/revalidation. Unfamiliar shell commands request confirmation rather than being denied outright. Asset specifications are unchanged.
 
-The previous checkpoint and `.blend` are preserved in `artifacts/archive/pre-z6-2026-10-21/`. All build stages have been reset; no old PASS is reused.
+## Run the next test
 
-The upgraded Z6 worker now exposes `blender_scene_author` for general Blender Python. Custom meshes, collections/units, hierarchy, node materials, cameras/lights, native reopen, render/export and inspection were verified through real MCP jobs; a queued CUDA render also passed. The initial recovery state is cleared and the gateway is healthy. See `artifacts/reports/Z6_RESET.md`. The specifications have not been weakened, and no Kart01 build has been submitted.
+1. Quit and restart OpenCode in this directory to load the updated configuration.
+2. Start a **new session** so the next agent does not inherit the previous run's conversation or loaded instructions.
+3. Select the model/agent you want to evaluate. The default remains `z6-llama/qwen38-27b`; this project no longer restricts providers to `z6-llama`.
+4. Confirm `z6-blender-worker` connects with `opencode mcp list`.
+5. Run `/kart-start`. The agent should read `WORKER_GUIDE.md`, record the actual model used, and start a new empty isolated Stage 00 scene.
+6. Review `BUILD_STATUS.md` and the generated artifacts. Completion requires every specification check to pass.
 
-## Start here
-
-1. Keep the global OpenCode `z6-llama` provider and `z6-blender-worker` server configured. This project inherits the provider endpoint/credentials and remote worker configuration; it declares the local launcher so its download override is applied. Its machine-local `BLENDER_DOWNLOADS` places verified worker artifacts under this repository's `artifacts/downloads/` so checkpoints can be copied to the required delivery paths. Update those local paths if you move the checkout.
-2. Quit and restart OpenCode in this repository to load the changed configuration.
-3. Run `opencode mcp list` and confirm `z6-blender-worker` connects.
-4. Run `/kart-start`. It checks the authoring capability and begins a fresh isolated Stage 00 scene.
-5. Review `BUILD_STATUS.md` and `artifacts/` after each stage. The agent records remote job IDs and copies hash-verified artifacts into the required local checkpoint/delivery paths.
-
-`z6-llama/qwen38-turbo` is an experimental configured alternative; Dense is the selected baseline. Do not run OpenCode `/init`; the repository already has a deliberate `AGENTS.md`.
+The project inherits provider credentials and remote worker settings from the machine's OpenCode configuration. Its Z6 MCP launcher sets `BLENDER_DOWNLOADS` to this repository's `artifacts/downloads/`. Update machine-local paths if moving the checkout.
 
 ## Repository map
 
-- `AGENTS.md` — operating contract and Z6 compatibility gate.
-- `opencode.json` — project-only model, MCP isolation, context, and permissions.
+- `AGENTS.md` — short workflow, verification, and asset boundaries.
+- `WORKER_GUIDE.md` — script entry points, explicit scene chaining, evidence files, local delivery, and rendering semantics.
+- `opencode.json` — default model, selected Blender host, and tool permissions.
 - `.opencode/commands/kart-start.md` — kickoff/resume command.
-- `spec/kart-01/` — unchanged, ordered build requirements; read only the active stage.
-- `BUILD_STATUS.md` — current checkpoint and test ledger.
-- `artifacts/archive/` — preserved previous runs.
-- `artifacts/` — generated assets, renders, reports, and scripts.
+- `spec/kart-01/` — unchanged asset requirements, Stages 00–09.
+- `BUILD_STATUS.md` — current run's stage ledger and job provenance.
+- `artifacts/{blend,exports,renders,downloads,reports,scripts}/` — current run's work; scripts also retains the model-discovery utility.
+- `artifacts/archive/` — preserved previous runs and review evidence.
 
-This is a capability test, not an Aiden Kart Racing production asset. Stop on failure and record objective evidence before resuming.
+This is a capability test, not a production racing-game asset. Do not run `/init`; the repository already supplies its instructions.

@@ -1,40 +1,49 @@
 # Kart01 Build Status
 
-## Run metadata
+## Fresh test — reset after interrupted Defiant Fable attempt, 2026-10-22
 
-- Status: READY — repairs verified on Z6; no Kart01 build submitted
-- Active stage: 00
-- Model: `z6-llama/qwen38-27b` (Qwen3.8 27B Dense)
+- Status: NOT_STARTED
+- Next stage: 00 — Contract and scene safety
+- Active source job: none
+- Accepted job IDs: none for this run
+- Default model: `z6-llama/qwen38-27b`; the operator may select another configured model before `/kart-start`.
+- Actual model used: not yet recorded
 - Execution host: Z6 (`z6-blender-worker`)
-- Previous run: preserved under `artifacts/archive/pre-z6-2026-10-21/`
-- Blender version: NOT RECORDED
-- Worker status: authoring.available=true; installed runtime hashes verified; gateway healthy, CODING_PROTECTED / ready
-- Started (UTC): NOT STARTED
-- Last updated (UTC): 2026-10-21
+- Operator intervention: none in this run
+- Active outputs: cleared; no previous PASS is reused
 
 ## Stage ledger
 
 | Stage | Name | Result | Evidence |
 | --- | --- | --- | --- |
-| 00 | Contract and scene safety | PENDING | Authoring and review repairs installed and verified; ready for a fresh Kart01 scene. |
-| 01 | Coordinate system and dimensions | PENDING | — |
-| 02 | Chassis and bumpers | PENDING | — |
-| 03 | Axles and wheels | PENDING | — |
-| 04 | Seat and steering | PENDING | — |
-| 05 | Materials | PENDING | — |
-| 06 | Hierarchy and transforms | PENDING | — |
-| 07 | Presentation cameras and lighting | PENDING | — |
-| 08 | Final validation | PENDING | — |
-| 09 | Export and delivery | PENDING | — |
+| 00 | Contract and scene safety | NOT_STARTED | |
+| 01 | Coordinate system and dimensions | NOT_STARTED | |
+| 02 | Chassis and bumpers | NOT_STARTED | |
+| 03 | Axles and wheels | NOT_STARTED | |
+| 04 | Seat and steering | NOT_STARTED | |
+| 05 | Materials | NOT_STARTED | |
+| 06 | Hierarchy and transforms | NOT_STARTED | |
+| 07 | Presentation cameras and lighting | NOT_STARTED | |
+| 08 | Final validation | NOT_STARTED | |
+| 09 | Export and delivery | NOT_STARTED | |
 
-## Current blocker
+## Start instruction
 
-None. Review findings R1–R3 were repaired and installed from worker commit `82a62e0`. Original-topology reporting, disconnected STL rejection, packed texture round-trip/CPU/CUDA rendering, explicit dependency errors, and deployment cleanup/rollback checks passed. The review hold is lifted. These fixture checks are not Kart01 stage passes. See `artifacts/reports/Z6_RESET.md` for evidence.
+Read `WORKER_GUIDE.md`, check current worker capabilities, record the actual selected model, and begin Stage 00 with a new empty isolated scene. Do not supply a historical `source_job`. Call stage functions unconditionally, then chain later stages using the preceding verified authoring job ID. Fetch/read `scene.json` and `report.json` before declaring stage PASS. Record each accepted job ID before polling and save verified outputs at the required paths.
 
-Resolved: the initial `RECOVERY_REQUIRED` state was cleared on 2026-10-21 with the user's explicit authorization using `POST /recovery/reconcile`. The later authoring deployment used a guarded gateway restart with model-service identities preserved. After a real CUDA fixture render, gateway health is `ok`, state `CODING_PROTECTED`, handoff `ready`. Both initial blockers are resolved.
+## Historical evidence
 
-See `artifacts/reports/Z6_RESET.md` for setup and verification evidence.
+- The interrupted Defiant Fable attempt is preserved in `artifacts/archive/defiant-fable-2026-10-22/`. See `ATTEMPT_REVIEW.md` for the execution-guard diagnosis and historical job IDs. No stage was independently verified as PASS.
+- The reviewed run, original rules/configuration, scripts, downloads, outputs, and independent review are preserved in `artifacts/archive/pre-reset-2026-10-22/`.
+- The earlier run remains in `artifacts/archive/pre-z6-2026-10-21/`.
+- Historical job IDs and stage results belong only to those runs.
 
-## Resume instruction
+## Reset verification (setup evidence, not a build PASS)
 
-Restart OpenCode and run `/kart-start`. Verify `authoring.available=true`, inspect a new empty isolated scene, then begin Stage 00 via `blender_scene_author`. Record accepted job/source IDs before polling, fetch the verified artifacts, and copy/hash-check the required local checkpoint. The previous run's PASS remains archived.
+- Installed OpenCode `1.18.34` successfully loaded the revised configuration with `opencode debug config`.
+- `opencode mcp list` confirmed `z6-blender-worker` connected; the other six configured MCP servers remain disabled.
+- All 10 stages are NOT_STARTED; active blend/export/render/download/report directories contain no generated outputs.
+- `spec/kart-01/` is unchanged from Git HEAD; `git diff --check` passed.
+- The previous reset archive retains its original 66-file manifest. The Defiant Fable archive contains 33 SHA-256-indexed files in its own `ARCHIVE_MANIFEST.json`; the diagnosed empty scene's hash was verified. Archived files are not current build evidence.
+- Both known AI-video jobs from the interrupted attempt were checked and were already completed. No new remote build/render/generation jobs were submitted during reset.
+- Start a new OpenCode session after restarting to avoid inherited conversation context. No build job has been submitted for this run.

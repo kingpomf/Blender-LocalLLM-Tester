@@ -1,59 +1,35 @@
-# Local Blender Technician Contract
+# Kart01 Agent Test
 
-## Mission
+## Goal
 
-Build exactly one asset, `Kart01`, by following the ordered files in `spec/kart-01/`. The fresh Z6 run selects `z6-llama/qwen38-27b` and operates Blender only through `z6-blender-worker`. This is a requirements-following and tool-use evaluation, not an open-ended art exercise.
+Build one low-poly go-kart, `Kart01`, using the requirements in `spec/kart-01/00-CONTRACT.md` through `09-DELIVERY.md`. The specifications define acceptance; do not weaken them to obtain a pass.
 
-## Z6 compatibility gate
+Start by reading `BUILD_STATUS.md`, `WORKER_GUIDE.md`, and the specifications needed to plan the work. You may inspect any relevant project files, consult Blender API documentation, use applicable skills, and ask clarification questions. Keep work focused on this asset.
 
-- Check `BUILD_STATUS.md` and `blender_capabilities` before submitting work. Require `authoring.available=true` and `blender_scene_author` in the current tool catalog. The Z6 authoring extension was installed and verified on 2026-10-21.
-- `blender_scene_author(code, source_job?)` supports general Blender Python in the isolated CPU job. Omit the source for a new empty Stage 00 scene; use the previous completed same-host CPU job ID for later stages. It auto-saves `scene.blend` and `scene.json`. Set `report` to JSON-compatible stage evidence and use assertions for required checks.
-- Use source revisions to set custom cameras, collection membership, units, hierarchy, mesh geometry, and materials. For queued GPU rendering call `blender_render` explicitly; do not try to access GPUs or the gateway from authoring code.
-- If `RECOVERY_REQUIRED` recurs, require operator reconciliation before GPU work. Do not release leases or change gateway ownership.
-- Use same-host job IDs throughout. Poll accepted jobs; never replay an uncertain submission. Fetch verified artifacts and record their actual local paths and provenance.
-- The archived scene under `artifacts/archive/` belongs to the previous run; do not resume or overwrite it.
+## Blender workflow
 
-## Context discipline
+- Use `z6-blender-worker` for Blender operations. Check connectivity and `authoring.available=true` before submitting work.
+- Start a fresh run with an isolated empty scene, omitting `source_job`. For later stages, revise the previous completed same-host authoring job. Inspect the scene before and after changes.
+- Author code runs with `__name__="__blender_author__"`. Execute stage functions with an unconditional top-level call; a `__main__`-only guard skips them. Fetch and read `scene.json` and `report.json`: `result.json.passed` means execution succeeded, not that stage requirements passed.
+- Save each submitted authoring script under `artifacts/scripts/`. Record accepted job IDs and source IDs in `BUILD_STATUS.md` before polling. Poll existing jobs; never replay an uncertain submission.
+- Worker Python runs inside `/job`, without access to Mac paths. Write extra outputs as flat files there, fetch verified artifacts, and record their actual paths. Use `blender_render` for queued GPU renders.
+- Keep a hash-verified current checkpoint at `artifacts/blend/Kart01.blend`. Update it after every passed stage, including later corrections. Deliver renders, reports, and exports at the specification paths.
 
-- At session start, read only this file, `BUILD_STATUS.md`, and `spec/kart-01/00-CONTRACT.md`.
-- Determine the next incomplete stage from `BUILD_STATUS.md`.
-- Read only that stage file plus any file it explicitly names.
-- Do not recursively scan the repository or preload every specification.
-- Do not use web search, external documentation, unrelated MCP servers, skills, or subagents.
-- Do not inspect or modify files outside this repository.
+## Diagnose and verify
 
-## Required workflow
+- Local Python, image/GLB inspection, checksums, and other relevant diagnostic tools are permitted. Read-only supporting files outside the repository may be consulted when relevant; keep generated work in this repository.
+- Ordinary API errors or failed checks may be diagnosed, fixed, and rechecked. Keep the stage FAIL until its checks pass; do not advance dependent stages with unresolved failures. After three unsuccessful repair attempts on the same issue, report the evidence and ask for help.
+- Validate actual evaluated geometry, dimensions, transforms, hierarchy, materials, and triangle counts rather than intended parameters. Save machine-readable validation at `artifacts/reports/validation.json`.
+- Inspect the rendered images and camera framing. File existence alone is not proof that a render shows the asset. If image viewing is unavailable, use geometric framing checks and report any remaining visual-review limitation.
+- Revalidate affected stages after corrections. The delivered `.blend`, GLB, PNGs, and reports must correspond to the same final asset revision.
+- Update `BUILD_STATUS.md` and `artifacts/reports/BUILD_REPORT.md` with objective PASS/FAIL/BLOCKED evidence. Mark COMPLETE only when every Stage 00–09 requirement passes; any failed required check means FAIL.
 
-For each numbered stage:
+## Boundaries
 
-1. Inspect the current Blender scene before changing it.
-2. Compare the scene with the stage's measurable requirements.
-3. Make only the focused changes needed for that stage.
-4. Re-inspect object names, transforms, dimensions, hierarchy, and materials relevant to that stage.
-5. Save `artifacts/blend/Kart01.blend`.
-6. Update `BUILD_STATUS.md` with PASS, FAIL, or BLOCKED and objective evidence.
-7. Stop on failure or uncertainty. Never mark a stage complete based only on appearance.
+- Preserve user-created content and `artifacts/archive/`. Historical artifacts are evidence, not starting assets for a fresh test.
+- Keep Blender's X/Y ground plane and Z-up convention. Follow the specifications' asset-import restrictions.
+- Keep the workflow on Z6. Do not release leases, change gateway ownership, or interrupt protected workloads.
+- Ask before installing dependencies or making unrelated changes outside the project.
+- Do not commit or push without explicit user approval.
 
-Save reusable authoring scripts under `artifacts/scripts/` before submitting their contents to `blender_scene_author`. The worker executes the submitted copy inside `/job`; it cannot see Mac filesystem paths. Do not execute arbitrary code from outside this repository.
-
-## Remote artifacts and local checkpoints
-
-- Record each accepted job ID and its source ID in `BUILD_STATUS.md` immediately, before polling, so interruption cannot lose the resume identity.
-- Fetch completed artifacts with `blender_artifact_fetch`. This project's download root is `artifacts/downloads/`; each job gets its own subdirectory.
-- Copy verified `artifacts/downloads/JOB_ID/scene.blend` to `artifacts/blend/Kart01.blend` after each passed stage, using the permitted repository-local `cp` command. Verify the destination SHA-256 with `shasum -a 256` against the manifest. Keep the immutable remote source job ID for resuming and re-inspecting.
-- Similarly copy verified exports/renders/reports into the exact specification paths under `artifacts/`. Write custom worker outputs as flat files in `/job`, then fetch them. Use authoring Python for GLB export selection/hierarchy when the simple mesh-only export tool is insufficient.
-- Local artifact copies are delivery bookkeeping, not Blender operations. Do not copy archived assets into the fresh run or mark a stage passed without its required evidence.
-
-## Hard boundaries
-
-- Preserve Blender's X/Y ground plane and Z-up convention.
-- Work only in the isolated `Kart01` scene/file.
-- Do not import downloaded assets or textures.
-- Do not delete unrelated scene content unless `00-CONTRACT.md` explicitly authorizes initial cleanup.
-- Do not change a requirement to make the build pass.
-- Do not push Git commits. A commit may be created only after the user explicitly approves it.
-- Do not claim completion until every item in `08-VALIDATION.md` passes and `09-DELIVERY.md` is complete.
-
-## Output discipline
-
-Keep chat responses brief. Put detailed evidence in `BUILD_STATUS.md` and `artifacts/reports/BUILD_REPORT.md`. Report the current stage, result, produced files, failed checks, and exact next action.
+Keep chat updates concise; put detailed evidence in the project reports. Record the model actually used and any operator intervention so the evaluation remains attributable.

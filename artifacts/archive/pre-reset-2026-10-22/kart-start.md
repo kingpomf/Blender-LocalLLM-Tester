@@ -1,0 +1,5 @@
+---
+description: Build or resume the staged Kart01 challenge
+---
+
+Read `AGENTS.md`, `BUILD_STATUS.md`, and `spec/kart-01/00-CONTRACT.md` only. Verify `z6-blender-worker` connectivity, `authoring.available=true`, and the `blender_scene_author` tool. If either is absent, report BLOCKED and stop. For a fresh Stage 00, use an initial authoring job to inspect and report an empty isolated scene before changing it; record its accepted ID immediately. Re-inspect the completed source for resumed work. Determine the first incomplete stage, read only that stage specification, then execute via an authoring revision, validate, save, and document it. Fetch and hash-check the local `.blend` checkpoint and required outputs according to `AGENTS.md`. Record every accepted job/source ID before polling. Continue sequentially while stages pass. Stop immediately on FAIL, BLOCKED, tool failure, or ambiguous scene state. Do not reuse the archived run, release leases, change gateway ownership, or push commits.
