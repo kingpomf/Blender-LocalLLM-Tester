@@ -3,7 +3,7 @@
 Read this before the first authoring submission. These notes describe the current worker interface; the active asset requirements are in `spec/bowling-pair-01/`.
 
 Use the distinct `bowling-blender52` connection, Blender 5.2.3 and the fresh
-`var/bowling52-guarded-20261022` CPU queue. Read `RUNTIME_52.md`. Capabilities
+`var/bowling52-nemotron-20261023` CPU queue. Read `RUNTIME_52.md`. Capabilities
 must confirm actual runtime verification before work. The old connection is
 disabled. On any tool STOP, checkpoint and return BLOCKED, not another tool loop.
 Use `blender_render` with `device="CPU"`.

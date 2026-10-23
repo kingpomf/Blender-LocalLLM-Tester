@@ -1,13 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "z6-llama/qwen38-blender-35b",
-  "small_model": "z6-llama/qwen38-blender-35b",
+  "model": "z6-llama/nemotron35-bolt-e4b",
+  "small_model": "z6-llama/nemotron35-bolt-e4b",
   "provider": {
     "z6-llama": {
       "models": {
-        "qwen38-blender-35b": {
-          "name": "Qwen3.8 35B A3B Blender v1 (256K)",
-          "limit": {"context": 262144, "output": 16384},
+        "nemotron35-bolt-e4b": {
+          "name": "Nemotron 3.5 Bolt E4B Q8 (64K)",
+          "limit": {"context": 65536, "output": 16384},
           "tool_call": true,
           "reasoning": true,
           "modalities": {"input": ["text"], "output": ["text"]}

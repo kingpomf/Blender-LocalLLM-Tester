@@ -17,7 +17,7 @@ from submission_guard import SubmissionGuard
 PROJECT = Path(__file__).resolve().parents[1]
 REMOTE_APP = '/home/kingpomf/Development/blender-new-llm-setup'
 BINARY = REMOTE_APP + '/tools/blender-5.2.3-linux-x64/blender'
-TRIAL = 'bowling52-guarded-20261022'
+TRIAL = 'bowling52-nemotron-20261023'
 EXPECTED = '5.2.3 LTS'
 
 # Read-only host probe: verifies the executable and any runner owning this queue.
@@ -86,8 +86,10 @@ class ProjectTransport(SSHTransport):
 
 
 def server(qualification=False):
-    suffix = '-qualification' if qualification else ''
-    root = REMOTE_APP + '/var/' + TRIAL + suffix
+    # Keep existing infrastructure fixtures in their original queue. They are
+    # never sources or budget entries for a fresh model evaluation.
+    queue = 'bowling52-guarded-20261022-qualification' if qualification else TRIAL
+    root = REMOTE_APP + '/var/' + queue
     local = PROJECT / ('testing/blender52-guarded' if qualification else '.runtime/blender52')
     downloads = local / 'downloads' if qualification else PROJECT / 'artifacts/downloads'
     client = ProjectTransport('kingpomf@z6-llm', REMOTE_APP, root, BINARY, str(downloads))

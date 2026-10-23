@@ -12,6 +12,8 @@ testing/**/*.log
 artifacts/archive/**/*.blend
 artifacts/archive/**/*.json
 artifacts/archive/**/*.log
+artifacts/archive/**/*.sqlite*
+artifacts/archive/**/*.lock
 artifacts/downloads/
 artifacts/blend/*.blend
 artifacts/exports/*.glb

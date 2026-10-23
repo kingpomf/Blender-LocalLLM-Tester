@@ -10,7 +10,7 @@ all ten files in spec/bowling-pair-01/ to plan the assembly.
 
 FIRST call capabilities through the distinct `bowling-blender52` connection.
 Require runtime_verified=true, actual_version="Blender 5.2.3 LTS", and root ending
-`var/bowling52-guarded-20261022`. If this connection is missing, STOP and ask for a
+`var/bowling52-nemotron-20261023`. If this connection is missing, STOP and ask for a
 full OpenCode restart. Do not use z6-blender-worker or other Blender tools.
 Run `python3 scripts/check_resume.py`. Reconcile pending work before submission.
 
@@ -30,5 +30,5 @@ On any tool STOP, duplicate-rejection or exhausted budget, save evidence and
 return BLOCKED immediately. No repeated blocked calls, guard resets or bypasses.
 The Build-agent turn has a 60-step limit. Complete the current stage or checkpoint
 partial work, then return for the operator to invoke the next stage. Preserve the
-256K/no-compaction settings. Use CPU renders only. Do not edit test infrastructure,
+64K/no-compaction settings. Use CPU renders only. Do not edit test infrastructure,
 commit or push. All archived attempts are evidence, not starting assets.

@@ -1,0 +1,125 @@
+{
+  "purpose": "Authorized reset for a new Nemotron evaluation; preserve failed Blender-specialist run and exhausted tool ledger without reusing its PASS claims",
+  "files": {
+    "AGENTS.md": {
+      "bytes": 8155,
+      "sha256": "5ef91bc43b1defe01512267fe7d5f7a471b052e22b4eb8a609c9a0418be2333c"
+    },
+    "BUILD_STATUS.md": {
+      "bytes": 3813,
+      "sha256": "22dc751b8c73138d62c80908b8e40ed304542537f0b4589ec26c7377e2d9b401"
+    },
+    "HANDOFF.md": {
+      "bytes": 1655,
+      "sha256": "8efa019c84d9468ffe5db14658cd9443b0e3e49769ea39ab162a63d0d5b2a92b"
+    },
+    "LSP_SETUP.md": {
+      "bytes": 2919,
+      "sha256": "d04580bd2bf238393a7902035d4aa4ad2b0fffe00e974b6bf47fefb3b218ed82"
+    },
+    "MODEL_SETUP.md": {
+      "bytes": 4634,
+      "sha256": "c2a64f11174c3b59223c7af96ce9386ab0adc172f493e1fe8b83113e8df03996"
+    },
+    "README.md": {
+      "bytes": 3323,
+      "sha256": "86207559085d01a59be105eed4c0bb4572403bd05326106213f5f68ffc14f2b4"
+    },
+    "RUNTIME_52.md": {
+      "bytes": 5917,
+      "sha256": "e8683a0c1f1d589e08a01d1bdfd17f46bddc27e68891bc629b238ed4452e8a92"
+    },
+    "WORKER_GUIDE.md": {
+      "bytes": 9947,
+      "sha256": "99f08c82d897d5433a1f169b5e7d1fc1c65a61f799ab40f813ac39c6fc828b10"
+    },
+    "blend/BowlingPair01.blend": {
+      "bytes": 104829,
+      "sha256": "61a1a6d8cb96c2b789147df51248692251f40d2b110cacd7cf2299b49348665b"
+    },
+    "bowling-start.md": {
+      "bytes": 2027,
+      "sha256": "cadc5db84740d18b329f32c770f713241bd9e970a6ed00b0304d6e5ac54965e1"
+    },
+    "downloads/13ca804e3a91441fb1545d9305e0e3f9/report.json": {
+      "bytes": 846,
+      "sha256": "71712f6e2057f61a9db81ce8ecbb7366729a64cd0432711b269158fdddb48ba7"
+    },
+    "downloads/13ca804e3a91441fb1545d9305e0e3f9/scene.blend": {
+      "bytes": 96078,
+      "sha256": "ae40f0175b212fea02c8258986c731f7c501a8e394df73a51f4ec6d72d4401b2"
+    },
+    "downloads/13ca804e3a91441fb1545d9305e0e3f9/scene.json": {
+      "bytes": 36580,
+      "sha256": "82bbf5b5c439b77728ae221ab06f2e605b71f4815670ad7bf31f87c0da2bdf43"
+    },
+    "downloads/196cdb8cfa614597a323a7669b7a28bc/report.json": {
+      "bytes": 609,
+      "sha256": "aac3ddb88c254f6361f449de844ef41fa3595b927a716b33b0db3d83bdc6aae5"
+    },
+    "downloads/196cdb8cfa614597a323a7669b7a28bc/scene.blend": {
+      "bytes": 104829,
+      "sha256": "61a1a6d8cb96c2b789147df51248692251f40d2b110cacd7cf2299b49348665b"
+    },
+    "downloads/196cdb8cfa614597a323a7669b7a28bc/scene.json": {
+      "bytes": 69011,
+      "sha256": "a5dde11b08a08da80820706247729f1529078ce3a76a4de21b29609d16369b82"
+    },
+    "downloads/2773bdbdddbe4893be6dab21c629d14e/report.json": {
+      "bytes": 483,
+      "sha256": "cc7f496c0dc975d573a10f75329fcd38cbc67c4e817b8aa328b22f57735f34b0"
+    },
+    "downloads/2773bdbdddbe4893be6dab21c629d14e/scene.blend": {
+      "bytes": 99692,
+      "sha256": "86d8c20694878996081a3f918069b87a26a351d9d8fa68dbfaeb725d6d3c9557"
+    },
+    "downloads/2773bdbdddbe4893be6dab21c629d14e/scene.json": {
+      "bytes": 46813,
+      "sha256": "dc178b68e10cc94b73eb3e58936aa7a071064c02d5dc621fc38e0daaa144c751"
+    },
+    "downloads/2b08a9f66e1f49debaa8a466b8e5ce56/report.json": {
+      "bytes": 480,
+      "sha256": "3f586f415b92c41046183698c88385c5abe6cbbe1ddbf0f45776473873cbc8e3"
+    },
+    "downloads/2b08a9f66e1f49debaa8a466b8e5ce56/scene.blend": {
+      "bytes": 86172,
+      "sha256": "8d9aaa4b4f8a75cf2c1ed37e18da785d37b0e2826d8b51c3bdbee69a4144f25e"
+    },
+    "downloads/2b08a9f66e1f49debaa8a466b8e5ce56/scene.json": {
+      "bytes": 1786,
+      "sha256": "2b134b269981c980d2ff231c596ba5b3f79860f175c5051084f4875a59cc0086"
+    },
+    "guard/submissions.lock": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "guard/submissions.sqlite": {
+      "bytes": 16384,
+      "sha256": "6f54f427920670e42a9d44b04a1810e3c696549528eceb11aa663a5526cece81"
+    },
+    "opencode.json": {
+      "bytes": 2688,
+      "sha256": "29bb3bf258530e2ca48fc6004cfacacfdc4c01c75cf64bf234ff78b419f85b59"
+    },
+    "scripts/stage_00_contract.py": {
+      "bytes": 1950,
+      "sha256": "3392e87cbfafff972cdb3333f701d835b49cff8cdcc6f1ed4e428f24f7f665bf"
+    },
+    "scripts/stage_01_lanes.py": {
+      "bytes": 5420,
+      "sha256": "356cb8204dce2249e42c4f7eaf9000cbe402d1d688bc8b12a4ee3cf9ea2b9cd0"
+    },
+    "scripts/stage_02_gutters.py": {
+      "bytes": 7357,
+      "sha256": "32a5bde27e595d9a9cc8f69293c6bee31428525cb313f5d8bb78ed921ffa3491"
+    },
+    "scripts/stage_03_pins.py": {
+      "bytes": 6507,
+      "sha256": "ab88c19358c80726056918ac31c125c957d67f4108b9fd327c3c936b8ee47262"
+    },
+    "scripts/stage_04_balls.py": {
+      "bytes": 3030,
+      "sha256": "650fa4fba3116641e876cfb5b70e22fe552099701c32cf2072ff0ff824bb23f4"
+    }
+  }
+}

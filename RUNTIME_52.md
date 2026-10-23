@@ -1,4 +1,4 @@
-# Guarded Blender 5.2 trial — 2026-10-22
+# Guarded Blender 5.2 trial — fresh Nemotron evaluation, 2026-10-23
 
 ## Start
 
@@ -22,8 +22,9 @@ python3 scripts/check_resume.py
 - Archive SHA-256: `78486c018b4443efe5e75ab54c290ed8c15abafd249b862c2c9ce2530a918eec`.
 - Official release: <https://download.blender.org/release/Blender5.2/>.
 - Project stubs: **fake-bpy-module-5.2==20260730**, Pyright **1.1.414**.
-- Fresh trial queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-guarded-20261022`.
-- Qualification queue: same path with `-qualification`; separate local state/downloads.
+- Selected model: `z6-llama/nemotron35-bolt-e4b`, 65,536-token context.
+- Fresh trial queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-nemotron-20261023`.
+- Qualification queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-guarded-20261022-qualification`; separate local state/downloads, unchanged historical fixture IDs.
 
 The launcher pins host, binary and root directly; inherited environment values
 cannot redirect them. Before every submission it runs the actual executable's
@@ -84,10 +85,13 @@ from source `d53cac634a2b41ab89dcc92b61fc4976`. Why its process retained/selecte
 the old connection was not established; the new server identity makes this mismatch
 visible. It must not be reported as a 5.2 model result.
 
-All active local output/scripts and pre-reset ledgers/tooling were archived with
-hashes at `artifacts/archive/bowling-loop-2026-10-22/`. Native binaries/job data may
+The earlier loop and pre-reset tooling were archived with hashes at
+`artifacts/archive/bowling-loop-2026-10-22/`. The final 5.2 old-model attempt,
+active output/scripts/ledgers and exhausted guard are now preserved at
+`artifacts/archive/blender52-specialist-final-2026-10-23/` for the authorized
+Nemotron reset. Native scenes/job data/guard databases may
 be Git-ignored, so the local archive is more complete than Git. Old remote queues
-are preserved. No historical source or PASS is reused. All ten bowling stages
+are preserved. No historical source, implementation or PASS is reused. All ten bowling stages
 are NOT_STARTED; infrastructure fixtures were run only in the qualification queue.
 
 ## Operator recovery

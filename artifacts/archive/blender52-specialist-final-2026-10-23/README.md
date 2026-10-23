@@ -1,0 +1,54 @@
+# Blender LocalLLM Tester — BowlingPair01
+
+Test the selected local LLM against **Blender 5.2.3 LTS** with matching
+5.2 typing stubs, measured asset specifications and enforced retry limits.
+The selected model is now **Nemotron 3.5 Bolt E4B Q8 (64K)**. The previous
+Blender-specialist model was retired and deleted from Z6. Its failed bowling run
+is preserved; changing the model does not reset its guard budget or certify its
+stage PASS claims. See `MODEL_SETUP.md` and the checkpoints before a new trial.
+
+## Run
+
+1. Fully quit/restart OpenCode in this repository on `project/bowling-alley-pair`.
+2. Open a new session and select the local model (default `z6-llama/nemotron35-bolt-e4b`).
+3. Confirm **bowling-blender52** is connected; the old **z6-blender-worker** is disabled.
+4. Run **`/bowling-start`**. It verifies the actual 5.2 runtime and completes/resumes
+   **one stage**, then checkpoints and returns. Repeat the command for later stages.
+5. If the tool reports STOP, review the blocker before continuing. Do not reset
+   the guard or blindly rerun. Review final renders, reports and exports.
+
+Build-agent turns are limited to 60 iterations. Unchanged failed scripts are
+rejected; three failures per source or six total exhaust the durable budget.
+Automatic compaction/pruning remain off for the selected 64K context. See `RUNTIME_52.md`
+for runtime identity, qualification evidence, operator recovery and limitations.
+Rendering is CPU-only, on the same 5.2 runtime as authoring.
+
+## Assignment
+
+Build two adjacent lanes with approaches, markings, four gutters, decks and pits;
+twenty independently movable pins; three balls with real recessed finger holes;
+shared ball return, seating, scoreboards and alley dressing. Follow the ten
+files under `spec/bowling-pair-01/`. No implementation is supplied to the model.
+
+Deliver an editable Blender scene, assembled visual GLB, standalone pin and three
+ball GLBs, static collision GLB, four PNGs, measured validation, integration notes
+and a SHA-256 manifest. Lane/fixture objects stay separate within the full-pair
+export. Game logic and playable simulation are outside the assignment.
+
+## Files
+
+- `AGENTS.md`, `.opencode/commands/bowling-start.md` — active workflow.
+- `BUILD_STATUS.md`, `HANDOFF.md` — current trial ledger and next action.
+- `WORKER_GUIDE.md`, `RUNTIME_52.md`, `LSP_SETUP.md` — tool usage and evidence.
+- `scripts/blender52_mcp.py`, `scripts/submission_guard.py` — scoped MCP and circuit breaker.
+- `scripts/preflight_blender52.py` — actual runtime/config preflight with no build job.
+- `scripts/check_resume.py` — read-only ledger consistency check.
+- `testing/blender52-guarded/` — separate runtime/guard qualification evidence.
+- `artifacts/{blend,exports,renders,downloads,reports,scripts}/` — fresh model outputs.
+- `.runtime/blender52/` — ignored, durable tool-owned guard state. Do not clear it mid-trial.
+- `artifacts/archive/bowling-loop-2026-10-22/` — preserved failed run and pre-reset tooling.
+- `spec/kart-01/`, older archives and session reviews — historical evidence only.
+
+The previous looping run used 4.5.14, despite its ledger saying 5.2, and submitted
+identical failed code 33 times. Its PASS claims are not this trial's evidence.
+Do not run `/init`; this repository already provides its instructions.

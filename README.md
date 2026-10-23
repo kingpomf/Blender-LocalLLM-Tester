@@ -1,13 +1,18 @@
 # Blender LocalLLM Tester — BowlingPair01
 
-Test the local Blender-specialist LLM against **Blender 5.2.3 LTS** with matching
+Test the selected local LLM against **Blender 5.2.3 LTS** with matching
 5.2 typing stubs, measured asset specifications and enforced retry limits.
-The bowling trial is reset: **all ten stages NOT_STARTED**, no reused scene.
+The selected model is now **Nemotron 3.5 Bolt E4B Q8 (64K)**. The previous
+Blender-specialist model was retired and deleted from Z6. A fresh Nemotron
+evaluation was explicitly reset on 2026-10-23: **all ten stages NOT_STARTED**,
+no active outputs or source job, and a new queue with an empty guard budget.
+The failed old run and guard are archived; none of its PASS claims carries over.
+See `MODEL_SETUP.md` and the checkpoints.
 
 ## Run
 
 1. Fully quit/restart OpenCode in this repository on `project/bowling-alley-pair`.
-2. Open a new session and select the local model (default `z6-llama/qwen38-blender-35b`).
+2. Open a new session and select the local model (default `z6-llama/nemotron35-bolt-e4b`).
 3. Confirm **bowling-blender52** is connected; the old **z6-blender-worker** is disabled.
 4. Run **`/bowling-start`**. It verifies the actual 5.2 runtime and completes/resumes
    **one stage**, then checkpoints and returns. Repeat the command for later stages.
@@ -16,7 +21,7 @@ The bowling trial is reset: **all ten stages NOT_STARTED**, no reused scene.
 
 Build-agent turns are limited to 60 iterations. Unchanged failed scripts are
 rejected; three failures per source or six total exhaust the durable budget.
-Automatic compaction/pruning remain off for the 256K trial. See `RUNTIME_52.md`
+Automatic compaction/pruning remain off for the selected 64K context. See `RUNTIME_52.md`
 for runtime identity, qualification evidence, operator recovery and limitations.
 Rendering is CPU-only, on the same 5.2 runtime as authoring.
 
@@ -44,6 +49,7 @@ export. Game logic and playable simulation are outside the assignment.
 - `artifacts/{blend,exports,renders,downloads,reports,scripts}/` — fresh model outputs.
 - `.runtime/blender52/` — ignored, durable tool-owned guard state. Do not clear it mid-trial.
 - `artifacts/archive/bowling-loop-2026-10-22/` — preserved failed run and pre-reset tooling.
+- `artifacts/archive/blender52-specialist-final-2026-10-23/` — final old-model 5.2 attempt and exhausted guard before the Nemotron reset.
 - `spec/kart-01/`, older archives and session reviews — historical evidence only.
 
 The previous looping run used 4.5.14, despite its ledger saying 5.2, and submitted

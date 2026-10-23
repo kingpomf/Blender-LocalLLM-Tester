@@ -11,7 +11,8 @@ intervention, not a repaired bowling asset or stage PASS. See `RUNTIME_52.md`.
 - `pyrightconfig.json` uses project Python 3.11, basic checking, and excludes
   historical archives. The worker source is an extra import path for the local
   MCP launcher/operator utilities. Their execution uses the worker's environment.
-- Model context and compaction settings are unchanged.
+- Model selection/context are documented in `MODEL_SETUP.md` (Nemotron at 64K).
+  Compaction settings remain unchanged.
 
 Type stubs do not implement Blender. Execute bpy scripts through the worker,
 not local Python. To restore the pinned checker environment:

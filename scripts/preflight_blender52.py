@@ -16,6 +16,9 @@ async def main():
     result = subprocess.run(['opencode', 'debug', 'config'], cwd=root,
                             capture_output=True, text=True, check=True)
     config = json.loads(result.stdout)
+    assert config['model'] == 'z6-llama/nemotron35-bolt-e4b'
+    assert config['small_model'] == config['model']
+    assert config['provider']['z6-llama']['models']['nemotron35-bolt-e4b']['limit']['context'] == 65536
     assert config['mcp']['z6-blender-worker']['enabled'] is False
     mcp = config['mcp']['bowling-blender52']
     assert mcp['enabled']
@@ -32,7 +35,9 @@ async def main():
             value = result.structuredContent or json.loads(next(item.text for item in result.content if item.type == 'text'))
             assert value and value['runtime_verified']
             assert value['actual_version'] == 'Blender 5.2.3 LTS'
+            assert value['root'].endswith('/var/bowling52-nemotron-20261023')
             evidence = {'passed': True, 'server': 'bowling-blender52',
+                              'selected_model': config['model'], 'context_size': 65536,
                               'max_agent_steps': 60, 'tools': [t.name for t in tools.tools],
                               'capabilities': value}
             print(json.dumps(evidence, indent=2))

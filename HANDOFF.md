@@ -1,4 +1,4 @@
-# BowlingPair01 Session Handoff
+# BowlingPair01 Session Handoff — fresh Nemotron trial
 
 - Run status: NOT_STARTED
 - Current stage: 00 — Contract and scene safety
@@ -6,16 +6,19 @@
 - Pending job: none
 - Pending source job: none
 - Latest verified local checkpoint: none
-- Next action: New OpenCode process/session; `/bowling-start`; require bowling-blender52 capabilities and actual Blender 5.2.3 LTS, then build and verify Stage 00 only.
-- Trial mode: guarded 5.2 trial; 60 Build-agent steps per turn; automatic compaction/pruning OFF
+- Next action: Restart OpenCode, new Nemotron 64K session, `/bowling-start`; verify the new trial queue and build Stage 00 only.
+- Trial queue: var/bowling52-nemotron-20261023
+- Trial mode: 65,536-token context; automatic compaction/pruning OFF; 60 iterations per turn
 
-Keep source IDs bare, without parenthetical text. The verified source stays
-unchanged when submitting a job; put its new ID in Pending job and record its
-source separately. Update both checkpoints before polling and after each result.
-Execution success is not measured stage acceptance. A failed/pending job is never
-the verified source. Tool-owned `.runtime/blender52/submissions.sqlite` also
-records accepted IDs, uncertain submissions and durable failure budgets.
+This reset was explicitly authorized on 2026-10-23. The old checkpoint, all
+model-authored scripts and exhausted guard were archived at
+`artifacts/archive/blender52-specialist-final-2026-10-23/`. No historical source,
+implementation or stage PASS is reused. The new tool-owned guard starts empty.
 
-On any STOP/circuit-breaker error, save evidence and return BLOCKED. Do not clear
-guard state, change tools, switch queues or repeatedly call a blocked submission.
-Original work is preserved in `artifacts/archive/bowling-loop-2026-10-22/`.
+Keep source IDs bare. Immediately record accepted IDs and pending source in both
+ledgers before polling; retain the last verified completed source until measured
+acceptance passes. Stage result and overall run status are distinct: overall
+status must be NOT_STARTED, IN_PROGRESS, FAIL, BLOCKED or COMPLETE. Update all
+related metadata together, then run `python3 scripts/check_resume.py`.
+
+On a tool STOP, save evidence and return BLOCKED. Do not clear/bypass guard state.

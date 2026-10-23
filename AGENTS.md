@@ -6,7 +6,12 @@ Build a modular, game-ready bowling alley pair, `BowlingPair01`, using `spec/bow
 
 Start by reading `BUILD_STATUS.md`, `HANDOFF.md`, `WORKER_GUIDE.md`, and the specifications needed to plan the work. Run `python3 scripts/check_resume.py` before submitting work. If it flags stale/contradictory progress, reconcile the saved artifacts and accepted jobs before continuing; do not start over or delete them. You may inspect any relevant project files, consult Blender API documentation, use applicable skills, and ask clarification questions. Keep work focused on this asset.
 
-**Current trial:** use a fresh 262,144-token session with project automatic
+**Selected model:** `z6-llama/nemotron35-bolt-e4b` (65,536-token context). The
+previous Blender-specialist model is retired. The operator authorized a fresh
+Nemotron trial on 2026-10-23; all old scenes, scripts and guard state are archived.
+No previous source or PASS is reused. Read the checkpoints before submitting.
+
+**Trial context:** use a fresh 65,536-token session with project automatic
 compaction and pruning disabled. Work on **one stage per user invocation**, then
 checkpoint and return. The Build agent is capped at 60 iterations per turn.
 Do not manually compact or change these settings. If context is exhausted,
@@ -14,7 +19,7 @@ checkpoint and report that outcome; a new session is a separately labelled conti
 
 ## Blender workflow
 
-- Use ONLY `bowling-blender52` tools. Read `RUNTIME_52.md`; capabilities must show `runtime_verified=true`, `actual_version="Blender 5.2.3 LTS"`, and root ending `var/bowling52-guarded-20261022`. If that connection is absent, STOP and request an OpenCode restart. Never substitute the disabled `z6-blender-worker`. Use `device="CPU"` for renders.
+- Use ONLY `bowling-blender52` tools. Read `RUNTIME_52.md`; capabilities must show `runtime_verified=true`, `actual_version="Blender 5.2.3 LTS"`, and root ending `var/bowling52-nemotron-20261023`. If that connection is absent, STOP and request an OpenCode restart. Never substitute the disabled `z6-blender-worker`. Use `device="CPU"` for renders.
 - Start a fresh run with an isolated empty scene, omitting `source_job`. For later stages, revise the previous completed same-host authoring job. Inspect the scene before and after changes.
 - Fresh means **zero objects**: no default Cube, Camera, or Light exists to delete. Use `scene = bpy.context.scene` and `scene.unit_settings.system`, not `bpy.scene` or `scene.unit_system`. Omit `source_job` or use JSON null for a fresh scene; never send the string `"None"`.
 - Author code runs with `__name__="__blender_author__"`. Execute stage functions with an unconditional top-level call; a `__main__`-only guard skips them. Fetch and read `scene.json` and `report.json`: `result.json.passed` means execution succeeded, not that stage requirements passed.
