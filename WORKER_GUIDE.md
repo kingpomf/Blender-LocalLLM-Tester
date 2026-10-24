@@ -3,12 +3,18 @@
 Read this before the first authoring submission. These notes describe the current worker interface; the active asset requirements are in `spec/bowling-pair-01/`.
 
 Use the distinct `bowling-blender52` connection, Blender 5.2.3 and the fresh
-`var/bowling52-nemotron-20261023` CPU queue. Read `RUNTIME_52.md`. Capabilities
+`var/bowling52-qwen36-mtp-q8-20261023` CPU queue. Read `RUNTIME_52.md`. Capabilities
 must confirm actual runtime verification before work. The old connection is
 disabled. On any tool STOP, checkpoint and return BLOCKED, not another tool loop.
 Use `blender_render` with `device="CPU"`.
 
 ## Session resume preflight
+
+Complete the image-first prerequisite in `REFERENCE_IMAGES.md` before the first
+authoring call. `/bowling-references` uses the installed Z6 vision model and
+EliteDesk WSL imageMCP generation. The wrapper checks three distinct downloaded
+references, decoded images, result receipts, hashes and visual design guide before
+reserving a Blender author job. Read the guide before constructing subsequent stages.
 
 Read `BUILD_STATUS.md` and `HANDOFF.md`, then run `python3 scripts/check_resume.py`.
 The checker is read-only: it flags contradictory stage/status/source metadata,

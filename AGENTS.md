@@ -6,20 +6,29 @@ Build a modular, game-ready bowling alley pair, `BowlingPair01`, using `spec/bow
 
 Start by reading `BUILD_STATUS.md`, `HANDOFF.md`, `WORKER_GUIDE.md`, and the specifications needed to plan the work. Run `python3 scripts/check_resume.py` before submitting work. If it flags stale/contradictory progress, reconcile the saved artifacts and accepted jobs before continuing; do not start over or delete them. You may inspect any relevant project files, consult Blender API documentation, use applicable skills, and ask clarification questions. Keep work focused on this asset.
 
-**Selected model:** `z6-llama/nemotron35-bolt-e4b` (65,536-token context). The
-previous Blender-specialist model is retired. The operator authorized a fresh
-Nemotron trial on 2026-10-23; all old scenes, scripts and guard state are archived.
+**Selected model:** `z6-llama/qwen36-35b-a3b-mtp-q8` (262,144-token context, reduced to native 256K by operator request on 2026-10-23).
+This is the **Blender coding** model. `/bowling-references` separately selects
+vision-capable `z6-llama/qwen38-27b` to plan, generate and inspect images first;
+its input window is 139,264 tokens. Reference planning is recorded separately
+and is not a result from the MTP coding trial.
+The operator authorized a fresh Qwen3.6 MTP UD-Q8_K_XL trial on 2026-10-23;
+all prior Nemotron scenes, scripts and guard state are archived.
 No previous source or PASS is reused. Read the checkpoints before submitting.
 
-**Trial context:** use a fresh 65,536-token session with project automatic
-compaction and pruning disabled. Work on **one stage per user invocation**, then
-checkpoint and return. The Build agent is capped at 60 iterations per turn.
-Do not manually compact or change these settings. If context is exhausted,
-checkpoint and report that outcome; a new session is a separately labelled continuation.
+**Continuous execution:** complete all remaining stages 00–09 in succession.
+After each verified stage, save both checkpoints, run the consistency check and
+immediately continue to the next stage without asking the user to say “next”.
+Automatic compaction and tool-output pruning are enabled, with a16,384-token
+compaction reserve. The previous60-step cap is removed. Compact as needed,
+preserve durable evidence, then reread both ledgers and resume the same verified
+source. A stage boundary or compaction is not a reason to end the run.
+Stop only at verified COMPLETE, an explicit user stop, a genuine unresolved
+blocker/required approval, or the existing tool failure limit. Never bypass a STOP.
 
 ## Blender workflow
 
-- Use ONLY `bowling-blender52` tools. Read `RUNTIME_52.md`; capabilities must show `runtime_verified=true`, `actual_version="Blender 5.2.3 LTS"`, and root ending `var/bowling52-nemotron-20261023`. If that connection is absent, STOP and request an OpenCode restart. Never substitute the disabled `z6-blender-worker`. Use `device="CPU"` for renders.
+- Before ANY Blender authoring, complete the imageMCP reference phase in `REFERENCE_IMAGES.md`: overview, layout and detail sheet, verified local images and a construction guide. Record accepted image jobs in both ledgers before polling. The wrapper enforces `scripts/check_references.py`; missing references are a STOP. Use the reference guide throughout construction. Image references are concepts, not final Blender renders or stage acceptance.
+- Use ONLY `bowling-blender52` tools. Read `RUNTIME_52.md`; capabilities must show `runtime_verified=true`, `actual_version="Blender 5.2.3 LTS"`, and root ending `var/bowling52-qwen36-mtp-q8-20261023`. If that connection is absent, STOP and request an OpenCode restart. Never substitute the disabled `z6-blender-worker`. Use `device="CPU"` for renders.
 - Start a fresh run with an isolated empty scene, omitting `source_job`. For later stages, revise the previous completed same-host authoring job. Inspect the scene before and after changes.
 - Fresh means **zero objects**: no default Cube, Camera, or Light exists to delete. Use `scene = bpy.context.scene` and `scene.unit_settings.system`, not `bpy.scene` or `scene.unit_system`. Omit `source_job` or use JSON null for a fresh scene; never send the string `"None"`.
 - Author code runs with `__name__="__blender_author__"`. Execute stage functions with an unconditional top-level call; a `__main__`-only guard skips them. Fetch and read `scene.json` and `report.json`: `result.json.passed` means execution succeeded, not that stage requirements passed.
@@ -34,6 +43,7 @@ checkpoint and report that outcome; a new session is a separately labelled conti
 - Saving these checkpoints is part of finishing a stage: do it before beginning the next stage, reporting completion, or ending the session. Do not defer documentation until the full build finishes or a compaction warning appears.
 - After compaction or in a new session, reread both checkpoints and rerun the consistency check. Poll a recorded pending job; otherwise inspect/resume the verified source. If artifacts exist but the ledger says NOT_STARTED, reconstruct progress from actual jobs/scenes/reports instead of submitting a new empty scene. Script filenames alone do not prove a stage passed.
 - Run `python3 scripts/check_resume.py` after updating stage progress. This checks handoff consistency, not scene correctness; the normal measured acceptance checks still apply.
+- Before compaction, ensure the current stage, accepted/pending IDs, verified source, artifact paths/hashes, measurements, failed checks and exact next action are on disk. A summary should preserve these pointers and reference-guide paths. After compaction, rerun both reference and resume checks before continuing; never restart from an empty scene or resubmit an uncertain job because older tool output was pruned.
 
 ## Diagnose and verify
 
@@ -51,7 +61,7 @@ checkpoint and report that outcome; a new session is a separately labelled conti
 
 - Preserve user-created content and `artifacts/archive/`. Historical artifacts are evidence, not starting assets for a fresh test.
 - Keep Blender's X/Y ground plane and Z-up convention. Follow the specifications' asset-import restrictions.
-- Keep the workflow on Z6. Do not release leases, change gateway ownership, or interrupt protected workloads.
+- Keep Blender authoring/rendering on Z6. Image generation uses the coordinated EliteDesk WSL imageMCP worker; the reference review uses the installed Z6 vision model before the MTP coding phase. Do not release leases, change gateway ownership, or interrupt protected workloads.
 - Ask before installing dependencies or making unrelated changes outside the project.
 - Do not commit or push without explicit user approval.
 - Do not edit the runtime wrapper, guard, configuration, tests or specifications during the asset evaluation. Those are operator-owned test infrastructure, not model repair targets. Do not use shell commands to bypass the MCP submission guard.

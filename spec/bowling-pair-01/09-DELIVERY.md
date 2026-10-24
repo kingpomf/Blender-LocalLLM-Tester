@@ -9,6 +9,7 @@
   in the same exports directory — each single ball with center pivot at origin.
 - `artifacts/exports/BowlingPair01_Collision.glb` — only static proxies at original placement.
 - All four PNGs from Stage 07.
+- `artifacts/references/manifest.json`, `DESIGN_GUIDE.md` and all three imageMCP reference images with generation provenance; include these in the delivery manifest. They do not replace the four Blender-rendered PNGs.
 - `artifacts/reports/validation.json`, `BUILD_REPORT.md`, `ASSET_GUIDE.md`,
   `DELIVERY_MANIFEST.json`.
 

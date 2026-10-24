@@ -1,12 +1,13 @@
-# Guarded Blender 5.2 trial — fresh Nemotron evaluation, 2026-10-23
+# Guarded Blender 5.2 trial — fresh Qwen3.6 MTP Q8 evaluation, 2026-10-23
 
 ## Start
 
 1. Quit the OpenCode process that ran the failed trial, not just its conversation.
 2. Reopen `/Users/start/Development/Blender-LocalLLM-Tester`, new session, Build agent.
 3. Confirm the MCP list has **bowling-blender52**, with the old **z6-blender-worker disabled**.
-4. Run `/bowling-start`. It builds/resumes **one stage**, then returns. Invoke it
-   again for the next stage in the same session. A STOP requires operator review.
+4. Run `/bowling-run` once for the automatic reference→coding workflow. Coding
+   proceeds through all remaining stages without next-stage prompts. A STOP still
+   requires operator review; inspect the controller status before resuming.
 
 Optional operator preflight (no build submission):
 
@@ -22,8 +23,8 @@ python3 scripts/check_resume.py
 - Archive SHA-256: `78486c018b4443efe5e75ab54c290ed8c15abafd249b862c2c9ce2530a918eec`.
 - Official release: <https://download.blender.org/release/Blender5.2/>.
 - Project stubs: **fake-bpy-module-5.2==20260730**, Pyright **1.1.414**.
-- Selected model: `z6-llama/nemotron35-bolt-e4b`, 65,536-token context.
-- Fresh trial queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-nemotron-20261023`.
+- Selected coding model: `z6-llama/qwen36-35b-a3b-mtp-q8`, current native 262,144-token context. The separate `/bowling-references` command selects vision-capable Qwen3.8 27B at 139,264 tokens before this coding phase.
+- Fresh trial queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-qwen36-mtp-q8-20261023`.
 - Qualification queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-guarded-20261022-qualification`; separate local state/downloads, unchanged historical fixture IDs.
 
 The launcher pins host, binary and root directly; inherited environment values
@@ -54,12 +55,13 @@ Status, diagnostics and artifact access remain available. No model-facing reset
 tool exists. This prevents accidental loops through this MCP; it is not a security
 sandbox against an agent deliberately using shell/file access to bypass it.
 
-OpenCode Build-agent `steps=60` forces a text-only response at the configured
-iteration limit. This is a per-user-turn bound, not a token guarantee. The kickoff
-works one stage per invocation. Built-in doom-loop permission is denied as an
-additional safeguard. Retry limits are enforced by the tools, not merely prose.
-Fresh-process config checks verify the step setting; no model was run to exhaustion
-to test the harness's implementation of its step limiter.
+The former Build-agent `steps=60` limit is removed. Automatic compaction and
+pruning are enabled with a16,384-token reserve. Checkpoint every stage and before
+compaction, then reread both ledgers and continue from the same verified source.
+Built-in doom-loop permission and persistent failure budgets remain enforced.
+The controller automatically continues a coding session that returns after a
+verified stage advance, but stops on BLOCKED/FAIL, inconsistent evidence or no
+verified progress. It does not reset guards or blindly replay accepted jobs.
 
 ## Catalog and rendering
 
@@ -93,6 +95,13 @@ Nemotron reset. Native scenes/job data/guard databases may
 be Git-ignored, so the local archive is more complete than Git. Old remote queues
 are preserved. No historical source, implementation or PASS is reused. All ten bowling stages
 are NOT_STARTED; infrastructure fixtures were run only in the qualification queue.
+
+The subsequent Nemotron trial is now archived at
+`artifacts/archive/nemotron-final-before-qwen36-2026-10-23/`, with original
+ledgers, all active artifacts, guard database and SHA-256 manifest. Its five
+accepted jobs were terminal before reset (four completed, one failed).
+The operator explicitly authorized the new Qwen3.6 MTP Q8 trial. The new queue
+and empty local guard reuse no historical scene, script or stage result.
 
 ## Operator recovery
 

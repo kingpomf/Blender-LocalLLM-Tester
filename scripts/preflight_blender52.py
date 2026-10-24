@@ -16,13 +16,19 @@ async def main():
     result = subprocess.run(['opencode', 'debug', 'config'], cwd=root,
                             capture_output=True, text=True, check=True)
     config = json.loads(result.stdout)
-    assert config['model'] == 'z6-llama/nemotron35-bolt-e4b'
+    assert config['model'] == 'z6-llama/qwen36-35b-a3b-mtp-q8'
     assert config['small_model'] == config['model']
-    assert config['provider']['z6-llama']['models']['nemotron35-bolt-e4b']['limit']['context'] == 65536
+    coding_context = config['provider']['z6-llama']['models']['qwen36-35b-a3b-mtp-q8']['limit']['context']
+    assert coding_context in {262144, 1009920}
     assert config['mcp']['z6-blender-worker']['enabled'] is False
+    assert config['mcp']['imageMCP']['enabled'] is True
+    assert config['provider']['z6-llama']['models']['qwen38-27b']['attachment'] is True
     mcp = config['mcp']['bowling-blender52']
     assert mcp['enabled']
-    assert config['agent']['build']['steps'] == 60
+    assert config.get('agent',{}).get('build',{}).get('steps') is None
+    assert config['compaction']['auto'] is True
+    assert config['compaction']['prune'] is True
+    assert config['compaction']['reserved'] == 16384
     params = StdioServerParameters(command=mcp['command'][0], args=mcp['command'][1:],
                                    env=dict(os.environ), cwd=str(root))
     async with stdio_client(params) as streams:
@@ -35,12 +41,35 @@ async def main():
             value = result.structuredContent or json.loads(next(item.text for item in result.content if item.type == 'text'))
             assert value and value['runtime_verified']
             assert value['actual_version'] == 'Blender 5.2.3 LTS'
-            assert value['root'].endswith('/var/bowling52-nemotron-20261023')
+            assert value['root'].endswith('/var/bowling52-qwen36-mtp-q8-20261023')
             evidence = {'passed': True, 'server': 'bowling-blender52',
-                              'selected_model': config['model'], 'context_size': 65536,
-                              'max_agent_steps': 60, 'tools': [t.name for t in tools.tools],
+                               'selected_model': config['model'], 'context_size': coding_context,
+                               'max_agent_steps': None, 'compaction':config['compaction'],
+                               'tools': [t.name for t in tools.tools],
                               'capabilities': value}
             print(json.dumps(evidence, indent=2))
+    image = config['mcp']['imageMCP']
+    params = StdioServerParameters(command=image['command'][0], args=image['command'][1:],
+        env={**os.environ, **image.get('environment', {})}, cwd=str(root))
+    async with stdio_client(params) as streams:
+        async with ClientSession(*streams, read_timeout_seconds=timedelta(seconds=90)) as session:
+            await session.initialize()
+            image_tools = await session.list_tools()
+            result_tool = next(tool for tool in image_tools.tools if tool.name == 'image_job_result')
+            assert 'output_dir' in result_tool.inputSchema['properties']
+            caps = await session.call_tool('image_capabilities', {})
+            models = await session.call_tool('image_models', {})
+            assert not caps.isError and not models.isError
+            def payload(result):
+                return result.structuredContent or json.loads(next(item.text for item in result.content if item.type == 'text'))
+            capabilities, catalog = payload(caps), payload(models)
+            assert capabilities['provider'] == 'available-workers'
+            assert 'text-to-image' in capabilities['operations']
+            assert any(model['id'] == 'qwen-image-2.1-turbo' for model in catalog['models'])
+            assert any(model['id'] == 'qwen-image-2.1-q4' for model in catalog['models'])
+            assert capabilities['workers']['elitedesk']['idempotent_submission'] is True
+            print(json.dumps({'imageMCP_read_only_preflight':True,
+                              'capabilities':capabilities, 'models':catalog}, indent=2))
 
 
 if __name__ == '__main__':

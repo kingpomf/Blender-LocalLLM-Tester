@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import tempfile
 import unittest
 
@@ -21,6 +22,30 @@ class ResumeTests(unittest.TestCase):
 
     def test_clean_fresh_state(self):
         self.assertTrue(check(self.root)['passed'])
+
+    def test_pending_reference_and_conflicting_ledgers_are_reconciled(self):
+        for name,phase in [('BUILD_STATUS.md','READY'),('HANDOFF.md','NOT_STARTED')]:
+            path=self.root/name
+            path.write_text(path.read_text()+f'\n- Reference phase: {phase}\n- Pending reference job: none\n')
+        path=self.root/'artifacts/references/manifest.json'
+        path.parent.mkdir(parents=True)
+        job='edimg-'+'b'*32
+        path.write_text(json.dumps({'images':[{'job_id':job,'state':'queued'}]}))
+        result=check(self.root)
+        self.assertFalse(result['passed'])
+        self.assertEqual(result['pending_reference_jobs'],[job])
+        self.assertTrue(any('Reference phase differs' in issue for issue in result['issues']))
+
+    def test_uncertain_reference_never_looks_like_fresh_start(self):
+        for name in ['BUILD_STATUS.md','HANDOFF.md']:
+            path=self.root/name
+            path.write_text(path.read_text()+'\n- Reference phase: IN_PROGRESS\n- Pending reference job: uncertain\n')
+        path=self.root/'artifacts/references/manifest.json'
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({'images':[{'request_id':'saved','state':'uncertain'}]}))
+        result=check(self.root)
+        self.assertFalse(result['passed'])
+        self.assertEqual(result['pending_reference_jobs'],['uncertain'])
 
     def test_stale_not_started_ledger_with_pass_is_rejected(self):
         self.write_state(first='PASS', evidence='claimed pass')

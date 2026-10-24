@@ -10,6 +10,7 @@ materials are allowed, but required appearance must survive GLB export.
 
 ## Required scene foundation
 
+- First complete `REFERENCE_IMAGES.md`: generate three concept references with imageMCP, download/hash them, and write `artifacts/references/DESIGN_GUIDE.md`. `python3 scripts/check_references.py` must pass before any Blender authoring. Use the design guide for forms/materials/composition; the written dimensions, counts and acceptance requirements override generated-image errors. Record visual-inspection limitations honestly.
 - Start with the worker's isolated zero-object scene, without source_job.
 - Metric units, unit scale 1, meters; Blender X/Y ground plane, Z up.
 - Origin: midway between lanes at the foul line, at the lane surface height.

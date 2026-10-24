@@ -84,9 +84,42 @@ def check(root):
         if pending != 'none' and known.get(pending) in {'failed', 'cancelled', 'completed'}:
             issues.append('Recorded pending job is terminal in the tool ledger; reconcile its result.')
     candidates = sorted({p.parent.name for p in (root / 'artifacts/downloads').glob('*/scene.json') if JOB.fullmatch(p.parent.name)})
+    reference_pending = []
+    reference_manifest = root / 'artifacts/references/manifest.json'
+    if reference_manifest.exists() or 'Reference phase' in status or 'Reference phase' in handoff:
+        phase = status.get('Reference phase','').split(' ')[0]
+        if phase not in {'NOT_STARTED','IN_PROGRESS','READY','BLOCKED'}:
+            issues.append('Unknown reference phase.')
+        if phase != handoff.get('Reference phase','').split(' ')[0]:
+            issues.append('Reference phase differs between BUILD_STATUS.md and HANDOFF.md.')
+        if status.get('Pending reference job') != handoff.get('Pending reference job'):
+            issues.append('Pending reference job differs between ledgers.')
+        try:
+            references = json.loads(reference_manifest.read_text()) if reference_manifest.exists() else {'images':[]}
+            images = references['images']
+            reference_pending = [i.get('job_id') or 'uncertain' for i in images if i.get('state') not in {'completed','failed','cancelled'}]
+            recorded = status.get('Pending reference job','none')
+            if reference_pending:
+                issues.append('Reconcile existing imageMCP jobs before new reference submissions: ' + ', '.join(reference_pending))
+                if any(job not in recorded for job in reference_pending):
+                    issues.append('Pending imageMCP job is not recorded in both ledgers.')
+            elif recorded != 'none':
+                issues.append('Pending reference ledger has no matching pending manifest job.')
+            if phase == 'NOT_STARTED' and images:
+                issues.append('Reference NOT_STARTED contradicts saved image jobs.')
+            if phase == 'READY':
+                try:
+                    from scripts.check_references import check as check_references
+                except ModuleNotFoundError:
+                    from check_references import check as check_references
+                reference_check = check_references(root)
+                issues.extend(reference_check['issues'])
+        except (OSError,ValueError,KeyError,TypeError,AttributeError) as error:
+            issues.append('Invalid reference progress: ' + str(error))
     return {'passed': not issues, 'run_status': run_status, 'next_stage': incomplete,
             'last_verified_source': source, 'pending_job': pending, 'issues': issues,
             'active_file_count': len(active_files), 'candidate_jobs_to_inspect': candidates[:20],
+            'pending_reference_jobs':reference_pending,
             'note': 'Consistency only: inspect actual scenes/reports/hashes before accepting or resuming work.'}
 
 

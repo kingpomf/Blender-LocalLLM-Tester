@@ -4,14 +4,16 @@
 - Next stage: 00 — Contract and scene safety
 - Active source job: none
 - Accepted job IDs: none
-- Default model: `z6-llama/nemotron35-bolt-e4b` — 65,536-token context
-- Actual model used: not yet recorded for this fresh asset trial
+- Default model: `z6-llama/qwen36-35b-a3b-mtp-q8` — current native 262,144-token context
+- Actual model used: none — fresh trial has not started
 - Execution host: Z6, MCP `bowling-blender52`
 - Runtime: Blender 5.2.3 LTS; CPU rendering
-- Trial queue: /home/kingpomf/Development/blender-new-llm-setup/var/bowling52-nemotron-20261023
-- Operator intervention: authorized fresh Nemotron reset on 2026-10-23; no old source, script or PASS reused
-- Trial mode: automatic compaction/pruning OFF; 60 Build-agent steps per turn; one stage per invocation
+- Trial queue: /home/kingpomf/Development/blender-new-llm-setup/var/bowling52-qwen36-mtp-q8-20261023
+- Operator intervention: authorized fresh Qwen3.6 MTP Q8 reset on 2026-10-23; prior trial archived
+- Trial mode: continuous stages00–09; automatic compaction/pruning ON;16,384-token reserve; no configured step cap
 - Active checkpoint: none
+- Reference phase: NOT_STARTED — create imageMCP references before Stage 00
+- Pending reference job: none
 
 ## Stage ledger
 
@@ -30,26 +32,24 @@
 
 ## Next action
 
-Fully restart OpenCode in this checkout, new session, select Nemotron 3.5 Bolt E4B
-Q8 (64K), and run `/bowling-start`. Verify actual Blender 5.2.3 and the trial queue
-above through `bowling-blender52` capabilities. Require no accepted/uncertain jobs
-for this initial run. Run `python3 scripts/check_resume.py`. Begin Stage 00 from
-the empty scene with no source_job. Work one stage, measure acceptance, save the
-native checkpoint and update both ledgers before returning. A completed job or
-hardcoded passed=true is not stage acceptance.
-
-On any tool STOP, checkpoint and report BLOCKED. Do not bypass retry budgets or
-use archived scripts as implementations. Nemotron model installation/smoke tests
-are infrastructure evidence, not BowlingPair01 stage results.
+Fully quit and restart OpenCode in this checkout, then run `/bowling-run` once.
+Its controller runs the vision/reference phase first and automatically starts a
+separate Qwen3.6 MTP coding session for all remaining stages. Check progress with
+`python3 scripts/run_bowling.py --status`; do not launch duplicate controllers.
+Verify runtime identity and the fresh queue through `bowling-blender52`
+capabilities, then run `python3 scripts/check_resume.py`. Begin Stage00 from an
+empty scene, omitting source_job, and continue through delivery automatically.
+Update both ledgers after accepted submissions, results and each passed stage;
+compact when needed and resume from the saved verified source.
 
 ## Preserved history
 
-The final Blender-specialist 5.2 run, original ledgers, native checkpoint,
-scripts, downloads and exhausted guard database are preserved with SHA-256
-manifest at `artifacts/archive/blender52-specialist-final-2026-10-23/`.
-Its Stage 01–03 PASS claims were unsupported; none carries forward. Earlier
-attempts remain under `artifacts/archive/`. The old remote queue is preserved.
-
-Infrastructure qualification remains in a separate queue ending
-`bowling52-guarded-20261022-qualification`, with evidence under
-`testing/blender52-guarded/`. It does not consume the new trial's guard budget.
+The previous Nemotron trial's original ledgers, scenes, scripts, downloaded
+artifacts, configuration and guard database are preserved with a SHA-256
+manifest at `artifacts/archive/nemotron-final-before-qwen36-2026-10-23/`.
+All five accepted jobs were confirmed terminal remotely before archiving;
+the locally queued entry was already completed remotely. No old source or
+stage PASS carries forward. Earlier archives and remote queues remain evidence.
+Infrastructure qualification uses its separate existing queue and does not
+consume this fresh trial's guard budget. Model smoke tests are infrastructure
+checks, not BowlingPair01 stage acceptance.

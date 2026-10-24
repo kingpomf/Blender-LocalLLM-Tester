@@ -13,11 +13,12 @@ from mcp.server.fastmcp import FastMCP
 from blender_worker.transport import SSHTransport
 from blender_worker.schema import validate
 from submission_guard import SubmissionGuard
+from check_references import check as check_references
 
 PROJECT = Path(__file__).resolve().parents[1]
 REMOTE_APP = '/home/kingpomf/Development/blender-new-llm-setup'
 BINARY = REMOTE_APP + '/tools/blender-5.2.3-linux-x64/blender'
-TRIAL = 'bowling52-nemotron-20261023'
+TRIAL = 'bowling52-qwen36-mtp-q8-20261023'
 EXPECTED = '5.2.3 LTS'
 
 # Read-only host probe: verifies the executable and any runner owning this queue.
@@ -119,6 +120,11 @@ def server(qualification=False):
     @app.tool()
     async def blender_scene_author(code: str, source_job: str | None = None) -> dict:
         """Submit original Blender Python (48KB including runtime wrapper). Empty scene only for Stage 00. Later use completed 5.2 source. Assign report and call functions unconditionally. Identical failed code and exhausted retry budgets are blocked."""
+        if not qualification:
+            references = check_references(PROJECT)
+            if not references['passed']:
+                raise ValueError('STOP: imageMCP references must be ready before Blender authoring. '
+                                 + '; '.join(references['issues']))
         return await submit({'operation': 'author', 'code': code, **({'source_job': source_job} if source_job else {})})
 
     @app.tool()
