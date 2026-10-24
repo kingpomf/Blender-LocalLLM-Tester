@@ -14,6 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from scripts.check_references import check as reference_check
 from scripts.check_resume import check as resume_check, fields
+from scripts.trial_settings import MODEL
 
 
 def snapshot():
@@ -23,8 +24,8 @@ def snapshot():
             'passed':set(re.findall(r'^\| (0[0-9]) \| [^|]+ \| PASS \|',text,re.MULTILINE))}
 
 
-def workflow(run_phase, get_snapshot, references_ready, consistent):
-    """Only advance after validated evidence; never retry a blocked/no-progress run."""
+def workflow(run_phase, get_snapshot, references_ready, consistent, recover=None):
+    """Advance on evidence; allow two diagnostic repairs, never bypass real STOPs."""
     initial=get_snapshot()
     if initial['status'] in {'BLOCKED','FAIL'}:
         raise RuntimeError('Existing trial is blocked/failed; operator reconciliation required')
@@ -32,26 +33,43 @@ def workflow(run_phase, get_snapshot, references_ready, consistent):
         if references_ready() and consistent():
             return
         raise RuntimeError('COMPLETE conflicts with reference or checkpoint evidence')
-    if not references_ready():
-        run_phase('references')
-        if not references_ready():
-            raise RuntimeError('Reference phase did not pass; preserve its accepted IDs and diagnose')
+    repairs=0
+    while not references_ready():
+        result=run_phase('references') or {}
+        if result.get('hard_stop') or get_snapshot()['status'] in {'BLOCKED','FAIL'}:
+            raise RuntimeError('Reference phase reported an explicit STOP/BLOCKED/FAIL')
+        if references_ready():
+            break
+        if repairs>=2:
+            raise RuntimeError('Reference phase did not pass after two recovery turns; preserve its accepted IDs and diagnose')
+        repairs+=1
+        if recover:
+            recover('references','Reference validation is incomplete. Diagnose it, use permitted tools and resume existing jobs; do not blindly resubmit.')
+    repairs=0
     while True:
         before=get_snapshot()
-        if not consistent():
+        if not consistent() and repairs==0:
             raise RuntimeError('Ledger consistency failed; reconcile before further work')
         if before['status']=='COMPLETE':
             return
         if before['status'] in {'BLOCKED','FAIL'}:
             raise RuntimeError('Trial reported '+before['status'])
-        run_phase('coding')
+        result=run_phase('coding') or {}
         after=get_snapshot()
+        if result.get('hard_stop'):
+            raise RuntimeError('Coding client reported an explicit tool/transport STOP')
         if after['status'] in {'BLOCKED','FAIL'}:
             raise RuntimeError('Trial reported '+after['status'])
         if after['status']=='COMPLETE' and consistent():
             return
         if not consistent() or not after['passed'] > before['passed']:
-            raise RuntimeError('Coding returned without a verified stage advance; checkpoint and diagnose instead of looping')
+            if repairs>=2:
+                raise RuntimeError('Coding returned without a verified stage advance after two recovery turns; stop instead of looping')
+            repairs+=1
+            if recover:
+                recover('coding','No verified stage advance yet. Inspect diagnostics/checkpoints and repair the concrete issue; preserve accepted jobs and all failure limits.')
+        else:
+            repairs=0
         # A model that returns after a successful stage is continued in the SAME
         # coding session automatically. Genuine failures and no-progress stop.
 
@@ -95,10 +113,12 @@ def main():
         signal.signal(signal.SIGTERM,stopped)
         def run_phase(phase):
             command_name='bowling-references' if phase=='references' else 'bowling-start'
-            model='z6-llama/qwen38-27b' if phase=='references' else 'z6-llama/qwen36-35b-a3b-mtp-q8'
+            model=MODEL
             command=['opencode','run','--format','json','--command',command_name,'--model',model]
             if phase in state['sessions']:
                 command+=['--session',state['sessions'][phase]]
+            if state.get('recovery_context'):
+                command.append(state.pop('recovery_context'))
             state.update(phase=phase,model=model,turns=state['turns']+1)
             save()
             events=runtime/f"{state['turns']:03d}-{phase}.jsonl"
@@ -107,6 +127,8 @@ def main():
                                          text=True,start_new_session=True)
                 state['client_pid']=process.pid
                 save()
+                hard_stop=False
+                errors=[]
                 try:
                     assert process.stdout is not None
                     for line in process.stdout:
@@ -114,6 +136,14 @@ def main():
                         log.flush()
                         try:event=json.loads(line)
                         except ValueError:continue
+                        if event.get('type')=='error':
+                            hard_stop=True
+                            errors.append(str(event.get('error','Client error'))[:1500])
+                        if event.get('type')=='tool_use' and event.get('part',{}).get('state',{}).get('status')=='error':
+                            error=str(event['part']['state'].get('error',''))
+                            errors.append(error[:1500])
+                            if any(marker in error.lower() for marker in ['stop:', 'circuit-breaker', 'failure budget exhausted','doom_loop']):
+                                hard_stop=True
                         if event.get('sessionID'):
                             state['sessions'][phase]=event['sessionID']
                             save()
@@ -122,6 +152,8 @@ def main():
                     code=process.wait()
                     if code:
                         raise RuntimeError(f'{phase} client exited {code}; no automatic replay')
+                    state['last_errors']=errors[-4:]
+                    return {'hard_stop':hard_stop,'errors':errors[-4:]}
                 finally:
                     if process.poll() is None:
                         os.killpg(process.pid,signal.SIGTERM)
@@ -131,8 +163,16 @@ def main():
                             process.wait()
                     state.pop('client_pid',None)
                     save()
+        def recover(phase,reason):
+            checks=reference_check(ROOT) if phase=='references' else resume_check(ROOT)
+            state.setdefault('recoveries',[]).append({'phase':phase,'reason':reason,'issues':checks['issues'],'errors':state.get('last_errors',[])})
+            state['recovery_context']=(reason+'\nValidation: '+json.dumps(checks['issues'])+
+                '\nRecent tool errors: '+json.dumps(state.get('last_errors',[]))+
+                '\nThis is a bounded repair turn, not a new trial. For filesystem discovery use Read/Glob/Grep. '
+                'Do not repeat a denied command; use permitted tools. Never bypass a STOP, release leases, or replay an uncertain submission.')
+            save()
         try:
-            workflow(run_phase,snapshot,lambda:reference_check(ROOT)['passed'],lambda:resume_check(ROOT)['passed'])
+            workflow(run_phase,snapshot,lambda:reference_check(ROOT)['passed'],lambda:resume_check(ROOT)['passed'],recover)
             state.update(state='completed',finished=time.time())
         except BaseException as error:
             state.update(state='interrupted' if isinstance(error,KeyboardInterrupt) else 'blocked',reason=str(error))

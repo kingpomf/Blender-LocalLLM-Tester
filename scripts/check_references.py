@@ -3,6 +3,10 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+try:
+    from .trial_settings import TRIAL
+except ImportError:
+    from trial_settings import TRIAL
 
 ROLES = {'overview', 'layout', 'details'}
 
@@ -24,7 +28,7 @@ def image_dimensions(path):
         return image.size
 
 
-def check(root):
+def check(root, require_review=True):
     root = Path(root).resolve()
     folder = root / 'artifacts/references'
     manifest = folder / 'manifest.json'
@@ -34,7 +38,7 @@ def check(root):
     try:
         data = json.loads(manifest.read_text())
         images = data['images']
-        if data.get('trial') != 'bowling52-qwen36-mtp-q8-20261023':
+        if data.get('trial') != TRIAL:
             issues.append('Reference manifest belongs to another trial.')
         if {image['role'] for image in images} != ROLES or len(images) != len(ROLES):
             issues.append('Require exactly one overview, layout and details reference.')
@@ -70,6 +74,8 @@ def check(root):
                        Path(a.get('local_path','')).resolve()==path for a in artifacts):
                 issues.append('Image is not the verified artifact in its imageMCP receipt.')
         notes = folder / 'DESIGN_GUIDE.md'
+        if not require_review:
+            return {'passed':not issues,'issues':issues,'manifest':str(manifest)}
         if not notes.is_file():
             issues.append('Write artifacts/references/DESIGN_GUIDE.md before Blender authoring.')
         else:

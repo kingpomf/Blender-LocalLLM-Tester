@@ -8,8 +8,8 @@
 - Actual model used: none — fresh trial has not started
 - Execution host: Z6, MCP `bowling-blender52`
 - Runtime: Blender 5.2.3 LTS; CPU rendering
-- Trial queue: /home/kingpomf/Development/blender-new-llm-setup/var/bowling52-qwen36-mtp-q8-20261023
-- Operator intervention: authorized fresh Qwen3.6 MTP Q8 reset on 2026-10-23; prior trial archived
+- Trial queue: /home/kingpomf/Development/blender-new-llm-setup/var/bowling52-qwen36-mtp-q8-20261023-r2
+- Operator intervention: fresh retry authorized after wrong-model startup; failed controller/session and guard archived, no accepted asset/image jobs
 - Trial mode: continuous stages00–09; automatic compaction/pruning ON;16,384-token reserve; no configured step cap
 - Active checkpoint: none
 - Reference phase: NOT_STARTED — create imageMCP references before Stage 00
@@ -33,8 +33,9 @@
 ## Next action
 
 Fully quit and restart OpenCode in this checkout, then run `/bowling-run` once.
-Its controller runs the vision/reference phase first and automatically starts a
-separate Qwen3.6 MTP coding session for all remaining stages. Check progress with
+The launcher and both working phases are pinned to Qwen3.6 MoE. The fixed image
+description tool provides pixel observations without replacing the trial agent.
+Ordinary startup errors receive bounded diagnostic repair turns. Check progress with
 `python3 scripts/run_bowling.py --status`; do not launch duplicate controllers.
 Verify runtime identity and the fresh queue through `bowling-blender52`
 capabilities, then run `python3 scripts/check_resume.py`. Begin Stage00 from an
@@ -43,6 +44,11 @@ Update both ledgers after accepted submissions, results and each passed stage;
 compact when needed and resume from the saved verified source.
 
 ## Preserved history
+
+The failed startup using Qwen3.8 is preserved at
+`artifacts/archive/qwen38-startup-failed-20261023/`, including original controller
+events/state, guard and pre-fix configuration. No image or Blender job was accepted.
+This fresh r2 queue has no source, pending job, accepted job or reused stage PASS.
 
 The previous Nemotron trial's original ledgers, scenes, scripts, downloaded
 artifacts, configuration and guard database are preserved with a SHA-256

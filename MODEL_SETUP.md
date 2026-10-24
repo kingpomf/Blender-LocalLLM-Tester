@@ -40,9 +40,10 @@ the same total window. OpenCode output budget is 32,768, not extra context.
   real MTP draft context and accepted draft tokens.
 - Temperature 1.0, top-p .95, top-k 20, min-p 0, repeat penalty 1.
 - Reasoning budget 2,048, embedded Jinja template, 20-minute unprotected idle unload.
-- Text-only: the publisher currently excludes `--mmproj` with MTP. The separately
-  selected vision-capable Qwen3.8 27B profile inspects reference pixels first and
-  writes the construction guide. MTP remains the Blender coding model.
+- Text-only: the publisher excludes `--mmproj` with MTP. A fixed image-description
+  API helper provides pixel observations; Qwen3.6 remains the agent throughout,
+  including reference planning and design-guide writing. Qwen3.8 is never selected
+  as a primary trial session in the r2 reset.
 
 ## Verification and tuning evidence
 
@@ -79,14 +80,14 @@ state are hash-archived at
 All five accepted jobs were remotely terminal before reset; no old source or
 stage PASS is reused. The fresh guard has no accepted jobs or failures.
 
-The new trial queue is `var/bowling52-qwen36-mtp-q8-20261023`, Blender 5.2.3 LTS,
+The new trial queue is `var/bowling52-qwen36-mtp-q8-20261023-r2`, Blender 5.2.3 LTS,
 CPU rendering. Automatic compaction/pruning are enabled, the60-step cap is removed,
 and stages run consecutively. All ten Blender stages are NOT_STARTED.
 
 imageMCP uses **EliteDesk WSL Qwen Image 2.1 Q4** for this reference recipe; Z6
 Turbo remains a distinct available profile. Run `/bowling-references` first:
-the installed Qwen3.8 vision model generates references through imageMCP, downloads
-and inspects the actual pixels, then saves receipts and visual observations.
+Qwen3.6 generates references through imageMCP, downloads them, calls the fixed
+image-description tool and writes the guide from its saved visual observations.
 Open a fresh MTP session and run `/bowling-start` afterward. The authoring wrapper
 checks real decoded images, job receipts, distinct outputs and visual guide before
 reserving any Blender job. Reference planning is not a Blender-stage PASS.

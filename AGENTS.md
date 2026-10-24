@@ -7,10 +7,11 @@ Build a modular, game-ready bowling alley pair, `BowlingPair01`, using `spec/bow
 Start by reading `BUILD_STATUS.md`, `HANDOFF.md`, `WORKER_GUIDE.md`, and the specifications needed to plan the work. Run `python3 scripts/check_resume.py` before submitting work. If it flags stale/contradictory progress, reconcile the saved artifacts and accepted jobs before continuing; do not start over or delete them. You may inspect any relevant project files, consult Blender API documentation, use applicable skills, and ask clarification questions. Keep work focused on this asset.
 
 **Selected model:** `z6-llama/qwen36-35b-a3b-mtp-q8` (262,144-token context, reduced to native 256K by operator request on 2026-10-23).
-This is the **Blender coding** model. `/bowling-references` separately selects
-vision-capable `z6-llama/qwen38-27b` to plan, generate and inspect images first;
-its input window is 139,264 tokens. Reference planning is recorded separately
-and is not a result from the MTP coding trial.
+This is the **trial agent for every phase**, including the launcher, reference
+planning and Blender coding. Do not switch the session to Qwen3.8. Since MTP is
+text-only, the fixed `scripts/review_reference_images.py` tool uses the existing
+vision API solely to describe downloaded pixels. It does not run an agent or
+author the asset; Qwen3.6 uses the returned observations to write the design guide.
 The operator authorized a fresh Qwen3.6 MTP UD-Q8_K_XL trial on 2026-10-23;
 all prior Nemotron scenes, scripts and guard state are archived.
 No previous source or PASS is reused. Read the checkpoints before submitting.
@@ -28,7 +29,7 @@ blocker/required approval, or the existing tool failure limit. Never bypass a ST
 ## Blender workflow
 
 - Before ANY Blender authoring, complete the imageMCP reference phase in `REFERENCE_IMAGES.md`: overview, layout and detail sheet, verified local images and a construction guide. Record accepted image jobs in both ledgers before polling. The wrapper enforces `scripts/check_references.py`; missing references are a STOP. Use the reference guide throughout construction. Image references are concepts, not final Blender renders or stage acceptance.
-- Use ONLY `bowling-blender52` tools. Read `RUNTIME_52.md`; capabilities must show `runtime_verified=true`, `actual_version="Blender 5.2.3 LTS"`, and root ending `var/bowling52-qwen36-mtp-q8-20261023`. If that connection is absent, STOP and request an OpenCode restart. Never substitute the disabled `z6-blender-worker`. Use `device="CPU"` for renders.
+- Use ONLY `bowling-blender52` tools. Read `RUNTIME_52.md`; capabilities must show `runtime_verified=true`, `actual_version="Blender 5.2.3 LTS"`, and root ending `var/bowling52-qwen36-mtp-q8-20261023-r2`. If that connection is absent, STOP and request an OpenCode restart. Never substitute the disabled `z6-blender-worker`. Use `device="CPU"` for renders.
 - Start a fresh run with an isolated empty scene, omitting `source_job`. For later stages, revise the previous completed same-host authoring job. Inspect the scene before and after changes.
 - Fresh means **zero objects**: no default Cube, Camera, or Light exists to delete. Use `scene = bpy.context.scene` and `scene.unit_settings.system`, not `bpy.scene` or `scene.unit_system`. Omit `source_job` or use JSON null for a fresh scene; never send the string `"None"`.
 - Author code runs with `__name__="__blender_author__"`. Execute stage functions with an unconditional top-level call; a `__main__`-only guard skips them. Fetch and read `scene.json` and `report.json`: `result.json.passed` means execution succeeded, not that stage requirements passed.
@@ -47,6 +48,7 @@ blocker/required approval, or the existing tool failure limit. Never bypass a ST
 
 ## Diagnose and verify
 
+- Use Read/Glob/Grep for file discovery, not compound shell listings with redirects/echo. If an optional command is denied in the background runner, do not repeat it or give up: use an already permitted tool. Ordinary incomplete startup gets up to two controller repair turns with actual validation/tool errors; real STOP, explicit user interruption and exhausted failure budgets still stop immediately.
 - Python LSP is explicitly enabled with Blender 5.2 typing support; see `LSP_SETUP.md`. After writing/editing a saved authoring script, inspect its LSP diagnostics or run `.venv/bin/pyright artifacts/scripts/STAGE_FILE.py` before submitting it. Fix syntax and confirmed API/signature errors; verify generated-stub false positives against the actual worker API rather than guessing replacements. Do not label an entire diagnostic set false positives without checking each distinct API error.
 - Local Python, image/GLB inspection, checksums, and other relevant diagnostic tools are permitted. Read-only supporting files outside the repository may be consulted when relevant; keep generated work in this repository.
 - Ordinary errors may be diagnosed and repaired. The tools reject unchanged executable code against the same source after failure (comments/formatting are not changes). Three failed/cancelled submissions per source, or six across the trial, block further applicable submissions. Limits persist across MCP restarts. On ANY tool STOP, checkpoint and return BLOCKED immediately; do not keep calling the rejected tool. Never clear state or change source/queue to evade a limit. Read/status/diagnostics remain available.
@@ -61,7 +63,7 @@ blocker/required approval, or the existing tool failure limit. Never bypass a ST
 
 - Preserve user-created content and `artifacts/archive/`. Historical artifacts are evidence, not starting assets for a fresh test.
 - Keep Blender's X/Y ground plane and Z-up convention. Follow the specifications' asset-import restrictions.
-- Keep Blender authoring/rendering on Z6. Image generation uses the coordinated EliteDesk WSL imageMCP worker; the reference review uses the installed Z6 vision model before the MTP coding phase. Do not release leases, change gateway ownership, or interrupt protected workloads.
+- Keep Blender authoring/rendering on Z6. Image generation uses EliteDesk WSL imageMCP. Qwen3.6 is always the trial agent; the fixed image-only helper is separately attributed and cannot write Blender code. Do not release leases, change gateway ownership, or interrupt protected workloads.
 - Ask before installing dependencies or making unrelated changes outside the project.
 - Do not commit or push without explicit user approval.
 - Do not edit the runtime wrapper, guard, configuration, tests or specifications during the asset evaluation. Those are operator-owned test infrastructure, not model repair targets. Do not use shell commands to bypass the MCP submission guard.

@@ -1,11 +1,11 @@
 ---
 description: Generate reference images on EliteDesk WSL and visually review them before Blender coding
 agent: build
-model: z6-llama/qwen38-27b
+model: z6-llama/qwen36-35b-a3b-mtp-q8
 ---
 
-Complete only the reference phase for BowlingPair01. This command deliberately
-uses the installed vision-capable Qwen3.8 27B profile, not the text-only MTP coder.
+Complete only the reference phase for BowlingPair01 using Qwen3.6 MoE.
+You remain the trial agent; do not switch the session to Qwen3.8.
 Read AGENTS.md, REFERENCE_IMAGES.md, BUILD_STATUS.md, HANDOFF.md and all ten bowling
 specifications. Do not submit any Blender author/modify/render jobs in this phase.
 
@@ -16,15 +16,23 @@ Record each accepted job immediately in the manifest and both ledgers, then poll
 that exact ID. Never automatically repeat an uncertain submission. Fetch completed
 results into this project's artifacts/references, preserving receipt.json paths.
 
-Use read on each actual downloaded image. If the model cannot receive/view its
-pixels, stop and report the limitation rather than deriving observations from
-the prompt. Write image-derived observations bound to every image SHA-256 and a
-construction guide with shapes, palette, layout and specification corrections.
-Record reviewer_model, inspection_method=visual and visual_review in the manifest.
+The MTP profile is text-only. After saving all three image entries/receipts, run
+`python3 scripts/review_reference_images.py`. This fixed image-description helper
+sends actual pixels to the installed vision profile and saves hash-bound visual
+observations; it is a tool, not a replacement trial agent. Read its saved output
+and write DESIGN_GUIDE.md yourself, identifying the helper and image-derived
+features/corrections. Never claim you personally saw pixels or invent a review.
 Run python3 scripts/check_references.py. Only then set Reference phase READY,
 Pending reference job none in both ledgers and run python3 scripts/check_resume.py.
 
 Return with the images and design guide. Under /bowling-run the controller starts
 the MTP coding phase automatically. For phase-only use, the next command is
 /bowling-start in a fresh Qwen3.6 MTP session. Reference planning is attributable
-to this vision model; the new model's actual Blender coding trial starts at Stage00.
+to Qwen3.6, with the image-only helper separately identified; Blender coding starts at Stage00.
+
+Use Read/Glob/Grep for discovery instead of compound shell listings. A denied
+optional discovery command is not a reason to give up: use an allowed tool.
+Preserve real STOP/failure limits and never replay uncertain image jobs.
+
+Controller recovery context, when present:
+$ARGUMENTS

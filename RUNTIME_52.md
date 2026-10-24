@@ -23,8 +23,8 @@ python3 scripts/check_resume.py
 - Archive SHA-256: `78486c018b4443efe5e75ab54c290ed8c15abafd249b862c2c9ce2530a918eec`.
 - Official release: <https://download.blender.org/release/Blender5.2/>.
 - Project stubs: **fake-bpy-module-5.2==20260730**, Pyright **1.1.414**.
-- Selected coding model: `z6-llama/qwen36-35b-a3b-mtp-q8`, current native 262,144-token context. The separate `/bowling-references` command selects vision-capable Qwen3.8 27B at 139,264 tokens before this coding phase.
-- Fresh trial queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-qwen36-mtp-q8-20261023`.
+- Selected agent for ALL phases: `z6-llama/qwen36-35b-a3b-mtp-q8`, native262,144 context. A fixed image-description helper invokes the vision API only for pixel observations; it never replaces the trial agent.
+- Fresh trial queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-qwen36-mtp-q8-20261023-r2`.
 - Qualification queue: `/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-guarded-20261022-qualification`; separate local state/downloads, unchanged historical fixture IDs.
 
 The launcher pins host, binary and root directly; inherited environment values
@@ -59,9 +59,10 @@ The former Build-agent `steps=60` limit is removed. Automatic compaction and
 pruning are enabled with a16,384-token reserve. Checkpoint every stage and before
 compaction, then reread both ledgers and continue from the same verified source.
 Built-in doom-loop permission and persistent failure budgets remain enforced.
-The controller automatically continues a coding session that returns after a
-verified stage advance, but stops on BLOCKED/FAIL, inconsistent evidence or no
-verified progress. It does not reset guards or blindly replay accepted jobs.
+The controller automatically continues verified stage advances and allows up to
+two diagnostic recovery turns for ordinary incomplete startup/validation. It
+stops on BLOCKED/FAIL, explicit STOP, transport uncertainty or exhausted recovery.
+It does not reset guards or blindly replay accepted jobs.
 
 ## Catalog and rendering
 

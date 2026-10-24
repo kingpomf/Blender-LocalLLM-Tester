@@ -17,6 +17,8 @@
   },
   "instructions": ["AGENTS.md"],
   "share": "disabled",
+  "agent": {"build": {"model": "z6-llama/qwen36-35b-a3b-mtp-q8"}},
+  "experimental": {"continue_loop_on_deny": true},
   "lsp": {
     "pyright": {
       "command": ["./.venv/bin/pyright-langserver", "--stdio"],
@@ -85,6 +87,7 @@
       "python3 artifacts/scripts/*": "allow",
       "python3 scripts/check_resume.py": "allow",
       "python3 scripts/check_references.py": "allow",
+      "python3 scripts/review_reference_images.py": "allow",
       "python3 scripts/run_bowling.py": "allow",
       "python3 scripts/run_bowling.py *": "allow",
       ".venv/bin/pyright *": "allow",

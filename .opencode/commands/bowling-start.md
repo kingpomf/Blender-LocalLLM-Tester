@@ -12,13 +12,13 @@ all ten files in spec/bowling-pair-01/ to plan the assembly.
 
 BEFORE Blender authoring, read REFERENCE_IMAGES.md and run the reference checker.
 If the reference phase is not READY, return and ask the operator to invoke
-`/bowling-references`, which uses the installed vision-capable model to generate
-and inspect references. Do not claim this text-only MTP profile can view pixels.
+`/bowling-references`, which also uses Qwen3.6 and its fixed image-description
+helper. Do not claim this text-only MTP profile can view pixels itself.
 After that phase passes, this command begins Stage 00 using its saved visual guide.
 
 FIRST call capabilities through the distinct `bowling-blender52` connection.
 Require runtime_verified=true, actual_version="Blender 5.2.3 LTS", and root ending
-`var/bowling52-qwen36-mtp-q8-20261023`. If this connection is missing, STOP and ask for a
+`var/bowling52-qwen36-mtp-q8-20261023-r2`. If this connection is missing, STOP and ask for a
 full OpenCode restart. Do not use z6-blender-worker or other Blender tools.
 Run `python3 scripts/check_resume.py`. Reconcile pending work before submission.
 
@@ -44,3 +44,6 @@ reread the ledgers/reference guide and resume without replaying accepted work.
 Return only at COMPLETE or a genuine BLOCKED/FAIL/user-stop condition.
 Use CPU renders only. Do not edit test infrastructure,
 commit or push. All archived attempts are evidence, not starting assets.
+
+Controller recovery context, when present:
+$ARGUMENTS

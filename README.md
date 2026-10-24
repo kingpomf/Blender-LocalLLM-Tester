@@ -11,8 +11,9 @@ See `MODEL_SETUP.md` and the checkpoints.
 ## Run
 
 1. Fully quit/restart OpenCode in this repository on `project/bowling-alley-pair`.
-2. Run **`/bowling-run` once**. It launches reference generation/visual review,
-   then automatically starts the separate Qwen3.6 MTP coding phase.
+2. Open a **new Qwen3.6 MoE session** and run **`/bowling-run` once**. Launcher,
+   reference planner and coding sessions all select Qwen3.6. Image inspection is
+   a fixed helper tool, not a Qwen3.8 agent session.
 3. Confirm **bowling-blender52** is connected; the old **z6-blender-worker** is disabled.
 4. The coding phase completes/resumes **all remaining stages00–09** continuously,
    checkpointing between them. It compacts when needed; no “next stage” prompts.
@@ -30,7 +31,8 @@ Status: `python3 scripts/run_bowling.py --status`. Controller logs/session IDs
 live in `.runtime/autonomous-run/`. A terminal launch also works:
 `python3 scripts/run_bowling.py`. After a genuine interruption/blocker is reconciled,
 explicitly use `--resume` (and `--detach` for background operation). The controller
-does not repeatedly retry failures or reset the guard. `/bowling-references` and
+allows two diagnostic repair turns for ordinary startup/validation problems,
+then stops rather than looping; it never resets the guard. `/bowling-references` and
 `/bowling-start` remain available as individual phase commands.
 
 ## Assignment

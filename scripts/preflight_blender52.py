@@ -8,6 +8,7 @@ import subprocess
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
+from trial_settings import TRIAL, MODEL
 
 
 async def main():
@@ -18,6 +19,9 @@ async def main():
     config = json.loads(result.stdout)
     assert config['model'] == 'z6-llama/qwen36-35b-a3b-mtp-q8'
     assert config['small_model'] == config['model']
+    assert config['agent']['build']['model'] == MODEL
+    assert all(config['command'][name]['model']==MODEL for name in ['bowling-run','bowling-references','bowling-start'])
+    assert config['experimental']['continue_loop_on_deny'] is True
     coding_context = config['provider']['z6-llama']['models']['qwen36-35b-a3b-mtp-q8']['limit']['context']
     assert coding_context in {262144, 1009920}
     assert config['mcp']['z6-blender-worker']['enabled'] is False
@@ -41,7 +45,7 @@ async def main():
             value = result.structuredContent or json.loads(next(item.text for item in result.content if item.type == 'text'))
             assert value and value['runtime_verified']
             assert value['actual_version'] == 'Blender 5.2.3 LTS'
-            assert value['root'].endswith('/var/bowling52-qwen36-mtp-q8-20261023')
+            assert value['root'].endswith('/var/'+TRIAL)
             evidence = {'passed': True, 'server': 'bowling-blender52',
                                'selected_model': config['model'], 'context_size': coding_context,
                                'max_agent_steps': None, 'compaction':config['compaction'],

@@ -14,11 +14,11 @@ from blender_worker.transport import SSHTransport
 from blender_worker.schema import validate
 from submission_guard import SubmissionGuard
 from check_references import check as check_references
+from trial_settings import TRIAL
 
 PROJECT = Path(__file__).resolve().parents[1]
 REMOTE_APP = '/home/kingpomf/Development/blender-new-llm-setup'
 BINARY = REMOTE_APP + '/tools/blender-5.2.3-linux-x64/blender'
-TRIAL = 'bowling52-qwen36-mtp-q8-20261023'
 EXPECTED = '5.2.3 LTS'
 
 # Read-only host probe: verifies the executable and any runner owning this queue.

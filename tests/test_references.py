@@ -6,6 +6,7 @@ import unittest
 from PIL import Image
 
 from scripts.check_references import check
+from scripts.trial_settings import TRIAL
 
 
 class ReferenceTests(unittest.TestCase):
@@ -31,7 +32,7 @@ class ReferenceTests(unittest.TestCase):
                 'prompt':'Reference for ' + role, 'path':str(path.relative_to(self.root)),
                 'bytes':len(content), 'sha256':hashlib.sha256(content).hexdigest(),
                 'width':256,'height':256,'receipt':str(receipt.relative_to(self.root))})
-        data = {'trial':'bowling52-qwen36-mtp-q8-20261023', 'inspection_method':'visual',
+        data = {'trial':TRIAL, 'inspection_method':'visual',
                 'reviewer_model':'z6-llama/qwen38-27b','images':images,
                 'visual_review':[{'sha256':i['sha256'],'observations':'The actual reference pixels show a uniform color panel, which is a test fixture rather than bowling alley geometry.'} for i in images]}
         self.write(data)

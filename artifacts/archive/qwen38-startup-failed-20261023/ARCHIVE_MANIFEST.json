@@ -1,0 +1,92 @@
+[
+  {
+    "path": "autonomous-run/001-references.jsonl",
+    "bytes": 54715,
+    "sha256": "dbbcaeaf166670b407dd9777946c14a3fd0fa518076c36482642b32a8779eb47"
+  },
+  {
+    "path": "autonomous-run/controller.lock",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "autonomous-run/controller.log",
+    "bytes": 1391,
+    "sha256": "a5563bb56f57310cd23f273ec9a8e104c024b299e6ee816cdb0be0d623787c50"
+  },
+  {
+    "path": "autonomous-run/state.json",
+    "bytes": 280,
+    "sha256": "252131a9d4e8521243fe749a2f8268ebd68396b4e7f8a72cfc1d0aa89b04359a"
+  },
+  {
+    "path": "before/.opencode/commands/bowling-references.md",
+    "bytes": 1860,
+    "sha256": "72c5ed56f0d53d0e91add01a6313d7e361adc146c12705408783850337a91c04"
+  },
+  {
+    "path": "before/.opencode/commands/bowling-run.md",
+    "bytes": 1003,
+    "sha256": "4a26ef6a97741429846e1e6ca8f8cb367ee8557a8a3bdeb4242e12f463265b29"
+  },
+  {
+    "path": "before/AGENTS.md",
+    "bytes": 9904,
+    "sha256": "618291b513fe333fcae38e3353c41c4fa026bb88f549aba2396dacf0636aa1db"
+  },
+  {
+    "path": "before/BUILD_STATUS.md",
+    "bytes": 2821,
+    "sha256": "0c3c3bd7b8debe6092d5d8a06fdd97e56415735c67bd59838f50880398b65e79"
+  },
+  {
+    "path": "before/HANDOFF.md",
+    "bytes": 1380,
+    "sha256": "6789c3cc4481ec0c9fb85ac58275b928629e8928d478e5fc97fa70b52260bc8c"
+  },
+  {
+    "path": "before/MODEL_SETUP.md",
+    "bytes": 5699,
+    "sha256": "12258c651a41cef07ac3ac6110301d8f4816c026d78299df24ca2ed339a4363f"
+  },
+  {
+    "path": "before/README.md",
+    "bytes": 4335,
+    "sha256": "b70b402786545f42dcf0c3e691977a59713527188c7dafd47d8f1c29d6b38446"
+  },
+  {
+    "path": "before/REFERENCE_IMAGES.md",
+    "bytes": 6016,
+    "sha256": "d305054c6933a15c6751a7c784aef6713637abd5b30fb2a8a52cef2e809225e3"
+  },
+  {
+    "path": "before/RUNTIME_52.md",
+    "bytes": 7069,
+    "sha256": "45f38de8f79cbf10ebce0ec3d7fe8141a60532649dcda58e6fd23d713cdd4c3a"
+  },
+  {
+    "path": "before/opencode.json",
+    "bytes": 2842,
+    "sha256": "f9cb6db2cd08e9234d9cf0b3e0a850d92ab7632d4be987fd626d3808e9b96522"
+  },
+  {
+    "path": "before/scripts/blender52_mcp.py",
+    "bytes": 9290,
+    "sha256": "78e2b60f4611d9ca7ad3555ca44fa5d112edb6ea156b62ce8e2ae37cf32a0ea7"
+  },
+  {
+    "path": "before/scripts/check_references.py",
+    "bytes": 5323,
+    "sha256": "68aae8f1fd5104cdfd76c03edca816391702df27761e36233521ce16e2310342"
+  },
+  {
+    "path": "before/scripts/run_bowling.py",
+    "bytes": 6988,
+    "sha256": "fb0eab6f529fc69a3b9c26abd702f799217e61191f67e2e2a962cc0aef45c26b"
+  },
+  {
+    "path": "blender52-guard/submissions.sqlite",
+    "bytes": 16384,
+    "sha256": "bfbd93a08893ad1bd32cde94742e5840d4ede694702021aef81389059753097a"
+  }
+]
