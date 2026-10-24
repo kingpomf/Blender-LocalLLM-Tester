@@ -1,0 +1,67 @@
+{
+  "asset_source": "6b947366ef42484291a8ee70a19c32e6",
+  "images": [
+    {
+      "role": "player",
+      "visual_review": {
+        "passed": false,
+        "reviewer": "operator-assistant image inspection",
+        "sha256": "55852063492194c4828958456625d552971a037d9f000fee4eca2c63dbd38a90",
+        "observations": "Large red and gray surfaces fill the frame. The left-lane path toward pins and readable lane markings/gutter depth are not presented as required."
+      },
+      "job_id": "5c9d98141f8748f585f3e7fd981b1060",
+      "source_job": "41883720605c476ead4a06ac94fdcf7d",
+      "asset_source": "6b947366ef42484291a8ee70a19c32e6",
+      "path": "artifacts/renders/BowlingPair01_player.png",
+      "bytes": 922675,
+      "sha256": "55852063492194c4828958456625d552971a037d9f000fee4eca2c63dbd38a90"
+    },
+    {
+      "role": "pindeck",
+      "visual_review": {
+        "passed": false,
+        "reviewer": "operator-assistant image inspection",
+        "sha256": "609bc36c704140584385392766724dcff930e6b538212de10110f019d2fcc2e9",
+        "observations": "The image is an almost uniformly dark surface with no visible complete pin racks, red neck bands, decks or rear pits."
+      },
+      "job_id": "b61e77cd38b944e0b5c3f2f3c3dca0b9",
+      "source_job": "d65f5d93926d4c68bd56d6b3372bab03",
+      "asset_source": "6b947366ef42484291a8ee70a19c32e6",
+      "path": "artifacts/renders/BowlingPair01_pindeck.png",
+      "bytes": 898321,
+      "sha256": "609bc36c704140584385392766724dcff930e6b538212de10110f019d2fcc2e9"
+    },
+    {
+      "role": "props",
+      "visual_review": {
+        "passed": false,
+        "reviewer": "operator-assistant image inspection",
+        "sha256": "49805a64faacec426eb6a75e0df38e27e9a770fa361d5e17e35fc1ca1e59dfd6",
+        "observations": "A large red panel and gray/tan surfaces occlude the view. The three bowling balls and their recessed grips are not visible."
+      },
+      "job_id": "b99e756159724e659b8735c24f26ea0b",
+      "source_job": "2d02b10b739d437685ec9dd9a7101f32",
+      "asset_source": "6b947366ef42484291a8ee70a19c32e6",
+      "path": "artifacts/renders/BowlingPair01_props.png",
+      "bytes": 892168,
+      "sha256": "49805a64faacec426eb6a75e0df38e27e9a770fa361d5e17e35fc1ca1e59dfd6"
+    },
+    {
+      "role": "overview",
+      "job_id": "acd151e9599448a4964426ff5b1f03be",
+      "source_job": "cf2eeda110fc4dff9499d9d5522c2b41",
+      "asset_source": "6b947366ef42484291a8ee70a19c32e6",
+      "path": "artifacts/renders/BowlingPair01_overview.png",
+      "bytes": 872834,
+      "sha256": "b2a44582a0d5fc108238e75d3a725aba1501a4bbddd16cb0e9574f85f3d6e31a",
+      "width": 1280,
+      "height": 720,
+      "visual_review": {
+        "passed": false,
+        "reviewer": "operator-assistant image inspection",
+        "sha256": "b2a44582a0d5fc108238e75d3a725aba1501a4bbddd16cb0e9574f85f3d6e31a",
+        "observations": "The full image is a nearly featureless gray surface. Neither lanes, racks, seating nor return are visible; the required full-pair evidence is absent."
+      }
+    }
+  ]
+}

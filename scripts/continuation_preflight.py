@@ -7,7 +7,7 @@ from contextlib import closing
 
 from scripts.check_resume import check as resume_check
 from scripts.check_references import check as reference_check
-from scripts.submission_guard import FAILURE_LIMIT_PER_SOURCE, FAILURE_LIMIT_TOTAL
+from scripts.submission_guard import FAILURE_LIMIT_PER_SOURCE, FAILURE_LIMIT_TOTAL, budget_accounting
 from scripts.trial_settings import MODEL, TRIAL
 
 
@@ -46,8 +46,12 @@ def validate(root):
         assert result['passed'], result['issues']
         if check is resume_check:
             assert result['last_verified_source']==plan['source_job'], 'Ledger source differs from authorized repair base'
-    failures=[row for row in rows if row['state'] in {'failed','cancelled'}]
+    accounting=budget_accounting(root/'.runtime/blender52/submissions.sqlite',rows)
+    if 'failure_budget_reset_id' in plan:
+        assert accounting['reset_id']==plan['failure_budget_reset_id'], 'Failure accounting epoch changed'
+    failures=accounting['counted_failures']
     on_source=sum(row['source']==plan['source_job'] for row in failures)
     assert len(failures)<FAILURE_LIMIT_TOTAL and on_source<FAILURE_LIMIT_PER_SOURCE, 'No authorized failure budget remains'
     return {'passed':True,**plan,'failures_retained':len(failures),'source_failures_retained':on_source,
+            'historical_failures_preserved':sum(row['state'] in {'failed','cancelled'} for row in rows),
             'remaining_total':FAILURE_LIMIT_TOTAL-len(failures),'remaining_on_source':FAILURE_LIMIT_PER_SOURCE-on_source}

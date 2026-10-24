@@ -1,0 +1,21 @@
+{
+  "authorization": "User explicitly authorized pin correction/checkpoint reconciliation, zero active error counts with preserved archives, and launching the detached Qwen3.6 continuation.",
+  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+  "source_job": "78c0eaf6afba483694c2ca2c6eec4472",
+  "checkpoint": "artifacts/blend/BowlingPair01.blend",
+  "checkpoint_sha256": "0fce120fa532133520de7b69dcd3a8e2fbd2897ce74fd367aca5f25266801980",
+  "guard_rows_sha256": "6864b31a4b4bc25b38305e7dcf48c276ec504485271d7d0d53a020bba14b9ebb",
+  "validation_sha256": "b01d7a7110e8cd71390c7e8bc61b56ddf287497f04cd440601ca336d5cb5d88a",
+  "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+  "limits": {
+    "per_source": 6,
+    "total": 20
+  },
+  "failure_budget_reset_id": 1,
+  "fresh_coding_session": true,
+  "first_stage": "04",
+  "diagnostic_report": "testing/PIN_CORRECTION_RESET.md",
+  "handoff": "CONTROLLED_CONTINUATION.md",
+  "scope": "Preserve independently verified Stages00\u201303 including the operator-corrected pins. Remaining Stage04 visual grips depend on Stage05 floor/rack/return and Stage07 camera/occlusion repairs; fix these dependencies before declaring04 PASS, then06 collision,07 useful rerenders,08 validation,09 export/roundtrip. Use validation_summary.py and fixed checkpoint/validation tools. Do not modify solved pin geometry, restart empty, regenerate references or reset counters again."
+}

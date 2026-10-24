@@ -63,6 +63,28 @@ class GuardTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(restarted.summary()['failure_limit_per_source'],6)
         self.assertEqual(restarted.summary()['failure_limit_total'],20)
 
+    async def test_authorized_budget_epoch_zeroes_count_but_retains_history_and_deduplication(self):
+        for n in range(3):
+            await self.fail(f'x={n}')
+        # Reconcile terminal states exactly as a normal status read would.
+        for row in self.guard.rows():
+            self.guard.update(row['fingerprint'],self.jobs[row['job']])
+        before=self.guard.rows()
+        with self.guard.locked(), self.guard.connect() as db:
+            cutoff=db.execute('SELECT max(rowid) FROM attempts').fetchone()[0]
+            db.execute('INSERT INTO failure_budget_resets(cutoff_rowid,reason,created) VALUES(?,?,?)',
+                       (cutoff,'Explicit operator test authorization',1.0))
+        restarted=SubmissionGuard(self.path)
+        self.assertEqual(restarted.rows(),before)
+        self.assertEqual(restarted.summary()['failed_count'],0)
+        self.assertEqual(restarted.summary()['historical_failed_count'],3)
+        with self.assertRaisesRegex(GuardBlocked,'unchanged submission'):
+            await restarted.submit(self.request('x=0'),self.rpc)
+        accepted=await restarted.submit(self.request('x=3'),self.rpc)
+        self.jobs[accepted['id']]['state']='failed'
+        await restarted.submit(self.request('x=4'),self.rpc)
+        self.assertEqual(restarted.summary()['failed_count'],1)
+
     async def test_pending_job_blocks_changed_submission(self):
         await self.guard.submit(self.request(), self.rpc)
         with self.assertRaisesRegex(GuardBlocked, 'still pending'):

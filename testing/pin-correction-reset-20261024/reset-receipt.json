@@ -1,0 +1,23 @@
+{
+  "reset_id": 1,
+  "cutoff_rowid": 48,
+  "counted_failures": 0,
+  "historical_failures_preserved": 18,
+  "attempt_rows_unchanged": true,
+  "same_trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+  "source_job": "e8630f4b79ba468ebd18ef53e2f1d51d",
+  "checkpoint": {
+    "source_job": "e8630f4b79ba468ebd18ef53e2f1d51d",
+    "path": "artifacts/blend/BowlingPair01.blend",
+    "sha256": "6b6bd23a94a4cdfbf61860277d59028e12fe4d5aba2be84dd03dca6e5d2fe16a",
+    "bytes": 213913,
+    "scene_json": {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/e8630f4b79ba468ebd18ef53e2f1d51d/scene.json",
+      "bytes": 152540,
+      "sha256": "1709bdd37bd9b5ace72e10e8e8dc7d6685f63c3c4ad2914f5ebe5048baefb99c",
+      "name": "scene.json"
+    }
+  },
+  "archive": "testing/pin-correction-reset-20261024",
+  "duplicate_failed_submission_protection": "retained"
+}

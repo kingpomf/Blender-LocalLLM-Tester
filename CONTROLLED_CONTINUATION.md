@@ -1,49 +1,59 @@
-# Controlled continuation v2 — measured repair and validation handoff
+# Authorized resumed work after operator pin correction and counter reset
 
-**Prepared; not started.** The user invokes the continuation when ready.
+The user authorized a concrete pin correction, checkpoint reconciliation,
+zeroing active failures and launching the detached continuation. This is an
+explicitly assisted continuation in the same r2 trial, not a fresh unaided result.
 
-```sh
-python3 scripts/run_bowling.py --check-continuation
-python3 scripts/run_bowling.py --resume --continuation --detach
-```
+## Verified starting point
 
-Or fully restart OpenCode and invoke `/bowling-continue` once. Do not clear state,
-restart the assignment or regenerate reference images.
+- Model: **Qwen3.6 MoE**, z6-llama/qwen36-35b-a3b-mtp-q8, native262144 retuned.
+- Scene source: **78c0eaf6afba483694c2ca2c6eec4472**.
+- Canonical file: artifacts/blend/BowlingPair01.blend, SHA-256
+  **0fce120fa532133520de7b69dcd3a8e2fbd2897ce74fd367aca5f25266801980**.
+- Operator fixed profile radius/height order, nondegenerate cap topology, outward
+  winding and two separate red neck bands. Native execution and independent
+  validation confirm **Stages00,01,02,03 PASS**. Do not rebuild these stages.
+- The unchanged old stage03_pins_v2.py is historical failed model code; its
+  shared-mesh-deletion hypothesis was wrong. The applied correction is
+  artifacts/scripts/stage03_pins_corrected.py, not an untested proposed fix.
+- Failure accounting reset epoch1: **0 current errors**,6/source20/total available.
+  All18 historical failed jobs and all prior successful/source identities remain.
+  Duplicate failed code is still rejected. Do not perform another reset.
+- Reference images and their visual design guide are already READY. Do not
+  regenerate them. Earlier four beauty images are verified files but invalid/
+  obstructed presentation evidence from an older scene.
 
-## Fixed identities and retained history
+## Remaining work (actual measured report)
 
-- Agent: Qwen3.6 MoE, `z6-llama/qwen36-35b-a3b-mtp-q8`, retuned native256K.
-- Same trial/guard: `bowling52-qwen36-mtp-q8-20261023-r2`.
-- User-authorized limit: **6 failures/source,20 total**, with all12 historical
-  failures retained. This is not20 extra attempts. At preparation the source has
-  two failures, so4 remain there;8 remain across the trial.
-- Starting source: **`6b947366ef42484291a8ee70a19c32e6`**, the last completed
-  common asset revision before render-only camera branches. The validator jobs
-  did not modify geometry and must not be used as budget-reset sources.
-- Canonical file: `artifacts/blend/BowlingPair01.blend`, SHA-256
-  `26ba8ed54bb6af9f9b9d0c8ce6007b459230491f09c5b0f81b7e2c52bcd10e07`.
-- Reference phase READY. Four actual remote render files are now recovered into
-  `artifacts/renders/`, with hashes/provenance and failed visibility reviews.
+Run **`python3 scripts/validation_summary.py`** for a compact failure list. Use
+Read/Glob/Grep rather than denied shell grep/head/cat pipelines or subagents.
 
-## First actions
+Stage04's balls exist and measured size/spacing/deep regions pass, but visible
+grip evidence depends on Stage05 support/occlusion repairs and Stage07 rerendering.
+Keep that dependency explicitly IN_PROGRESS while completing05–07; do not waste
+attempts rewriting the corrected pin or ball APIs. After rerender, resolve actual
+grip/label evidence and revalidate all required criteria.
 
-1. Read both ledgers and **`testing/VALIDATION_RECONCILIATION_V2.md`**. Do not reuse
-   the previous stage PASS narrative. Stage00/01 measure PASS; later stages have
-   actual failures or unresolved evidence. Exports are not complete.
-2. Run exact permitted commands without `2>&1`, shell loops or command chains:
-   `python3 scripts/check_resume.py`, `python3 scripts/check_references.py`.
-   Confirm fresh MCP capabilities show6/source20/total and12 failures retained.
-3. Inspect the current native scene; repair earliest failures in order. Particularly
-   inspect the inner gutters; pin bands/seam; the enormous vertical floor mesh;
-   ball rack contact; return width/masking clearance; visible flat collision
-   proxies; and obstructed cameras. Do not undo the successful lane/ball API repairs.
-4. Use saved source revisions properly, retain per-source and global limits and
-   run LSP/API diagnostics before submitting. Never dismiss all diagnostics as
-   stub false positives or rename APIs without checking actual runtime support.
+Prioritize these measured issues:
 
-## Required checkpoint/validation tools
+1. **Stage05 floor/return/dressing:** AlleyFloor is a vertical slab about338m tall,
+   not a floor. Inspect make_box axis order and dimensions; do not blindly scale
+   already scaled vertex coordinates again. Return hood width and masking-wall
+   clearance fail. Rack geometry intersects the balls rather than supporting them.
+   Labels/opening evidence still needs actual inspection.
+2. **Stage06 collision:** gutter proxies are shallow flat pieces/bridges, lane
+   proxies are too wide, and collision meshes are visible to beauty renders.
+   Preserve visual geometry while fixing/remeasuring collision placement.
+3. **Stage07 framing:** existing images are blank or obstructed; file existence is
+   not PASS. Correct huge occluders before camera/framing/occlusion work. Use the
+   CPU render tool, not viewport rendering inside authoring. Obtain four useful
+   views from the same final asset revision.
+4. **Stages08–09:** run fixed read-only measured validation and image review;
+   export and round-trip only after required criteria actually pass.
 
-After each completed repair authoring job:
+## Checkpoint and validation commands
+
+After each completed real repair revision:
 
 ```sh
 python3 scripts/checkpoint_bowling.py --source COMPLETED_JOB_ID
@@ -52,44 +62,35 @@ python3 scripts/checkpoint_bowling.py --sync-ledgers
 python3 scripts/check_resume.py
 ```
 
-These fixed tools fetch/verify native bytes, publish the canonical file, use
-correct evaluated-object cleanup, count actual evaluated triangles, measure
-world-space surfaces rather than thickness, and deterministically replace stage
-tables and source metadata in both ledgers. They preserve previous checkpoint
-bytes under `.runtime/checkpoint-history/`. Do not use brittle oldString guesses
-or hand-insert duplicate REPAIRING rows. The validator is operator-reviewed;
-repair the asset, not acceptance thresholds or checker code.
-
-A validation job with `passed=false` still produces a completed measured report;
-it is not a request to replay a crashed job. Read the failing IDs and fix their
-geometry/evidence. Pending or uncertain requests must be reconciled, never repeated.
-Reusing a validation campaign reuses its accepted completed job only when the
-source and exact validator hash still match. Use a new campaign for a changed scene.
-
-## Render publication and visual evidence
-
-Fix actual asset/camera framing before rendering. Use the CPU render tool, not
-`bpy.ops.render` inside authoring or a headless viewport/OpenGL render. After a
-completed render-only camera revision:
+Publish render artifacts with:
 
 ```sh
 python3 scripts/checkpoint_bowling.py --render overview RENDER_JOB_ID --asset-source COMMON_ASSET_SOURCE
 ```
 
-Repeat with player/pindeck/props. The tool checks lineage, saved mesh/material
-description, image hashes and minimum dimensions; it cannot visually approve the
-picture. Inspect actual images and record `visual_review` in render-manifest.json,
-including reviewer, matching sha256, observations and honest passed true/false.
-All four renders must describe the same final asset geometry. Changed geometry
-invalidates previous render/visual evidence, even if files still exist.
+Repeat for player/pindeck/props. The helper checks bytes, lineage and saved mesh/
+material descriptions. It does not approve visual content. Record actual hash-bound
+visual review and qualitative evidence, never intended parameters or unconditional
+true. Do not weaken the operator-reviewed validator to achieve a pass.
 
-For qualitative requirements initially marked UNRESOLVED (grip openings, readable
-labels, etc.), `artifacts/reports/qualitative-evidence.json` may record actual
-image-derived review. It must name asset_source and criteria with id, reviewer,
-observations≥80 chars, passed and render_sha256 tied to a verified current image.
-Only unresolved criteria may be resolved by such evidence; geometry FAIL checks
-cannot be overridden. Do not fabricate review from file existence or prompt intent.
+Checkpoints are deterministic; do not hand-insert duplicate stage rows. Use plain
+permitted commands without2>&1, shell chains or directory-creation commands. The
+directories already exist. Diagnose real API failures rather than dismissing all
+Pyright errors as stub false positives. Keep all accepted IDs before polling.
 
-After the required geometry and visual checks pass, complete Stage08, exports,
-round-trip checks and Stage09 delivery. Failure limits and every genuine STOP
-still apply. This is an assisted continuation, not a fresh unaided model result.
+## Execution
+
+The user authorized the assistant to launch the prepared detach command. A fresh
+Qwen3.6 coding session will start from the reconciled files to avoid the previous
+session's stale diagnoses. Prior session IDs/events remain in history. Continue
+automatically until delivery or a real STOP; never restart from an empty scene.
+
+Monitoring:
+
+```sh
+python3 scripts/run_bowling.py --status
+```
+
+Live status includes current and historical failure counts separately. Limits
+remain6/source20/total. New failures count normally; transport uncertainty and
+unchanged failed submissions are never automatically replayed.

@@ -114,6 +114,19 @@ class ContinuousRunTests(unittest.TestCase):
                     run_bowling.main()
                 spawn.assert_not_called()
 
+    def test_status_distinguishes_current_and_historical_failure_counts(self):
+        from scripts.submission_guard import SubmissionGuard
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)
+            guard=SubmissionGuard(root/'.runtime/blender52/submissions.sqlite')
+            with guard.connect() as db:
+                db.execute("INSERT INTO attempts VALUES('old','source','author','job','failed')")
+                db.execute("INSERT INTO failure_budget_resets(cutoff_rowid,reason,created) VALUES(1,'explicit user authorization',1)")
+            result=run_bowling.live_status(root,{'state':'running'})
+            self.assertEqual(result['live_failure_budget']['current_failures'],0)
+            self.assertEqual(result['live_failure_budget']['historical_failures_preserved'],1)
+            self.assertEqual(result['live_failure_budget']['total_limit'],20)
+
 
 if __name__=='__main__':
     unittest.main()

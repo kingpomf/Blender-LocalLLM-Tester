@@ -3,16 +3,17 @@
 Test the selected local LLM against **Blender 5.2.3 LTS** with matching
 5.2 typing stubs, measured asset specifications and enforced retry limits.
 The selected coding model is **Qwen3.6 35B A3B MTP UD-Q8_K_XL (256K)**.
-The current run has been reconciled after twelve failed jobs. Its latest completed
-scene, four actual renders and reference images are preserved. Measured Stage00/01
-checks pass; later stages need repair or unresolved evidence. The fixed validator
-now completes without changing geometry. Limits are6/source and20/total, with all
-prior failures counted—8 remain globally and4 on the current source at preparation.
+The operator corrected the pin generator and reconciled the checkpoint. Measured
+Stages00–03 now pass. The user authorized zeroing current error counts and starting
+the detached continuation. All18 prior failures remain archived/in the ledger;
+limits are6/source20/total in the new epoch, starting with0 active errors. The
+remaining work is actual geometry/presentation repair and verified delivery.
 
-## Current controlled continuation — operator starts it
+## Current controlled continuation
 
 Read `CONTROLLED_CONTINUATION.md` and `testing/BALL_GENERATION_DIAGNOSTICS.md`.
-The continuation is prepared but stopped. From this project directory:
+The assistant has been authorized to launch it detached. Check status first and
+do not launch a duplicate. For an explicitly reconciled/resumed run:
 
 ```sh
 python3 scripts/run_bowling.py --check-continuation

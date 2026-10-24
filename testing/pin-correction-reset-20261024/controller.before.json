@@ -1,0 +1,91 @@
+{
+  "sessions": {
+    "references": "ses_e9469c0feffeeExKhG0WWizf8I",
+    "coding": "ses_e94571c7dffeB37vlLQTvFqRLV"
+  },
+  "turns": 4,
+  "state": "blocked",
+  "phase": "coding",
+  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "last_errors": [
+    "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+    "Error executing tool blender_scene_author: STOP: unchanged submission already failed; job f7e8d3761bb14ccaacc78fecb2956fec. Read diagnostics and make a real code change, or report BLOCKED. No new job was submitted.",
+    "Error executing tool blender_scene_author: STOP: durable failure budget exhausted (6 per source / 20 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry.",
+    "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings."
+  ],
+  "prior_stop": {
+    "state": "blocked",
+    "reason": "Coding client reported an explicit tool/transport STOP",
+    "last_errors": [
+      "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+      "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+      "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+      "Error executing tool blender_scene_author: STOP: durable failure budget exhausted (3 per source / 6 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry."
+    ],
+    "controller_pid": 5412
+  },
+  "reconciliation_plan": "testing/reconciliation-v2-20261024/continuation.json",
+  "continuation_command": "python3 scripts/run_bowling.py --resume --continuation --detach",
+  "operator_continuation": {
+    "passed": true,
+    "authorization": "User requested reconciling latest scene/renders, repairing validation/checkpoints and raising total failures to20.",
+    "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+    "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+    "source_job": "6b947366ef42484291a8ee70a19c32e6",
+    "checkpoint": "artifacts/blend/BowlingPair01.blend",
+    "checkpoint_sha256": "26ba8ed54bb6af9f9b9d0c8ce6007b459230491f09c5b0f81b7e2c52bcd10e07",
+    "guard_rows_sha256": "29e10b22ed19427cd4d5136daf4c5461c853c06af3da68a56e55d70eb931bd9f",
+    "validation_sha256": "be18484b5ebcc2b8c340d7133d93822fc8539232ef76dc5f18394c3d66d3e86f",
+    "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+    "limits": {
+      "per_source": 6,
+      "total": 20
+    },
+    "diagnostic_report": "testing/VALIDATION_RECONCILIATION_V2.md",
+    "handoff": "CONTROLLED_CONTINUATION.md",
+    "first_stage": "02",
+    "scope": "Preserve measured Stage00/01 passes; repair Stage02 gutter adjacency, Stage03 pin topology/bands, Stage04 grip visibility, Stage05 floor/return/dressing, Stage06 collision, Stage07 framing/occlusion. Revalidate Stage08 and finish Stage09 only after all required checks pass. Do not restart or repeat solved ball API failures.",
+    "failures_retained": 12,
+    "source_failures_retained": 2,
+    "remaining_total": 8,
+    "remaining_on_source": 4
+  },
+  "stop_history": [
+    {
+      "reason": "Coding client reported an explicit tool/transport STOP",
+      "last_errors": [
+        "The user rejected permission to use this specific tool call.",
+        "The user rejected permission to use this specific tool call.",
+        "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+        "Error executing tool blender_scene_author: STOP: durable failure budget exhausted (6 per source / 12 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry."
+      ],
+      "controller_pid": 9728
+    }
+  ],
+  "prepared_continuation": {
+    "passed": true,
+    "authorization": "User requested reconciling latest scene/renders, repairing validation/checkpoints and raising total failures to20.",
+    "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+    "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+    "source_job": "6b947366ef42484291a8ee70a19c32e6",
+    "checkpoint": "artifacts/blend/BowlingPair01.blend",
+    "checkpoint_sha256": "26ba8ed54bb6af9f9b9d0c8ce6007b459230491f09c5b0f81b7e2c52bcd10e07",
+    "guard_rows_sha256": "29e10b22ed19427cd4d5136daf4c5461c853c06af3da68a56e55d70eb931bd9f",
+    "validation_sha256": "be18484b5ebcc2b8c340d7133d93822fc8539232ef76dc5f18394c3d66d3e86f",
+    "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+    "limits": {
+      "per_source": 6,
+      "total": 20
+    },
+    "diagnostic_report": "testing/VALIDATION_RECONCILIATION_V2.md",
+    "handoff": "CONTROLLED_CONTINUATION.md",
+    "first_stage": "02",
+    "scope": "Preserve measured Stage00/01 passes; repair Stage02 gutter adjacency, Stage03 pin topology/bands, Stage04 grip visibility, Stage05 floor/return/dressing, Stage06 collision, Stage07 framing/occlusion. Revalidate Stage08 and finish Stage09 only after all required checks pass. Do not restart or repeat solved ball API failures.",
+    "failures_retained": 12,
+    "source_failures_retained": 2,
+    "remaining_total": 8,
+    "remaining_on_source": 4
+  },
+  "controller_pid": 17190,
+  "reason": "Coding client reported an explicit tool/transport STOP"
+}

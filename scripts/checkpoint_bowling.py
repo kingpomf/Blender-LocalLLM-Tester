@@ -14,6 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from scripts.check_resume import fields
 from scripts.continuation_preflight import guard_rows
+from scripts.submission_guard import budget_accounting
 
 STAGES=['Contract and scene safety','Lane pair and markings','Gutters, decks and pit',
         'Reusable bowling pins','Reusable bowling balls','Return, seating and alley dressing',
@@ -88,17 +89,21 @@ def sync_ledgers(root):
         f"Read-only validator completed: {validation['pass_count']} PASS, {validation['fail_count']} FAIL, {validation['unresolved_count']} unresolved; source {source}."))
     rows.append(('NOT_STARTED','No qualified final export/round-trip delivery yet.'))
     next_stage=next((i for i,(state,_) in enumerate(rows) if state!='PASS'),9)
-    failure_count=sum(r['state'] in {'failed','cancelled'} for r in attempts)
-    source_failures=sum(r['source']==source and r['state'] in {'failed','cancelled'} for r in attempts)
+    accounting=budget_accounting(root/'.runtime/blender52/submissions.sqlite',attempts)
+    failure_count=len(accounting['counted_failures'])
+    historical_failures=sum(r['state'] in {'failed','cancelled'} for r in attempts)
+    source_failures=sum(r['source']==source for r in accounting['counted_failures'])
     controller_path=root/'.runtime/autonomous-run/state.json'
     controller=json.loads(controller_path.read_text()) if controller_path.exists() else {}
     common={'Reference phase':'READY','Pending reference job':'none','Pending job':'none',
             'Operator validation pending':'none',
             'Checkpoint SHA-256':receipt['sha256'],
-            'Failure budget':f'6 per source / 20 total; {failure_count} historical failures retained; {source_failures} on current source',
+            'Failure budget':f'6 per source / 20 total; current failures {failure_count}; {source_failures} on current source; {historical_failures} historical failures preserved; reset epoch {accounting["reset_id"]}',
             'Controller':'RUNNING; continue current session' if controller.get('state')=='running' else 'STOPPED; awaiting explicit operator continuation',
-            'Operator intervention':'Latest native scene and four renders reconciled; fixed read-only validation;20-total limit authorized with all history retained; no asset geometry repaired',
-            'Next action':f'Read CONTROLLED_CONTINUATION.md and testing/VALIDATION_RECONCILIATION_V2.md; repair Stage {next_stage:02d} and dependent failures; use verified checkpoint tools.'}
+            'Operator intervention':('Operator supplied and verified pin-profile/cap/band correction; user authorized archived counter reset; all original jobs preserved'
+                if (root/'testing/pin-correction-reset-20261024/pin-report.json').exists() else
+                'Latest native scene and renders reconciled; fixed read-only validation; history preserved'),
+            'Next action':f'Read CONTROLLED_CONTINUATION.md and the active handoff report; repair Stage {next_stage:02d} and dependencies; use verified checkpoint tools.'}
     build=(root/'BUILD_STATUS.md').read_text()
     build=replace_stage_table(build,rows)
     build=update_fields(build,{**common,'Status':'IN_PROGRESS','Next stage':f'{next_stage:02d} — {STAGES[next_stage]}',
@@ -108,13 +113,14 @@ def sync_ledgers(root):
         'Pending source job':'none','Latest verified local checkpoint':receipt['path']})
     # Reconciled reports supersede old forward-looking text rather than leaving
     # contradictory restart/source instructions below the current metadata.
-    build=build[:build.index('## Next action')]+'## Next action\n\n'+common['Next action']+'\n\n## Evidence\n\nNative and local measurements are in artifacts/reports/validation.json.\nOriginal ledgers/controller/guard backup and terminal jobs are preserved in\ntesting/reconciliation-v2-20261024/. Earlier PASS claims are historical only.\nNo asset geometry was repaired during this operator reconciliation.\n'
+    build=build[:build.index('## Next action')]+'## Next action\n\n'+common['Next action']+'\n\n## Evidence\n\nNative and local measurements are in artifacts/reports/validation.json.\nHistorical ledgers, jobs, guard backups and operator assistance are preserved\nunder testing/. Only current measured PASS results may be carried forward.\n'
     header=handoff.split('\n\n',1)[0]
     metadata='\n'.join(line for line in handoff.splitlines() if line.startswith('- '))
     handoff=header+'\n\n'+metadata+'\n\nThe current source is a completed integrity-verified repair base, not a claim\nthat all stages passed. Use the measured validator and render reviews. Failed\njobs never become sources. Preserve all historical failures and all real STOPs.\n'
     backup_and_write(root,'BUILD_STATUS.md',build)
     backup_and_write(root,'HANDOFF.md',handoff)
-    return {'source':source,'next_stage':f'{next_stage:02d}','failure_count':failure_count,'pending_jobs':0}
+    return {'source':source,'next_stage':f'{next_stage:02d}','failure_count':failure_count,
+            'historical_failures_preserved':historical_failures,'pending_jobs':0}
 
 
 async def publish_source(root,source):

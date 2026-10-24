@@ -91,6 +91,7 @@
       "python3 scripts/checkpoint_bowling.py *": "allow",
       "python3 scripts/validate_checkpoint.py": "allow",
       "python3 scripts/validate_checkpoint.py *": "allow",
+      "python3 scripts/validation_summary.py": "allow",
       "python3 scripts/run_bowling.py": "allow",
       "python3 scripts/run_bowling.py *": "allow",
       ".venv/bin/pyright *": "allow",

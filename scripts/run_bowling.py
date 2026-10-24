@@ -17,6 +17,21 @@ from scripts.check_resume import check as resume_check, fields
 from scripts.trial_settings import MODEL
 
 
+def live_status(root,state) -> dict:
+    result=dict(state)
+    path=Path(root)/'.runtime/blender52/submissions.sqlite'
+    if path.exists():
+        from scripts.continuation_preflight import guard_rows
+        from scripts.submission_guard import budget_accounting, FAILURE_LIMIT_PER_SOURCE, FAILURE_LIMIT_TOTAL
+        rows=guard_rows(root)
+        accounting=budget_accounting(path,rows)
+        result['live_failure_budget']={'current_failures':len(accounting['counted_failures']),
+            'historical_failures_preserved':sum(r['state'] in {'failed','cancelled'} for r in rows),
+            'per_source_limit':FAILURE_LIMIT_PER_SOURCE,'total_limit':FAILURE_LIMIT_TOTAL,
+            'reset_id':accounting['reset_id']}
+    return result
+
+
 def snapshot():
     text=(ROOT/'BUILD_STATUS.md').read_text()
     metadata=fields(text)
@@ -91,7 +106,8 @@ def main():
     if args.continuation and not args.resume:
         parser.error('--continuation requires --resume')
     if args.status:
-        print(path.read_text() if path.exists() else json.dumps({'state':'not_started'}))
+        state=json.loads(path.read_text()) if path.exists() else {'state':'not_started'}
+        print(json.dumps(live_status(ROOT,state),indent=2))
         return
     if path.exists() and args.resume and not args.continuation and json.loads(path.read_text()).get('state')=='ready_to_continue':
         raise RuntimeError('This reconciled run requires --resume --continuation to load its authorized diagnostic handoff.')
@@ -119,6 +135,9 @@ def main():
             from scripts.continuation_preflight import validate
             plan=validate(ROOT)
             state['operator_continuation']=plan
+            if plan.get('fresh_coding_session') and 'coding' in state['sessions']:
+                state.setdefault('session_history',[]).append({'phase':'coding','session':state['sessions'].pop('coding'),
+                    'reason':'Operator-corrected pin geometry and authorized counter reset; avoid stale failed-session assumptions'})
             state['recovery_context']=(
                 f"The operator explicitly authorized this reconciled continuation with failure limits {plan['limits']['per_source']}/source and {plan['limits']['total']}/total. "
                 'All prior failures remain. Read CONTROLLED_CONTINUATION.md and '+plan['diagnostic_report']+' before any submission. '
@@ -152,6 +171,7 @@ def main():
             state.pop('reason',None)
             save()
             events=runtime/f"{state['turns']:03d}-{phase}.jsonl"
+            state['events_file']=str(events.relative_to(ROOT))
             with events.open('x') as log:
                 process=subprocess.Popen(command,cwd=ROOT,stdout=subprocess.PIPE,stderr=None,
                                          text=True,start_new_session=True)
@@ -172,6 +192,8 @@ def main():
                         if event.get('type')=='tool_use' and event.get('part',{}).get('state',{}).get('status')=='error':
                             error=str(event['part']['state'].get('error',''))
                             errors.append(error[:1500])
+                            state['last_errors']=errors[-4:]
+                            save()
                             if any(marker in error.lower() for marker in ['stop:', 'circuit-breaker', 'failure budget exhausted','doom_loop']):
                                 hard_stop=True
                         if event.get('sessionID'):
