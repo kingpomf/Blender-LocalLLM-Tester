@@ -11,6 +11,9 @@ import json
 from pathlib import Path
 import sqlite3
 
+FAILURE_LIMIT_PER_SOURCE = 6
+FAILURE_LIMIT_TOTAL = 12
+
 
 class GuardBlocked(RuntimeError):
     pass
@@ -67,7 +70,7 @@ class SubmissionGuard:
         return {'accepted_jobs': [r for r in rows if r['job']],
                 'uncertain_submissions': [r['fingerprint'] for r in rows if not r['job']],
                 'failed_count': sum(r['state'] in ('failed', 'cancelled') for r in rows),
-                'failure_limit_per_source': 3, 'failure_limit_total': 6}
+                'failure_limit_per_source': FAILURE_LIMIT_PER_SOURCE, 'failure_limit_total': FAILURE_LIMIT_TOTAL}
 
     async def submit(self, request, rpc):
         key = fingerprint(request)  # Syntax failures never reach remote worker.
@@ -90,8 +93,8 @@ class SubmissionGuard:
             if any(r['state'] in ('queued', 'running') for r in rows):
                 raise GuardBlocked('STOP: an accepted job is still pending. Poll/reconcile it before another submission.')
             failures = [r for r in rows if r['state'] in ('failed', 'cancelled')]
-            if sum(r['source'] == source for r in failures) >= 3 or len(failures) >= 6:
-                raise GuardBlocked('STOP: durable failure budget exhausted (3 per source / 6 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry.')
+            if sum(r['source'] == source for r in failures) >= FAILURE_LIMIT_PER_SOURCE or len(failures) >= FAILURE_LIMIT_TOTAL:
+                raise GuardBlocked(f'STOP: durable failure budget exhausted ({FAILURE_LIMIT_PER_SOURCE} per source / {FAILURE_LIMIT_TOTAL} total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry.')
             if source == 'EMPTY' and any(r['operation'] == 'author' and r['state'] == 'completed' for r in rows):
                 raise GuardBlocked('STOP: a completed scene already exists. Supply its verified source_job; do not silently restart.')
             # Commit reservation BEFORE network submission. Transport errors leave

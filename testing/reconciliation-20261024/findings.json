@@ -1,0 +1,347 @@
+{
+  "source_job": "d1ce998472c349ac9f9fc2775afefdf6",
+  "audit_job": "4f572bf507534fe184d09d7014e0d60c",
+  "foundation_passed": true,
+  "floating_markings": [
+    {
+      "name": "ArrowTri_L_01",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_L_02",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_L_03",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_L_04",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_L_05",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_L_06",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_L_07",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_R_01",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_R_02",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_R_03",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_R_04",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_R_05",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_R_06",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "ArrowTri_R_07",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_L_01",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_L_02",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_L_03",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_L_04",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_L_05",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_L_06",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_L_07",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_R_01",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_R_02",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_R_03",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_R_04",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_R_05",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_R_06",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Dot_R_07",
+      "minimum_z": 0.148499995470047,
+      "maximum_z": 0.148499995470047
+    },
+    {
+      "name": "Foul_L",
+      "minimum_z": 0.1469999998807907,
+      "maximum_z": 0.14999999105930328
+    },
+    {
+      "name": "Foul_R",
+      "minimum_z": 0.1469999998807907,
+      "maximum_z": 0.14999999105930328
+    }
+  ],
+  "gutters": {
+    "Gutter_L_Inner": {
+      "width": 0.4099999666213989,
+      "minimum": [
+        -0.7465999722480774,
+        0.0,
+        -0.10000000149011612
+      ],
+      "maximum": [
+        -0.33660000562667847,
+        19.200000762939453,
+        0.0020000000949949026
+      ]
+    },
+    "Gutter_L_Outer": {
+      "width": 0.4100000858306885,
+      "minimum": [
+        -1.8134000301361084,
+        0.0,
+        -0.10000000149011612
+      ],
+      "maximum": [
+        -1.40339994430542,
+        19.200000762939453,
+        0.0020000000949949026
+      ]
+    },
+    "Gutter_R_Inner": {
+      "width": 0.25,
+      "minimum": [
+        0.41659998893737793,
+        0.0,
+        -0.10000000149011612
+      ],
+      "maximum": [
+        0.6665999889373779,
+        19.200000762939453,
+        0.0020000000949949026
+      ]
+    },
+    "Gutter_R_Outer": {
+      "width": 0.25,
+      "minimum": [
+        1.4833999872207642,
+        0.0,
+        -0.10000000149011612
+      ],
+      "maximum": [
+        1.7333999872207642,
+        19.200000762939453,
+        0.0020000000949949026
+      ]
+    }
+  },
+  "pin_count": 20,
+  "backward_pins": [
+    {
+      "name": "Pin_L_02",
+      "y": 18.024036407470703
+    },
+    {
+      "name": "Pin_L_03",
+      "y": 18.024036407470703
+    },
+    {
+      "name": "Pin_L_04",
+      "y": 17.76007080078125
+    },
+    {
+      "name": "Pin_L_05",
+      "y": 17.76007080078125
+    },
+    {
+      "name": "Pin_L_06",
+      "y": 17.76007080078125
+    },
+    {
+      "name": "Pin_L_07",
+      "y": 17.49610710144043
+    },
+    {
+      "name": "Pin_L_08",
+      "y": 17.49610710144043
+    },
+    {
+      "name": "Pin_L_09",
+      "y": 17.49610710144043
+    },
+    {
+      "name": "Pin_L_10",
+      "y": 17.49610710144043
+    },
+    {
+      "name": "Pin_R_02",
+      "y": 18.024036407470703
+    },
+    {
+      "name": "Pin_R_03",
+      "y": 18.024036407470703
+    },
+    {
+      "name": "Pin_R_04",
+      "y": 17.76007080078125
+    },
+    {
+      "name": "Pin_R_05",
+      "y": 17.76007080078125
+    },
+    {
+      "name": "Pin_R_06",
+      "y": 17.76007080078125
+    },
+    {
+      "name": "Pin_R_07",
+      "y": 17.49610710144043
+    },
+    {
+      "name": "Pin_R_08",
+      "y": 17.49610710144043
+    },
+    {
+      "name": "Pin_R_09",
+      "y": 17.49610710144043
+    },
+    {
+      "name": "Pin_R_10",
+      "y": 17.49610710144043
+    }
+  ],
+  "red_pin_faces": 0,
+  "pin_boundary_edges": 26,
+  "stage_results": {
+    "00": "PASS",
+    "01": "FAIL",
+    "02": "FAIL",
+    "03": "FAIL",
+    "04": "FAIL"
+  },
+  "failed_jobs": [
+    {
+      "job_id": "9d8bd052d234497b95d5cdbf22ae4f08",
+      "source_job": null,
+      "exceptions": [
+        "TypeError: bpy_prop_collection.__contains__: expected a string or a tuple of strings"
+      ]
+    },
+    {
+      "job_id": "9d7e4d5e2127465ba8fe603dd05f3e65",
+      "source_job": null,
+      "exceptions": [
+        "ValueError: Empty or degenerate geometry: BowlingPair01_ROOT"
+      ]
+    },
+    {
+      "job_id": "06721f3787984d55b929c9a6cc0e8b0a",
+      "source_job": "231eb330af5a43a79357135973cd7a54",
+      "exceptions": [
+        "AttributeError: 'Mesh' object has no attribute 'calc_normals'. Did you mean: 'flip_normals'?"
+      ]
+    },
+    {
+      "job_id": "a7ce66a8f47147f5a904cda1824ba8f6",
+      "source_job": "d1ce998472c349ac9f9fc2775afefdf6",
+      "exceptions": [
+        "KeyError: 'bpy_prop_collection[key]: key \"Clearcoat\" not found'"
+      ]
+    },
+    {
+      "job_id": "76e6ce714eec44f685da3329e41dffcc",
+      "source_job": "d1ce998472c349ac9f9fc2775afefdf6",
+      "exceptions": [
+        "ValueError: Empty or degenerate geometry: Ball_01"
+      ]
+    },
+    {
+      "job_id": "f1b81b3109f2428a880dba13fce45957",
+      "source_job": "d1ce998472c349ac9f9fc2775afefdf6",
+      "exceptions": [
+        "AttributeError: BMeshOpsModule: operator \"extrude_face_only\" doesn't exist. Did you mean: 'extrude_edge_only'?"
+      ]
+    }
+  ],
+  "bmesh_operators": {
+    "create_uvsphere": true,
+    "extrude_face_only": false,
+    "extrude_region_unshared": false,
+    "extrude_discrete_faces": true,
+    "extrude_face_region": true
+  },
+  "scope": "Read-only measurements; no asset geometry or model-authored script was changed."
+}

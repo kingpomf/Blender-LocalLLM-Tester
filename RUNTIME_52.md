@@ -44,8 +44,9 @@ traceback clarity; local saved scripts remain the model's original code.
 - Returns an existing completed result for an identical successful request.
 - Rejects duplicate pending/failed requests and overlapping pending work.
 - Refreshes accepted pending jobs before deciding, even if the model skipped polling.
-- Rejects further submissions on a source after three failed/cancelled attempts;
-  six failures across the trial stop all new submissions.
+- Rejects further submissions on a source after six failed/cancelled attempts;
+  twelve failures across the trial stop all new submissions. The operator doubled
+  the limits for this continuation without clearing any of the six prior failures.
 - Records a durable uncertain reservation before network submission. Lost replies
   block new submissions until an operator reconciles the exact accepted remote job.
 - Rejects a silent empty-scene restart once an authored scene has completed.

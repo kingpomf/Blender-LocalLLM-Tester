@@ -82,7 +82,8 @@ stage PASS is reused. The fresh guard has no accepted jobs or failures.
 
 The new trial queue is `var/bowling52-qwen36-mtp-q8-20261023-r2`, Blender 5.2.3 LTS,
 CPU rendering. Automatic compaction/pruning are enabled, the60-step cap is removed,
-and stages run consecutively. All ten Blender stages are NOT_STARTED.
+and stages run consecutively. All ten stages were NOT_STARTED at the original reset;
+the current reconciled progress and controlled continuation are in BUILD_STATUS.md.
 
 imageMCP uses **EliteDesk WSL Qwen Image 2.1 Q4** for this reference recipe; Z6
 Turbo remains a distinct available profile. Run `/bowling-references` first:

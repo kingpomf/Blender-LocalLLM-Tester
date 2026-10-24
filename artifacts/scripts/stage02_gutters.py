@@ -1,0 +1,301 @@
+import bpy
+import json
+import os
+from math import cos, sin, pi
+
+def run_stage():
+    scene = bpy.context.scene
+
+    required_names = ['BP01_STATIC', 'BP01_PINS', 'BP01_BALLS', 'BP01_COLLISION', 'BP01_PRESENTATION']
+    for name in required_names:
+        assert name in bpy.data.collections, f"Missing collection {name}"
+
+    errors = []
+
+    root = bpy.data.objects['BowlingPair01_ROOT']
+    static_col = bpy.data.collections['BP01_STATIC']
+
+    # Verify previous stage objects exist
+    for required in ('Lane_L_Surface', 'Lane_R_Surface', 'Approach_L', 'Approach_R'):
+        assert required in bpy.data.objects, f"Missing required object: {required}"
+
+    # --- Gutters ---
+    # Gutter geometry: concave cross-section using BMesh
+    # Each gutter is 0.25m wide, trough bottom 0.10m below lane surface (Z=0)
+    # Lane-facing lip at Z=0.0, outer lip at Z=-0.02 (slightly below lane)
+
+    mat_gutter = bpy.data.materials.new('Mat_Gutter')
+    mat_gutter.use_nodes = True
+    bg = mat_gutter.node_tree.nodes['Material Output']
+    principled = mat_gutter.node_tree.nodes.new('ShaderNodeBsdfPrincipled')
+    principled.inputs['Base Color'].default_value = (0.15, 0.15, 0.15, 1.0)
+    principled.inputs['Roughness'].default_value = 0.6
+    mat_gutter.node_tree.links.new(principled.outputs['BSDF'], bg.inputs['Surface'])
+
+    mat_pin_deck = bpy.data.materials.new('Mat_PinDeck')
+    mat_pin_deck.use_nodes = True
+    bg2 = mat_pin_deck.node_tree.nodes['Material Output']
+    p2 = mat_pin_deck.node_tree.nodes.new('ShaderNodeBsdfPrincipled')
+    p2.inputs['Base Color'].default_value = (0.70, 0.50, 0.25, 1.0)
+    p2.inputs['Roughness'].default_value = 0.5
+    mat_pin_deck.node_tree.links.new(p2.outputs['BSDF'], bg2.inputs['Surface'])
+
+    mat_pit = bpy.data.materials.new('Mat_Pit')
+    mat_pit.use_nodes = True
+    bg3 = mat_pit.node_tree.nodes['Material Output']
+    p3 = mat_pit.node_tree.nodes.new('ShaderNodeBsdfPrincipled')
+    p3.inputs['Base Color'].default_value = (0.10, 0.10, 0.12, 1.0)
+    p3.inputs['Roughness'].default_value = 0.8
+    mat_pit.node_tree.links.new(p3.outputs['BSDF'], bg3.inputs['Surface'])
+
+    mat_rail = bpy.data.materials.new('Mat_Rail')
+    mat_rail.use_nodes = True
+    bg4 = mat_rail.node_tree.nodes['Material Output']
+    p4 = mat_rail.node_tree.nodes.new('ShaderNodeBsdfPrincipled')
+    p4.inputs['Base Color'].default_value = (0.35, 0.30, 0.25, 1.0)
+    p4.inputs['Roughness'].default_value = 0.4
+    mat_rail.node_tree.links.new(p4.outputs['BSDF'], bg4.inputs['Surface'])
+
+    # Gutter specs
+    gutter_width = 0.25
+    gutter_length = 19.20
+    gutter_depth = 0.10  # trough bottom relative to lane
+    gutter_length_start = 0.0
+    gutter_length_end = 19.20
+
+    # Lane edges: left lane -1.4834 (outer) to -0.4166 (inner), right 0.4166 (inner) to 1.4834 (outer)
+    lane_left_outer = -1.4834
+    lane_left_inner = -0.4166
+    lane_right_inner = 0.4166
+    lane_right_outer = 1.4834
+
+    def make_gutter(name, x_start, x_end, mat):
+        """Create a gutter with concave cross-section. x_start is the lane-facing edge."""
+        me = bpy.data.meshes.new(name + '_Mesh')
+        obj = bpy.data.objects.new(name, me)
+        # Cross-section profile (concave): 8 vertices per cross-section
+        # Profile goes from x_start to x_end, with vertices at Z=0 (lane-facing lip)
+        # then curving down to trough at Z=-0.10, then up to outer lip
+        verts_2d = [
+            (x_start, 0.0),       # lane-facing lip at Z=0
+            (x_start + 0.02, -0.02),
+            (x_start + 0.08, -0.06),
+            ((x_start + x_end) / 2, -gutter_depth),  # trough bottom
+            (x_end - 0.08, -0.06),
+            (x_end - 0.02, -0.02),
+            (x_end, 0.002),       # outer lip
+        ]
+        y_start = gutter_length_start
+        y_end = gutter_length_end
+        y_segments = 20
+        dy = (y_end - y_start) / y_segments
+
+        verts = []
+        faces = []
+        for s in range(y_segments + 1):
+            y = y_start + s * dy
+            for v_idx, (vx, vz) in enumerate(verts_2d):
+                verts.append((vx, y, vz))
+        nv = len(verts_2d)
+        for s in range(y_segments):
+            for v in range(nv - 1):
+                a = s * nv + v
+                b = a + 1
+                c = (s + 1) * nv + v + 1
+                d = (s + 1) * nv + v
+                faces.append((a, b, c, d))
+        # Top face (lane-facing): first vertex of each segment
+        # Only top strip (between verts_2d[0] and verts_2d[1])
+        # Actually, make the top open face
+
+        me.from_pydata(verts, [], faces)
+        me.validate()
+        me.calc_loop_normals()
+        obj.location = (0, 0, 0)
+        if mat:
+            me.materials.append(mat)
+        obj.parent = root
+        static_col.objects.link(obj)
+        return obj
+
+    # Create 4 gutters
+    make_gutter('Gutter_L_Outer', lane_left_outer, lane_left_outer - gutter_width, mat_gutter)
+    make_gutter('Gutter_L_Inner', lane_left_inner, lane_left_inner - gutter_width, mat_gutter)
+    make_gutter('Gutter_R_Inner', lane_right_inner, lane_right_inner + gutter_width, mat_gutter)
+    make_gutter('Gutter_R_Outer', lane_right_outer, lane_right_outer + gutter_width, mat_gutter)
+
+    # --- Central divider/capping ---
+    divider_width = 0.03
+    divider_height = 0.02
+    me_div = bpy.data.meshes.new('Divider_Cap_Mesh')
+    obj_div = bpy.data.objects.new('Divider_Cap', me_div)
+    div_verts = [
+        (-divider_width / 2, 0, 0),
+        (divider_width / 2, 0, 0),
+        (divider_width / 2, gutter_length, 0),
+        (-divider_width / 2, gutter_length, 0),
+        (-divider_width / 2, 0, -divider_height),
+        (divider_width / 2, 0, -divider_height),
+        (divider_width / 2, gutter_length, -divider_height),
+        (-divider_width / 2, gutter_length, -divider_height),
+    ]
+    div_faces = [
+        (0, 1, 2, 3), (4, 5, 6, 7), (0, 4, 5, 1), (3, 2, 1, 0),
+        (4, 0, 3, 7), (5, 4, 7, 6),
+    ]
+    me_div.from_pydata(div_verts, [], div_faces)
+    me_div.validate()
+    me_div.calc_loop_normals()
+    me_div.materials.append(mat_gutter)
+    obj_div.location = (0, 0, 0)
+    obj_div.parent = root
+    static_col.objects.link(obj_div)
+
+    # --- Pin deck pieces ---
+    # Pin deck on each lane: Y=18.0 to Y=19.20
+    pin_deck_y_start = 18.0
+    pin_deck_length = 1.20
+    for pname, px in [('PinDeck_L', -0.95), ('PinDeck_R', 0.95)]:
+        me_pd = bpy.data.meshes.new(pname + '_Mesh')
+        obj_pd = bpy.data.objects.new(pname, me_pd)
+        hw = 0.60  # half-width, covers rack footprint
+        pd_verts = [
+            (px - hw, pin_deck_y_start, 0.001),
+            (px + hw, pin_deck_y_start, 0.001),
+            (px + hw, pin_deck_y_start + pin_deck_length, 0.001),
+            (px - hw, pin_deck_y_start + pin_deck_length, 0.001),
+        ]
+        me_pd.from_pydata(pd_verts, [], [(0, 1, 2, 3)])
+        me_pd.validate()
+        me_pd.calc_loop_normals()
+        me_pd.materials.append(mat_pin_deck)
+        obj_pd.location = (0, 0, 0)
+        obj_pd.parent = root
+        static_col.objects.link(obj_pd)
+
+    # --- Pit / catch area ---
+    pit_start_y = 19.20
+    pit_length = 0.80
+    pit_width = 3.6  # covers full width
+    me_pit = bpy.data.meshes.new('Pit_Catch_Mesh')
+    obj_pit = bpy.data.objects.new('Pit_Catch', me_pit)
+    pv = [
+        (-pit_width / 2, pit_start_y, -0.15),
+        (pit_width / 2, pit_start_y, -0.15),
+        (pit_width / 2, pit_start_y + pit_length, -0.15),
+        (-pit_width / 2, pit_start_y + pit_length, -0.15),
+        (-pit_width / 2, pit_start_y, -0.30),
+        (pit_width / 2, pit_start_y, -0.30),
+        (pit_width / 2, pit_start_y + pit_length, -0.30),
+        (-pit_width / 2, pit_start_y + pit_length, -0.30),
+    ]
+    pf = [(0,1,2,3), (4,5,6,7), (0,4,5,1), (3,2,1,0), (4,0,3,7), (5,4,7,6)]
+    me_pit.from_pydata(pv, [], pf)
+    me_pit.validate()
+    me_pit.calc_loop_normals()
+    me_pit.materials.append(mat_pit)
+    obj_pit.location = (0, 0, 0)
+    obj_pit.parent = root
+    static_col.objects.link(obj_pit)
+
+    # --- Outer rails ---
+    rail_width = 0.05
+    rail_height = 0.08
+    rail_y = -0.5  # starts just behind foul line
+    rail_length = 20.0
+    for rx, rname in [(-1.7334 - 0.01, 'OuterRail_L'), (1.7334 + 0.01, 'OuterRail_R')]:
+        me_rail = bpy.data.meshes.new(rname + '_Mesh')
+        obj_rail = bpy.data.objects.new(rname, me_rail)
+        rv = [
+            (rx - rail_width / 2, rail_y, 0),
+            (rx + rail_width / 2, rail_y, 0),
+            (rx + rail_width / 2, rail_y + rail_length, 0),
+            (rx - rail_width / 2, rail_y + rail_length, 0),
+            (rx - rail_width / 2, rail_y, -rail_height),
+            (rx + rail_width / 2, rail_y, -rail_height),
+            (rx + rail_width / 2, rail_y + rail_length, -rail_height),
+            (rx - rail_width / 2, rail_y + rail_length, -rail_height),
+        ]
+        rf = [(0,1,2,3), (4,5,6,7), (0,4,5,1), (3,2,1,0), (4,0,3,7), (5,4,7,6)]
+        me_rail.from_pydata(rv, [], rf)
+        me_rail.validate()
+        me_rail.calc_loop_normals()
+        me_rail.materials.append(mat_rail)
+        obj_rail.location = (0, 0, 0)
+        obj_rail.parent = root
+        static_col.objects.link(obj_rail)
+
+    # --- Verification ---
+    gutter_objs = [o for o in static_col.objects if o.name.startswith('Gutter_')]
+    if len(gutter_objs) != 4:
+        errors.append(f"Expected 4 gutters, got {len(gutter_objs)}")
+
+    divider_exists = 'Divider_Cap' in [o.name for o in static_col.objects]
+    if not divider_exists:
+        errors.append("Missing Divider_Cap")
+
+    pin_decks = [o for o in static_col.objects if o.name.startswith('PinDeck_')]
+    if len(pin_decks) != 2:
+        errors.append(f"Expected 2 pin decks, got {len(pin_decks)}")
+
+    pit_exists = 'Pit_Catch' in [o.name for o in static_col.objects]
+    if not pit_exists:
+        errors.append("Missing Pit_Catch")
+
+    rails = [o for o in static_col.objects if o.name.startswith('OuterRail_')]
+    if len(rails) != 2:
+        errors.append(f"Expected 2 outer rails, got {len(rails)}")
+
+    # Check gutter Y extent (should span Y=0 to Y=19.20)
+    for go in gutter_objs:
+        if abs(go.dimensions.y - gutter_length) > 0.02:
+            errors.append(f"{go.name} gutter Y length {go.dimensions.y} != {gutter_length}")
+
+    # All objects parented to root
+    for o in static_col.objects:
+        if o.parent != root:
+            errors.append(f"{o.name} not parented to root")
+
+    passed = len(errors) == 0
+
+    report = {
+        "stage": "02",
+        "name": "Gutters, decks and pit",
+        "passed": passed,
+        "gutter_count": len(gutter_objs),
+        "pin_deck_count": len(pin_decks),
+        "has_divider": divider_exists,
+        "has_pit": pit_exists,
+        "rail_count": len(rails),
+        "total_objects": len(static_col.objects),
+        "errors": errors,
+    }
+
+    out_dir = '/job'
+    os.makedirs(out_dir, exist_ok=True)
+
+    with open(os.path.join(out_dir, 'report.json'), 'w') as f:
+        json.dump(report, f, indent=2)
+
+    with open(os.path.join(out_dir, 'scene.json'), 'w') as f:
+        obj_list = []
+        for col_name in required_names:
+            col = bpy.data.collections[col_name]
+            for o in col.objects:
+                obj_list.append({
+                    'name': o.name,
+                    'type': o.type,
+                    'location': [round(x, 6) for x in o.location],
+                    'parent': o.parent.name if o.parent else None,
+                    'collection': col_name,
+                    'dimensions': [round(x, 6) for x in o.dimensions],
+                })
+        scene_info = {
+            'objects': obj_list,
+            'collections': [c.name for c in bpy.data.collections],
+        }
+        json.dump(scene_info, f, indent=2)
+
+    return report
+
+report = run_stage()

@@ -1,0 +1,27 @@
+# BowlingPair01 Session Handoff — fresh Qwen3.6 MTP Q8 trial
+
+- Run status: Stage 03 PASS
+- Next action: Stage 04 — Reusable bowling balls from verified source d1ce998472c349ac9f9fc2775afefdf6.
+- Reference phase: READY — 3 images generated, downloaded, hashed, reviewed (vision helper qwen38-27b), DESIGN_GUIDE.md written, check_references.py passed
+- Current stage: 04 — Reusable bowling balls
+- Last verified source job: d1ce998472c349ac9f9fc2775afefdf6
+- Pending job: none
+- Pending source job: none
+- Latest verified local checkpoint: artifacts/downloads/d1ce998472c349ac9f9fc2775afefdf6/scene.blend (SHA-256 4480223492c6790eceb0e66729cd5e99b15ee8875c25c45cfeab76af521bd017)
+- Trial queue: var/bowling52-qwen36-mtp-q8-20261023-r2
+- Trial mode: native262,144-token context; automatic compaction/pruning ON;16,384-token reserve; continuous stages with no configured step cap
+
+The operator authorized this reset on 2026-10-23 after ending the previous test.
+The later wrong-model startup was also explicitly reset. Its blocked controller,
+session events and empty guard are preserved at
+`artifacts/archive/qwen38-startup-failed-20261023/`. No image/Blender jobs were
+submitted; the new r2 queue and controller state start fresh.
+All old output, original ledgers and guard state are hash-archived at
+`artifacts/archive/nemotron-final-before-qwen36-2026-10-23/`. All accepted jobs
+were confirmed terminal remotely; none was replayed. The new guard is empty.
+No old implementation, source ID or PASS is reused.
+
+Record accepted IDs and pending source in both ledgers before polling. Keep
+the last verified completed source until actual acceptance passes. Update both
+ledgers after every terminal result, then run `python3 scripts/check_resume.py`.
+On any tool STOP, checkpoint and return BLOCKED. Do not reset or bypass the guard.

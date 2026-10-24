@@ -79,19 +79,32 @@ def main():
     parser.add_argument('--detach',action='store_true')
     parser.add_argument('--resume',action='store_true')
     parser.add_argument('--status',action='store_true')
+    parser.add_argument('--continuation',action='store_true',help='Use the explicit reconciled continuation handoff; requires --resume')
+    parser.add_argument('--check-continuation',action='store_true',help='Verify the handoff without starting any session')
     args=parser.parse_args()
     runtime=ROOT/'.runtime/autonomous-run'
     path=runtime/'state.json'
+    if args.check_continuation:
+        from scripts.continuation_preflight import validate
+        print(json.dumps(validate(ROOT),indent=2))
+        return
+    if args.continuation and not args.resume:
+        parser.error('--continuation requires --resume')
     if args.status:
         print(path.read_text() if path.exists() else json.dumps({'state':'not_started'}))
         return
+    if path.exists() and args.resume and not args.continuation and json.loads(path.read_text()).get('state')=='ready_to_continue':
+        raise RuntimeError('This reconciled run requires --resume --continuation to load its authorized diagnostic handoff.')
     runtime.mkdir(parents=True,exist_ok=True)
     if args.detach:
         if path.exists() and not args.resume:
             raise RuntimeError('Run state exists. Inspect --status before an explicit --resume.')
         with (runtime/'controller.lock').open('a') as lock:
             fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        command=[sys.executable,str(Path(__file__).resolve())]+(['--resume'] if args.resume else [])
+        if args.continuation:
+            from scripts.continuation_preflight import validate
+            validate(ROOT)
+        command=[sys.executable,str(Path(__file__).resolve())]+(['--resume'] if args.resume else [])+(['--continuation'] if args.continuation else [])
         with (runtime/'controller.log').open('ab') as log:
             process=subprocess.Popen(command,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         print(json.dumps({'controller_pid':process.pid,'state_file':str(path),'log':str(runtime/'controller.log'),
@@ -102,6 +115,17 @@ def main():
         if path.exists() and not args.resume:
             raise RuntimeError('Run state exists. Inspect --status; use --resume explicitly after reconciliation.')
         state=json.loads(path.read_text()) if path.exists() else {'sessions':{},'turns':0}
+        if args.continuation:
+            from scripts.continuation_preflight import validate
+            plan=validate(ROOT)
+            state['operator_continuation']=plan
+            state['recovery_context']=(
+                'The operator explicitly authorized this reconciled continuation and increased failure limits to6/source and12/total. '
+                'All prior failures remain. Read CONTROLLED_CONTINUATION.md and testing/BALL_GENERATION_DIAGNOSTICS.md before any submission. '
+                'Use completed source '+plan['source_job']+' and the verified canonical checkpoint. '
+                'Earlier Stage01–03 PASS claims were disproved by native audit: repair01,02,03 before repairing04, then continue through09. '
+                'Do not restart empty, regenerate references, use failed jobs as sources, or replay unchanged failed code. '
+                'This approval supersedes the OLD exhausted3/6 budget only; all current6/12 limits and uncertainty checks still apply.')
         state.update(state='running',controller_pid=os.getpid())
         def save():
             temporary=path.with_suffix('.next')
@@ -119,7 +143,10 @@ def main():
                 command+=['--session',state['sessions'][phase]]
             if state.get('recovery_context'):
                 command.append(state.pop('recovery_context'))
-            state.update(phase=phase,model=model,turns=state['turns']+1)
+            if state.get('last_errors'):
+                state.setdefault('previous_turn_errors',[]).append({'phase':state.get('phase'),'turn':state['turns'],'errors':state['last_errors']})
+            state.update(phase=phase,model=model,turns=state['turns']+1,last_errors=[])
+            state.pop('reason',None)
             save()
             events=runtime/f"{state['turns']:03d}-{phase}.jsonl"
             with events.open('x') as log:

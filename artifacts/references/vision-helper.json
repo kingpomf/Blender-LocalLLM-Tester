@@ -1,0 +1,45 @@
+{
+  "state": "completed",
+  "helper_model": "qwen38-27b",
+  "input_hashes": {
+    "overview": "0ed9cb56b87d37a21872ecda49a351415052afea9051f538f167ce5a95c8cfbb",
+    "layout": "d7cb3396a17a072e6760524f6351763b19a4416c00bcf02e19996d3cdefa801b",
+    "details": "8eb756380deddfc00d5e4925aed730974e5898b9eb5fd32528b133a83b80bf23"
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"images\": [{\"role\": \"overview\", \"observations\": \"A wide, symmetrical view of a bowling alley with two lanes converging toward a pin deck. The lanes are light wood, separated by a long white and black ball return. Orange seating lines the sides, and two digital scoreboards hang on the far wall above the pins.\"}, {\"role\": \"layout\", \"observations\": \"A top-down orthographic view showing two parallel wooden lanes flanked by gray gutters and white ball returns. A central gray walkway contains a single bowling ball and a rectangular ball return unit, with a scoreboard structure visible at the top edge.\"}, {\"role\": \"details\", \"observations\": \"A collection of isolated assets on a white background, including a white pin with red stripes, three colored bowling balls (blue, maroon, green), a cream and black ball return machine, and two swatch panels showing wood grain and solid color blocks.\"}]}"
+        }
+      }
+    ],
+    "created": 1792807115,
+    "model": "qwen38-27b",
+    "system_fingerprint": "b11604-45451c366",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 194,
+      "prompt_tokens": 892,
+      "total_tokens": 1086,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-VkPqOQ8jLJDFowyw194okLc7EmqT6MLX",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 892,
+      "prompt_ms": 1985.679,
+      "prompt_per_token_ms": 2.226097533632287,
+      "prompt_per_second": 449.2166155758307,
+      "predicted_n": 194,
+      "predicted_ms": 10770.382,
+      "predicted_per_token_ms": 55.805088082901555,
+      "predicted_per_second": 17.919512975491493
+    }
+  }
+}

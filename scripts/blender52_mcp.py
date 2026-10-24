@@ -98,7 +98,7 @@ def server(qualification=False):
     app = FastMCP('bowling-blender52', instructions=(
         'Blender 5.2.3 LTS on Z6, version-locked CPU-only trial. '
         'On any STOP/circuit-breaker error, checkpoint and return BLOCKED to the user; do not loop. '
-        'Three failed submissions per source or six total require operator review. '
+        'Six failed submissions per source or twelve total require operator review. '
         'Unchanged failed code is rejected, uncertain submissions never replayed. '
         'Call blender_capabilities first. Poll accepted jobs; inspect actual scene/report evidence. '
         'Use unconditional authoring entry points and a top-level report.'))

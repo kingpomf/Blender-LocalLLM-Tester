@@ -2,13 +2,27 @@
 
 Test the selected local LLM against **Blender 5.2.3 LTS** with matching
 5.2 typing stubs, measured asset specifications and enforced retry limits.
-The selected coding model is **Qwen3.6 35B A3B MTP UD-Q8_K_XL (256K)**. A fresh Qwen3.6
-evaluation was explicitly reset on 2026-10-23: **all ten stages NOT_STARTED**,
-no active outputs or source job, and a new queue with an empty guard budget.
-The failed old run and guard are archived; none of its PASS claims carries over.
-See `MODEL_SETUP.md` and the checkpoints.
+The selected coding model is **Qwen3.6 35B A3B MTP UD-Q8_K_XL (256K)**.
+The current run has been reconciled after six failed authoring jobs. Its completed
+scene and reference images are preserved. Stage00 passes; measured defects require
+repair in01–04. Failure limits are now6/source and12/total, with prior failures counted.
 
-## Run
+## Current controlled continuation — operator starts it
+
+Read `CONTROLLED_CONTINUATION.md` and `testing/BALL_GENERATION_DIAGNOSTICS.md`.
+The continuation is prepared but stopped. From this project directory:
+
+```sh
+python3 scripts/run_bowling.py --check-continuation
+python3 scripts/run_bowling.py --resume --continuation --detach
+```
+
+Alternatively restart OpenCode and invoke **`/bowling-continue`**. This validates
+the known checkpoint and guard history, then supplies the explicit diagnostic
+handoff to the existing Qwen3.6 session. It does not reset the trial or regenerate
+references. Status remains available with `python3 scripts/run_bowling.py --status`.
+
+## Fresh-run entry point (only after a separately authorized reset)
 
 1. Fully quit/restart OpenCode in this repository on `project/bowling-alley-pair`.
 2. Open a **new Qwen3.6 MoE session** and run **`/bowling-run` once**. Launcher,
@@ -21,7 +35,7 @@ See `MODEL_SETUP.md` and the checkpoints.
    the guard or blindly rerun. Review final renders, reports and exports.
 
 The former60-step cap is removed. Unchanged failed scripts are
-rejected; three failures per source or six total exhaust the durable budget.
+rejected; six failures per source or twelve total exhaust the durable budget.
 Automatic compaction/pruning are enabled with a16,384-token reserve within the
 native262,144-token coding context. See `RUNTIME_52.md`
 for runtime identity, qualification evidence, operator recovery and limitations.

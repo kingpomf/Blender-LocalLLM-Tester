@@ -1,0 +1,54 @@
+{
+  "id": "4f572bf507534fe184d09d7014e0d60c",
+  "state": "completed",
+  "spec": {
+    "operation": "author",
+    "source_job": "d1ce998472c349ac9f9fc2775afefdf6",
+    "code": "import bpy\nassert bpy.app.version[:3] == (5,2,3), 'Wrong runtime: '+bpy.app.version_string\nexec(compile('\"\"\"Read-only Blender audit; no geometry/material/transform mutation.\"\"\"\\nimport bpy\\nimport bmesh\\nfrom collections import Counter\\nfrom math import hypot\\n\\nscene=bpy.context.scene\\ndepsgraph=bpy.context.evaluated_depsgraph_get()\\nobjects=[]\\nfor obj in sorted(scene.objects,key=lambda o:o.name):\\n    row={\\'name\\':obj.name,\\'type\\':obj.type,\\'parent\\':obj.parent.name if obj.parent else None,\\n         \\'collections\\':sorted(c.name for c in obj.users_collection),\\'location\\':list(obj.location),\\n         \\'scale\\':list(obj.scale),\\'rotation\\':list(obj.rotation_euler)}\\n    if obj.type==\\'MESH\\':\\n        evaluated=obj.evaluated_get(depsgraph)\\n        mesh=evaluated.to_mesh()\\n        try:\\n            mesh.calc_loop_triangles()\\n            coords=[obj.matrix_world@v.co for v in mesh.vertices]\\n            row.update(vertices=len(mesh.vertices),faces=len(mesh.polygons),triangles=len(mesh.loop_triangles),\\n                minimum=[min(v[i] for v in coords) for i in range(3)],\\n                maximum=[max(v[i] for v in coords) for i in range(3)],\\n                materials=[m.name if m else None for m in mesh.materials],\\n                material_face_counts=dict(Counter(str(p.material_index) for p in mesh.polygons)))\\n            if obj.name==\\'Pin_L_01\\':\\n                bm=bmesh.new()\\n                bm.from_mesh(mesh)\\n                row[\\'boundary_edges\\']=sum(e.is_boundary for e in bm.edges)\\n                row[\\'nonmanifold_edges\\']=sum(not e.is_manifold for e in bm.edges)\\n                bm.free()\\n                profile={}\\n                for v in mesh.vertices:\\n                    z=str(round(v.co.z,6))\\n                    profile[z]=max(profile.get(z,0),hypot(v.co.x,v.co.y))\\n                row[\\'profile_max_radius_by_z\\']=profile\\n            if obj.name.startswith(\\'Gutter_\\'):\\n                row[\\'section_samples_x_z\\']=sorted({(round(v.x,6),round(v.z,6)) for v in coords})\\n        finally:\\n            evaluated.to_mesh_clear()\\n    objects.append(row)\\nreport={\\'audit_only\\':True,\\'geometry_modified\\':False,\\'blender_version\\':bpy.app.version_string,\\n        \\'units\\':{\\'system\\':scene.unit_settings.system,\\'scale\\':scene.unit_settings.scale_length},\\n        \\'objects\\':objects,\\n        \\'bmesh_operators\\':{name:hasattr(bmesh.ops,name) for name in\\n            [\\'create_uvsphere\\',\\'extrude_face_only\\',\\'extrude_region_unshared\\',\\'extrude_discrete_faces\\',\\'extrude_face_region\\']},\\n        \\'principled_input_names\\':sorted({socket.name for material in bpy.data.materials if material.use_nodes and material.node_tree\\n            for node in material.node_tree.nodes if node.type==\\'BSDF_PRINCIPLED\\' for socket in node.inputs})}\\n', '/job/submitted.py', 'exec'), globals())\n"
+  },
+  "created": 1792811179.6160195,
+  "updated": 1792811181.909721,
+  "cancel_requested": 0,
+  "progress": null,
+  "error": null,
+  "manifest": {
+    "schema_version": 1,
+    "worker_version": "0.1.0",
+    "blender_version": "5.2.3 LTS",
+    "device": "CPU",
+    "wall_seconds": 2.2731672859517857,
+    "sampled_peak_tree_rss_kib": 328572,
+    "artifacts": [
+      {
+        "path": "author.py",
+        "bytes": 2856,
+        "sha256": "acaa4f161e1b46465597eb81ccfa2483f600c684061e691f3700dd5472cda351"
+      },
+      {
+        "path": "python-output.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "report.json",
+        "bytes": 53552,
+        "sha256": "9aa475470a904249cca86a8e7198872d91a5cfbd95ae93645d544e47f10192c3"
+      },
+      {
+        "path": "result.json",
+        "bytes": 257,
+        "sha256": "c87f85350d554df5800c6be35d767709a40d4300b6254b919b7e47dc57fd5e5a"
+      },
+      {
+        "path": "scene.blend",
+        "bytes": 131344,
+        "sha256": "07526d2b600658ce247830edd6b7dc4a08e00a9dff65c5cd21030f4ef571d9ca"
+      },
+      {
+        "path": "scene.json",
+        "bytes": 81489,
+        "sha256": "2bc21c33d2a8f72ccfca2957012d7643f9ddc5b139201ec95d7605b4ec27fd33"
+      }
+    ]
+  }
+}

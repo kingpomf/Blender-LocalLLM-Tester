@@ -1,28 +1,34 @@
-# BowlingPair01 Session Handoff — fresh Qwen3.6 MTP Q8 trial
+# BowlingPair01 — reconciled continuation handoff
 
-- Run status: NOT_STARTED
-- Current stage: 00 — Contract and scene safety
-- Last verified source job: none
+- Run status: IN_PROGRESS
+- Current stage: 01 — Repair lane markings; then02–04 before proceeding
+- Last verified source job: d1ce998472c349ac9f9fc2775afefdf6
 - Pending job: none
 - Pending source job: none
-- Latest verified local checkpoint: none
-- Next action: Fully restart OpenCode; new Qwen3.6 MoE session; run /bowling-run once. Every agent phase is pinned to Qwen3.6; inspect scripts/run_bowling.py --status for progress.
-- Reference phase: NOT_STARTED
+- Latest verified local checkpoint: artifacts/blend/BowlingPair01.blend
+- Checkpoint SHA-256: 4480223492c6790eceb0e66729cd5e99b15ee8875c25c45cfeab76af521bd017
+- Next action: User invokes /bowling-continue; read CONTROLLED_CONTINUATION.md and testing/BALL_GENERATION_DIAGNOSTICS.md; repair01→02→03→04 from the completed source, then proceed through09.
+- Reference phase: READY
 - Pending reference job: none
 - Trial queue: var/bowling52-qwen36-mtp-q8-20261023-r2
-- Trial mode: native262,144-token context; automatic compaction/pruning ON;16,384-token reserve; continuous stages with no configured step cap
+- Agent: z6-llama/qwen36-35b-a3b-mtp-q8; native262144 context and retuning preserved
+- Failure budget: 6 per source / 12 total;6 prior failures retained,3 on current source
+- Controller: STOPPED awaiting explicit operator continuation; no resumed generation submitted
 
-The operator authorized this reset on 2026-10-23 after ending the previous test.
-The later wrong-model startup was also explicitly reset. Its blocked controller,
-session events and empty guard are preserved at
-`artifacts/archive/qwen38-startup-failed-20261023/`. No image/Blender jobs were
-submitted; the new r2 queue and controller state start fresh.
-All old output, original ledgers and guard state are hash-archived at
-`artifacts/archive/nemotron-final-before-qwen36-2026-10-23/`. All accepted jobs
-were confirmed terminal remotely; none was replayed. The new guard is empty.
-No old implementation, source ID or PASS is reused.
+The source is a completed, hash-verified repair base. Stage00 foundation checks
+pass. Stage01–03 previously claimed passes were disproved by native read-only
+audit4f572bf507534fe184d09d7014e0d60c; see the measured findings and report.
+Stage04 has no successful ball revision. Its latest proposed operator is also
+invalid in the actual Blender runtime. Do not accept code constants as geometry
+measurements or substitute a failed job as the next source.
 
-Record accepted IDs and pending source in both ledgers before polling. Keep
-the last verified completed source until actual acceptance passes. Update both
-ledgers after every terminal result, then run `python3 scripts/check_resume.py`.
-On any tool STOP, checkpoint and return BLOCKED. Do not reset or bypass the guard.
+The user explicitly authorized reconciliation, diagnostic assistance and doubling
+the failure limits. No geometry was repaired and no failure rows were deleted.
+Record this as an assisted continuation, not a fresh unaided test. Pre-change
+state and full job identities are retained in `testing/reconciliation-20261024/`.
+
+Immediately save accepted IDs and pending state in BOTH ledgers before polling.
+After terminal results, update the actual run/stage status, measurements, source,
+canonical file and hash. Run `python3 scripts/check_resume.py` after every stage.
+Use the exact permitted checker commands without `2>&1` or shell chains. A real
+STOP still requires operator review; the increased limits are not unlimited retries.

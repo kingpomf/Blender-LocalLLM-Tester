@@ -1,0 +1,3003 @@
+{
+  "audit_only": true,
+  "geometry_modified": false,
+  "blender_version": "5.2.3 LTS",
+  "units": {
+    "system": "METRIC",
+    "scale": 1.0
+  },
+  "objects": [
+    {
+      "name": "Approach_L",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        -0.949999988079071,
+        -2.2860000133514404,
+        -0.07500000298023224
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        -1.4833999872207642,
+        -4.572000026702881,
+        -0.15000000596046448
+      ],
+      "maximum": [
+        -0.41659998893737793,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "Mat_Wood"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "Approach_R",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.949999988079071,
+        -2.2860000133514404,
+        -0.07500000298023224
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        0.41659998893737793,
+        -4.572000026702881,
+        -0.15000000596046448
+      ],
+      "maximum": [
+        1.4833999872207642,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "Mat_Wood"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "ArrowStrip_L",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        -0.949999988079071,
+        4.570000171661377,
+        0.148499995470047
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        -0.9900000095367432,
+        4.24500036239624,
+        0.1469999998807907
+      ],
+      "maximum": [
+        -0.9099999666213989,
+        4.894999980926514,
+        0.14999999105930328
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "ArrowStrip_R",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.949999988079071,
+        4.570000171661377,
+        0.148499995470047
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        0.9099999666213989,
+        4.24500036239624,
+        0.1469999998807907
+      ],
+      "maximum": [
+        0.9900000095367432,
+        4.894999980926514,
+        0.14999999105930328
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "ArrowTri_L_01",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        -1.3224999904632568,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        -1.277500033378601,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_L_02",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        -1.2035000324249268,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        -1.1584999561309814,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_L_03",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        -1.0880000591278076,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        -1.0429999828338623,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_L_04",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        -0.9725000262260437,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        -0.9275000095367432,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_L_05",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        -0.8569999933242798,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        -0.8119999766349792,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_L_06",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        -0.7415000200271606,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        -0.6965000033378601,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_L_07",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        -0.6225000023841858,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        -0.5774999856948853,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_R_01",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        0.5774999856948853,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        0.6225000023841858,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_R_02",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        0.6965000033378601,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        0.7415000200271606,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_R_03",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        0.8119999766349792,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        0.8569999933242798,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_R_04",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        0.9275000095367432,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        0.9725000262260437,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_R_05",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        1.0429999828338623,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        1.0880000591278076,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_R_06",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        1.1584999561309814,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        1.2035000324249268,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "ArrowTri_R_07",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 3,
+      "faces": 1,
+      "triangles": 1,
+      "minimum": [
+        1.277500033378601,
+        4.539999961853027,
+        0.148499995470047
+      ],
+      "maximum": [
+        1.3224999904632568,
+        4.599999904632568,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Arrow"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "BowlingPair01_ROOT",
+      "type": "EMPTY",
+      "parent": null,
+      "collections": [
+        "Scene Collection"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Divider_Cap",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        -0.014999999664723873,
+        0.0,
+        -0.019999999552965164
+      ],
+      "maximum": [
+        0.014999999664723873,
+        19.200000762939453,
+        0.0
+      ],
+      "materials": [
+        "Mat_Gutter"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "Dot_L_01",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        -1.3200000524520874,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        -1.2799999713897705,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_L_02",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        -1.2009999752044678,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        -1.1610000133514404,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_L_03",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        -1.0855000019073486,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        -1.0455000400543213,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_L_04",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        -0.9700000286102295,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        -0.9300000071525574,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_L_05",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        -0.8544999957084656,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        -0.8144999742507935,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_L_06",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        -0.7390000224113464,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        -0.6990000009536743,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_L_07",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        -0.6200000047683716,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        -0.5799999833106995,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_R_01",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        0.5799999833106995,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        0.6200000047683716,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_R_02",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        0.6990000009536743,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        0.7390000224113464,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_R_03",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        0.8144999742507935,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        0.8544999957084656,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_R_04",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        0.9300000071525574,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        0.9700000286102295,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_R_05",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        1.0455000400543213,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        1.0855000019073486,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_R_06",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        1.1610000133514404,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        1.2009999752044678,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Dot_R_07",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 16,
+      "faces": 1,
+      "triangles": 14,
+      "minimum": [
+        1.2799999713897705,
+        -1.0199999809265137,
+        0.148499995470047
+      ],
+      "maximum": [
+        1.3200000524520874,
+        -0.9800000190734863,
+        0.148499995470047
+      ],
+      "materials": [
+        "Mat_Dot"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Foul_L",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        -0.949999988079071,
+        0.0,
+        0.148499995470047
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        -1.493399977684021,
+        -0.019999999552965164,
+        0.1469999998807907
+      ],
+      "maximum": [
+        -0.4065999984741211,
+        0.019999999552965164,
+        0.14999999105930328
+      ],
+      "materials": [
+        "Mat_FoulLine"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "Foul_R",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.949999988079071,
+        0.0,
+        0.148499995470047
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        0.4065999984741211,
+        -0.019999999552965164,
+        0.1469999998807907
+      ],
+      "maximum": [
+        1.493399977684021,
+        0.019999999552965164,
+        0.14999999105930328
+      ],
+      "materials": [
+        "Mat_FoulLine"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "Gutter_L_Inner",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 147,
+      "faces": 120,
+      "triangles": 240,
+      "minimum": [
+        -0.7465999722480774,
+        0.0,
+        -0.10000000149011612
+      ],
+      "maximum": [
+        -0.33660000562667847,
+        19.200000762939453,
+        0.0020000000949949026
+      ],
+      "materials": [
+        "Mat_Gutter"
+      ],
+      "material_face_counts": {
+        "0": 120
+      },
+      "section_samples_x_z": [
+        [
+          -0.7466,
+          -0.06
+        ],
+        [
+          -0.6866,
+          -0.02
+        ],
+        [
+          -0.6666,
+          0.002
+        ],
+        [
+          -0.5416,
+          -0.1
+        ],
+        [
+          -0.4166,
+          0.0
+        ],
+        [
+          -0.3966,
+          -0.02
+        ],
+        [
+          -0.3366,
+          -0.06
+        ]
+      ]
+    },
+    {
+      "name": "Gutter_L_Outer",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 147,
+      "faces": 120,
+      "triangles": 240,
+      "minimum": [
+        -1.8134000301361084,
+        0.0,
+        -0.10000000149011612
+      ],
+      "maximum": [
+        -1.40339994430542,
+        19.200000762939453,
+        0.0020000000949949026
+      ],
+      "materials": [
+        "Mat_Gutter"
+      ],
+      "material_face_counts": {
+        "0": 120
+      },
+      "section_samples_x_z": [
+        [
+          -1.8134,
+          -0.06
+        ],
+        [
+          -1.7534,
+          -0.02
+        ],
+        [
+          -1.7334,
+          0.002
+        ],
+        [
+          -1.6084,
+          -0.1
+        ],
+        [
+          -1.4834,
+          0.0
+        ],
+        [
+          -1.4634,
+          -0.02
+        ],
+        [
+          -1.4034,
+          -0.06
+        ]
+      ]
+    },
+    {
+      "name": "Gutter_R_Inner",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 147,
+      "faces": 120,
+      "triangles": 240,
+      "minimum": [
+        0.41659998893737793,
+        0.0,
+        -0.10000000149011612
+      ],
+      "maximum": [
+        0.6665999889373779,
+        19.200000762939453,
+        0.0020000000949949026
+      ],
+      "materials": [
+        "Mat_Gutter"
+      ],
+      "material_face_counts": {
+        "0": 120
+      },
+      "section_samples_x_z": [
+        [
+          0.4166,
+          0.0
+        ],
+        [
+          0.4366,
+          -0.02
+        ],
+        [
+          0.4966,
+          -0.06
+        ],
+        [
+          0.5416,
+          -0.1
+        ],
+        [
+          0.5866,
+          -0.06
+        ],
+        [
+          0.6466,
+          -0.02
+        ],
+        [
+          0.6666,
+          0.002
+        ]
+      ]
+    },
+    {
+      "name": "Gutter_R_Outer",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 147,
+      "faces": 120,
+      "triangles": 240,
+      "minimum": [
+        1.4833999872207642,
+        0.0,
+        -0.10000000149011612
+      ],
+      "maximum": [
+        1.7333999872207642,
+        19.200000762939453,
+        0.0020000000949949026
+      ],
+      "materials": [
+        "Mat_Gutter"
+      ],
+      "material_face_counts": {
+        "0": 120
+      },
+      "section_samples_x_z": [
+        [
+          1.4834,
+          0.0
+        ],
+        [
+          1.5034,
+          -0.02
+        ],
+        [
+          1.5634,
+          -0.06
+        ],
+        [
+          1.6084,
+          -0.1
+        ],
+        [
+          1.6534,
+          -0.06
+        ],
+        [
+          1.7134,
+          -0.02
+        ],
+        [
+          1.7334,
+          0.002
+        ]
+      ]
+    },
+    {
+      "name": "Lane_L_Surface",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        -0.949999988079071,
+        9.600000381469727,
+        -0.07500000298023224
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        -1.4833999872207642,
+        0.0,
+        -0.15000000596046448
+      ],
+      "maximum": [
+        -0.41659998893737793,
+        19.200000762939453,
+        0.0
+      ],
+      "materials": [
+        "Mat_Wood"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "Lane_R_Surface",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.949999988079071,
+        9.600000381469727,
+        -0.07500000298023224
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        0.41659998893737793,
+        0.0,
+        -0.15000000596046448
+      ],
+      "maximum": [
+        1.4833999872207642,
+        19.200000762939453,
+        0.0
+      ],
+      "materials": [
+        "Mat_Wood"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "OuterRail_L",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        -1.768399953842163,
+        -0.5,
+        -0.07999999821186066
+      ],
+      "maximum": [
+        -1.718400001525879,
+        19.5,
+        0.0
+      ],
+      "materials": [
+        "Mat_Rail"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "OuterRail_R",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        1.718400001525879,
+        -0.5,
+        -0.07999999821186066
+      ],
+      "maximum": [
+        1.768399953842163,
+        19.5,
+        0.0
+      ],
+      "materials": [
+        "Mat_Rail"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    },
+    {
+      "name": "PinDeck_L",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 4,
+      "faces": 1,
+      "triangles": 2,
+      "minimum": [
+        -1.5499999523162842,
+        18.0,
+        0.0010000000474974513
+      ],
+      "maximum": [
+        -0.3499999940395355,
+        19.200000762939453,
+        0.0010000000474974513
+      ],
+      "materials": [
+        "Mat_PinDeck"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "PinDeck_R",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 4,
+      "faces": 1,
+      "triangles": 2,
+      "minimum": [
+        0.3499999940395355,
+        18.0,
+        0.0010000000474974513
+      ],
+      "maximum": [
+        1.5499999523162842,
+        19.200000762939453,
+        0.0010000000474974513
+      ],
+      "materials": [
+        "Mat_PinDeck"
+      ],
+      "material_face_counts": {
+        "0": 1
+      }
+    },
+    {
+      "name": "Pin_L_01",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -0.949999988079071,
+        18.288000106811523,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -1.0104999542236328,
+        18.227500915527344,
+        0.0
+      ],
+      "maximum": [
+        -0.8894999623298645,
+        18.348499298095703,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      },
+      "boundary_edges": 26,
+      "nonmanifold_edges": 26,
+      "profile_max_radius_by_z": {
+        "0.0": 0.05800000098827416,
+        "0.005": 0.05900000161805887,
+        "0.02": 0.06000000065901768,
+        "0.06": 0.06050000080159083,
+        "0.1": 0.06050000080159083,
+        "0.15": 0.05800000098827416,
+        "0.22": 0.050000002305300086,
+        "0.28": 0.04200000098814798,
+        "0.32": 0.03600000133968117,
+        "0.35": 0.04100000115277622,
+        "0.37": 0.035000000533970635,
+        "0.381": 0.018000000669840584
+      }
+    },
+    {
+      "name": "Pin_L_02",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -1.1023999452590942,
+        18.024036407470703,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -1.1628999710083008,
+        17.963537216186523,
+        0.0
+      ],
+      "maximum": [
+        -1.0418999195098877,
+        18.084535598754883,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_L_03",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -0.7975999712944031,
+        18.024036407470703,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -0.8580999970436096,
+        17.963537216186523,
+        0.0
+      ],
+      "maximum": [
+        -0.7370999455451965,
+        18.084535598754883,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_L_04",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -1.2547999620437622,
+        17.76007080078125,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -1.3152999877929688,
+        17.69957160949707,
+        0.0
+      ],
+      "maximum": [
+        -1.1942999362945557,
+        17.82056999206543,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_L_05",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -0.949999988079071,
+        17.76007080078125,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -1.0104999542236328,
+        17.69957160949707,
+        0.0
+      ],
+      "maximum": [
+        -0.8894999623298645,
+        17.82056999206543,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_L_06",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -0.6452000141143799,
+        17.76007080078125,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -0.7057000398635864,
+        17.69957160949707,
+        0.0
+      ],
+      "maximum": [
+        -0.5846999883651733,
+        17.82056999206543,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_L_07",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -1.4071999788284302,
+        17.49610710144043,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -1.4677000045776367,
+        17.43560791015625,
+        0.0
+      ],
+      "maximum": [
+        -1.3466999530792236,
+        17.55660629272461,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_L_08",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -1.1023999452590942,
+        17.49610710144043,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -1.1628999710083008,
+        17.43560791015625,
+        0.0
+      ],
+      "maximum": [
+        -1.0418999195098877,
+        17.55660629272461,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_L_09",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -0.7975999712944031,
+        17.49610710144043,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -0.8580999970436096,
+        17.43560791015625,
+        0.0
+      ],
+      "maximum": [
+        -0.7370999455451965,
+        17.55660629272461,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_L_10",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        -0.4927999973297119,
+        17.49610710144043,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        -0.5533000230789185,
+        17.43560791015625,
+        0.0
+      ],
+      "maximum": [
+        -0.43230000138282776,
+        17.55660629272461,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_01",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        0.949999988079071,
+        18.288000106811523,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        0.8894999623298645,
+        18.227500915527344,
+        0.0
+      ],
+      "maximum": [
+        1.0104999542236328,
+        18.348499298095703,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_02",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        0.7975999712944031,
+        18.024036407470703,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        0.7370999455451965,
+        17.963537216186523,
+        0.0
+      ],
+      "maximum": [
+        0.8580999970436096,
+        18.084535598754883,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_03",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        1.1023999452590942,
+        18.024036407470703,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        1.0418999195098877,
+        17.963537216186523,
+        0.0
+      ],
+      "maximum": [
+        1.1628999710083008,
+        18.084535598754883,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_04",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        0.6452000141143799,
+        17.76007080078125,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        0.5846999883651733,
+        17.69957160949707,
+        0.0
+      ],
+      "maximum": [
+        0.7057000398635864,
+        17.82056999206543,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_05",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        0.949999988079071,
+        17.76007080078125,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        0.8894999623298645,
+        17.69957160949707,
+        0.0
+      ],
+      "maximum": [
+        1.0104999542236328,
+        17.82056999206543,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_06",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        1.2547999620437622,
+        17.76007080078125,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        1.1942999362945557,
+        17.69957160949707,
+        0.0
+      ],
+      "maximum": [
+        1.3152999877929688,
+        17.82056999206543,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_07",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        0.4927999973297119,
+        17.49610710144043,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        0.43230000138282776,
+        17.43560791015625,
+        0.0
+      ],
+      "maximum": [
+        0.5533000230789185,
+        17.55660629272461,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_08",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        0.7975999712944031,
+        17.49610710144043,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        0.7370999455451965,
+        17.43560791015625,
+        0.0
+      ],
+      "maximum": [
+        0.8580999970436096,
+        17.55660629272461,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_09",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        1.1023999452590942,
+        17.49610710144043,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        1.0418999195098877,
+        17.43560791015625,
+        0.0
+      ],
+      "maximum": [
+        1.1628999710083008,
+        17.55660629272461,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pin_R_10",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_PINS"
+      ],
+      "location": [
+        1.4071999788284302,
+        17.49610710144043,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 290,
+      "faces": 301,
+      "triangles": 554,
+      "minimum": [
+        1.3466999530792236,
+        17.43560791015625,
+        0.0
+      ],
+      "maximum": [
+        1.4677000045776367,
+        17.55660629272461,
+        0.38100001215934753
+      ],
+      "materials": [
+        "Mat_PinWhite",
+        "Mat_PinRed"
+      ],
+      "material_face_counts": {
+        "0": 301
+      }
+    },
+    {
+      "name": "Pit_Catch",
+      "type": "MESH",
+      "parent": "BowlingPair01_ROOT",
+      "collections": [
+        "BP01_STATIC"
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "vertices": 8,
+      "faces": 4,
+      "triangles": 8,
+      "minimum": [
+        -1.7999999523162842,
+        19.200000762939453,
+        -0.30000001192092896
+      ],
+      "maximum": [
+        1.7999999523162842,
+        20.0,
+        -0.15000000596046448
+      ],
+      "materials": [
+        "Mat_Pit"
+      ],
+      "material_face_counts": {
+        "0": 4
+      }
+    }
+  ],
+  "bmesh_operators": {
+    "create_uvsphere": true,
+    "extrude_face_only": false,
+    "extrude_region_unshared": false,
+    "extrude_discrete_faces": true,
+    "extrude_face_region": true
+  },
+  "principled_input_names": [
+    "Alpha",
+    "Anisotropic",
+    "Anisotropic Rotation",
+    "Base Color",
+    "Coat IOR",
+    "Coat Normal",
+    "Coat Roughness",
+    "Coat Tint",
+    "Coat Weight",
+    "Diffuse Roughness",
+    "Emission Color",
+    "Emission Strength",
+    "IOR",
+    "Metallic",
+    "Normal",
+    "Roughness",
+    "Sheen Roughness",
+    "Sheen Tint",
+    "Sheen Weight",
+    "Specular IOR Level",
+    "Specular Tint",
+    "Subsurface Anisotropy",
+    "Subsurface IOR",
+    "Subsurface Radius",
+    "Subsurface Scale",
+    "Subsurface Weight",
+    "Tangent",
+    "Thin Film IOR",
+    "Thin Film Thickness",
+    "Thin Wall",
+    "Transmission Weight",
+    "Weight"
+  ]
+}

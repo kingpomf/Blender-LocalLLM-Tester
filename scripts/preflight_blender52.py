@@ -20,7 +20,7 @@ async def main():
     assert config['model'] == 'z6-llama/qwen36-35b-a3b-mtp-q8'
     assert config['small_model'] == config['model']
     assert config['agent']['build']['model'] == MODEL
-    assert all(config['command'][name]['model']==MODEL for name in ['bowling-run','bowling-references','bowling-start'])
+    assert all(config['command'][name]['model']==MODEL for name in ['bowling-run','bowling-references','bowling-start','bowling-continue'])
     assert config['experimental']['continue_loop_on_deny'] is True
     coding_context = config['provider']['z6-llama']['models']['qwen36-35b-a3b-mtp-q8']['limit']['context']
     assert coding_context in {262144, 1009920}
@@ -46,6 +46,8 @@ async def main():
             assert value and value['runtime_verified']
             assert value['actual_version'] == 'Blender 5.2.3 LTS'
             assert value['root'].endswith('/var/'+TRIAL)
+            assert value['guard']['failure_limit_per_source']==6
+            assert value['guard']['failure_limit_total']==12
             evidence = {'passed': True, 'server': 'bowling-blender52',
                                'selected_model': config['model'], 'context_size': coding_context,
                                'max_agent_steps': None, 'compaction':config['compaction'],

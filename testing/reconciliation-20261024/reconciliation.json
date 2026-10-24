@@ -1,0 +1,75 @@
+{
+  "source_job": "d1ce998472c349ac9f9fc2775afefdf6",
+  "source_manifest": {
+    "schema_version": 1,
+    "worker_version": "0.1.0",
+    "blender_version": "5.2.3 LTS",
+    "device": "CPU",
+    "wall_seconds": 2.3887893320061266,
+    "sampled_peak_tree_rss_kib": 327824,
+    "artifacts": [
+      {
+        "path": "author.py",
+        "bytes": 7507,
+        "sha256": "6c1c8f09dd50a6770575fdacc74aba4d964070ffe7efad2d7b9343e752b2f782"
+      },
+      {
+        "path": "python-output.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "report.json",
+        "bytes": 156,
+        "sha256": "68f6553128325d9b0e4a696c7bf1a9171dc115ef99424d4ea566425192586c44"
+      },
+      {
+        "path": "result.json",
+        "bytes": 257,
+        "sha256": "632788bab3d43cb221f557a7d6e2e9a324e756d2346dba9c857a024cffd958e0"
+      },
+      {
+        "path": "scene.blend",
+        "bytes": 130845,
+        "sha256": "4480223492c6790eceb0e66729cd5e99b15ee8875c25c45cfeab76af521bd017"
+      },
+      {
+        "path": "scene.json",
+        "bytes": 81489,
+        "sha256": "2bc21c33d2a8f72ccfca2957012d7643f9ddc5b139201ec95d7605b4ec27fd33"
+      }
+    ]
+  },
+  "fetched": {
+    "scene.blend": {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/d1ce998472c349ac9f9fc2775afefdf6/scene.blend",
+      "bytes": 130845,
+      "sha256": "4480223492c6790eceb0e66729cd5e99b15ee8875c25c45cfeab76af521bd017",
+      "name": "scene.blend"
+    },
+    "scene.json": {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/d1ce998472c349ac9f9fc2775afefdf6/scene.json",
+      "bytes": 81489,
+      "sha256": "2bc21c33d2a8f72ccfca2957012d7643f9ddc5b139201ec95d7605b4ec27fd33",
+      "name": "scene.json"
+    },
+    "report.json": {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/d1ce998472c349ac9f9fc2775afefdf6/report.json",
+      "bytes": 156,
+      "sha256": "68f6553128325d9b0e4a696c7bf1a9171dc115ef99424d4ea566425192586c44",
+      "name": "report.json"
+    },
+    "author.py": {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/d1ce998472c349ac9f9fc2775afefdf6/author.py",
+      "bytes": 7507,
+      "sha256": "6c1c8f09dd50a6770575fdacc74aba4d964070ffe7efad2d7b9343e752b2f782",
+      "name": "author.py"
+    }
+  },
+  "canonical_checkpoint": "artifacts/blend/BowlingPair01.blend",
+  "checkpoint_sha256": "4480223492c6790eceb0e66729cd5e99b15ee8875c25c45cfeab76af521bd017",
+  "failed_count": 6,
+  "accepted_jobs": 12,
+  "pending_jobs": 0,
+  "scope": "Artifact integrity/state only; stage acceptance is independently audited."
+}

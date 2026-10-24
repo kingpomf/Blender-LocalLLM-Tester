@@ -1,0 +1,54 @@
+# BowlingPair01 Build Status
+
+- Status: Stage 02 PASS
+- Reference phase: READY — 3 images generated, downloaded, hashed, reviewed (vision helper qwen38-27b), DESIGN_GUIDE.md written, check_references.py passed
+- Next stage: 03 — Reusable bowling pins
+- Active source job: 34f84fffff4d40f3ace7a94fdbb7b048
+- Accepted job IDs: 231eb330af5a43a79357135973cd7a54 (Stage 00 PASS), 15ff91120dc847e5b4f4cc5441fbc316 (Stage 01 PASS), 34f84fffff4d40f3ace7a94fdbb7b048 (Stage 02 PASS)
+- Reference imageMCP jobs: overview=edimg-eb0dd64f1ba74874b12300d94cc5632b, layout=edimg-17a13eb70a6c4c1cb1f19007e294b2b2, details=edimg-528cae6a52a04b609b94c94430d40322
+- Default model: `z6-llama/qwen36-35b-a3b-mtp-q8` — current native 262,144-token context
+- Actual model used: none — fresh trial has not started
+- Execution host: Z6, MCP `bowling-blender52`; Image generation: EliteDesk, model qwen-image-2.1-q4
+- Runtime: Blender 5.2.3 LTS; CPU rendering
+- Trial queue: /home/kingpomf/Development/blender-new-llm-setup/var/bowling52-qwen36-mtp-q8-20261023-r2
+- Operator intervention: fresh retry authorized after wrong-model startup; failed controller/session and guard archived, no accepted asset/image jobs
+- Trial mode: continuous stages00–09; automatic compaction/pruning ON;16,384-token reserve; no configured step cap
+- Active checkpoint: none
+- Reference phase: READY — 3 images generated, downloaded, hashed, reviewed, DESIGN_GUIDE.md written, check_references.py passed
+- Pending reference job: none
+
+## Stage ledger
+
+| Stage | Name | Result | Evidence |
+| --- | --- | --- | --- |
+| 00 | Contract and scene safety | PASS | job=231eb330af5a43a79357135973cd7a54, src=231eb330af5a43a79357135973cd7a54 |
+| 01 | Lane pair and markings | PASS | job=15ff91120dc847e5b4f4cc5441fbc316, src=231eb330af5a43a79357135973cd7a54 |
+| 02 | Gutters, decks and pit | PASS | job=34f84fffff4d40f3ace7a94fdbb7b048, src=15ff91120dc847e5b4f4cc5441fbc316 |
+| 03 | Reusable bowling pins | PASS | job=d1ce998472c349ac9f9fc2775afefdf6, src=34f84fffff4d40f3ace7a94fdbb7b048 |
+| 04 | Reusable bowling balls | ACCEPTED | job=f1b81b3109f2428a880dba13fce45957, src=d1ce998472c349ac9f9fc2775afefdf6, pending (rev3 - bmesh.uvsphere) |
+| 05 | Return, seating and alley dressing | NOT_STARTED | |
+| 06 | Materials, hierarchy and collision | NOT_STARTED | |
+| 07 | Presentation cameras and lighting | NOT_STARTED | |
+| 08 | Final measured validation | NOT_STARTED | |
+| 09 | Export and delivery | NOT_STARTED | |
+
+## Next action
+
+Stage 03 PASS. Proceed to Stage 04 — Reusable bowling balls from source d1ce998472c349ac9f9fc2775afefdf6.
+
+## Preserved history
+
+The failed startup using Qwen3.8 is preserved at
+`artifacts/archive/qwen38-startup-failed-20261023/`, including original controller
+events/state, guard and pre-fix configuration. No image or Blender job was accepted.
+This fresh r2 queue has no source, pending job, accepted job or reused stage PASS.
+
+The previous Nemotron trial's original ledgers, scenes, scripts, downloaded
+artifacts, configuration and guard database are preserved with a SHA-256
+manifest at `artifacts/archive/nemotron-final-before-qwen36-2026-10-23/`.
+All five accepted jobs were confirmed terminal remotely before archiving;
+the locally queued entry was already completed remotely. No old source or
+stage PASS carries forward. Earlier archives and remote queues remain evidence.
+Infrastructure qualification uses its separate existing queue and does not
+consume this fresh trial's guard budget. Model smoke tests are infrastructure
+checks, not BowlingPair01 stage acceptance.

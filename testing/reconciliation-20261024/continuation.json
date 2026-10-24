@@ -1,0 +1,17 @@
+{
+  "authorization": "User explicitly requested reconciliation, doubled limits, ball diagnostics and an operator-invoked controlled continuation.",
+  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+  "source_job": "d1ce998472c349ac9f9fc2775afefdf6",
+  "checkpoint": "artifacts/blend/BowlingPair01.blend",
+  "checkpoint_sha256": "4480223492c6790eceb0e66729cd5e99b15ee8875c25c45cfeab76af521bd017",
+  "guard_rows_sha256": "0d053c0661233e24ca7c77a3d47740f378a86d79bf3becfa93b7d4c2bf5f78c2",
+  "limits": {
+    "per_source": 6,
+    "total": 12
+  },
+  "diagnostic_report": "testing/BALL_GENERATION_DIAGNOSTICS.md",
+  "handoff": "CONTROLLED_CONTINUATION.md",
+  "first_stage": "01",
+  "scope": "Repair measured defects in01\u201304 from existing source, then continue05\u201309; no empty restart or failure reset."
+}

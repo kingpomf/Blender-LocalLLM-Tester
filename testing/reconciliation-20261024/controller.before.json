@@ -1,0 +1,18 @@
+{
+  "sessions": {
+    "references": "ses_e9469c0feffeeExKhG0WWizf8I",
+    "coding": "ses_e94571c7dffeB37vlLQTvFqRLV"
+  },
+  "turns": 2,
+  "state": "blocked",
+  "controller_pid": 5412,
+  "phase": "coding",
+  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "last_errors": [
+    "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+    "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+    "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+    "Error executing tool blender_scene_author: STOP: durable failure budget exhausted (3 per source / 6 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry."
+  ],
+  "reason": "Coding client reported an explicit tool/transport STOP"
+}

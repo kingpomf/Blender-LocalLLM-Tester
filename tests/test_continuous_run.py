@@ -100,8 +100,19 @@ class ContinuousRunTests(unittest.TestCase):
         config=json.loads((root/'opencode.json').read_text())
         self.assertEqual(config['model'],MODEL)
         self.assertEqual(config['agent']['build']['model'],MODEL)
-        for name in ['bowling-run','bowling-references','bowling-start']:
+        for name in ['bowling-run','bowling-references','bowling-start','bowling-continue']:
             self.assertIn('model: '+MODEL,(root/'.opencode/commands'/f'{name}.md').read_text())
+
+    def test_reconciled_state_requires_explicit_continuation_flag(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            state=root/'.runtime/autonomous-run/state.json'
+            state.parent.mkdir(parents=True)
+            state.write_text('{"state":"ready_to_continue"}')
+            with patch.object(run_bowling,'ROOT',root), patch('sys.argv',['run_bowling.py','--resume','--detach']), patch('scripts.run_bowling.subprocess.Popen') as spawn:
+                with self.assertRaisesRegex(RuntimeError,'requires --resume --continuation'):
+                    run_bowling.main()
+                spawn.assert_not_called()
 
 
 if __name__=='__main__':
