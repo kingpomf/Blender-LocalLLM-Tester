@@ -34,7 +34,7 @@ class ContinuationPreflightTests(unittest.TestCase):
             'checkpoint':'artifacts/blend/BowlingPair01.blend',
             'checkpoint_sha256':hashlib.sha256(self.checkpoint.read_bytes()).hexdigest(),
             'guard_rows_sha256':preflight.rows_hash(preflight.guard_rows(self.root)),
-            'limits':{'per_source':6,'total':12}}
+            'limits':{'per_source':6,'total':20}}
         self.plan_path.write_text(json.dumps(self.plan))
 
     def validate(self):
@@ -46,7 +46,7 @@ class ContinuationPreflightTests(unittest.TestCase):
         result=self.validate()
         self.assertEqual(result['failures_retained'],2)
         self.assertEqual(result['remaining_on_source'],4)
-        self.assertEqual(result['remaining_total'],10)
+        self.assertEqual(result['remaining_total'],18)
         self.assertEqual(before,preflight.guard_rows(self.root))
 
     def test_changed_checkpoint_blocks(self):
@@ -64,6 +64,24 @@ class ContinuationPreflightTests(unittest.TestCase):
         self.plan['model']='z6-llama/qwen38-27b'
         self.plan_path.write_text(json.dumps(self.plan))
         with self.assertRaisesRegex(AssertionError,'model/trial changed'):
+            self.validate()
+
+    def test_active_v2_plan_binds_the_repaired_validator_and_report(self):
+        selected=self.root/'testing/reconciliation-v2-20261024/continuation.json'
+        selected.parent.mkdir(parents=True)
+        report=self.root/'artifacts/reports/validation.json'
+        report.parent.mkdir(parents=True)
+        report.write_text('{"passed":false}')
+        validator=self.root/'artifacts/scripts/validate_bowling_pair01.py'
+        validator.parent.mkdir(parents=True)
+        validator.write_text('# reviewed validator fixture')
+        selected.write_text(json.dumps({**self.plan,
+            'validation_sha256':hashlib.sha256(report.read_bytes()).hexdigest(),
+            'validator_sha256':hashlib.sha256(validator.read_bytes()).hexdigest()}))
+        (self.root/'testing/ACTIVE_CONTINUATION.json').write_text(json.dumps({'path':str(selected.relative_to(self.root))}))
+        self.assertTrue(self.validate()['passed'])
+        report.write_text('{"passed":true}')
+        with self.assertRaisesRegex(AssertionError,'validation report/script changed'):
             self.validate()
 
 

@@ -12,7 +12,7 @@ from pathlib import Path
 import sqlite3
 
 FAILURE_LIMIT_PER_SOURCE = 6
-FAILURE_LIMIT_TOTAL = 12
+FAILURE_LIMIT_TOTAL = 20
 
 
 class GuardBlocked(RuntimeError):

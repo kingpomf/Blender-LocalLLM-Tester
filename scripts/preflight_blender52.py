@@ -47,7 +47,7 @@ async def main():
             assert value['actual_version'] == 'Blender 5.2.3 LTS'
             assert value['root'].endswith('/var/'+TRIAL)
             assert value['guard']['failure_limit_per_source']==6
-            assert value['guard']['failure_limit_total']==12
+            assert value['guard']['failure_limit_total']==20
             evidence = {'passed': True, 'server': 'bowling-blender52',
                                'selected_model': config['model'], 'context_size': coding_context,
                                'max_agent_steps': None, 'compaction':config['compaction'],

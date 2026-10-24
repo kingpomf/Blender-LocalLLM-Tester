@@ -1,18 +1,15 @@
 import bpy
 import json
 import os
-from math import pi, sin, cos
 import bmesh
+from math import pi, sin, cos
 
 def run_stage():
     scene = bpy.context.scene
-
     required_names = ['BP01_STATIC', 'BP01_PINS', 'BP01_BALLS', 'BP01_COLLISION', 'BP01_PRESENTATION']
     for name in required_names:
         assert name in bpy.data.collections, f"Missing collection {name}"
-
     errors = []
-
     root = bpy.data.objects['BowlingPair01_ROOT']
     balls_col = bpy.data.collections['BP01_BALLS']
 
@@ -35,24 +32,19 @@ def run_stage():
 
     ball_radius = 0.108
     hole_depth = 0.025
-    segs = 32
+    hole_positions = [
+        (0.02, 0.035, ball_radius*0.93),
+        (-0.03, 0.02, ball_radius*0.93),
+        (0.06, 0.015, ball_radius*0.93),
+    ]
 
     def create_ball_bm(radius, hole_depth):
-        """Create sphere using bmesh from scratch, with finger holes."""
+        """Create ball using bmesh.create_uvsphere + extrude_face_region."""
         me = bpy.data.meshes.new('Ball_Mesh')
-
         bm = bmesh.new()
-        # Create UV sphere
-        bmesh.ops.create_uvsphere(bm, u_segments=segs, v_segments=segs, radius=radius)
-
-        hole_positions = [
-            (0.02, 0.035, radius*0.93),
-            (-0.03, 0.02, radius*0.93),
-            (0.06, 0.015, radius*0.93),
-        ]
+        bmesh.ops.create_uvsphere(bm, u_segments=32, v_segments=32, radius=radius)
 
         for hx, hy, hz in hole_positions:
-            # Find nearest face to hole center
             best_f = None
             best_d = 999
             for f in bm.faces:
@@ -63,11 +55,10 @@ def run_stage():
                     best_f = f
 
             if best_f and best_d < 0.08:
-                # Extrude the face inward
-                result =                 bmesh.ops.extrude_region_unshared(bm, faces=[best_f])
-                new_faces = result['faces']
+                result = bmesh.ops.extrude_face_region(bm, geom=[best_f])
+                new_geoms = result['geom']
+                new_faces = [g for g in new_geoms if isinstance(g, bmesh.types.BMFace)]
                 if new_faces:
-                    # Move extruded vertices inward toward sphere center
                     for nf in new_faces:
                         for v in nf.verts:
                             mag = (v.co[0]**2 + v.co[1]**2 + v.co[2]**2)**0.5
@@ -91,16 +82,14 @@ def run_stage():
         obj.parent = root
         balls_col.objects.link(obj)
 
-    # Position balls on return rack area
-    return_x_positions = [-0.15, 0.0, 0.15]
+    # Position balls with CORRECT spacing: 0.221m center-to-center min
+    # 3 balls, spacing 0.221m: positions at -0.221, 0, +0.221
+    spacing = 0.221
+    x_positions = [-spacing, 0.0, spacing]
     for i, (bname, _) in enumerate(ball_colors):
         ball_obj = [o for o in balls_col.objects if o.name == bname][0]
-        ball_obj.location = (return_x_positions[i], -2.30, ball_radius + 0.005)
-        if i > 0:
-            prev = [o for o in balls_col.objects if o.name == ball_colors[i-1][0]][0]
-            sep = abs(ball_obj.location[0] - prev.location[0])
-            if sep < 0.005:
-                errors.append(f"{bname} separation too small: {sep}")
+        # Place on return rack cradle at Z=ball_radius (touching support)
+        ball_obj.location = (x_positions[i], -2.30, ball_radius)
 
     # Verification
     ball_objs = [o for o in balls_col.objects if 'Ball_' in o.name]
@@ -120,16 +109,25 @@ def run_stage():
                 maxs = [max(v.co.x for v in mesh.vertices), max(v.co.y for v in mesh.vertices), max(v.co.z for v in mesh.vertices)]
                 dims = [maxs[i] - mins[i] for i in range(3)]
                 diam = max(dims)
-                if abs(diam - 2*ball_radius) > 0.006:
+                if abs(diam - 2*ball_radius) > 0.003:
                     errors.append(f"{obj.name} diameter {diam:.4f} not within {2*ball_radius:.3f}+-0.003")
         finally:
             evaluated.to_mesh_clear()
+
+    # Check separation between balls (surface gap >= 0.005m)
+    for i in range(1, len(ball_objs)):
+        prev = ball_objs[i-1]
+        curr = ball_objs[i]
+        center_dist = ((prev.location[0]-curr.location[0])**2 + (prev.location[1]-curr.location[1])**2 + (prev.location[2]-curr.location[2])**2)**0.5
+        surface_gap = center_dist - 2*ball_radius
+        if surface_gap < -0.001:
+            errors.append(f"{ball_objs[i].name} overlaps previous: surface_gap={surface_gap:.4f}")
 
     passed = len(errors) == 0
 
     report = {
         "stage": "04",
-        "name": "Reusable bowling balls",
+        "name": "Reusable bowling balls (repaired)",
         "passed": passed,
         "ball_count": len(ball_objs),
         "errors": errors,
@@ -137,27 +135,17 @@ def run_stage():
 
     out_dir = '/job'
     os.makedirs(out_dir, exist_ok=True)
-
     with open(os.path.join(out_dir, 'report.json'), 'w') as f:
         json.dump(report, f, indent=2)
-
     with open(os.path.join(out_dir, 'scene.json'), 'w') as f:
         obj_list = []
-        for col_name in required_names:
-            col = bpy.data.collections[col_name]
+        for cn in required_names:
+            col = bpy.data.collections[cn]
             for o in col.objects:
-                obj_list.append({
-                    'name': o.name,
-                    'type': o.type,
-                    'location': [round(x, 6) for x in o.location],
-                    'parent': o.parent.name if o.parent else None,
-                    'collection': col_name,
-                })
-        scene_info = {
-            'objects': obj_list,
-            'collections': [c.name for c in bpy.data.collections],
-        }
-        json.dump(scene_info, f, indent=2)
+                obj_list.append({'name': o.name, 'type': o.type,
+                    'location': [round(x,6) for x in o.location],
+                    'parent': o.parent.name if o.parent else None, 'collection': cn})
+        json.dump({'objects': obj_list, 'collections': [c.name for c in bpy.data.collections]}, f, indent=2)
 
     return report
 

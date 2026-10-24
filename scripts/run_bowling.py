@@ -120,12 +120,15 @@ def main():
             plan=validate(ROOT)
             state['operator_continuation']=plan
             state['recovery_context']=(
-                'The operator explicitly authorized this reconciled continuation and increased failure limits to6/source and12/total. '
-                'All prior failures remain. Read CONTROLLED_CONTINUATION.md and testing/BALL_GENERATION_DIAGNOSTICS.md before any submission. '
+                f"The operator explicitly authorized this reconciled continuation with failure limits {plan['limits']['per_source']}/source and {plan['limits']['total']}/total. "
+                'All prior failures remain. Read CONTROLLED_CONTINUATION.md and '+plan['diagnostic_report']+' before any submission. '
                 'Use completed source '+plan['source_job']+' and the verified canonical checkpoint. '
-                'Earlier Stage01–03 PASS claims were disproved by native audit: repair01,02,03 before repairing04, then continue through09. '
+                'Authorized measured repair scope: '+plan['scope']+' '
+                'Use python3 scripts/checkpoint_bowling.py --source COMPLETED_ID to publish each native checkpoint, '
+                'then python3 scripts/validate_checkpoint.py --campaign UNIQUE_ID and python3 scripts/checkpoint_bowling.py --sync-ledgers. '
+                'Do not rely on the stale previous stage table or blind text substitutions. '
                 'Do not restart empty, regenerate references, use failed jobs as sources, or replay unchanged failed code. '
-                'This approval supersedes the OLD exhausted3/6 budget only; all current6/12 limits and uncertainty checks still apply.')
+                'This handoff supersedes the previous exhausted trial budget only; current guard limits and uncertainty checks still apply.')
         state.update(state='running',controller_pid=os.getpid())
         def save():
             temporary=path.with_suffix('.next')

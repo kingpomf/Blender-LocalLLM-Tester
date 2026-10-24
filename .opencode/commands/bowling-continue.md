@@ -1,10 +1,10 @@
 ---
-description: Start the explicitly authorized reconciled Qwen3.6 continuation with doubled failure limits
+description: Start the latest verified Qwen3.6 continuation with 20 total allowed failures
 agent: build
 model: z6-llama/qwen36-35b-a3b-mtp-q8
 ---
 
-The operator authorized reconciliation, diagnostic assistance and6/source12/total
+The operator authorized reconciliation, repaired validation/checkpoints and6/source20/total
 failure limits while retaining all prior failures. They are now explicitly
 invoking this continuation command.
 

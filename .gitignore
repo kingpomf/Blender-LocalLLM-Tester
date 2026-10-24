@@ -6,6 +6,7 @@ testing/**/downloads/
 testing/**/*.sqlite*
 testing/**/*.lock
 testing/**/*.log
+testing/**/*.blend
 *.pyc
 *.blend1
 *.blend2

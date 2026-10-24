@@ -34,6 +34,13 @@ polling. Keep Active source / Last verified source as the previous verified bare
 job ID until the new scene passes. Save a hash-verified native checkpoint after
 acceptance. Never mark a stage PASS based on constants or script existence.
 
+For native publication use `python3 scripts/checkpoint_bowling.py --source COMPLETED_ID`.
+For measured acceptance use `python3 scripts/validate_checkpoint.py --campaign UNIQUE_ID`,
+then `python3 scripts/checkpoint_bowling.py --sync-ledgers`. These update both
+ledgers deterministically; do not guess stale oldString text or duplicate stage rows.
+Read all FAIL/unresolved findings and repair actual geometry/evidence. The fixed
+operator-reviewed validator must not be weakened or replaced with existence checks.
+
 On any tool STOP, duplicate-rejection or exhausted budget, save evidence and
 return BLOCKED immediately. No repeated blocked calls, guard resets or bypasses.
 After each stage passes, update both ledgers, save the verified native checkpoint,

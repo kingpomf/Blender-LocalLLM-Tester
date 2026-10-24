@@ -24,7 +24,11 @@ def rows_hash(rows):
 
 def validate(root):
     root=Path(root)
-    plan=json.loads((root/'testing/reconciliation-20261024/continuation.json').read_text())
+    pointer=root/'testing/ACTIVE_CONTINUATION.json'
+    selected=json.loads(pointer.read_text())['path'] if pointer.exists() else 'testing/reconciliation-20261024/continuation.json'
+    plan_path=(root/selected).resolve()
+    assert plan_path.is_relative_to((root/'testing').resolve()), 'Continuation plan escapes testing directory'
+    plan=json.loads(plan_path.read_text())
     assert plan['model']==MODEL and plan['trial']==TRIAL, 'Continuation model/trial changed'
     assert plan['limits']=={'per_source':FAILURE_LIMIT_PER_SOURCE,'total':FAILURE_LIMIT_TOTAL}, 'Failure limits differ from authorization'
     rows=guard_rows(root)
@@ -33,6 +37,10 @@ def validate(root):
     assert any(row['job']==plan['source_job'] and row['state']=='completed' for row in rows)
     checkpoint=root/plan['checkpoint']
     assert checkpoint.is_file() and hashlib.sha256(checkpoint.read_bytes()).hexdigest()==plan['checkpoint_sha256'], 'Canonical checkpoint changed'
+    for key,relative in [('validation_sha256','artifacts/reports/validation.json'),
+                         ('validator_sha256','artifacts/scripts/validate_bowling_pair01.py')]:
+        if key in plan:
+            assert hashlib.sha256((root/relative).read_bytes()).hexdigest()==plan[key], 'Authorized validation report/script changed'
     for check in [reference_check,resume_check]:
         result=check(root)
         assert result['passed'], result['issues']

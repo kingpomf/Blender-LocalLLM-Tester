@@ -3,9 +3,11 @@
 Test the selected local LLM against **Blender 5.2.3 LTS** with matching
 5.2 typing stubs, measured asset specifications and enforced retry limits.
 The selected coding model is **Qwen3.6 35B A3B MTP UD-Q8_K_XL (256K)**.
-The current run has been reconciled after six failed authoring jobs. Its completed
-scene and reference images are preserved. Stage00 passes; measured defects require
-repair in01–04. Failure limits are now6/source and12/total, with prior failures counted.
+The current run has been reconciled after twelve failed jobs. Its latest completed
+scene, four actual renders and reference images are preserved. Measured Stage00/01
+checks pass; later stages need repair or unresolved evidence. The fixed validator
+now completes without changing geometry. Limits are6/source and20/total, with all
+prior failures counted—8 remain globally and4 on the current source at preparation.
 
 ## Current controlled continuation — operator starts it
 
@@ -35,7 +37,7 @@ references. Status remains available with `python3 scripts/run_bowling.py --stat
    the guard or blindly rerun. Review final renders, reports and exports.
 
 The former60-step cap is removed. Unchanged failed scripts are
-rejected; six failures per source or twelve total exhaust the durable budget.
+rejected; six failures per source or twenty total exhaust the durable budget.
 Automatic compaction/pruning are enabled with a16,384-token reserve within the
 native262,144-token coding context. See `RUNTIME_52.md`
 for runtime identity, qualification evidence, operator recovery and limitations.

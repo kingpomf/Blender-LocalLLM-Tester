@@ -47,11 +47,11 @@ class GuardTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.calls, 6)
 
     async def test_total_budget_cannot_be_evaded_with_different_sources(self):
-        for n in range(12):
+        for n in range(20):
             await self.fail(f'x={n}', f'{n:032x}')
         with self.assertRaisesRegex(GuardBlocked, 'budget exhausted'):
             await self.guard.submit(self.request('x=99', 'f' * 32), self.rpc)
-        self.assertEqual(self.calls, 12)
+        self.assertEqual(self.calls, 20)
 
     async def test_existing_failures_are_retained_under_doubled_limits(self):
         for n in range(3):
@@ -61,7 +61,7 @@ class GuardTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(row['state'],'queued')
         self.assertEqual(restarted.summary()['failed_count'],3)
         self.assertEqual(restarted.summary()['failure_limit_per_source'],6)
-        self.assertEqual(restarted.summary()['failure_limit_total'],12)
+        self.assertEqual(restarted.summary()['failure_limit_total'],20)
 
     async def test_pending_job_blocks_changed_submission(self):
         await self.guard.submit(self.request(), self.rpc)
