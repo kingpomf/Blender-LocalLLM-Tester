@@ -42,6 +42,8 @@ def inspect_authoring(code):
             call=dotted(node.func)
             if call.startswith('bpy.ops.render.'):
                 issues.append({'line':node.lineno,'code':'use_render_queue','message':'Authoring cannot invoke render operators. Prepare/save cameras only; call blender_render_view for queued CPU rendering.'})
+            if call in {'bpy.data.meshes.remove','bpy.data.cameras.remove','bpy.data.lights.remove'} and node.args and isinstance(node.args[0],ast.Attribute) and node.args[0].attr=='data':
+                issues.append({'line':node.lineno,'code':'live_object_data_removal','message':'Do not remove obj.data while obj still uses it: Blender can invalidate the Object, causing StructRNA ReferenceError on the next access. Save data = obj.data; call bpy.data.objects.remove(obj, do_unlink=True) first; only then remove the saved datablock if data.users == 0. Collecting object names does not repair this deletion-order bug.'})
             if call in {'os.mkdir','os.makedirs'} or (isinstance(node.func,ast.Attribute) and node.func.attr=='mkdir'):
                 path=string(node.args[0]) if node.args else None
                 if path!='/job':

@@ -46,6 +46,35 @@ def snapshot():
     return result
 
 
+def native_outcome(event,failures,progress):
+    """Recognize failed backend jobs even when their MCP tool call succeeded.
+
+    Repeated polls/diagnostics for one job count once. Only a published successful
+    asset edit clears this streak; status reads and successful validation do not.
+    """
+    part=event.get('part',{});tool=part.get('tool','')
+    if event.get('type')!='tool_use' or not tool.startswith('bowling-blender52_'):return None
+    try:result=json.loads(part.get('state',{}).get('output',''))
+    except (ValueError,TypeError):return None
+    if not isinstance(result,dict):return None
+    job=result.get('id')
+    native_state=result.get('state')
+    if result.get('operation')=='asset' and result.get('state')=='completed' and result.get('execution_succeeded'):
+        checkpoint=result.get('checkpoint',{})
+        if isinstance(checkpoint,dict) and checkpoint.get('source_job')==job and job and job not in progress.setdefault('asset_jobs',[]):
+            progress['asset_jobs'].append(job)
+            failures.clear()
+    if isinstance(job,str) and job.startswith('view-'):
+        job=result.get('native_job')
+        native_state=result.get('native_state',native_state)
+    if native_state not in {'failed','cancelled'} or not isinstance(job,str) or not re.fullmatch('[a-f0-9]{32}',job) or job in failures:return None
+    if job in progress.setdefault('failed_jobs',[]):return None
+    progress['failed_jobs'].append(job)
+    message=f"Native job {job} {native_state}: {result.get('error') or 'read native diagnostics'}"
+    failures[job]=message
+    return message
+
+
 def measured_progress(before,after):
     if after['passed']>before['passed']:return True
     if after.get('verified_source') and after.get('verified_source')==after.get('source'):
@@ -184,6 +213,14 @@ def main():
             raise KeyboardInterrupt('Explicit controller stop')
         signal.signal(signal.SIGTERM,stopped)
         def run_phase(phase):
+            if len(state.get('native_failures_since_progress',{}))>=2:
+                raise RuntimeError('STOP: retained native failure streak requires operator reconciliation before another client starts.')
+            native_failures=dict(state.get('native_failures_since_progress',{}))
+            progress=state.setdefault('native_progress',{'asset_jobs':[],'failed_jobs':list(native_failures)})
+            receipt=ROOT/'artifacts/reports/checkpoint.json'
+            if receipt.exists():
+                source=json.loads(receipt.read_text())['source_job']
+                if source not in progress['asset_jobs']:progress['asset_jobs'].append(source)
             command_name='bowling-references' if phase=='references' else 'bowling-start'
             model=MODEL
             command=['opencode','run','--format','json','--command',command_name,'--model',model]
@@ -212,6 +249,19 @@ def main():
                         log.flush()
                         try:event=json.loads(line)
                         except ValueError:continue
+                        previous_native_failures=dict(native_failures)
+                        previous_progress=json.dumps(progress,sort_keys=True)
+                        native_error=native_outcome(event,native_failures,progress)
+                        if native_failures!=previous_native_failures or json.dumps(progress,sort_keys=True)!=previous_progress:
+                            state['native_failures_since_progress']=dict(native_failures)
+                            save()
+                        if native_error:
+                            errors.append(native_error)
+                            state['last_errors']=errors[-4:]
+                            state['native_failures_since_progress']=dict(native_failures)
+                            save()
+                            if len(native_failures)>=2:
+                                raise RuntimeError('STOP: two distinct native jobs failed/cancelled without a published asset advance; client stopped immediately for diagnosis, no automatic retry.')
                         if event.get('type')=='error':
                             hard_stop=True
                             errors.append(str(event.get('error','Client error'))[:1500])
@@ -250,11 +300,15 @@ def main():
                 'Do not repeat a denied command; use permitted tools. Never bypass a STOP, release leases, or replay an uncertain submission.')
             save()
         try:
+            if args.continuation and state.get('operator_continuation',{}).get('workflow_managed'):
+                from scripts.checkpoint_bowling import sync_ledgers
+                sync_ledgers(ROOT)
             workflow(run_phase,snapshot,lambda:reference_check(ROOT)['passed'],lambda:resume_check(ROOT)['passed'],recover)
             state.update(state='completed',finished=time.time())
         except BaseException as error:
             state.update(state='interrupted' if isinstance(error,KeyboardInterrupt) else 'blocked',reason=str(error))
-            if state['state']=='blocked':
+            save()
+            if state['state'] in {'blocked','interrupted'}:
                 from scripts.checkpoint_bowling import backup_and_write,update_fields
                 for filename,key in [('BUILD_STATUS.md','Status'),('HANDOFF.md','Run status')]:
                     current=ROOT/filename

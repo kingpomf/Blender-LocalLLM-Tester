@@ -177,12 +177,17 @@ class Workflow:
                 'asset_passed':merged['passed'],'validation':self.state['validation'],
                 'remaining_checks':[{'id':c['id'],'status':c['status'],'observed':str(c['observed'])[:240]} for c in merged['checks'] if c['status']!='PASS']}
 
+    def sync_failure_mirrors(self):
+        if self.state.get('validation') and self.state['validation']['source_job']==self.state.get('current_source') and not self.pending():
+            sync_ledgers(self.root)
+
     async def observe(self,row):
         for attempt in self.guard.rows():
             if attempt['job']==row['id']:self.guard.update(attempt['fingerprint'],row)
         metadata=self.state['jobs'].get(row['id'])
         if row['state'] in {'failed','cancelled'}:
             self.clear_pending(row['id'])
+            self.sync_failure_mirrors()
         if row['state']!='completed' or metadata is None:
             return {k:row[k] for k in ['id','state','error','progress','diagnostics'] if k in row}
         self.clear_pending(row['id'])
@@ -298,7 +303,8 @@ class Workflow:
         camera=await self.client.rpc('status',{'job_id':view['camera_job']})
         await self.observe(camera)
         if camera['state'] in {'failed','cancelled'}:
-            view['state']=camera['state'];return {'id':view_id,'state':camera['state'],'native_job':camera['id'],'next_tool':'blender_job_diagnostics'}
+            view['state']=camera['state'];self.save();self.sync_failure_mirrors()
+            return {'id':view_id,'state':camera['state'],'native_job':camera['id'],'next_tool':'blender_job_diagnostics'}
         if camera['state']!='completed':return {'id':view_id,'state':'running','phase':'camera_selection','native_job':camera['id']}
         if view.get('cancel_requested') and not view.get('render_job'):
             view['state']='cancelled';return {'id':view_id,'state':'cancelled'}
@@ -320,7 +326,8 @@ class Workflow:
             return {'id':view_id,'state':'completed','artifact':image,'asset_source':view['source'],
                     'measured_validation':measured,
                     'visual_acceptance':'not yet reviewed; successful rendering is not Stage07 PASS'}
-        if render['state'] in {'failed','cancelled'}:view['state']=render['state'];self.save()
+        if render['state'] in {'failed','cancelled'}:
+            view['state']=render['state'];self.save();self.sync_failure_mirrors()
         return {'id':view_id,'state':render['state'],'phase':'render','native_job':render['id'],'error':render.get('error')}
 
     async def publish(self,role,job_id,asset_source_job=None):
@@ -340,7 +347,7 @@ class Workflow:
             view['cancel_requested']=True
             row=await self.client.rpc('cancel',{'job_id':native});await self.observe(row)
             if row['state'] in {'completed','failed','cancelled'}:
-                view['state']='cancelled';self.save()
+                view['state']='cancelled';self.save();self.sync_failure_mirrors()
                 return {'id':job_id,'state':'cancelled','native_job':native,'native_state':row['state']}
             return {'id':job_id,'state':'running','cancellation_requested':True,'native_job':native}
         row=await self.client.rpc('cancel',{'job_id':job_id})

@@ -95,6 +95,7 @@ def sync_ledgers(root):
     source_failures=sum(r['source']==source for r in accounting['counted_failures'])
     controller_path=root/'.runtime/autonomous-run/state.json'
     controller=json.loads(controller_path.read_text()) if controller_path.exists() else {}
+    run_status='BLOCKED' if controller.get('state') in {'blocked','interrupted'} else 'IN_PROGRESS'
     common={'Reference phase':'READY','Pending reference job':'none','Pending job':'none','Pending source job':'none',
             'Validation state':'completed current-source measurements; see artifacts/reports/validation.json',
             'Operator validation pending':'none',
@@ -107,9 +108,9 @@ def sync_ledgers(root):
             'Next action':f'Read CONTROLLED_CONTINUATION.md and the active handoff report; repair Stage {next_stage:02d} and dependencies; use verified checkpoint tools.'}
     build=(root/'BUILD_STATUS.md').read_text()
     build=replace_stage_table(build,rows)
-    build=update_fields(build,{**common,'Status':'IN_PROGRESS','Next stage':f'{next_stage:02d} — {STAGES[next_stage]}',
+    build=update_fields(build,{**common,'Status':run_status,'Next stage':f'{next_stage:02d} — {STAGES[next_stage]}',
         'Active source job':source,'Active checkpoint':receipt['path'],'Accepted job IDs':', '.join(r['job'] for r in attempts)})
-    handoff=update_fields((root/'HANDOFF.md').read_text(),{**common,'Run status':'IN_PROGRESS',
+    handoff=update_fields((root/'HANDOFF.md').read_text(),{**common,'Run status':run_status,
         'Current stage':f'{next_stage:02d} — {STAGES[next_stage]}','Last verified source job':source,
         'Pending source job':'none','Latest verified local checkpoint':receipt['path']})
     # Reconciled reports supersede old forward-looking text rather than leaving

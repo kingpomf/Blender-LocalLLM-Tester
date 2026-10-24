@@ -16,6 +16,17 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'blender-new-llm-setup
 
 
 class PreflightTests(unittest.TestCase):
+    def test_live_datablock_removal_is_rejected_but_object_first_cleanup_is_allowed(self):
+        for expression in ['bpy.data.meshes.remove(obj.data)', 'bpy.data.cameras.remove(obj.data)', 'bpy.data.lights.remove(obj.data)', 'meshes=bpy.data.meshes\nmeshes.remove(existing.data)']:
+            result=inspect_authoring('import bpy\n'+expression)
+            self.assertFalse(result['ok'])
+            self.assertFalse(result['attempt_consumed'])
+            issues=result.get('issues')
+            assert isinstance(issues,list)
+            self.assertEqual(issues[0]['code'],'live_object_data_removal')
+        safe='import bpy\ndata=obj.data\nbpy.data.objects.remove(obj, do_unlink=True)\nif data.users == 0:\n    bpy.data.meshes.remove(data)'
+        self.assertTrue(inspect_authoring(safe)['ok'])
+
     def test_render_aliases_and_subdirectories_are_rejected_before_execution(self):
         for code in ['import bpy\nbpy.ops.render.render()',
                      'import bpy as b\nr=b.ops.render.render\nr()',
@@ -97,9 +108,23 @@ class WorkflowTests(unittest.IsolatedAsyncioTestCase):
         return accepted['id'],validation
 
     async def test_preflight_rejection_consumes_no_guard_or_network_submission(self):
-        result=await self.workflow.call('author',code='import bpy\nbpy.ops.render.render()')
-        self.assertFalse(result['ok']);self.assertTrue(result['recoverable'])
-        self.assertEqual(self.guard.rows(),[]);self.assertEqual(self.client.submissions,[])
+        for code in ['import bpy\nbpy.ops.render.render()', 'import bpy\nbpy.data.meshes.remove(existing.data)']:
+            result=await self.workflow.call('author',code=code)
+            self.assertFalse(result['ok']);self.assertTrue(result['recoverable'])
+            self.assertEqual(self.guard.rows(),[]);self.assertEqual(self.client.submissions,[])
+
+    async def test_failure_updates_budget_mirrors_and_status_cannot_unpause_controller(self):
+        await self.ready_asset()
+        accepted=await self.workflow.call('author',code="report={'repair':1}")
+        self.client.rows[accepted['id']]['state']='failed'
+        await self.workflow.call('status',job_id=accepted['id'])
+        self.assertIn('current failures 1',(self.root/'BUILD_STATUS.md').read_text())
+        controller=self.root/'.runtime/autonomous-run/state.json'
+        controller.parent.mkdir(parents=True)
+        controller.write_text('{"state":"interrupted"}')
+        await self.workflow.call('workflow_status')
+        self.assertIn('- Status: BLOCKED',(self.root/'BUILD_STATUS.md').read_text())
+        self.assertIn('- Run status: BLOCKED',(self.root/'HANDOFF.md').read_text())
 
     async def test_completed_author_publishes_checkpoint_queues_validation_once_and_blocks_overlap(self):
         accepted=await self.workflow.call('author',code="report={'stage':'00'}")
@@ -175,9 +200,20 @@ class WorkflowTests(unittest.IsolatedAsyncioTestCase):
         before=len(self.client.submissions)
         result=await self.workflow.call('status',job_id=view['id'])
         self.assertEqual(result['state'],'failed')
+        self.assertIn('current failures 1',(self.root/'BUILD_STATUS.md').read_text())
         await self.workflow.call('status',job_id=view['id'])
         self.assertEqual(len(self.client.submissions),before)
         self.assertEqual(self.guard.summary()['failed_count'],1)
+
+    async def test_failed_view_render_updates_budget_on_first_poll(self):
+        await self.ready_asset()
+        view=await self.workflow.call('render_view',role='overview')
+        self.client.complete(view['camera_job'])
+        rendering=await self.workflow.call('status',job_id=view['id'])
+        self.client.rows[rendering['native_job']].update(state='failed',error='fixture render failure')
+        result=await self.workflow.call('status',job_id=view['id'])
+        self.assertEqual(result['state'],'failed')
+        self.assertIn('current failures 1',(self.root/'BUILD_STATUS.md').read_text())
 
     async def test_invalid_view_resolution_consumes_no_attempt(self):
         await self.ready_asset();before=len(self.guard.rows())
