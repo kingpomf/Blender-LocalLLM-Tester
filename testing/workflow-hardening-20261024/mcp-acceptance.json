@@ -1,0 +1,225 @@
+{
+  "passed": true,
+  "state": "completed",
+  "tools": [
+    "blender_capabilities",
+    "blender_scene_author",
+    "blender_scene_inspect",
+    "blender_export",
+    "blender_render",
+    "blender_job_status",
+    "blender_job_diagnostics",
+    "blender_job_cancel",
+    "blender_artifact_fetch",
+    "blender_workflow_status",
+    "blender_checkpoint",
+    "blender_validate",
+    "blender_render_view",
+    "blender_publish_render",
+    "blender_review_presentation",
+    "blender_export_delivery",
+    "blender_finish_delivery"
+  ],
+  "preflight_no_attempt_verified": true,
+  "current_source": "756846c5415e4c5e92f159389a87eeb0",
+  "view_id": "view-a6ce6e0bcd5b4b98bd35d8c64d1b921b",
+  "camera_job": "0739f3cf03934d2d997690acfa76c72a",
+  "last_status": {
+    "id": "view-a6ce6e0bcd5b4b98bd35d8c64d1b921b",
+    "state": "completed",
+    "artifact": {
+      "role": "overview",
+      "job_id": "993e8c59fc684b49b92afc678906b43d",
+      "source_job": "0739f3cf03934d2d997690acfa76c72a",
+      "asset_source": "756846c5415e4c5e92f159389a87eeb0",
+      "path": "artifacts/renders/BowlingPair01_overview.png",
+      "bytes": 893433,
+      "sha256": "3177ecb3944b25d50f2246bce455b2223948af5d7862a23db0787e8e88662d05",
+      "width": 1280,
+      "height": 720,
+      "next": "Inspect actual pixels and record visual_review for this image hash; publication alone does not imply PASS."
+    },
+    "asset_source": "756846c5415e4c5e92f159389a87eeb0",
+    "measured_validation": {
+      "id": "3640e30f913f403aa37992dd24e9f72f",
+      "state": "completed",
+      "operation": "validation",
+      "execution_succeeded": true,
+      "asset_passed": false,
+      "validation": {
+        "source_job": "756846c5415e4c5e92f159389a87eeb0",
+        "job_id": "3640e30f913f403aa37992dd24e9f72f",
+        "sha256": "f11995615eff3f1be6b8a6f93ea3139b005acf454e0193ede427a20f376fc4be",
+        "path": ".runtime/workflow/validated-reports/f11995615eff3f1be6b8a6f93ea3139b005acf454e0193ede427a20f376fc4be.json",
+        "stage_results": {
+          "00": "PASS",
+          "01": "PASS",
+          "02": "PASS",
+          "03": "PASS",
+          "04": "UNRESOLVED",
+          "05": "FAIL",
+          "06": "FAIL",
+          "07": "FAIL"
+        },
+        "passed": false,
+        "fail_count": 19,
+        "unresolved_count": 7
+      },
+      "remaining_checks": [
+        {
+          "id": "S04_Ball_01_holes_visual",
+          "status": "UNRESOLVED",
+          "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+        },
+        {
+          "id": "S04_Ball_02_holes_visual",
+          "status": "UNRESOLVED",
+          "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+        },
+        {
+          "id": "S04_Ball_03_holes_visual",
+          "status": "UNRESOLVED",
+          "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+        },
+        {
+          "id": "S05_return_bounds",
+          "status": "FAIL",
+          "observed": "{'Hood_Canopy': [[-0.44999998807907104, -4.550000190734863, 1.909999966621399], [0.44999998807907104, -0.04999995231628418, 2.0899999141693115]], 'ReturnRack_Support': [[-0.0020000000949949026, -3.801499843597412, 0.4975000023841858], [0.00"
+        },
+        {
+          "id": "S05_Ball_01_rack_contact",
+          "status": "FAIL",
+          "observed": "{'nearest_rack_distance': 0.008000001311302185, 'ball_radius': 0.10800012297380647}"
+        },
+        {
+          "id": "S05_Ball_02_rack_contact",
+          "status": "FAIL",
+          "observed": "{'nearest_rack_distance': 0.008000001311302185, 'ball_radius': 0.10800012297380647}"
+        },
+        {
+          "id": "S05_Ball_03_rack_contact",
+          "status": "FAIL",
+          "observed": "{'nearest_rack_distance': 0.4339999854564667, 'ball_radius': 0.10800012297380647}"
+        },
+        {
+          "id": "S05_masking_clearance",
+          "status": "FAIL",
+          "observed": "{'minimum': [-6.25, 19.612499237060547, -0.14400005340576172], 'maximum': [6.25, 19.987499237060547, 3.6059999465942383], 'dimensions': [12.5, 0.375, 3.75], 'local_center': [0.0, 0.0, 0.0], 'local_minimum': [-6.25, -0.1875, -1.875], 'local_"
+        },
+        {
+          "id": "S05_floor_below_assembly",
+          "status": "FAIL",
+          "observed": "{'minimum': [-39.0, 9.675000190734863, -169.02499389648438], 'maximum': [39.0, 10.324999809265137, 168.97500610351562], 'dimensions': [78.0, 0.6499996185302734, 338.0], 'local_center': [0.0, 0.0, 0.0], 'local_minimum': [-39.0, -0.3249999880"
+        },
+        {
+          "id": "S05_return_opening",
+          "status": "UNRESOLVED",
+          "observed": "Requires actual visual/portable label evidence"
+        },
+        {
+          "id": "S05_scoreboard_labels",
+          "status": "UNRESOLVED",
+          "observed": "Requires actual visual/portable label evidence"
+        },
+        {
+          "id": "S05_masking_labels",
+          "status": "UNRESOLVED",
+          "observed": "Requires actual visual/portable label evidence"
+        },
+        {
+          "id": "S06_Gutter_L_Outer_collision",
+          "status": "FAIL",
+          "observed": "{'minimum': [-1.7333999872207642, 0.0, -0.10999999940395355], 'maximum': [-1.4833999872207642, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [-1.6083999872207642, "
+        },
+        {
+          "id": "S06_Gutter_L_Inner_collision",
+          "status": "FAIL",
+          "observed": "{'minimum': [-0.6665999889373779, 0.0, -0.10999999940395355], 'maximum': [-0.41659998893737793, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [-0.5415999889373779,"
+        },
+        {
+          "id": "S06_Gutter_R_Inner_collision",
+          "status": "FAIL",
+          "observed": "{'minimum': [0.41659998893737793, 0.0, -0.10999999940395355], 'maximum': [0.6665999889373779, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [0.5415999889373779, 9."
+        },
+        {
+          "id": "S06_Gutter_R_Outer_collision",
+          "status": "FAIL",
+          "observed": "{'minimum': [1.4833999872207642, 0.0, -0.10999999940395355], 'maximum': [1.7333999872207642, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [1.6083999872207642, 9.6"
+        },
+        {
+          "id": "S06_lane_collision_L",
+          "status": "FAIL",
+          "observed": "{'minimum': [-1.5499999523162842, 0.0, -0.009999999776482582], 'maximum': [-0.3499999940395355, 19.200000762939453, 0.0010000000474974513], 'dimensions': [1.1999999582767487, 19.200000762939453, 0.010999999823980033], 'local_center': [-0.94"
+        },
+        {
+          "id": "S06_lane_collision_R",
+          "status": "FAIL",
+          "observed": "{'minimum': [0.3499999940395355, 0.0, -0.009999999776482582], 'maximum': [1.5499999523162842, 19.200000762939453, 0.0010000000474974513], 'dimensions': [1.1999999582767487, 19.200000762939453, 0.010999999823980033], 'local_center': [0.94999"
+        },
+        {
+          "id": "S06_normals_and_static_origins",
+          "status": "UNRESOLVED",
+          "observed": "Topology facts recorded; final visual normals/import guide still required"
+        },
+        {
+          "id": "S07_Overview_framing",
+          "status": "FAIL",
+          "observed": "{'Divider_Cap': 0.0, 'PinDeck_L': 0.0, 'PinDeck_R': 0.5, 'Pit_Catch': 0.5, 'OuterRail_L': 0.0, 'OuterRail_R': 0.5, 'Lane_L_Surface': 0.0, 'Lane_R_Surface': 0.25, 'Approach_L': 0.0, 'Approach_R': 0.0, 'Foul_L': 0.0, 'Foul_R': 0.0, 'ArrowStri"
+        },
+        {
+          "id": "S07_Player_framing",
+          "status": "FAIL",
+          "observed": "{'Lane_L_Surface': 0.5}"
+        },
+        {
+          "id": "S07_PinDeck_framing",
+          "status": "FAIL",
+          "observed": "{'Pin_L_01': 0.75, 'Pin_L_02': 1.0, 'Pin_L_03': 1.0, 'Pin_L_04': 1.0, 'Pin_L_05': 1.0, 'Pin_L_06': 1.0, 'Pin_L_07': 1.0, 'Pin_L_08': 1.0, 'Pin_L_09': 1.0, 'Pin_L_10': 1.0, 'Pin_R_01': 0.75, 'Pin_R_02': 1.0, 'Pin_R_03': 1.0, 'Pin_R_04': 1.0,"
+        },
+        {
+          "id": "S07_Props_framing",
+          "status": "FAIL",
+          "observed": "{'Ball_01': 0.0, 'Ball_02': 0.0, 'Ball_03': 0.0}"
+        },
+        {
+          "id": "S07_local_roles",
+          "status": "FAIL",
+          "observed": "['overview']"
+        },
+        {
+          "id": "S07_local_distinct",
+          "status": "FAIL",
+          "observed": "1"
+        },
+        {
+          "id": "S07_local_overview_visibility",
+          "status": "FAIL",
+          "observed": "{}"
+        }
+      ]
+    },
+    "visual_acceptance": "not yet reviewed; successful rendering is not Stage07 PASS"
+  },
+  "canonical_source_unchanged": true,
+  "budget": {
+    "uncertain_submissions": [],
+    "failed_count": 0,
+    "historical_failed_count": 26,
+    "failure_budget_reset_id": 2,
+    "failure_limit_per_source": 6,
+    "failure_limit_total": 20
+  },
+  "artifact": {
+    "role": "overview",
+    "job_id": "993e8c59fc684b49b92afc678906b43d",
+    "source_job": "0739f3cf03934d2d997690acfa76c72a",
+    "asset_source": "756846c5415e4c5e92f159389a87eeb0",
+    "path": "artifacts/renders/BowlingPair01_overview.png",
+    "bytes": 893433,
+    "sha256": "3177ecb3944b25d50f2246bce455b2223948af5d7862a23db0787e8e88662d05",
+    "width": 1280,
+    "height": 720,
+    "next": "Inspect actual pixels and record visual_review for this image hash; publication alone does not imply PASS."
+  },
+  "fresh_process_recovery_verified": true
+}

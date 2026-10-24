@@ -17,7 +17,37 @@
   },
   "instructions": ["AGENTS.md"],
   "share": "disabled",
-  "agent": {"build": {"model": "z6-llama/qwen36-35b-a3b-mtp-q8"}},
+  "agent": {
+    "build": {"model": "z6-llama/qwen36-35b-a3b-mtp-q8"},
+    "bowling-coder": {
+      "description": "Qwen3.6 asset author using enforced MCP checkpoints, validation and render queues",
+      "mode": "primary",
+      "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+      "tools": {"bash": false, "task": false},
+      "permission": {
+        "bash": "deny",
+        "task": "deny",
+        "imageMCP_*": "deny",
+        "edit": {
+          "*": "allow",
+          "/Users/start/Development/Blender-LocalLLM-Tester/BUILD_STATUS.md": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/HANDOFF.md": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/scripts/**": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/spec/**": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/.runtime/**": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/.opencode/**": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/opencode.json": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/scripts/validate_bowling_pair01.py": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/scripts/accepted_*.py": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/validation.json": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/checkpoint.json": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/render-manifest.json": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/qualitative-evidence.json": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/DELIVERY_MANIFEST.json": "deny"
+        }
+      }
+    }
+  },
   "experimental": {"continue_loop_on_deny": true},
   "lsp": {
     "pyright": {

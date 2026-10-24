@@ -1,0 +1,6 @@
+{
+  "id": "3640e30f913f403aa37992dd24e9f72f",
+  "state": "queued",
+  "operation": "validation",
+  "next_tool": "blender_job_status"
+}

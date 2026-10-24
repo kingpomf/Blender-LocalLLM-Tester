@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import hashlib
 import tempfile
 import unittest
 
@@ -22,6 +23,18 @@ class ResumeTests(unittest.TestCase):
 
     def test_clean_fresh_state(self):
         self.assertTrue(check(self.root)['passed'])
+
+    def test_stale_native_checkpoint_cannot_match_a_new_source_by_markdown_only(self):
+        self.write_state('IN_PROGRESS','PASS',self.job,self.job,'fixture stage proof')
+        path=self.root/'artifacts/blend/BowlingPair01.blend'
+        path.parent.mkdir(parents=True);path.write_bytes(b'old native scene')
+        receipt=self.root/'artifacts/reports/checkpoint.json'
+        receipt.parent.mkdir(parents=True)
+        receipt.write_text(json.dumps({'source_job':'b'*32,'path':'artifacts/blend/BowlingPair01.blend',
+                                      'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}))
+        result=check(self.root)
+        self.assertFalse(result['passed'])
+        self.assertTrue(any('receipt source differs' in issue for issue in result['issues']))
 
     def test_pending_reference_and_conflicting_ledgers_are_reconciled(self):
         for name,phase in [('BUILD_STATUS.md','READY'),('HANDOFF.md','NOT_STARTED')]:

@@ -1,0 +1,16 @@
+{
+  "asset_source": "756846c5415e4c5e92f159389a87eeb0",
+  "images": [
+    {
+      "role": "overview",
+      "job_id": "993e8c59fc684b49b92afc678906b43d",
+      "source_job": "0739f3cf03934d2d997690acfa76c72a",
+      "asset_source": "756846c5415e4c5e92f159389a87eeb0",
+      "path": "artifacts/renders/BowlingPair01_overview.png",
+      "bytes": 893433,
+      "sha256": "3177ecb3944b25d50f2246bce455b2223948af5d7862a23db0787e8e88662d05",
+      "width": 1280,
+      "height": 720
+    }
+  ]
+}

@@ -35,8 +35,23 @@ def live_status(root,state) -> dict:
 def snapshot():
     text=(ROOT/'BUILD_STATUS.md').read_text()
     metadata=fields(text)
-    return {'status':metadata.get('Status'),
+    result={'status':metadata.get('Status'),'source':metadata.get('Active source job'),
             'passed':set(re.findall(r'^\| (0[0-9]) \| [^|]+ \| PASS \|',text,re.MULTILINE))}
+    path=ROOT/'artifacts/reports/validation.json'
+    if path.exists():
+        report=json.loads(path.read_text())
+        if report.get('asset_source_job')==result['source']:
+            result.update(verified_source=report['asset_source_job'],scene_fingerprint=report.get('source_fingerprint_before'),
+                          failed_checks=report.get('fail_count'))
+    return result
+
+
+def measured_progress(before,after):
+    if after['passed']>before['passed']:return True
+    if after.get('verified_source') and after.get('verified_source')==after.get('source'):
+        if after.get('scene_fingerprint') and before.get('scene_fingerprint') and after['scene_fingerprint']!=before['scene_fingerprint']:return True
+        if isinstance(after.get('failed_checks'),int) and isinstance(before.get('failed_checks'),int) and after['failed_checks']<before['failed_checks']:return True
+    return False
 
 
 def workflow(run_phase, get_snapshot, references_ready, consistent, recover=None):
@@ -77,7 +92,7 @@ def workflow(run_phase, get_snapshot, references_ready, consistent, recover=None
             raise RuntimeError('Trial reported '+after['status'])
         if after['status']=='COMPLETE' and consistent():
             return
-        if not consistent() or not after['passed'] > before['passed']:
+        if not consistent() or not measured_progress(before,after):
             if repairs>=2:
                 raise RuntimeError('Coding returned without a verified stage advance after two recovery turns; stop instead of looping')
             repairs+=1
@@ -148,6 +163,17 @@ def main():
                 'Do not rely on the stale previous stage table or blind text substitutions. '
                 'Do not restart empty, regenerate references, use failed jobs as sources, or replay unchanged failed code. '
                 'This handoff supersedes the previous exhausted trial budget only; current guard limits and uncertainty checks still apply.')
+            if plan.get('workflow_managed'):
+                state['recovery_context']=(
+                    'The user authorized this enforced-workflow continuation and reset epoch2 with preserved archives. '
+                    'Use bowling-blender52 MCP tools, not shell commands or manual ledger edits. '
+                    'Read CONTROLLED_CONTINUATION.md and testing/WORKFLOW_HARDENING.md, then call blender_workflow_status. '
+                    'The authoritative source is '+plan['source_job']+'. Author scene/cameras only; inline rendering is rejected before submission. '
+                    'Poll completed asset edits AND their auto-queued validation_job. Use blender_render_view and poll view- IDs for actual queued CPU renders/publication. '
+                    'Use blender_review_presentation, blender_export_delivery and blender_finish_delivery for evidence and final package. '
+                    'No Bash/Task tools or managed-file edits are available. Recoverable wrong-tool/pending-work feedback consumes no attempt; follow it. '
+                    'Current failures are0, limits6/source20/total. All26 old failures remain historical and still reject identical replay. '
+                    'Do not reset counters, restart empty, regenerate references or repeat old wrong APIs. Scope: '+plan['scope'])
         state.update(state='running',controller_pid=os.getpid())
         def save():
             temporary=path.with_suffix('.next')
@@ -228,6 +254,12 @@ def main():
             state.update(state='completed',finished=time.time())
         except BaseException as error:
             state.update(state='interrupted' if isinstance(error,KeyboardInterrupt) else 'blocked',reason=str(error))
+            if state['state']=='blocked':
+                from scripts.checkpoint_bowling import backup_and_write,update_fields
+                for filename,key in [('BUILD_STATUS.md','Status'),('HANDOFF.md','Run status')]:
+                    current=ROOT/filename
+                    if current.exists():backup_and_write(ROOT,filename,update_fields(current.read_text(),{
+                        key:'BLOCKED','Controller':'STOPPED: '+str(error),'Next action':'Inspect machine workflow status and diagnostics; operator reconciliation required before restarting.'}))
             save()
             raise
         save()

@@ -1,0 +1,20 @@
+{
+  "reset_id": 2,
+  "cutoff_rowid": 64,
+  "active_failures": 0,
+  "historical_failures_preserved": 26,
+  "attempt_rows_unchanged": true,
+  "source": "756846c5415e4c5e92f159389a87eeb0",
+  "checkpoint": {
+    "source_job": "756846c5415e4c5e92f159389a87eeb0",
+    "path": "artifacts/blend/BowlingPair01.blend",
+    "sha256": "6b352b5ba0c22b8b69e124ce602133b771fb84e821ed68075f5a5821d6a98810",
+    "bytes": 223216,
+    "scene_json": {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/756846c5415e4c5e92f159389a87eeb0/scene.json",
+      "bytes": 160399,
+      "sha256": "446fb236fad0424e85b825131bea7c41c5770abb66604977ea759bf80c937c65",
+      "name": "scene.json"
+    }
+  }
+}

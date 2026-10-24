@@ -3,6 +3,7 @@ import argparse
 import json
 from pathlib import Path
 import re
+import hashlib
 
 JOB = re.compile(r'\b(?:gpu-)?[a-f0-9]{32}\b')
 
@@ -59,6 +60,22 @@ def check(root):
         issues.append('Next stage must identify the first non-PASS stage.')
     if run_status == 'COMPLETE' and (len(passed) != 10):
         issues.append('COMPLETE requires all ten stages PASS.')
+    receipt_path=root/'artifacts/reports/checkpoint.json'
+    if receipt_path.exists() and source!='none':
+        try:
+            receipt=json.loads(receipt_path.read_text())
+            checkpoint=(root/receipt['path']).resolve()
+            if receipt['source_job']!=source:
+                issues.append('Checkpoint receipt source differs from the active scene; publish the current native job through MCP.')
+            if not checkpoint.is_relative_to((root/'artifacts/blend').resolve()) or not checkpoint.is_file():
+                issues.append('Canonical checkpoint is missing or outside artifacts/blend.')
+            elif hashlib.sha256(checkpoint.read_bytes()).hexdigest()!=receipt['sha256']:
+                issues.append('Canonical checkpoint SHA-256 differs from the verified receipt.')
+            for ledger in [status,handoff]:
+                if ledger.get('Checkpoint SHA-256') and ledger['Checkpoint SHA-256']!=receipt['sha256']:
+                    issues.append('Ledger checkpoint hash differs from its verified native receipt.')
+        except (OSError,ValueError,TypeError,KeyError) as error:
+            issues.append('Invalid checkpoint receipt: '+str(error))
     if handoff.get('Run status') != run_status:
         issues.append('HANDOFF.md Run status differs from BUILD_STATUS.md.')
     if handoff.get('Last verified source job', '').strip('`') != source:

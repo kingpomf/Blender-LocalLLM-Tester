@@ -13,7 +13,6 @@ if __name__=='__main__' and importlib.util.find_spec('mcp') is None:
     python=ROOT.parent/'blender-new-llm-setup/.venv/bin/python'
     os.execv(str(python),[str(python),str(Path(__file__).resolve()),*sys.argv[1:]])
 sys.path.insert(0,str(ROOT/'scripts'))
-import blender52_mcp as worker
 from submission_guard import SubmissionGuard
 from check_references import check as check_references, image_dimensions
 from check_resume import fields
@@ -100,6 +99,7 @@ def merge_report(report,local,source,job_id,reviews=None):
 
 
 async def main():
+    import blender52_mcp as worker
     parser=argparse.ArgumentParser()
     parser.add_argument('--source')
     parser.add_argument('--campaign',default='current')

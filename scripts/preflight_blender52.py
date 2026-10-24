@@ -20,6 +20,9 @@ async def main():
     assert config['model'] == 'z6-llama/qwen36-35b-a3b-mtp-q8'
     assert config['small_model'] == config['model']
     assert config['agent']['build']['model'] == MODEL
+    assert config['agent']['bowling-coder']['model']==MODEL
+    assert config['agent']['bowling-coder']['tools']['bash'] is False
+    assert config['command']['bowling-start']['agent']=='bowling-coder'
     assert all(config['command'][name]['model']==MODEL for name in ['bowling-run','bowling-references','bowling-start','bowling-continue'])
     assert config['experimental']['continue_loop_on_deny'] is True
     coding_context = config['provider']['z6-llama']['models']['qwen36-35b-a3b-mtp-q8']['limit']['context']
@@ -39,7 +42,9 @@ async def main():
         async with ClientSession(*streams, read_timeout_seconds=timedelta(seconds=90)) as session:
             await session.initialize()
             tools = await session.list_tools()
-            assert len(tools.tools) == 9
+            required={'blender_workflow_status','blender_checkpoint','blender_validate','blender_render_view',
+                      'blender_publish_render','blender_review_presentation','blender_export_delivery','blender_finish_delivery'}
+            assert required<={tool.name for tool in tools.tools}
             result = await session.call_tool('blender_capabilities', {})
             assert not result.isError, result.content
             value = result.structuredContent or json.loads(next(item.text for item in result.content if item.type == 'text'))

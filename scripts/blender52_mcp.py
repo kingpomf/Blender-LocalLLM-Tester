@@ -7,16 +7,19 @@ import shlex
 import sys
 from typing import Literal
 
+PROJECT = Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(PROJECT))
+from scripts.submission_guard import SubmissionGuard
+from scripts.check_references import check as check_references
+from scripts.trial_settings import TRIAL
+from scripts.workflow_tools import Workflow
+
 APP = '/Users/start/Development/blender-new-llm-setup'
 sys.path.insert(0, APP)
 from mcp.server.fastmcp import FastMCP
 from blender_worker.transport import SSHTransport
 from blender_worker.schema import validate
-from submission_guard import SubmissionGuard
-from check_references import check as check_references
-from trial_settings import TRIAL
 
-PROJECT = Path(__file__).resolve().parents[1]
 REMOTE_APP = '/home/kingpomf/Development/blender-new-llm-setup'
 BINARY = REMOTE_APP + '/tools/blender-5.2.3-linux-x64/blender'
 EXPECTED = '5.2.3 LTS'
@@ -95,16 +98,25 @@ def server(qualification=False):
     downloads = local / 'downloads' if qualification else PROJECT / 'artifacts/downloads'
     client = ProjectTransport('kingpomf@z6-llm', REMOTE_APP, root, BINARY, str(downloads))
     guard = SubmissionGuard(local / 'submissions.sqlite')
+    workflow = None if qualification else Workflow(PROJECT,client,guard)
     app = FastMCP('bowling-blender52', instructions=(
         'Blender 5.2.3 LTS on Z6, version-locked CPU-only trial. '
         'On any STOP/circuit-breaker error, checkpoint and return BLOCKED to the user; do not loop. '
         'Six failed submissions per source or twenty total require operator review. '
         'Unchanged failed code is rejected, uncertain submissions never replayed. '
-        'Call blender_capabilities first. Poll accepted jobs; inspect actual scene/report evidence. '
+        'Start with blender_workflow_status for the authoritative current source and measured stage results. '
+        'Author scene/cameras only: inline rendering and output subdirectories are rejected before any attempt. '
+        'Completed author jobs automatically publish the native checkpoint and queue the fixed validator. '
+        'Poll its validation_job; validation updates both stage ledgers from measured evidence. '
+        'Use blender_render_view(role) and poll its view- ID for camera selection, queued CPU render and verified publication. '
+        'Use blender_validate and blender_checkpoint instead of shell commands. Never manually edit stage status/source files. '
+        'Recoverable preflight/pending-work responses consume no attempt; diagnose them without treating them as STOP. '
         'Use unconditional authoring entry points and a top-level report.'))
 
     async def submit(spec):
         validate(spec)
+        if workflow:
+            return await workflow.call('submit_native',spec=spec,role=spec['operation'])
         row = await guard.submit(spec, client.rpc)
         return {k: row[k] for k in ('id', 'state', 'error', 'manifest') if k in row}
 
@@ -112,14 +124,21 @@ def server(qualification=False):
     async def blender_capabilities() -> dict:
         """Verify actual installed Blender and queue runner; report durable submission state. Read-only, no scene job."""
         evidence = await client.probe()
+        summary=guard.summary()
+        if workflow:
+            accepted=summary.pop('accepted_jobs')
+            summary['accepted_job_count']=len(accepted)
+            summary['pending_jobs']=[r for r in accepted if r['state'] in {'queued','running'}]
         return {'runtime_verified': True, 'actual_version': evidence['version'],
                 'binary': BINARY, 'root': root, 'runners': evidence['runners'],
                 'authoring': {'available': True, 'fresh_scene_objects': [], 'execution_name': '__blender_author__'},
-                'render_devices': ['CPU'], 'guard': guard.summary()}
+                'render_devices': ['CPU'], 'guard': summary,
+                'workflow_tools_available':workflow is not None}
 
     @app.tool()
     async def blender_scene_author(code: str, source_job: str | None = None) -> dict:
-        """Submit original Blender Python (48KB including runtime wrapper). Empty scene only for Stage 00. Later use completed 5.2 source. Assign report and call functions unconditionally. Identical failed code and exhausted retry budgets are blocked."""
+        """Edit scene/cameras only. Common inline render/API/output mistakes return recoverable feedback before consuming attempts. Completed edits auto-checkpoint and auto-queue validation; poll returned IDs. Source defaults to authoritative current scene."""
+        if workflow:return await workflow.call('author',code=code,source_job=source_job)
         if not qualification:
             references = check_references(PROJECT)
             if not references['passed']:
@@ -135,18 +154,21 @@ def server(qualification=False):
     @app.tool()
     async def blender_export(source_job: str, formats: list[Literal['glb', 'obj', 'stl']]) -> dict:
         """Export meshes from a completed 5.2 scene. Use authoring for selection-specific exports."""
+        if workflow:return workflow.error('use_delivery_export','Use blender_export_delivery for final selected GLBs and measured reimports; generic whole-scene export is not final delivery.')
         return await submit({'operation': 'export', 'source_job': source_job, 'formats': formats})
 
     @app.tool()
     async def blender_render(source_job: str, frames: list[int] = [1], resolution: list[int] = [1280,720],
                              samples: int = 8, device: Literal['CPU'] = 'CPU') -> dict:
         """Render actual scene on 5.2 CPU. Max 60 frames, 2048 pixels/side. Prefer one view per job."""
+        if workflow:return await workflow.call('render',source_job=source_job,frames=frames,resolution=resolution,samples=samples)
         return await submit({'operation': 'render', 'source_job': source_job, 'frames': frames,
                              'resolution': resolution, 'samples': samples})
 
     @app.tool()
     async def blender_job_status(job_id: str) -> dict:
         """Poll accepted job. Completed execution is not a stage PASS."""
+        if workflow:return await workflow.call('status',job_id=job_id)
         row = await client.rpc('status', {'job_id': job_id})
         for attempt in guard.rows():
             if attempt['job'] == job_id:
@@ -156,17 +178,65 @@ def server(qualification=False):
     @app.tool()
     async def blender_job_diagnostics(job_id: str) -> dict:
         """Read bounded terminal CPU logs once; diagnose the actual error before changing code."""
+        if workflow:return await workflow.call('diagnostics',job_id=job_id)
         return await client.rpc('diagnostics', {'job_id': job_id})
 
     @app.tool()
     async def blender_job_cancel(job_id: str) -> dict:
         """Cancel an accepted job; poll to terminal state. Does not reset failure budgets."""
+        if workflow:return await workflow.call('cancel',job_id=job_id)
         return await client.rpc('cancel', {'job_id': job_id})
 
     @app.tool()
     async def blender_artifact_fetch(job_id: str, name: str) -> dict:
         """Fetch completed manifest artifact with hash verification. Failed jobs require diagnostics."""
+        if workflow and job_id.startswith('view-'):
+            result=await workflow.call('status',job_id=job_id)
+            return result.get('artifact',workflow.error('view_not_ready','Poll the accepted view ID; no new job or artifact guess is needed.',view_id=job_id))
         return await client.fetch(job_id, name)
+
+    if workflow:
+        @app.tool()
+        async def blender_workflow_status() -> dict:
+            """Read authoritative current source, checkpoint, measured stages, current budget and pending IDs. Restores managed stage mirrors; no inference/render submission."""
+            return await workflow.call('workflow_status')
+
+        @app.tool()
+        async def blender_checkpoint(job_id: str) -> dict:
+            """Publish a completed current/direct-child scene with verified hashes, then auto-queue its fixed validation. Usually automatic through job_status. Never claims a stage PASS merely for execution."""
+            return await workflow.call('checkpoint',job_id=job_id)
+
+        @app.tool()
+        async def blender_validate(source_job: str | None = None) -> dict:
+            """Queue or recover the fixed read-only validator for the current source. Poll returned native ID. On completion merges actual local render proof and synchronizes both ledgers; no arbitrary code/check thresholds accepted."""
+            return await workflow.call('validate',source_job=source_job)
+
+        @app.tool()
+        async def blender_render_view(role: Literal['overview','player','pindeck','props'], source_job: str | None = None,
+                                      resolution: list[int] = [1280,720], samples: int = 8) -> dict:
+            """Render one named view through the CPU queue. Returns a view- ID; poll it with blender_job_status. Camera-selection and render IDs are checkpointed automatically; completed image publishes with hash/provenance. Never render inline."""
+            return await workflow.call('render_view',role=role,source_job=source_job,resolution=resolution,samples=samples)
+
+        @app.tool()
+        async def blender_publish_render(role: Literal['overview','player','pindeck','props'],job_id: str,
+                                         asset_source_job: str | None = None) -> dict:
+            """Recover/publish an existing completed native render from the current asset with lineage, mesh/material and hash checks. Does not rerender or invent visual acceptance."""
+            return await workflow.call('publish',role=role,job_id=job_id,asset_source_job=asset_source_job)
+
+        @app.tool()
+        async def blender_review_presentation() -> dict:
+            """Queue fixed pixel-based review of all four current beauty images. Poll its review- ID with job_status. Qwen3.6 stays the agent; an image-only helper records actual visibility and qualitative evidence, then refreshes measured validation."""
+            return await workflow.call('review_presentation')
+
+        @app.tool()
+        async def blender_export_delivery() -> dict:
+            """After current geometry/visual acceptance passes, queue fixed selection-specific GLB exports and measured reimports in an artifact-only job. Source/canonical geometry stays unchanged; poll returned native ID for automatic export publication."""
+            return await workflow.call('export_delivery')
+
+        @app.tool()
+        async def blender_finish_delivery() -> dict:
+            """Verify current measured acceptance, fixed export/reimport receipts, four reviewed current renders and written BUILD_REPORT/ASSET_GUIDE; build delivery hash manifest and set COMPLETE only if every requirement is present."""
+            return await workflow.call('finish_delivery')
 
     return app
 

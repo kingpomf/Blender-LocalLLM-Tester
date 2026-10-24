@@ -95,7 +95,8 @@ def sync_ledgers(root):
     source_failures=sum(r['source']==source for r in accounting['counted_failures'])
     controller_path=root/'.runtime/autonomous-run/state.json'
     controller=json.loads(controller_path.read_text()) if controller_path.exists() else {}
-    common={'Reference phase':'READY','Pending reference job':'none','Pending job':'none',
+    common={'Reference phase':'READY','Pending reference job':'none','Pending job':'none','Pending source job':'none',
+            'Validation state':'completed current-source measurements; see artifacts/reports/validation.json',
             'Operator validation pending':'none',
             'Checkpoint SHA-256':receipt['sha256'],
             'Failure budget':f'6 per source / 20 total; current failures {failure_count}; {source_failures} on current source; {historical_failures} historical failures preserved; reset epoch {accounting["reset_id"]}',
@@ -123,12 +124,13 @@ def sync_ledgers(root):
             'historical_failures_preserved':historical_failures,'pending_jobs':0}
 
 
-async def publish_source(root,source):
+async def publish_source(root,source,client=None):
     root=Path(root)
     assert re.fullmatch('[a-f0-9]{32}',source)
     sys.path.insert(0,str(root/'scripts'))
-    import blender52_mcp as worker
-    client=worker.ProjectTransport('kingpomf@z6-llm',worker.REMOTE_APP,worker.REMOTE_APP+'/var/'+worker.TRIAL,worker.BINARY,str(root/'artifacts/downloads'))
+    if client is None:
+        import blender52_mcp as worker
+        client=worker.ProjectTransport('kingpomf@z6-llm',worker.REMOTE_APP,worker.REMOTE_APP+'/var/'+worker.TRIAL,worker.BINARY,str(root/'artifacts/downloads'))
     attempts=guard_rows(root)
     assert any(row['job']==source and row['state']=='completed' and row['operation']=='author' for row in attempts), 'Source must be a completed authoring job in this trial'
     status=await client.rpc('status',{'job_id':source})
@@ -155,13 +157,14 @@ async def publish_source(root,source):
     return receipt
 
 
-async def publish_render(root,role,job_id,asset_source):
+async def publish_render(root,role,job_id,asset_source,client=None):
     root=Path(root)
     assert role in {'overview','player','pindeck','props'}
     assert all(re.fullmatch('[a-f0-9]{32}',value) for value in [job_id,asset_source])
     sys.path.insert(0,str(root/'scripts'))
-    import blender52_mcp as worker
-    client=worker.ProjectTransport('kingpomf@z6-llm',worker.REMOTE_APP,worker.REMOTE_APP+'/var/'+worker.TRIAL,worker.BINARY,str(root/'artifacts/downloads'))
+    if client is None:
+        import blender52_mcp as worker
+        client=worker.ProjectTransport('kingpomf@z6-llm',worker.REMOTE_APP,worker.REMOTE_APP+'/var/'+worker.TRIAL,worker.BINARY,str(root/'artifacts/downloads'))
     render=await client.rpc('status',{'job_id':job_id})
     assert render['state']=='completed' and render['spec']['operation']=='render'
     camera_source=render['spec']['source_job']

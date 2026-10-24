@@ -1,0 +1,168 @@
+{
+  "id": "3640e30f913f403aa37992dd24e9f72f",
+  "state": "completed",
+  "operation": "validation",
+  "execution_succeeded": true,
+  "asset_passed": false,
+  "validation": {
+    "source_job": "756846c5415e4c5e92f159389a87eeb0",
+    "job_id": "3640e30f913f403aa37992dd24e9f72f",
+    "sha256": "2752d78ab2982976fc975ed82e8d30823f2fc2cef5d02bbc21afceedec4feb8e",
+    "path": ".runtime/workflow/validated-reports/2752d78ab2982976fc975ed82e8d30823f2fc2cef5d02bbc21afceedec4feb8e.json",
+    "stage_results": {
+      "00": "PASS",
+      "01": "PASS",
+      "02": "PASS",
+      "03": "PASS",
+      "04": "UNRESOLVED",
+      "05": "FAIL",
+      "06": "FAIL",
+      "07": "FAIL"
+    },
+    "passed": false,
+    "fail_count": 21,
+    "unresolved_count": 7
+  },
+  "remaining_checks": [
+    {
+      "id": "S04_Ball_01_holes_visual",
+      "status": "UNRESOLVED",
+      "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+    },
+    {
+      "id": "S04_Ball_02_holes_visual",
+      "status": "UNRESOLVED",
+      "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+    },
+    {
+      "id": "S04_Ball_03_holes_visual",
+      "status": "UNRESOLVED",
+      "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+    },
+    {
+      "id": "S05_return_bounds",
+      "status": "FAIL",
+      "observed": "{'Hood_Canopy': [[-0.44999998807907104, -4.550000190734863, 1.909999966621399], [0.44999998807907104, -0.04999995231628418, 2.0899999141693115]], 'ReturnRack_Support': [[-0.0020000000949949026, -3.801499843597412, 0.4975000023841858], [0.00"
+    },
+    {
+      "id": "S05_Ball_01_rack_contact",
+      "status": "FAIL",
+      "observed": "{'nearest_rack_distance': 0.008000001311302185, 'ball_radius': 0.10800012297380647}"
+    },
+    {
+      "id": "S05_Ball_02_rack_contact",
+      "status": "FAIL",
+      "observed": "{'nearest_rack_distance': 0.008000001311302185, 'ball_radius': 0.10800012297380647}"
+    },
+    {
+      "id": "S05_Ball_03_rack_contact",
+      "status": "FAIL",
+      "observed": "{'nearest_rack_distance': 0.4339999854564667, 'ball_radius': 0.10800012297380647}"
+    },
+    {
+      "id": "S05_masking_clearance",
+      "status": "FAIL",
+      "observed": "{'minimum': [-6.25, 19.612499237060547, -0.14400005340576172], 'maximum': [6.25, 19.987499237060547, 3.6059999465942383], 'dimensions': [12.5, 0.375, 3.75], 'local_center': [0.0, 0.0, 0.0], 'local_minimum': [-6.25, -0.1875, -1.875], 'local_"
+    },
+    {
+      "id": "S05_floor_below_assembly",
+      "status": "FAIL",
+      "observed": "{'minimum': [-39.0, 9.675000190734863, -169.02499389648438], 'maximum': [39.0, 10.324999809265137, 168.97500610351562], 'dimensions': [78.0, 0.6499996185302734, 338.0], 'local_center': [0.0, 0.0, 0.0], 'local_minimum': [-39.0, -0.3249999880"
+    },
+    {
+      "id": "S05_return_opening",
+      "status": "UNRESOLVED",
+      "observed": "Requires actual visual/portable label evidence"
+    },
+    {
+      "id": "S05_scoreboard_labels",
+      "status": "UNRESOLVED",
+      "observed": "Requires actual visual/portable label evidence"
+    },
+    {
+      "id": "S05_masking_labels",
+      "status": "UNRESOLVED",
+      "observed": "Requires actual visual/portable label evidence"
+    },
+    {
+      "id": "S06_Gutter_L_Outer_collision",
+      "status": "FAIL",
+      "observed": "{'minimum': [-1.7333999872207642, 0.0, -0.10999999940395355], 'maximum': [-1.4833999872207642, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [-1.6083999872207642, "
+    },
+    {
+      "id": "S06_Gutter_L_Inner_collision",
+      "status": "FAIL",
+      "observed": "{'minimum': [-0.6665999889373779, 0.0, -0.10999999940395355], 'maximum': [-0.41659998893737793, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [-0.5415999889373779,"
+    },
+    {
+      "id": "S06_Gutter_R_Inner_collision",
+      "status": "FAIL",
+      "observed": "{'minimum': [0.41659998893737793, 0.0, -0.10999999940395355], 'maximum': [0.6665999889373779, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [0.5415999889373779, 9."
+    },
+    {
+      "id": "S06_Gutter_R_Outer_collision",
+      "status": "FAIL",
+      "observed": "{'minimum': [1.4833999872207642, 0.0, -0.10999999940395355], 'maximum': [1.7333999872207642, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [1.6083999872207642, 9.6"
+    },
+    {
+      "id": "S06_lane_collision_L",
+      "status": "FAIL",
+      "observed": "{'minimum': [-1.5499999523162842, 0.0, -0.009999999776482582], 'maximum': [-0.3499999940395355, 19.200000762939453, 0.0010000000474974513], 'dimensions': [1.1999999582767487, 19.200000762939453, 0.010999999823980033], 'local_center': [-0.94"
+    },
+    {
+      "id": "S06_lane_collision_R",
+      "status": "FAIL",
+      "observed": "{'minimum': [0.3499999940395355, 0.0, -0.009999999776482582], 'maximum': [1.5499999523162842, 19.200000762939453, 0.0010000000474974513], 'dimensions': [1.1999999582767487, 19.200000762939453, 0.010999999823980033], 'local_center': [0.94999"
+    },
+    {
+      "id": "S06_normals_and_static_origins",
+      "status": "UNRESOLVED",
+      "observed": "Topology facts recorded; final visual normals/import guide still required"
+    },
+    {
+      "id": "S07_Overview_framing",
+      "status": "FAIL",
+      "observed": "{'Divider_Cap': 0.0, 'PinDeck_L': 0.0, 'PinDeck_R': 0.5, 'Pit_Catch': 0.5, 'OuterRail_L': 0.0, 'OuterRail_R': 0.5, 'Lane_L_Surface': 0.0, 'Lane_R_Surface': 0.25, 'Approach_L': 0.0, 'Approach_R': 0.0, 'Foul_L': 0.0, 'Foul_R': 0.0, 'ArrowStri"
+    },
+    {
+      "id": "S07_Player_framing",
+      "status": "FAIL",
+      "observed": "{'Lane_L_Surface': 0.5}"
+    },
+    {
+      "id": "S07_PinDeck_framing",
+      "status": "FAIL",
+      "observed": "{'Pin_L_01': 0.75, 'Pin_L_02': 1.0, 'Pin_L_03': 1.0, 'Pin_L_04': 1.0, 'Pin_L_05': 1.0, 'Pin_L_06': 1.0, 'Pin_L_07': 1.0, 'Pin_L_08': 1.0, 'Pin_L_09': 1.0, 'Pin_L_10': 1.0, 'Pin_R_01': 0.75, 'Pin_R_02': 1.0, 'Pin_R_03': 1.0, 'Pin_R_04': 1.0,"
+    },
+    {
+      "id": "S07_Props_framing",
+      "status": "FAIL",
+      "observed": "{'Ball_01': 0.0, 'Ball_02': 0.0, 'Ball_03': 0.0}"
+    },
+    {
+      "id": "S07_local_source",
+      "status": "FAIL",
+      "observed": "6b947366ef42484291a8ee70a19c32e6"
+    },
+    {
+      "id": "S07_local_player_visibility",
+      "status": "FAIL",
+      "observed": "{'passed': False, 'reviewer': 'operator-assistant image inspection', 'sha256': '55852063492194c4828958456625d552971a037d9f000fee4eca2c63dbd38a90', 'observations': 'Large red and gray surfaces fill the frame. The left-lane path toward pins a"
+    },
+    {
+      "id": "S07_local_pindeck_visibility",
+      "status": "FAIL",
+      "observed": "{'passed': False, 'reviewer': 'operator-assistant image inspection', 'sha256': '609bc36c704140584385392766724dcff930e6b538212de10110f019d2fcc2e9', 'observations': 'The image is an almost uniformly dark surface with no visible complete pin r"
+    },
+    {
+      "id": "S07_local_props_visibility",
+      "status": "FAIL",
+      "observed": "{'passed': False, 'reviewer': 'operator-assistant image inspection', 'sha256': '49805a64faacec426eb6a75e0df38e27e9a770fa361d5e17e35fc1ca1e59dfd6', 'observations': 'A large red panel and gray/tan surfaces occlude the view. The three bowling "
+    },
+    {
+      "id": "S07_local_overview_visibility",
+      "status": "FAIL",
+      "observed": "{'passed': False, 'reviewer': 'operator-assistant image inspection', 'sha256': 'b2a44582a0d5fc108238e75d3a725aba1501a4bbddd16cb0e9574f85f3d6e31a', 'observations': 'The full image is a nearly featureless gray surface. Neither lanes, racks, s"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "authorization": "User explicitly authorized enforced MCP workflow/queue controls, another archived error-counter reset, commit/push and detached relaunch.",
+  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "agent": "bowling-coder",
+  "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+  "source_job": "756846c5415e4c5e92f159389a87eeb0",
+  "checkpoint": "artifacts/blend/BowlingPair01.blend",
+  "checkpoint_sha256": "6b352b5ba0c22b8b69e124ce602133b771fb84e821ed68075f5a5821d6a98810",
+  "guard_rows_sha256": "e37d4dfcc302a29ee40d8149f3a99e511d349ddc338a6cc2ddde5e006bcbca77",
+  "validation_sha256": "f11995615eff3f1be6b8a6f93ea3139b005acf454e0193ede427a20f376fc4be",
+  "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+  "limits": {
+    "per_source": 6,
+    "total": 20
+  },
+  "failure_budget_reset_id": 2,
+  "fresh_coding_session": true,
+  "workflow_managed": true,
+  "first_stage": "04",
+  "diagnostic_report": "testing/WORKFLOW_HARDENING.md",
+  "handoff": "CONTROLLED_CONTINUATION.md",
+  "scope": "Preserve source geometry and verified foundation/pin repairs. Use actual current MCP checks to repair remaining ball/support/dressing/collision/framing criteria. Never render inline, create output directories, manually claim stage PASS or alter managed state. Complete validation and selected export/reimport delivery through fixed tools."
+}

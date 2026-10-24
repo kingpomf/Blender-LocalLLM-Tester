@@ -1,96 +1,90 @@
-# Authorized resumed work after operator pin correction and counter reset
+# Enforced-workflow continuation — Qwen3.6 remains the asset agent
 
-The user authorized a concrete pin correction, checkpoint reconciliation,
-zeroing active failures and launching the detached continuation. This is an
-explicitly assisted continuation in the same r2 trial, not a fresh unaided result.
+The user authorized the workflow repair, another archived error-counter reset,
+commit/push and detached relaunch. This is the same assisted r2 asset trial.
 
-## Verified starting point
+## Starting point
 
-- Model: **Qwen3.6 MoE**, z6-llama/qwen36-35b-a3b-mtp-q8, native262144 retuned.
-- Scene source: **78c0eaf6afba483694c2ca2c6eec4472**.
-- Canonical file: artifacts/blend/BowlingPair01.blend, SHA-256
-  **0fce120fa532133520de7b69dcd3a8e2fbd2897ce74fd367aca5f25266801980**.
-- Operator fixed profile radius/height order, nondegenerate cap topology, outward
-  winding and two separate red neck bands. Native execution and independent
-  validation confirm **Stages00,01,02,03 PASS**. Do not rebuild these stages.
-- The unchanged old stage03_pins_v2.py is historical failed model code; its
-  shared-mesh-deletion hypothesis was wrong. The applied correction is
-  artifacts/scripts/stage03_pins_corrected.py, not an untested proposed fix.
-- Failure accounting reset epoch1: **0 current errors**,6/source20/total available.
-  All18 historical failed jobs and all prior successful/source identities remain.
-  Duplicate failed code is still rejected. Do not perform another reset.
-- Reference images and their visual design guide are already READY. Do not
-  regenerate them. Earlier four beauty images are verified files but invalid/
-  obstructed presentation evidence from an older scene.
+- Agent **bowling-coder**, model **z6-llama/qwen36-35b-a3b-mtp-q8**, retuned native256K.
+- Current common asset source: **756846c5415e4c5e92f159389a87eeb0**.
+- Canonical native hash:
+  **6b352b5ba0c22b8b69e124ce602133b771fb84e821ed68075f5a5821d6a98810**.
+- The canonical file has been recovered from that actual completed native job,
+  replacing the stale older pin checkpoint. New fixed validation measured this
+  current scene; do not infer acceptance from the earlier Stage04–06 reports.
+- Budget epoch2: **0 current failures**,6/source20/total. All26 historical failed
+  jobs and their fingerprints are preserved. No further reset is authorized.
+- Source/counter/history/old state backups are in testing/workflow-hardening-20261024/.
+  References remain READY; do not regenerate images or restart from an empty scene.
 
-## Remaining work (actual measured report)
+## New operating contract
 
-Run **`python3 scripts/validation_summary.py`** for a compact failure list. Use
-Read/Glob/Grep rather than denied shell grep/head/cat pipelines or subagents.
+Call **blender_workflow_status** first. It provides authoritative current source,
+compact failed/unresolved checks, budget and accepted pending IDs. It restores
+managed stage mirrors from verified measured evidence. Do not read stale claims
+from a previous compaction summary as truth.
 
-Stage04's balls exist and measured size/spacing/deep regions pass, but visible
-grip evidence depends on Stage05 support/occlusion repairs and Stage07 rerendering.
-Keep that dependency explicitly IN_PROGRESS while completing05–07; do not waste
-attempts rewriting the corrected pin or ball APIs. After rerender, resolve actual
-grip/label evidence and revalidate all required criteria.
+The coding agent has **no Bash or Task tools**. Critical work no longer depends
+on running shell helpers or editing Markdown. Do not edit managed status/source/
+hash files, validators, runtime state or acceptance specifications.
 
-Prioritize these measured issues:
+### Scene repair
 
-1. **Stage05 floor/return/dressing:** AlleyFloor is a vertical slab about338m tall,
-   not a floor. Inspect make_box axis order and dimensions; do not blindly scale
-   already scaled vertex coordinates again. Return hood width and masking-wall
-   clearance fail. Rack geometry intersects the balls rather than supporting them.
-   Labels/opening evidence still needs actual inspection.
-2. **Stage06 collision:** gutter proxies are shallow flat pieces/bridges, lane
-   proxies are too wide, and collision meshes are visible to beauty renders.
-   Preserve visual geometry while fixing/remeasuring collision placement.
-3. **Stage07 framing:** existing images are blank or obstructed; file existence is
-   not PASS. Correct huge occluders before camera/framing/occlusion work. Use the
-   CPU render tool, not viewport rendering inside authoring. Obtain four useful
-   views from the same final asset revision.
-4. **Stages08–09:** run fixed read-only measured validation and image review;
-   export and round-trip only after required criteria actually pass.
+Use blender_scene_author for actual changed scene/camera code. Save your script
+and inspect LSP diagnostics; do not blanket-ignore API errors. Inline render
+calls, output subdirectories and known wrong APIs return recoverable preflight
+guidance before consuming a submission attempt. Repair the code/use next_tool.
 
-## Checkpoint and validation commands
+Poll accepted job IDs. Completed asset authoring automatically:
+1. downloads/verifies and publishes the native checkpoint;
+2. queues the fixed read-only validator;
+3. returns its validation_job for polling;
+4. derives stage results and both ledgers from actual measurements.
 
-After each completed real repair revision:
+No new authoring can overlap an accepted pending job. A completed execution does
+not mean a stage passed. Inspect the returned remaining check IDs and correct
+actual geometry/evidence; no hand-written PASS or threshold changes.
 
-```sh
-python3 scripts/checkpoint_bowling.py --source COMPLETED_JOB_ID
-python3 scripts/validate_checkpoint.py --campaign UNIQUE_CAMPAIGN_ID
-python3 scripts/checkpoint_bowling.py --sync-ledgers
-python3 scripts/check_resume.py
-```
+### Presentation
 
-Publish render artifacts with:
+Prepare only cameras/lights in authoring. Never render inside it.
+Use **blender_render_view(role)**, one role at a time, and poll its **view- ID**.
+The tool selects the camera, queues one CPU render and publishes its actual bytes
+with same-asset lineage/hash proof. It does not replace the asset source with a
+camera-only branch. Use8 samples initially. The initial tool qualification already
+rendered one overview preview from the current source; it is blank/obstructed and
+not accepted. Correct actual occluders/framing before producing final views.
 
-```sh
-python3 scripts/checkpoint_bowling.py --render overview RENDER_JOB_ID --asset-source COMMON_ASSET_SOURCE
-```
+When four useful current views exist, write ASSET_GUIDE.md with measured pivot/
+axis/material/import information and call **blender_review_presentation**. Poll
+its **review- ID**. The bounded fixed helper observes actual pixels and supplied
+geometry facts; it is not a primary coding model. False/unresolved review must
+not be converted into a pass. Refresh **blender_validate** after evidence changes.
 
-Repeat for player/pindeck/props. The helper checks bytes, lineage and saved mesh/
-material descriptions. It does not approve visual content. Record actual hash-bound
-visual review and qualitative evidence, never intended parameters or unconditional
-true. Do not weaken the operator-reviewed validator to achieve a pass.
+### Delivery
 
-Checkpoints are deterministic; do not hand-insert duplicate stage rows. Use plain
-permitted commands without2>&1, shell chains or directory-creation commands. The
-directories already exist. Diagnose real API failures rather than dismissing all
-Pyright errors as stub false positives. Keep all accepted IDs before polling.
+After current measured/visual acceptance passes, call **blender_export_delivery**.
+Its fixed artifact-only job exports six proper selections, imports each GLB and
+checks bounds, mesh counts/roles, pivots and materials, restoring the source scene.
+Poll it for automatic publication. Write BUILD_REPORT.md and ASSET_GUIDE.md, then
+**blender_finish_delivery** verifies the complete current package and generates
+the delivery hash manifest. Only it marks COMPLETE.
 
-## Execution
+## Repair scope and continuation
 
-The user authorized the assistant to launch the prepared detach command. A fresh
-Qwen3.6 coding session will start from the reconciled files to avoid the previous
-session's stale diagnoses. Prior session IDs/events remain in history. Continue
-automatically until delivery or a real STOP; never restart from an empty scene.
+Use the current MCP findings. Stage00–03 previously measured pass and should not
+be rebuilt. Current ball work, floor/return support, collision and presentation
+need current evidence/repairs—do not repeat legacy Clearcoat/extrusion mistakes.
+The model's earlier OOM/"parser failed" diagnoses were not established: two jobs
+were killed with137; another rendered inline and created a directory the worker
+correctly rejected. The enforced queue/path checks prevent that route now.
 
-Monitoring:
+Continue automatically with compaction as needed, re-querying machine state after
+compaction. The fresh coding session avoids old false PASS/"all Bash rejected"
+summaries. True STOP, exhausted budgets, uncertainty and explicit user stop still
+halt; recoverable preflight/pending responses do not. Never replay an uncertain
+request or change sources solely to evade a failure limit.
 
-```sh
-python3 scripts/run_bowling.py --status
-```
-
-Live status includes current and historical failure counts separately. Limits
-remain6/source20/total. New failures count normally; transport uncertainty and
-unchanged failed submissions are never automatically replayed.
+User authorized the assistant to launch detached after verification/publication.
+Monitor with `python3 scripts/run_bowling.py --status`; the runtime process and
+workflow event paths are reported there. Do not launch a second controller.
