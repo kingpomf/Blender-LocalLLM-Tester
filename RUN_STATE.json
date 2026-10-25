@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "NOT_STARTED",
+  "phase": "BUILD",
+  "model": null,
+  "pending_job": null,
+  "verified_source": null,
+  "checkpoint": null,
+  "jobs": [],
+  "evidence": {},
+  "next_action": "Check worker capabilities, then author a fresh kart using the simplified specification."
+}
