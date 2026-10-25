@@ -47,6 +47,14 @@ class SubmissionGuard:
             assert db.execute("SELECT 1 FROM attempts WHERE job=? AND state='failed'",(job,)).fetchone()
             db.execute('INSERT OR IGNORE INTO api_corrections VALUES(?,?)',(job,json.dumps(evidence,sort_keys=True)))
 
+    def failure_accounting(self,job):
+        rows=self.rows();accounting=budget_accounting(self.path,rows)
+        current=any(r['job']==job for r in accounting['counted_failures']+accounting['api_corrections'])
+        correction=self.api_correction(job) if any(r['job']==job and r['state']=='failed' for r in rows) else None
+        return {'failure_category':'api_correction' if correction else 'hard',
+            'hard_failure':not bool(correction),'hard_failure_budget_consumed':current and not bool(correction),
+            'historical_failure':not current,'failure_budget_reset_id':accounting['reset_id']}
+
     @contextmanager
     def connect(self):
         db = sqlite3.connect(self.path, timeout=5)
@@ -136,6 +144,6 @@ def budget_accounting(path,rows) -> dict:
         api_jobs={r[0] for r in db.execute('SELECT job FROM api_corrections')} if has_api else set()
         return {'reset_id':reset_id,'cutoff_rowid':cutoff,
                 'api_corrections':[row for row in rows if row['fingerprint'] in fingerprints and row['state']=='failed' and row['job'] in api_jobs],
-                'counted_failures':[row for row in rows if row['fingerprint'] in fingerprints and row['state'] in {'failed','cancelled'} and row['job'] not in api_jobs]}
+                'counted_failures':[row for row in rows if row['fingerprint'] in fingerprints and row['state'] in {'failed','cancelled'} and not (row['state']=='failed' and row['job'] in api_jobs)]}
     finally:
         db.close()

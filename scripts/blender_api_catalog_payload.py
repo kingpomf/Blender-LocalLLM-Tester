@@ -40,8 +40,15 @@ for module,prefix in [(bmesh.types,'bmesh.types'),(mathutils,'mathutils')]:
     for name in dir(module):
         value=getattr(module,name)
         if isinstance(value,type):extras[prefix+'.'+name]={'members':members(value)}
-catalog={'version':bpy.app.version_string,'build_hash':bpy.app.build_hash.decode(),
+runtime_returns={}
+probe=next(iter(bpy.context.scene.objects),None)
+assert probe is not None, 'Return-type capture needs an existing read-only scene object'
+for name,element in [('children','Object'),('children_recursive','Object'),('users_collection','Collection')]:
+    value=getattr(probe,name)
+    runtime_returns['Object.'+name]={'python_type':type(value).__name__,'members':members(value),
+        'element_type':element,'guidance':'Parent/child relationships are changed through obj.parent. To delete an object use bpy.data.objects.remove(obj, do_unlink=True); do not unlink through Object.children.'}
+catalog={'schema_version':2,'version':bpy.app.version_string,'build_hash':bpy.app.build_hash.decode(),
     'types':types,'operators':operators,'data_collections':collections,'extras':extras,
-    'bmesh_ops':sorted(n for n in dir(bmesh.ops) if not n.startswith('_')),'errors':errors}
+    'bmesh_ops':sorted(n for n in dir(bmesh.ops) if not n.startswith('_')),'runtime_returns':runtime_returns,'errors':errors}
 with open('/job/api-catalog.json','w') as file:json.dump(catalog,file,separators=(',',':'))
-report={'read_only':True,'version':catalog['version'],'types':len(types),'operators':len(operators),'introspection_errors':len(errors)}
+report={'read_only':True,'version':catalog['version'],'types':len(types),'operators':len(operators),'introspection_errors':len(errors),'runtime_returns':runtime_returns}

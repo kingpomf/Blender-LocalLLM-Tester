@@ -34,10 +34,17 @@ class ContinuousRunTests(unittest.TestCase):
         failures={};progress={}
         run_bowling.native_outcome(self.native_event('view-'+'a'*32,native_job='b'*32),failures,progress)
         self.assertEqual(set(failures),{'b'*32})
+
         self.assertIsNone(run_bowling.native_outcome(self.native_event('b'*32),failures,progress))
         cancelled_view=self.native_event('view-'+'c'*32,'cancelled',native_job='d'*32,native_state='completed')
         self.assertIsNone(run_bowling.native_outcome(cancelled_view,failures,progress))
         self.assertEqual(set(failures),{'b'*32})
+
+    def test_late_api_classification_removes_only_its_own_hard_streak_entry(self):
+        failures={'a'*32:'older hard diagnosis','b'*32:'geometry'}
+        event=self.native_event('a'*32,failure_category='api_correction',hard_failure=False)
+        self.assertIsNone(run_bowling.native_outcome(event,failures,{}))
+        self.assertEqual(failures,{'b'*32:'geometry'})
 
     def test_confirmed_api_correction_does_not_count_toward_hard_stop(self):
         failures={};progress={}
@@ -45,6 +52,8 @@ class ContinuousRunTests(unittest.TestCase):
         self.assertIsNone(run_bowling.native_outcome(correction,failures,progress))
         self.assertEqual(failures,{})
         self.assertIn('failed',run_bowling.native_outcome(self.native_event('b'*32),failures,progress) or '')
+        self.assertIsNone(run_bowling.native_outcome(self.native_event('c'*32,historical_failure=True),failures,progress))
+        self.assertEqual(set(failures),{'b'*32})
 
     def test_previously_classified_api_failure_is_not_a_retained_hard_failure(self):
         from scripts.submission_guard import SubmissionGuard

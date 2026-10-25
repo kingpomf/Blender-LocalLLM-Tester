@@ -13,7 +13,7 @@ import shutil
 import time
 
 from scripts.authoring_preflight import inspect_authoring
-from scripts.blender_api import load_catalog,inspect_api,lookup,classify_api_error
+from scripts.blender_api import load_catalog,inspect_api,lookup,classify_api_error,terminal_exception
 from scripts.checkpoint_bowling import publish_source,publish_render,sync_ledgers,update_fields,backup_and_write,replace_stage_table
 from scripts.check_references import check as reference_check
 from scripts.submission_guard import fingerprint,GuardBlocked
@@ -203,26 +203,47 @@ class Workflow:
         if self.state.get('validation') and self.state['validation']['source_job']==self.state.get('current_source') and not self.pending():
             sync_ledgers(self.root)
 
+    def accepted_code(self,job):
+        attempt=next((r for r in self.guard.rows() if r['job']==job),None)
+        path=self.root/'artifacts/scripts'/('accepted_'+job+'.py')
+        if not attempt or attempt['operation']!='author' or not path.exists():return None
+        code=path.read_text()
+        spec={'operation':'author','code':code}
+        if attempt['source']!='EMPTY':spec['source_job']=attempt['source']
+        if fingerprint(spec)!=attempt['fingerprint']:raise GuardBlocked('STOP: accepted source snapshot differs from guarded request')
+        return code
+
+    async def failure_result(self,row,diagnostics=None):
+        """Use one classification for status, diagnostics and controller accounting."""
+        metadata=self.state['jobs'].get(row['id'])
+        correction=self.guard.api_correction(row['id']) if row['state']=='failed' else None
+        catalog=self.catalog() if row['state']=='failed' and metadata and metadata['role']=='asset' else None
+        if catalog:
+            if diagnostics is None:diagnostics=await self.cached_diagnostics(row['id'])
+            if correction is None:
+                code=self.accepted_code(row['id'])
+                correction=classify_api_error(catalog,diagnostics,code)
+                if correction:
+                    correction.update(policy_version=2,diagnostics_sha256=hashlib.sha256(json.dumps(diagnostics,sort_keys=True).encode()).hexdigest(),
+                        accepted_code_sha256=hashlib.sha256(code.encode()).hexdigest() if code else None,
+                        catalog_build_hash=catalog['build_hash'])
+                    self.guard.record_api_correction(row['id'],correction)
+        result={**row,**self.guard.failure_accounting(row['id'])}
+        if diagnostics:result['exception']=terminal_exception(diagnostics)
+        if correction:result.update(recoverable=True,correction=correction,next_tool='blender_api_lookup')
+        return result
+
     async def observe(self,row):
         for attempt in self.guard.rows():
             if attempt['job']==row['id']:self.guard.update(attempt['fingerprint'],row)
         metadata=self.state['jobs'].get(row['id'])
-        correction=None
-        if row['state']=='failed' and metadata and metadata['role']=='asset' and self.catalog():
-            correction=self.guard.api_correction(row['id'])
-            if correction is None:
-                diagnostics=await self.cached_diagnostics(row['id'])
-                correction=classify_api_error(self.catalog(),diagnostics)
-                if correction:
-                    correction['diagnostics_sha256']=hashlib.sha256(json.dumps(diagnostics,sort_keys=True).encode()).hexdigest()
-                    self.guard.record_api_correction(row['id'],correction)
         if row['state'] in {'failed','cancelled'}:
             self.clear_pending(row['id'])
+            result=await self.failure_result({k:row[k] for k in ['id','state','error','progress','diagnostics'] if k in row})
             self.sync_failure_mirrors()
-        if row['state']!='completed' or metadata is None:
-            result={k:row[k] for k in ['id','state','error','progress','diagnostics'] if k in row}
-            if correction:result.update(recoverable=True,hard_failure=False,failure_category='api_correction',hard_failure_budget_consumed=False,correction=correction,next_tool='blender_api_lookup')
             return result
+        if row['state']!='completed' or metadata is None:
+            return {k:row[k] for k in ['id','state','error','progress','diagnostics'] if k in row}
         self.clear_pending(row['id'])
         role=metadata['role']
         if role=='validation':return await self.publish_validation(row)
@@ -337,7 +358,7 @@ class Workflow:
         await self.observe(camera)
         if camera['state'] in {'failed','cancelled'}:
             view['state']=camera['state'];self.save();self.sync_failure_mirrors()
-            return {'id':view_id,'state':camera['state'],'native_job':camera['id'],'next_tool':'blender_job_diagnostics'}
+            return {'id':view_id,'state':camera['state'],'native_job':camera['id'],'next_tool':'blender_job_diagnostics',**self.guard.failure_accounting(camera['id'])}
         if camera['state']!='completed':return {'id':view_id,'state':'running','phase':'camera_selection','native_job':camera['id']}
         if view.get('cancel_requested') and not view.get('render_job'):
             view['state']='cancelled';return {'id':view_id,'state':'cancelled'}
@@ -361,7 +382,8 @@ class Workflow:
                     'visual_acceptance':'not yet reviewed; successful rendering is not Stage07 PASS'}
         if render['state'] in {'failed','cancelled'}:
             view['state']=render['state'];self.save();self.sync_failure_mirrors()
-        return {'id':view_id,'state':render['state'],'phase':'render','native_job':render['id'],'error':render.get('error')}
+        return {'id':view_id,'state':render['state'],'phase':'render','native_job':render['id'],'error':render.get('error'),
+            **(self.guard.failure_accounting(render['id']) if render['state'] in {'failed','cancelled'} else {})}
 
     async def publish(self,role,job_id,asset_source_job=None):
         selected=self.current(asset_source_job)
@@ -407,7 +429,13 @@ class Workflow:
             with path.open('rb') as file:
                 file.seek(max(0,path.stat().st_size-16384))
                 return {'id':job_id,'state':review['state'],'log':file.read(16384).decode(errors='replace')}
-        return await self.cached_diagnostics(job_id)
+        result=await self.cached_diagnostics(job_id)
+        if result.get('state') in {'failed','cancelled'} and any(r['job']==job_id for r in self.guard.rows()):
+            for attempt in self.guard.rows():
+                if attempt['job']==job_id:self.guard.update(attempt['fingerprint'],result)
+            result=await self.failure_result(result,diagnostics=result)
+            self.clear_pending(job_id);self.sync_failure_mirrors()
+        return result
 
     async def workflow_status(self):
         # Machine-owned report restores accidental edits to the stage mirrors.

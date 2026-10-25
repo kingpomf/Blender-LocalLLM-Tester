@@ -22,8 +22,10 @@ def hard_native_streak(root,failures):
     if not path.exists():return dict(failures)
     from scripts.submission_guard import budget_accounting
     from scripts.continuation_preflight import guard_rows
-    api_jobs={row['job'] for row in budget_accounting(path,guard_rows(root))['api_corrections']}
-    return {job:reason for job,reason in failures.items() if job not in api_jobs}
+    rows=guard_rows(root);accounting=budget_accounting(path,rows)
+    known={row['job'] for row in rows}
+    hard_jobs={row['job'] for row in accounting['counted_failures']}
+    return {job:reason for job,reason in failures.items() if job not in known or job in hard_jobs}
 
 
 def live_status(root,state) -> dict:
@@ -68,7 +70,9 @@ def native_outcome(event,failures,progress):
     try:result=json.loads(part.get('state',{}).get('output',''))
     except (ValueError,TypeError):return None
     if not isinstance(result,dict):return None
-    if result.get('failure_category')=='api_correction' and result.get('hard_failure') is False:return None
+    if result.get('historical_failure') is True or (result.get('failure_category')=='api_correction' and result.get('hard_failure') is False):
+        failures.pop(result.get('native_job') or result.get('id'),None)
+        return None
     job=result.get('id')
     native_state=result.get('state')
     if result.get('operation')=='asset' and result.get('state')=='completed' and result.get('execution_succeeded'):

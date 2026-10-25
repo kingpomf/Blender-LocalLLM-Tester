@@ -27,6 +27,13 @@ No external mesh packs or unrelated game code. Preserve original artifacts/histo
   mismatches remain audited but do not consume the hard-failure budget or trigger
   the two-hard-failure stop. Identical failed API submissions are not replayed.
   Geometry failures, cancellations, uncertainty and genuine STOPs remain hard errors.
+- API lookup includes actual return types: `Object.children` and `users_collection`
+  are tuples. They have no `unlink`. Use obj.parent for parenting or
+  bpy.data.objects.remove(obj, do_unlink=True) for deletion. Do not confuse an
+  object's child list with Collection.objects. Source-proven return-type misuse
+  is recoverable; arbitrary Python tuple errors are not automatically exempt.
+- Status and diagnostics report the same failure category. Pre-reset failures
+  remain historical and cannot consume the new epoch's budget or active streak.
 
 1. Read workflow_status, CONTROLLED_CONTINUATION.md and the relevant specifications.
 2. Save changed geometry/camera Python in artifacts/scripts; use LSP diagnostics.
@@ -64,7 +71,8 @@ No external mesh packs or unrelated game code. Preserve original artifacts/histo
   Never replay uncertain submissions, rename failed code as a repair, or use a
   failed/camera job as an asset source. Native execution and measured acceptance
   are distinct. Read diagnostics once after a failed job and repair the actual cause.
-- Limits:6 failed/cancelled jobs per source and20 per current accounting epoch.
+- Limits:6 hard failed/cancelled jobs per source and20 per current accounting epoch;
+  confirmed API corrections are counted separately and permit changed-code repair.
   Only the operator can authorize resets; historical fingerprints/attempts remain.
   A real STOP/exhausted budget/uncertainty requires BLOCKED, not another rejected call.
 - Do not release coding leases, change GPU ownership, interrupt unrelated workloads,

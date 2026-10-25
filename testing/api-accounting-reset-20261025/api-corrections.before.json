@@ -1,0 +1,10 @@
+[
+  {
+    "job": "6a3c128b6ab54880b0f6449b85e2fab0",
+    "evidence": "{\"category\": \"api_correction\", \"diagnostics_sha256\": \"f3fa2e814a5e78dd22e91cb43de96318965c7d46d5dc625fe29311702c1e5c14\", \"member\": \"calc_normals_use_fit_sharp\", \"message\": \"Mesh.calc_normals_use_fit_sharp is absent from Blender 5.2.3 LTS\", \"suggestions\": [], \"type\": \"Mesh\"}"
+  },
+  {
+    "job": "bd557eba1416427cb8c9c2ed428fa43f",
+    "evidence": "{\"accepted_code_sha256\": \"8a7bcdeb0f085f9641b90bebb08be140b5ba1e7601dc576da14b2f3b224b2ebe\", \"catalog_build_hash\": \"e13b728c6880\", \"category\": \"api_correction\", \"diagnostics_sha256\": \"54d2a8a6b462e1d577fb2d28ec707a9960138dc5ed5634c48585d1d90b5d514e\", \"member\": \"unlink\", \"message\": \"Object.children returns tuple, which has no unlink. Parent/child relationships are changed through obj.parent. To delete an object use bpy.data.objects.remove(obj, do_unlink=True); do not unlink through Object.children.\", \"origin\": \"Object.children\", \"policy_version\": 2, \"source_line\": 29, \"suggestions\": [], \"type\": \"tuple\"}"
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "epoch": 3,
+  "cutoff_rowid": 106,
+  "before": {
+    "uncertain_submissions": [],
+    "failed_count": 3,
+    "api_correction_count": 2,
+    "historical_failed_count": 31,
+    "failure_budget_reset_id": 2,
+    "failure_limit_per_source": 6,
+    "failure_limit_total": 20
+  },
+  "after": {
+    "uncertain_submissions": [],
+    "failed_count": 0,
+    "api_correction_count": 0,
+    "historical_failed_count": 31,
+    "failure_budget_reset_id": 3,
+    "failure_limit_per_source": 6,
+    "failure_limit_total": 20
+  },
+  "attempts_unchanged": true,
+  "native_statuses_verified": 106,
+  "source_unchanged": true
+}

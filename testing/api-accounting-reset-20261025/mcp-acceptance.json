@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "lookup": {
+    "version": "5.2.3 LTS",
+    "build_hash": "e13b728c6880",
+    "query": "Object.children",
+    "available": true,
+    "function": null,
+    "property": null,
+    "runtime_return": {
+      "python_type": "tuple",
+      "members": [
+        "count",
+        "index"
+      ],
+      "element_type": "Object",
+      "guidance": "Parent/child relationships are changed through obj.parent. To delete an object use bpy.data.objects.remove(obj, do_unlink=True); do not unlink through Object.children."
+    },
+    "suggestions": [
+      "children",
+      "hide_render",
+      "children_recursive"
+    ]
+  },
+  "preflight": {
+    "ok": false,
+    "recoverable": true,
+    "submitted": false,
+    "attempt_consumed": false,
+    "code": "api_correction",
+    "message": "Correct unsupported API use against the installed runtime, then submit changed code. No native attempt was made.",
+    "issues": [
+      {
+        "line": 29,
+        "code": "unsupported_return_member",
+        "api": "Object.children.unlink",
+        "message": "Object.children returns tuple, which has no unlink. Parent/child relationships are changed through obj.parent. To delete an object use bpy.data.objects.remove(obj, do_unlink=True); do not unlink through Object.children.",
+        "suggestions": [],
+        "next_tool": "blender_api_lookup",
+        "runtime_type": "tuple",
+        "member": "unlink",
+        "origin": "Object.children"
+      }
+    ],
+    "next_tool": "blender_api_lookup"
+  },
+  "classification": {
+    "id": "bd557eba1416427cb8c9c2ed428fa43f",
+    "state": "failed",
+    "error": "blender_exit_1; see blender.log",
+    "progress": null,
+    "diagnostics": {
+      "tool": "blender_job_diagnostics",
+      "next_action": "Terminal job: read diagnostics once. Completed-artifact fetch cannot retrieve failed outputs; repair code in a new revision or report the blocker."
+    },
+    "failure_category": "api_correction",
+    "hard_failure": false,
+    "hard_failure_budget_consumed": false,
+    "historical_failure": false,
+    "failure_budget_reset_id": 2,
+    "exception": {
+      "exception": "AttributeError",
+      "message": "'tuple' object has no attribute 'unlink'",
+      "line": 29
+    },
+    "recoverable": true,
+    "correction": {
+      "accepted_code_sha256": "8a7bcdeb0f085f9641b90bebb08be140b5ba1e7601dc576da14b2f3b224b2ebe",
+      "catalog_build_hash": "e13b728c6880",
+      "category": "api_correction",
+      "diagnostics_sha256": "54d2a8a6b462e1d577fb2d28ec707a9960138dc5ed5634c48585d1d90b5d514e",
+      "member": "unlink",
+      "message": "Object.children returns tuple, which has no unlink. Parent/child relationships are changed through obj.parent. To delete an object use bpy.data.objects.remove(obj, do_unlink=True); do not unlink through Object.children.",
+      "origin": "Object.children",
+      "policy_version": 2,
+      "source_line": 29,
+      "suggestions": [],
+      "type": "tuple"
+    },
+    "next_tool": "blender_api_lookup"
+  },
+  "diagnostics_same_category": true,
+  "geometry_exception": {
+    "exception": "ValueError",
+    "message": "Empty or degenerate geometry: Gutter_L_Outer",
+    "line": null
+  },
+  "guard": {
+    "uncertain_submissions": [],
+    "failed_count": 3,
+    "api_correction_count": 2,
+    "historical_failed_count": 31,
+    "failure_budget_reset_id": 2,
+    "failure_limit_per_source": 6,
+    "failure_limit_total": 20
+  },
+  "attempt_rows_unchanged": true,
+  "source_unchanged": true
+}

@@ -187,12 +187,48 @@ class WorkflowTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.guard.summary()['failed_count'],0)
         self.assertEqual(self.guard.summary()['api_correction_count'],1)
         self.assertEqual(self.guard.rows()[-1]['state'],'failed')
+        with patch.object(self.client,'rpc',side_effect=AssertionError('Diagnostics must reuse cached evidence')):
+            diagnostic=await self.workflow.call('diagnostics',job_id=accepted['id'])
+        self.assertFalse(diagnostic['hard_failure'])
+        from scripts.run_bowling import native_outcome
+        event={'type':'tool_use','part':{'tool':'bowling-blender52_blender_job_diagnostics','state':{'output':json.dumps(diagnostic)}}}
+        self.assertIsNone(native_outcome(event,{},{}))
         before=len(self.client.submissions)
         duplicate=await self.workflow.call('author',code=code)
         self.assertEqual(duplicate['code'],'unchanged_api_correction')
         self.assertEqual(len(self.client.submissions),before)
         revised=await self.workflow.call('author',code="report={'corrected_api':True}")
         self.assertIn('id',revised)
+
+    async def test_source_proven_tuple_failure_can_be_reconciled_via_diagnostics_first(self):
+        from tests.test_blender_api import CATALOG
+        await self.ready_asset()
+        code="import bpy\nroot=bpy.data.objects.get('root')\nroot.children.unlink(obj)"
+        accepted=await self.workflow.call('author',code=code)
+        self.workflow.api_catalog=copy.deepcopy(CATALOG)
+        self.client.rows[accepted['id']].update(state='failed',error='blender_exit_1')
+        diagnostic={'id':accepted['id'],'state':'failed','logs':{'blender.log':{'text':'  File "/job/submitted.py", line 3, in f\nAttributeError: \'tuple\' object has no attribute \'unlink\''}}}
+        with patch.object(self.client,'rpc',return_value=diagnostic):
+            result=await self.workflow.call('diagnostics',job_id=accepted['id'])
+        self.assertEqual(result['correction']['origin'],'Object.children')
+        self.assertFalse(result['hard_failure'])
+        self.assertEqual(self.guard.summary()['failed_count'],0)
+        self.assertEqual(self.guard.summary()['api_correction_count'],1)
+        self.assertEqual(self.guard.rows()[-1]['state'],'failed')
+
+    async def test_old_hard_failure_after_authorized_reset_is_historical_on_status_and_diagnostics(self):
+        await self.ready_asset()
+        accepted=await self.workflow.call('author',code="report={'failed_geometry':True}")
+        self.client.rows[accepted['id']]['state']='failed'
+        await self.workflow.call('status',job_id=accepted['id'])
+        with self.guard.connect() as db:
+            cutoff=db.execute('SELECT max(rowid) FROM attempts').fetchone()[0]
+            db.execute("INSERT INTO failure_budget_resets(cutoff_rowid,reason,created) VALUES(?,'test explicit operator reset',1)",(cutoff,))
+        for method in ['status','diagnostics']:
+            result=await self.workflow.call(method,job_id=accepted['id'])
+            self.assertTrue(result['historical_failure'])
+            self.assertFalse(result['hard_failure_budget_consumed'])
+        self.assertEqual(self.guard.summary()['failed_count'],0)
 
     async def test_catalog_api_rejection_makes_no_submission(self):
         await self.ready_asset()
