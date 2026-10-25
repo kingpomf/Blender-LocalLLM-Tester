@@ -1,43 +1,42 @@
-# Current authorized continuation — API/accounting reset epoch3
+# Current Turbo continuation — context recovery and error reset
 
-The user authorized review/fixes, an archived reset of active failures to zero,
-commit/push, and a fresh detached Qwen3.6 run. Read
-`testing/api-accounting-reset-20261025/HANDOFF.md` for the current instructions.
-Earlier plans are historical evidence, not active instructions.
+The user authorized fixing context overflow/automatic recovery, archiving and
+resetting active errors, committing/pushing all changes and a new detached run.
+Read testing/context-recovery-reset-20261025/HANDOFF.md. This continues the same
+Qwen3.8 Turbo trial and asset; it does not restart references or scene construction.
 
-- Agent/model: **bowling-coder / z6-llama/qwen36-35b-a3b-mtp-q8**; context262144,
-  compaction/pruning enabled,16384 reserve, no step cap.
-- Blender: **5.2.3 LTS**, same bowling-blender52 CPU-only queue.
-- Starting source: **2b37b77ce016462c943a217f67fb9418**. MCP workflow status is
-  authoritative if the source advances. Canonical native hash at authorization:
-  **9ff9753dc34b0aa0f20512d39e7f3a8fd4b9f1a36d947b9dfeac7f3198819d6b**.
-- New epoch3: **0 active hard failures,0 active API corrections,0 active streak**.
-  All106 accepted attempts and31 historical failed jobs are preserved. Limits
-  remain6 hard failures/source20 total. No further reset is authorized.
-- References remain READY. Do not regenerate them or start with an empty scene.
+- Model: z6-llama/qwen38-turbo; native139264 context/16384 output retained.
+- Compaction/pruning enabled, **32768 reserve**, no step cap. Tool output cap:
+  **160 lines/12000 bytes**. Earlier compaction leaves room for the next response.
+- Trial: bowling52-qwen38-turbo-20261025-r1; Blender5.2.3 LTS CPU queue.
+- Starting source: **c3e6eb270cce4cdd82671452900849bc**. Use current MCP source if it
+  advances. Canonical hash at authorization:
+  **38411b0cf6add697e68d6f1ef9a507ab5c6dd230cd4b6f7fcc31c4a6fb7f496b**.
+- Reference phase is verified **READY**. Do not regenerate completed images.
+- Epoch1 starts with **0 hard failures,0 API corrections,empty active streak**;
+  all39 accepted attempts and5 historical failed jobs remain. No further reset.
 
-Use blender_api_lookup for unfamiliar APIs and return types. Object.children is
-a tuple; never call children.unlink. Use parenting/deletion APIs as the active
-handoff explains. Preflight API feedback is recoverable; correct code and continue.
-Runtime API errors are soft only when verified against the installed runtime and,
-for builtin return types, the accepted source and exact failing traceback line.
-Status and diagnostics agree on classifications. Old pre-reset failures cannot
-recharge current counters. Identical failed scripts still cannot be replayed.
+The current validation is138 PASS/79 FAIL/4 unresolved. **No asset stage has fully
+passed.** Prior prose claiming Stage00 PASS is wrong; S00_hierarchy still fails.
+Start with that concrete failure, then work through earlier-stage findings rather
+than repeatedly rebuilding pins. One small criterion/object group per revision.
 
-Make **one small criterion/object-group correction per revision**, then poll the
-native job and its automatic validator. Preserve measured Stage00–03. Inspect
-collision-only meshes instead of rebuilding valid visual gutters. Job completion
-is not an acceptance PASS. Correct actual invalid geometry and camera occlusion.
+Use blender_workflow_status, **blender_scene_summary(names=[...])** and
+**blender_validation_details(stage="00")**. Follow next_offset for a small page.
+Do not load whole scene.json/validation files into context. Consult installed API
+lookup before unfamiliar calls. Poll every accepted native ID and auto-validator.
+Actual measurements, not a report's passed flag, determine acceptance.
 
-Use named queued renders and fixed pixel-review tools. The earlier review is
-completed and negative; it is not stuck or permission-denied. Automatic review
-reconciliation remains active. Short criterion notes stay unresolved. Write
-ASSET_GUIDE.md and BUILD_REPORT.md under artifacts/reports; export/reimport and
-finish delivery only through the fixed tools after current acceptance passes.
+A confirmed context-only overflow can now reconcile accepted jobs/checkpoint and
+continue in a fresh context automatically. It never resets counters or replays
+jobs. Mixed transport/API errors, hard STOPs, uncertainty, explicit user stops and
+repeated overflow without a new verified checkpoint remain bounded stops. The
+reference phase also requires saved image acknowledgements before context rotation.
 
-No Bash/delegation, inline rendering, manual ledger/receipt edits, validator
-changes or counter manipulation. Continue while making verified progress. A true
-STOP, uncertain submission, hard-error circuit breaker or explicit user stop halts
-the run. Re-query workflow state after compaction. Never relaunch a duplicate.
+Coding agent has no Bash/delegation. No inline render, output subdirectories,
+validator changes, managed-file edits or manual PASS. Use queued named views, fixed
+pixel review and selected export/reimport tools for later acceptance/delivery.
+Resume from machine state after compaction; never trust stale summaries.
 
-Operator monitoring: `python3 scripts/run_bowling.py --status`.
+Monitor: `python3 scripts/run_bowling.py --status` or the read-only Blender trial
+report at http://z6-llm:8088/blender-trial/. Do not launch a duplicate controller.

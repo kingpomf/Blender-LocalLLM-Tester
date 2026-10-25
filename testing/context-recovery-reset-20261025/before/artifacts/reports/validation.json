@@ -1,0 +1,6572 @@
+{
+  "stage": "08",
+  "read_only": true,
+  "source_fingerprint_before": "dffe858fd50ccb06c47368d6b3a914df45e6c8534879cdb8f70cbe0f3bbdc70b",
+  "source_fingerprint_after": "dffe858fd50ccb06c47368d6b3a914df45e6c8534879cdb8f70cbe0f3bbdc70b",
+  "passed": false,
+  "checks": [
+    {
+      "id": "S00_units",
+      "stage": "00",
+      "expected": {
+        "system": "METRIC",
+        "scale": 1
+      },
+      "observed": {
+        "system": "METRIC",
+        "scale": 1.0
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S00_root",
+      "stage": "00",
+      "expected": "identity EMPTY",
+      "observed": {
+        "type": "EMPTY",
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S00_collections",
+      "stage": "00",
+      "expected": [
+        "BP01_STATIC",
+        "BP01_PINS",
+        "BP01_BALLS",
+        "BP01_COLLISION",
+        "BP01_PRESENTATION"
+      ],
+      "observed": [
+        "BP01_STATIC",
+        "BP01_PINS",
+        "BP01_BALLS",
+        "BP01_COLLISION",
+        "BP01_PRESENTATION"
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S00_hierarchy",
+      "stage": "00",
+      "expected": "all visual meshes descend from root",
+      "observed": [
+        "Lane_L_Surface",
+        "Lane_R_Surface",
+        "Approach_L",
+        "Approach_R",
+        "Gutter_L_Outer",
+        "Gutter_L_Inner",
+        "Gutter_R_Inner",
+        "Gutter_R_Outer",
+        "PinDeck_L",
+        "PinDeck_R",
+        "RearPit",
+        "Pin_L_01",
+        "Pin_L_02",
+        "Pin_L_03",
+        "Pin_L_04",
+        "Pin_L_05",
+        "Pin_L_06",
+        "Pin_L_07",
+        "Pin_L_08",
+        "Pin_L_09",
+        "Pin_L_10",
+        "Pin_R_01",
+        "Pin_R_02",
+        "Pin_R_03",
+        "Pin_R_04",
+        "Pin_R_05",
+        "Pin_R_06",
+        "Pin_R_07",
+        "Pin_R_08",
+        "Pin_R_09",
+        "Pin_R_10"
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S01_lane_L",
+      "stage": "01",
+      "expected": {
+        "width": 1.0668,
+        "center_x": -0.95,
+        "y": [
+          0,
+          19.2
+        ],
+        "surface_z": 0
+      },
+      "observed": {
+        "minimum": [
+          -1.4833999872207642,
+          0.0,
+          -0.05000000074505806
+        ],
+        "maximum": [
+          -0.41659998893737793,
+          19.200000762939453,
+          0.0
+        ],
+        "dimensions": [
+          1.0667999982833862,
+          19.200000762939453,
+          0.05000000074505806
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_minimum": [
+          -0.5333999991416931,
+          -9.600000381469727,
+          -0.02500000037252903
+        ],
+        "local_maximum": [
+          0.5333999991416931,
+          9.600000381469727,
+          0.02500000037252903
+        ],
+        "triangles": 12,
+        "faces": 6,
+        "degenerate_faces": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "signed_volume": 1.024128054307938,
+        "material_colors": [],
+        "material_face_counts": {
+          "0": 6
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "meters",
+      "objects": [
+        "Lane_L_Surface"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S01_approach_L",
+      "stage": "01",
+      "expected": {
+        "width": 1.0668,
+        "center_x": -0.95,
+        "y": [
+          -4.572,
+          0
+        ],
+        "surface_z": 0
+      },
+      "observed": {
+        "minimum": [
+          -1.4833999872207642,
+          -4.572000026702881,
+          -0.05000000074505806
+        ],
+        "maximum": [
+          -0.41659998893737793,
+          0.0,
+          0.0
+        ],
+        "dimensions": [
+          1.0667999982833862,
+          4.572000026702881,
+          0.05000000074505806
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_minimum": [
+          -0.5333999991416931,
+          -2.2860000133514404,
+          -0.02500000037252903
+        ],
+        "local_maximum": [
+          0.5333999991416931,
+          2.2860000133514404,
+          0.02500000037252903
+        ],
+        "triangles": 12,
+        "faces": 6,
+        "degenerate_faces": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "signed_volume": 0.24387048466586708,
+        "material_colors": [],
+        "material_face_counts": {
+          "0": 6
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "meters",
+      "objects": [
+        "Approach_L"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S01_ArrowTri_L",
+      "stage": "01",
+      "expected": {
+        "count": 7,
+        "y": 4.57,
+        "surface_z": 0
+      },
+      "observed": [],
+      "tolerance": "0.002m surface /0.10m y",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S01_Dot_L",
+      "stage": "01",
+      "expected": {
+        "count": 7,
+        "y": -1.0,
+        "surface_z": 0
+      },
+      "observed": [],
+      "tolerance": "0.002m surface /0.10m y",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S01_Foul_L",
+      "stage": "01",
+      "expected": {
+        "count": 1,
+        "y": 0,
+        "surface_z": 0
+      },
+      "observed": [],
+      "tolerance": "0.002m surface /0.10m y",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S01_lane_R",
+      "stage": "01",
+      "expected": {
+        "width": 1.0668,
+        "center_x": 0.95,
+        "y": [
+          0,
+          19.2
+        ],
+        "surface_z": 0
+      },
+      "observed": {
+        "minimum": [
+          0.41659998893737793,
+          0.0,
+          -0.05000000074505806
+        ],
+        "maximum": [
+          1.4833999872207642,
+          19.200000762939453,
+          0.0
+        ],
+        "dimensions": [
+          1.0667999982833862,
+          19.200000762939453,
+          0.05000000074505806
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_minimum": [
+          -0.5333999991416931,
+          -9.600000381469727,
+          -0.02500000037252903
+        ],
+        "local_maximum": [
+          0.5333999991416931,
+          9.600000381469727,
+          0.02500000037252903
+        ],
+        "triangles": 12,
+        "faces": 6,
+        "degenerate_faces": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "signed_volume": 1.024128054307938,
+        "material_colors": [],
+        "material_face_counts": {
+          "0": 6
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "meters",
+      "objects": [
+        "Lane_R_Surface"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S01_approach_R",
+      "stage": "01",
+      "expected": {
+        "width": 1.0668,
+        "center_x": 0.95,
+        "y": [
+          -4.572,
+          0
+        ],
+        "surface_z": 0
+      },
+      "observed": {
+        "minimum": [
+          0.41659998893737793,
+          -4.572000026702881,
+          -0.05000000074505806
+        ],
+        "maximum": [
+          1.4833999872207642,
+          0.0,
+          0.0
+        ],
+        "dimensions": [
+          1.0667999982833862,
+          4.572000026702881,
+          0.05000000074505806
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_minimum": [
+          -0.5333999991416931,
+          -2.2860000133514404,
+          -0.02500000037252903
+        ],
+        "local_maximum": [
+          0.5333999991416931,
+          2.2860000133514404,
+          0.02500000037252903
+        ],
+        "triangles": 12,
+        "faces": 6,
+        "degenerate_faces": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "signed_volume": 0.24387048466586708,
+        "material_colors": [],
+        "material_face_counts": {
+          "0": 6
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "meters",
+      "objects": [
+        "Approach_R"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S01_ArrowTri_R",
+      "stage": "01",
+      "expected": {
+        "count": 7,
+        "y": 4.57,
+        "surface_z": 0
+      },
+      "observed": [],
+      "tolerance": "0.002m surface /0.10m y",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S01_Dot_R",
+      "stage": "01",
+      "expected": {
+        "count": 7,
+        "y": -1.0,
+        "surface_z": 0
+      },
+      "observed": [],
+      "tolerance": "0.002m surface /0.10m y",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S01_Foul_R",
+      "stage": "01",
+      "expected": {
+        "count": 1,
+        "y": 0,
+        "surface_z": 0
+      },
+      "observed": [],
+      "tolerance": "0.002m surface /0.10m y",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S02_gutter_count",
+      "stage": "02",
+      "expected": 4,
+      "observed": 4,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S02_Gutter_L_Outer",
+      "stage": "02",
+      "expected": {
+        "width": [
+          0.22,
+          0.25
+        ],
+        "y": [
+          0,
+          19.2
+        ],
+        "trough_z": [
+          -0.12,
+          -0.08
+        ],
+        "lip_z_max": 0.005
+      },
+      "observed": {
+        "bounds": [
+          [
+            -1.7244000434875488,
+            0.0,
+            -0.11999999731779099
+          ],
+          [
+            -1.4844000339508057,
+            19.200000762939453,
+            0.0
+          ]
+        ],
+        "center_section_z": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S02_Gutter_L_Outer_adjacency",
+      "stage": "02",
+      "expected": "lane edge gap0..0.01m",
+      "observed": {
+        "lane_edge": -1.4833999872207642,
+        "gutter_lip": -1.4844000339508057
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S02_Gutter_L_Inner",
+      "stage": "02",
+      "expected": {
+        "width": [
+          0.22,
+          0.25
+        ],
+        "y": [
+          0,
+          19.2
+        ],
+        "trough_z": [
+          -0.12,
+          -0.08
+        ],
+        "lip_z_max": 0.005
+      },
+      "observed": {
+        "bounds": [
+          [
+            -0.4156000018119812,
+            0.0,
+            -0.11999999731779099
+          ],
+          [
+            -0.17559999227523804,
+            19.200000762939453,
+            0.0
+          ]
+        ],
+        "center_section_z": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S02_Gutter_L_Inner_adjacency",
+      "stage": "02",
+      "expected": "lane edge gap0..0.01m",
+      "observed": {
+        "lane_edge": -0.41659998893737793,
+        "gutter_lip": -0.4156000018119812
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S02_Gutter_R_Inner",
+      "stage": "02",
+      "expected": {
+        "width": [
+          0.22,
+          0.25
+        ],
+        "y": [
+          0,
+          19.2
+        ],
+        "trough_z": [
+          -0.12,
+          -0.08
+        ],
+        "lip_z_max": 0.005
+      },
+      "observed": {
+        "bounds": [
+          [
+            0.17559999227523804,
+            0.0,
+            -0.11999999731779099
+          ],
+          [
+            0.4156000018119812,
+            19.200000762939453,
+            0.0
+          ]
+        ],
+        "center_section_z": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S02_Gutter_R_Inner_adjacency",
+      "stage": "02",
+      "expected": "lane edge gap0..0.01m",
+      "observed": {
+        "lane_edge": 0.41659998893737793,
+        "gutter_lip": 0.4156000018119812
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S02_Gutter_R_Outer",
+      "stage": "02",
+      "expected": {
+        "width": [
+          0.22,
+          0.25
+        ],
+        "y": [
+          0,
+          19.2
+        ],
+        "trough_z": [
+          -0.12,
+          -0.08
+        ],
+        "lip_z_max": 0.005
+      },
+      "observed": {
+        "bounds": [
+          [
+            1.4844000339508057,
+            0.0,
+            -0.11999999731779099
+          ],
+          [
+            1.7244000434875488,
+            19.200000762939453,
+            0.0
+          ]
+        ],
+        "center_section_z": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S02_Gutter_R_Outer_adjacency",
+      "stage": "02",
+      "expected": "lane edge gap0..0.01m",
+      "observed": {
+        "lane_edge": 1.4833999872207642,
+        "gutter_lip": 1.4844000339508057
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S02_pair_envelope",
+      "stage": "02",
+      "expected": "x within[-1.80,1.80]",
+      "observed": [
+        -1.7244000434875488,
+        1.7244000434875488
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S02_deck_L",
+      "stage": "02",
+      "expected": "z0\u00b10.002; entire rack footprint",
+      "observed": {
+        "minimum": [
+          -1.4833999872207642,
+          18.5,
+          -0.019999999552965164
+        ],
+        "maximum": [
+          -0.41659998893737793,
+          19.200000762939453,
+          0.0
+        ],
+        "dimensions": [
+          1.0667999982833862,
+          0.7000007629394531,
+          0.019999999552965164
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_minimum": [
+          -0.5333999991416931,
+          -0.3499999940395355,
+          -0.009999999776482582
+        ],
+        "local_maximum": [
+          0.5333999991416931,
+          0.3499999940395355,
+          0.009999999776482582
+        ],
+        "triangles": 12,
+        "faces": 6,
+        "degenerate_faces": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "signed_volume": 0.014935199387794739,
+        "material_colors": [],
+        "material_face_counts": {
+          "0": 6
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S02_deck_R",
+      "stage": "02",
+      "expected": "z0\u00b10.002; entire rack footprint",
+      "observed": {
+        "minimum": [
+          0.41659998893737793,
+          18.5,
+          -0.019999999552965164
+        ],
+        "maximum": [
+          1.4833999872207642,
+          19.200000762939453,
+          0.0
+        ],
+        "dimensions": [
+          1.0667999982833862,
+          0.7000007629394531,
+          0.019999999552965164
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_minimum": [
+          -0.5333999991416931,
+          -0.3499999940395355,
+          -0.009999999776482582
+        ],
+        "local_maximum": [
+          0.5333999991416931,
+          0.3499999940395355,
+          0.009999999776482582
+        ],
+        "triangles": 12,
+        "faces": 6,
+        "degenerate_faces": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "signed_volume": 0.014935199387794739,
+        "material_colors": [],
+        "material_face_counts": {
+          "0": 6
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S02_pit",
+      "stage": "02",
+      "expected": "begins19.20; extends\u22650.60; recessed",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_pin_names",
+      "stage": "03",
+      "expected": [
+        "Pin_L_01",
+        "Pin_L_02",
+        "Pin_L_03",
+        "Pin_L_04",
+        "Pin_L_05",
+        "Pin_L_06",
+        "Pin_L_07",
+        "Pin_L_08",
+        "Pin_L_09",
+        "Pin_L_10",
+        "Pin_R_01",
+        "Pin_R_02",
+        "Pin_R_03",
+        "Pin_R_04",
+        "Pin_R_05",
+        "Pin_R_06",
+        "Pin_R_07",
+        "Pin_R_08",
+        "Pin_R_09",
+        "Pin_R_10"
+      ],
+      "observed": [
+        "Pin_L_01",
+        "Pin_L_02",
+        "Pin_L_03",
+        "Pin_L_04",
+        "Pin_L_05",
+        "Pin_L_06",
+        "Pin_L_07",
+        "Pin_L_08",
+        "Pin_L_09",
+        "Pin_L_10",
+        "Pin_R_01",
+        "Pin_R_02",
+        "Pin_R_03",
+        "Pin_R_04",
+        "Pin_R_05",
+        "Pin_R_06",
+        "Pin_R_07",
+        "Pin_R_08",
+        "Pin_R_09",
+        "Pin_R_10"
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_01_position",
+      "stage": "03",
+      "expected": [
+        -0.95,
+        18.288,
+        0
+      ],
+      "observed": [
+        -0.949999988079071,
+        18.288000106811523,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_01"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_01_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -1.0104999542236328,
+          18.227500915527344,
+          0.0
+        ],
+        "maximum": [
+          -0.8894999623298645,
+          18.348499298095703,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12099999189376831,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_01_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_01_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_01_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_02_position",
+      "stage": "03",
+      "expected": [
+        -1.1024,
+        18.551964543073495,
+        0
+      ],
+      "observed": [
+        -1.1023999452590942,
+        18.551963806152344,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_02"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_02_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -1.1628999710083008,
+          18.491464614868164,
+          0.0
+        ],
+        "maximum": [
+          -1.0418999195098877,
+          18.612462997436523,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_02_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_02_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_02_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_03_position",
+      "stage": "03",
+      "expected": [
+        -0.7976,
+        18.551964543073495,
+        0
+      ],
+      "observed": [
+        -0.7975999712944031,
+        18.551963806152344,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_03"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_03_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -0.8580999970436096,
+          18.491464614868164,
+          0.0
+        ],
+        "maximum": [
+          -0.7370999455451965,
+          18.612462997436523,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_03_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_03_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_03_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_04_position",
+      "stage": "03",
+      "expected": [
+        -1.2548,
+        18.815929086146994,
+        0
+      ],
+      "observed": [
+        -1.2547999620437622,
+        18.815929412841797,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_04"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_04_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -1.3152999877929688,
+          18.755430221557617,
+          0.0
+        ],
+        "maximum": [
+          -1.1942999362945557,
+          18.876428604125977,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_04_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_04_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_04_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_05_position",
+      "stage": "03",
+      "expected": [
+        -0.95,
+        18.815929086146994,
+        0
+      ],
+      "observed": [
+        -0.949999988079071,
+        18.815929412841797,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_05"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_05_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -1.0104999542236328,
+          18.755430221557617,
+          0.0
+        ],
+        "maximum": [
+          -0.8894999623298645,
+          18.876428604125977,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12099999189376831,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_05_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_05_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_05_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_06_position",
+      "stage": "03",
+      "expected": [
+        -0.6452,
+        18.815929086146994,
+        0
+      ],
+      "observed": [
+        -0.6452000141143799,
+        18.815929412841797,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_06"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_06_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -0.7057000398635864,
+          18.755430221557617,
+          0.0
+        ],
+        "maximum": [
+          -0.5846999883651733,
+          18.876428604125977,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_06_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_06_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_06_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_07_position",
+      "stage": "03",
+      "expected": [
+        -1.4072,
+        19.079893629220493,
+        0
+      ],
+      "observed": [
+        -1.4071999788284302,
+        19.079893112182617,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_07"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_07_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -1.4677000045776367,
+          19.019393920898438,
+          0.0
+        ],
+        "maximum": [
+          -1.3466999530792236,
+          19.140392303466797,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_07_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_07_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_07_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_08_position",
+      "stage": "03",
+      "expected": [
+        -1.1024,
+        19.079893629220493,
+        0
+      ],
+      "observed": [
+        -1.1023999452590942,
+        19.079893112182617,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_08"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_08_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -1.1628999710083008,
+          19.019393920898438,
+          0.0
+        ],
+        "maximum": [
+          -1.0418999195098877,
+          19.140392303466797,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_08_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_08_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_08_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_09_position",
+      "stage": "03",
+      "expected": [
+        -0.7976,
+        19.079893629220493,
+        0
+      ],
+      "observed": [
+        -0.7975999712944031,
+        19.079893112182617,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_09"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_09_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -0.8580999970436096,
+          19.019393920898438,
+          0.0
+        ],
+        "maximum": [
+          -0.7370999455451965,
+          19.140392303466797,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_09_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_09_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_09_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_10_position",
+      "stage": "03",
+      "expected": [
+        -0.4927999999999999,
+        19.079893629220493,
+        0
+      ],
+      "observed": [
+        -0.4927999973297119,
+        19.079893112182617,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_L_10"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_10_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          -0.5533000230789185,
+          19.019393920898438,
+          0.0
+        ],
+        "maximum": [
+          -0.43230000138282776,
+          19.140392303466797,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.1210000216960907,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_10_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_L_10_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_L_10_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_01_position",
+      "stage": "03",
+      "expected": [
+        0.95,
+        18.288,
+        0
+      ],
+      "observed": [
+        0.949999988079071,
+        18.288000106811523,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_01"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_01_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          0.8894999623298645,
+          18.227500915527344,
+          0.0
+        ],
+        "maximum": [
+          1.0104999542236328,
+          18.348499298095703,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12099999189376831,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_01_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_01_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_01_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_02_position",
+      "stage": "03",
+      "expected": [
+        0.7976,
+        18.551964543073495,
+        0
+      ],
+      "observed": [
+        0.7975999712944031,
+        18.551963806152344,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_02"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_02_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          0.7370999455451965,
+          18.491464614868164,
+          0.0
+        ],
+        "maximum": [
+          0.8580999970436096,
+          18.612462997436523,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_02_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_02_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_02_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_03_position",
+      "stage": "03",
+      "expected": [
+        1.1024,
+        18.551964543073495,
+        0
+      ],
+      "observed": [
+        1.1023999452590942,
+        18.551963806152344,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_03"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_03_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          1.0418999195098877,
+          18.491464614868164,
+          0.0
+        ],
+        "maximum": [
+          1.1628999710083008,
+          18.612462997436523,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_03_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_03_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_03_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_04_position",
+      "stage": "03",
+      "expected": [
+        0.6452,
+        18.815929086146994,
+        0
+      ],
+      "observed": [
+        0.6452000141143799,
+        18.815929412841797,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_04"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_04_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          0.5846999883651733,
+          18.755430221557617,
+          0.0
+        ],
+        "maximum": [
+          0.7057000398635864,
+          18.876428604125977,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_04_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_04_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_04_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_05_position",
+      "stage": "03",
+      "expected": [
+        0.95,
+        18.815929086146994,
+        0
+      ],
+      "observed": [
+        0.949999988079071,
+        18.815929412841797,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_05"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_05_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          0.8894999623298645,
+          18.755430221557617,
+          0.0
+        ],
+        "maximum": [
+          1.0104999542236328,
+          18.876428604125977,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12099999189376831,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_05_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_05_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_05_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_06_position",
+      "stage": "03",
+      "expected": [
+        1.2548,
+        18.815929086146994,
+        0
+      ],
+      "observed": [
+        1.2547999620437622,
+        18.815929412841797,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_06"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_06_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          1.1942999362945557,
+          18.755430221557617,
+          0.0
+        ],
+        "maximum": [
+          1.3152999877929688,
+          18.876428604125977,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_06_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_06_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_06_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_07_position",
+      "stage": "03",
+      "expected": [
+        0.4927999999999999,
+        19.079893629220493,
+        0
+      ],
+      "observed": [
+        0.4927999973297119,
+        19.079893112182617,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_07"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_07_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          0.43230000138282776,
+          19.019393920898438,
+          0.0
+        ],
+        "maximum": [
+          0.5533000230789185,
+          19.140392303466797,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.1210000216960907,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_07_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_07_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_07_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_08_position",
+      "stage": "03",
+      "expected": [
+        0.7976,
+        19.079893629220493,
+        0
+      ],
+      "observed": [
+        0.7975999712944031,
+        19.079893112182617,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_08"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_08_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          0.7370999455451965,
+          19.019393920898438,
+          0.0
+        ],
+        "maximum": [
+          0.8580999970436096,
+          19.140392303466797,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_08_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_08_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_08_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_09_position",
+      "stage": "03",
+      "expected": [
+        1.1024,
+        19.079893629220493,
+        0
+      ],
+      "observed": [
+        1.1023999452590942,
+        19.079893112182617,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_09"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_09_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          1.0418999195098877,
+          19.019393920898438,
+          0.0
+        ],
+        "maximum": [
+          1.1628999710083008,
+          19.140392303466797,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_09_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_09_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_09_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_10_position",
+      "stage": "03",
+      "expected": [
+        1.4072,
+        19.079893629220493,
+        0
+      ],
+      "observed": [
+        1.4071999788284302,
+        19.079893112182617,
+        0.0
+      ],
+      "tolerance": "0.003m",
+      "objects": [
+        "Pin_R_10"
+      ],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_10_dimensions",
+      "stage": "03",
+      "expected": {
+        "height": 0.381,
+        "diameter": 0.121,
+        "base_z": 0,
+        "max_triangles": 2500
+      },
+      "observed": {
+        "minimum": [
+          1.3466999530792236,
+          19.019393920898438,
+          0.0
+        ],
+        "maximum": [
+          1.4677000045776367,
+          19.140392303466797,
+          0.38100001215934753
+        ],
+        "dimensions": [
+          0.12100005149841309,
+          0.12099838256835938,
+          0.38100001215934753
+        ],
+        "local_center": [
+          0.0,
+          0.0,
+          0.19050000607967377
+        ],
+        "local_minimum": [
+          -0.060499999672174454,
+          -0.060499999672174454,
+          0.0
+        ],
+        "local_maximum": [
+          0.060499999672174454,
+          0.060499999672174454,
+          0.38100001215934753
+        ],
+        "triangles": 480,
+        "faces": 256,
+        "degenerate_faces": 0,
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572,
+        "material_colors": [
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ]
+        ],
+        "material_face_counts": {
+          "0": 192,
+          "1": 64
+        },
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "modifiers": [],
+        "finite": true
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_10_neck_ratio",
+      "stage": "03",
+      "expected": "neck/body<0.65",
+      "observed": 0.330578503305542,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S03_Pin_R_10_red_bands",
+      "stage": "03",
+      "expected": "two separated red material bands at neck",
+      "observed": {
+        "red_face_count": 0,
+        "z_intervals": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S03_Pin_R_10_closed_mesh",
+      "stage": "03",
+      "expected": "closed nondegenerate outward surface",
+      "observed": {
+        "boundary_edges": 32,
+        "nonmanifold_edges": 32,
+        "signed_volume": 0.002128346919757572
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S04_ball_names",
+      "stage": "04",
+      "expected": [
+        "Ball_01",
+        "Ball_02",
+        "Ball_03"
+      ],
+      "observed": [],
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S05_return_bounds",
+      "stage": "05",
+      "expected": {
+        "x": [
+          -0.4,
+          0.4
+        ],
+        "y": [
+          -4.3,
+          -0.3
+        ]
+      },
+      "observed": {},
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S05_benches",
+      "stage": "05",
+      "expected": "two seats entirely behind y=-4.572",
+      "observed": {},
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S05_screen_bottoms",
+      "stage": "05",
+      "expected": "two screens bottom z\u22652.20",
+      "observed": {},
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S05_masking_clearance",
+      "stage": "05",
+      "expected": "wall bottom\u2265standing pin tops+0.60",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S05_floor_below_assembly",
+      "stage": "05",
+      "expected": "floor is below z0 and spans approach/seating/lanes",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S05_decorations",
+      "stage": "05",
+      "expected": "\u22652 original decorative elements",
+      "observed": [],
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S05_return_opening",
+      "stage": "05",
+      "expected": "visible hood opening and supporting cradle",
+      "observed": "Requires actual visual/portable label evidence",
+      "tolerance": "",
+      "objects": [],
+      "status": "UNRESOLVED",
+      "passed": false
+    },
+    {
+      "id": "S05_scoreboard_labels",
+      "stage": "05",
+      "expected": "different readable01/02 and score grid",
+      "observed": "Requires actual visual/portable label evidence",
+      "tolerance": "",
+      "objects": [],
+      "status": "UNRESOLVED",
+      "passed": false
+    },
+    {
+      "id": "S05_masking_labels",
+      "stage": "05",
+      "expected": "01/02 labels behind racks",
+      "observed": "Requires actual visual/portable label evidence",
+      "tolerance": "",
+      "objects": [],
+      "status": "UNRESOLVED",
+      "passed": false
+    },
+    {
+      "id": "S06_Lane_L_Surface_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Lane_L_Surface_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Lane_R_Surface_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Lane_R_Surface_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Approach_L_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Approach_L_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Approach_R_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Approach_R_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Gutter_L_Outer_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Gutter_L_Outer_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Gutter_L_Inner_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Gutter_L_Inner_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Gutter_R_Inner_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Gutter_R_Inner_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Gutter_R_Outer_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Gutter_R_Outer_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_PinDeck_L_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_PinDeck_L_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_PinDeck_R_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_PinDeck_R_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_RearPit_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_RearPit_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_01_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_01_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_02_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_02_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_03_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_03_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_04_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_04_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_05_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_05_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_06_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_06_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_07_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_07_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_08_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_08_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_09_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_09_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_10_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_L_10_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_01_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_01_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_02_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_02_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_03_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_03_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_04_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_04_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_05_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_05_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_06_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_06_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_07_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_07_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_08_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_08_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_09_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_09_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_10_scale",
+      "stage": "06",
+      "expected": "applied positive scale1",
+      "observed": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_Pin_R_10_geometry",
+      "stage": "06",
+      "expected": "finite nondegenerate faces; no unapplied topology modifiers",
+      "observed": {
+        "finite": true,
+        "degenerate_faces": 0,
+        "modifiers": []
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_visual_triangle_budget",
+      "stage": "06",
+      "expected": "\u2264150000, all placed instances",
+      "observed": 9828,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S06_collision_triangle_budget",
+      "stage": "06",
+      "expected": "\u226410000",
+      "observed": 0,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_collision_exclusion",
+      "stage": "06",
+      "expected": "COL_ meshes hidden from beauty render",
+      "observed": {},
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_Gutter_L_Outer_collision",
+      "stage": "06",
+      "expected": "concave profile aligns within0.01m; not flat bridge",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_Gutter_L_Inner_collision",
+      "stage": "06",
+      "expected": "concave profile aligns within0.01m; not flat bridge",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_Gutter_R_Inner_collision",
+      "stage": "06",
+      "expected": "concave profile aligns within0.01m; not flat bridge",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_Gutter_R_Outer_collision",
+      "stage": "06",
+      "expected": "concave profile aligns within0.01m; not flat bridge",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_lane_collision_L",
+      "stage": "06",
+      "expected": "bounds and top align within0.01m",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_lane_collision_R",
+      "stage": "06",
+      "expected": "bounds and top align within0.01m",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_required_material_identities",
+      "stage": "06",
+      "expected": "wood,pin white/red,3ball colors,gutter/metal,seat,screen",
+      "observed": {
+        "material_ids": [
+          "PinRedStripe.002",
+          "PinWhite.002"
+        ],
+        "seat_assignments": {}
+      },
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S06_normals_and_static_origins",
+      "stage": "06",
+      "expected": "outward surfaces; documented useful static pivots",
+      "observed": "Topology facts recorded; final visual normals/import guide still required",
+      "tolerance": "",
+      "objects": [],
+      "status": "UNRESOLVED",
+      "passed": false
+    },
+    {
+      "id": "S07_Overview_framing",
+      "stage": "07",
+      "expected": "all required target bounds inside positive camera frustum",
+      "observed": {},
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S07_Overview_presentation",
+      "stage": "07",
+      "expected": "camera/light not parented to visual root",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S07_Player_framing",
+      "stage": "07",
+      "expected": "all required target bounds inside positive camera frustum",
+      "observed": {},
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S07_Player_presentation",
+      "stage": "07",
+      "expected": "camera/light not parented to visual root",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S07_PinDeck_framing",
+      "stage": "07",
+      "expected": "all required target bounds inside positive camera frustum",
+      "observed": {},
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S07_PinDeck_presentation",
+      "stage": "07",
+      "expected": "camera/light not parented to visual root",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S07_Props_framing",
+      "stage": "07",
+      "expected": "all required target bounds inside positive camera frustum",
+      "observed": {},
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S07_Props_presentation",
+      "stage": "07",
+      "expected": "camera/light not parented to visual root",
+      "observed": null,
+      "tolerance": "",
+      "objects": [],
+      "status": "FAIL",
+      "passed": false
+    },
+    {
+      "id": "S08_read_only_validation",
+      "stage": "08",
+      "expected": "source geometry/transforms/material assignments unchanged",
+      "observed": true,
+      "tolerance": "",
+      "objects": [],
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "S07_local_manifest",
+      "stage": "07",
+      "expected": "verified same-asset four distinct1280x720 renders with visual review",
+      "observed": "missing render-manifest.json",
+      "passed": false,
+      "status": "FAIL",
+      "objects": [],
+      "tolerance": ""
+    }
+  ],
+  "check_count": 221,
+  "pass_count": 138,
+  "fail_count": 79,
+  "unresolved_count": 4,
+  "stage_results": {
+    "00": "FAIL",
+    "01": "FAIL",
+    "02": "FAIL",
+    "03": "FAIL",
+    "04": "FAIL",
+    "05": "FAIL",
+    "06": "FAIL",
+    "07": "FAIL"
+  },
+  "facts": {
+    "Pin_L_01": {
+      "minimum": [
+        -1.0104999542236328,
+        18.227500915527344,
+        0.0
+      ],
+      "maximum": [
+        -0.8894999623298645,
+        18.348499298095703,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12099999189376831,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_02": {
+      "minimum": [
+        -1.1628999710083008,
+        18.491464614868164,
+        0.0
+      ],
+      "maximum": [
+        -1.0418999195098877,
+        18.612462997436523,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_03": {
+      "minimum": [
+        -0.8580999970436096,
+        18.491464614868164,
+        0.0
+      ],
+      "maximum": [
+        -0.7370999455451965,
+        18.612462997436523,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_04": {
+      "minimum": [
+        -1.3152999877929688,
+        18.755430221557617,
+        0.0
+      ],
+      "maximum": [
+        -1.1942999362945557,
+        18.876428604125977,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_05": {
+      "minimum": [
+        -1.0104999542236328,
+        18.755430221557617,
+        0.0
+      ],
+      "maximum": [
+        -0.8894999623298645,
+        18.876428604125977,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12099999189376831,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_06": {
+      "minimum": [
+        -0.7057000398635864,
+        18.755430221557617,
+        0.0
+      ],
+      "maximum": [
+        -0.5846999883651733,
+        18.876428604125977,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_07": {
+      "minimum": [
+        -1.4677000045776367,
+        19.019393920898438,
+        0.0
+      ],
+      "maximum": [
+        -1.3466999530792236,
+        19.140392303466797,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_08": {
+      "minimum": [
+        -1.1628999710083008,
+        19.019393920898438,
+        0.0
+      ],
+      "maximum": [
+        -1.0418999195098877,
+        19.140392303466797,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_09": {
+      "minimum": [
+        -0.8580999970436096,
+        19.019393920898438,
+        0.0
+      ],
+      "maximum": [
+        -0.7370999455451965,
+        19.140392303466797,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_L_10": {
+      "minimum": [
+        -0.5533000230789185,
+        19.019393920898438,
+        0.0
+      ],
+      "maximum": [
+        -0.43230000138282776,
+        19.140392303466797,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.1210000216960907,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_01": {
+      "minimum": [
+        0.8894999623298645,
+        18.227500915527344,
+        0.0
+      ],
+      "maximum": [
+        1.0104999542236328,
+        18.348499298095703,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12099999189376831,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_02": {
+      "minimum": [
+        0.7370999455451965,
+        18.491464614868164,
+        0.0
+      ],
+      "maximum": [
+        0.8580999970436096,
+        18.612462997436523,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_03": {
+      "minimum": [
+        1.0418999195098877,
+        18.491464614868164,
+        0.0
+      ],
+      "maximum": [
+        1.1628999710083008,
+        18.612462997436523,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_04": {
+      "minimum": [
+        0.5846999883651733,
+        18.755430221557617,
+        0.0
+      ],
+      "maximum": [
+        0.7057000398635864,
+        18.876428604125977,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_05": {
+      "minimum": [
+        0.8894999623298645,
+        18.755430221557617,
+        0.0
+      ],
+      "maximum": [
+        1.0104999542236328,
+        18.876428604125977,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12099999189376831,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_06": {
+      "minimum": [
+        1.1942999362945557,
+        18.755430221557617,
+        0.0
+      ],
+      "maximum": [
+        1.3152999877929688,
+        18.876428604125977,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_07": {
+      "minimum": [
+        0.43230000138282776,
+        19.019393920898438,
+        0.0
+      ],
+      "maximum": [
+        0.5533000230789185,
+        19.140392303466797,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.1210000216960907,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_08": {
+      "minimum": [
+        0.7370999455451965,
+        19.019393920898438,
+        0.0
+      ],
+      "maximum": [
+        0.8580999970436096,
+        19.140392303466797,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_09": {
+      "minimum": [
+        1.0418999195098877,
+        19.019393920898438,
+        0.0
+      ],
+      "maximum": [
+        1.1628999710083008,
+        19.140392303466797,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Pin_R_10": {
+      "minimum": [
+        1.3466999530792236,
+        19.019393920898438,
+        0.0
+      ],
+      "maximum": [
+        1.4677000045776367,
+        19.140392303466797,
+        0.38100001215934753
+      ],
+      "dimensions": [
+        0.12100005149841309,
+        0.12099838256835938,
+        0.38100001215934753
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.19050000607967377
+      ],
+      "local_minimum": [
+        -0.060499999672174454,
+        -0.060499999672174454,
+        0.0
+      ],
+      "local_maximum": [
+        0.060499999672174454,
+        0.060499999672174454,
+        0.38100001215934753
+      ],
+      "triangles": 480,
+      "faces": 256,
+      "degenerate_faces": 0,
+      "boundary_edges": 32,
+      "nonmanifold_edges": 32,
+      "signed_volume": 0.002128346919757572,
+      "material_colors": [
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ]
+      ],
+      "material_face_counts": {
+        "0": 192,
+        "1": 64
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Lane_L_Surface": {
+      "minimum": [
+        -1.4833999872207642,
+        0.0,
+        -0.05000000074505806
+      ],
+      "maximum": [
+        -0.41659998893737793,
+        19.200000762939453,
+        0.0
+      ],
+      "dimensions": [
+        1.0667999982833862,
+        19.200000762939453,
+        0.05000000074505806
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "local_minimum": [
+        -0.5333999991416931,
+        -9.600000381469727,
+        -0.02500000037252903
+      ],
+      "local_maximum": [
+        0.5333999991416931,
+        9.600000381469727,
+        0.02500000037252903
+      ],
+      "triangles": 12,
+      "faces": 6,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 1.024128054307938,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 6
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Lane_R_Surface": {
+      "minimum": [
+        0.41659998893737793,
+        0.0,
+        -0.05000000074505806
+      ],
+      "maximum": [
+        1.4833999872207642,
+        19.200000762939453,
+        0.0
+      ],
+      "dimensions": [
+        1.0667999982833862,
+        19.200000762939453,
+        0.05000000074505806
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "local_minimum": [
+        -0.5333999991416931,
+        -9.600000381469727,
+        -0.02500000037252903
+      ],
+      "local_maximum": [
+        0.5333999991416931,
+        9.600000381469727,
+        0.02500000037252903
+      ],
+      "triangles": 12,
+      "faces": 6,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 1.024128054307938,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 6
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Approach_L": {
+      "minimum": [
+        -1.4833999872207642,
+        -4.572000026702881,
+        -0.05000000074505806
+      ],
+      "maximum": [
+        -0.41659998893737793,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.0667999982833862,
+        4.572000026702881,
+        0.05000000074505806
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "local_minimum": [
+        -0.5333999991416931,
+        -2.2860000133514404,
+        -0.02500000037252903
+      ],
+      "local_maximum": [
+        0.5333999991416931,
+        2.2860000133514404,
+        0.02500000037252903
+      ],
+      "triangles": 12,
+      "faces": 6,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.24387048466586708,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 6
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Approach_R": {
+      "minimum": [
+        0.41659998893737793,
+        -4.572000026702881,
+        -0.05000000074505806
+      ],
+      "maximum": [
+        1.4833999872207642,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.0667999982833862,
+        4.572000026702881,
+        0.05000000074505806
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "local_minimum": [
+        -0.5333999991416931,
+        -2.2860000133514404,
+        -0.02500000037252903
+      ],
+      "local_maximum": [
+        0.5333999991416931,
+        2.2860000133514404,
+        0.02500000037252903
+      ],
+      "triangles": 12,
+      "faces": 6,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.24387048466586708,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 6
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Gutter_L_Outer": {
+      "minimum": [
+        -1.7244000434875488,
+        0.0,
+        -0.11999999731779099
+      ],
+      "maximum": [
+        -1.4844000339508057,
+        19.200000762939453,
+        0.0
+      ],
+      "dimensions": [
+        0.24000000953674316,
+        19.200000762939453,
+        0.11999999731779099
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.049999999813735485
+      ],
+      "local_minimum": [
+        -0.12000001221895218,
+        -9.600000381469727,
+        -0.009999999776482582
+      ],
+      "local_maximum": [
+        0.12000001221895218,
+        9.600000381469727,
+        0.10999999940395355
+      ],
+      "triangles": 36,
+      "faces": 18,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.1689599877166739,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 18
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Gutter_L_Inner": {
+      "minimum": [
+        -0.4156000018119812,
+        0.0,
+        -0.11999999731779099
+      ],
+      "maximum": [
+        -0.17559999227523804,
+        19.200000762939453,
+        0.0
+      ],
+      "dimensions": [
+        0.24000000953674316,
+        19.200000762939453,
+        0.11999999731779099
+      ],
+      "local_center": [
+        -7.450580596923828e-09,
+        0.0,
+        0.049999999813735485
+      ],
+      "local_minimum": [
+        -0.12000001221895218,
+        -9.600000381469727,
+        -0.009999999776482582
+      ],
+      "local_maximum": [
+        0.11999999731779099,
+        9.600000381469727,
+        0.10999999940395355
+      ],
+      "triangles": 36,
+      "faces": 18,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.16895998771667387,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 18
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Gutter_R_Inner": {
+      "minimum": [
+        0.17559999227523804,
+        0.0,
+        -0.11999999731779099
+      ],
+      "maximum": [
+        0.4156000018119812,
+        19.200000762939453,
+        0.0
+      ],
+      "dimensions": [
+        0.24000000953674316,
+        19.200000762939453,
+        0.11999999731779099
+      ],
+      "local_center": [
+        7.450580596923828e-09,
+        0.0,
+        0.049999999813735485
+      ],
+      "local_minimum": [
+        -0.11999999731779099,
+        -9.600000381469727,
+        -0.009999999776482582
+      ],
+      "local_maximum": [
+        0.12000001221895218,
+        9.600000381469727,
+        0.10999999940395355
+      ],
+      "triangles": 36,
+      "faces": 18,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.1689599877166739,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 18
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "Gutter_R_Outer": {
+      "minimum": [
+        1.4844000339508057,
+        0.0,
+        -0.11999999731779099
+      ],
+      "maximum": [
+        1.7244000434875488,
+        19.200000762939453,
+        0.0
+      ],
+      "dimensions": [
+        0.24000000953674316,
+        19.200000762939453,
+        0.11999999731779099
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.049999999813735485
+      ],
+      "local_minimum": [
+        -0.12000001221895218,
+        -9.600000381469727,
+        -0.009999999776482582
+      ],
+      "local_maximum": [
+        0.12000001221895218,
+        9.600000381469727,
+        0.10999999940395355
+      ],
+      "triangles": 36,
+      "faces": 18,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.1689599877166739,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 18
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "PinDeck_L": {
+      "minimum": [
+        -1.4833999872207642,
+        18.5,
+        -0.019999999552965164
+      ],
+      "maximum": [
+        -0.41659998893737793,
+        19.200000762939453,
+        0.0
+      ],
+      "dimensions": [
+        1.0667999982833862,
+        0.7000007629394531,
+        0.019999999552965164
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "local_minimum": [
+        -0.5333999991416931,
+        -0.3499999940395355,
+        -0.009999999776482582
+      ],
+      "local_maximum": [
+        0.5333999991416931,
+        0.3499999940395355,
+        0.009999999776482582
+      ],
+      "triangles": 12,
+      "faces": 6,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.014935199387794739,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 6
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "PinDeck_R": {
+      "minimum": [
+        0.41659998893737793,
+        18.5,
+        -0.019999999552965164
+      ],
+      "maximum": [
+        1.4833999872207642,
+        19.200000762939453,
+        0.0
+      ],
+      "dimensions": [
+        1.0667999982833862,
+        0.7000007629394531,
+        0.019999999552965164
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "local_minimum": [
+        -0.5333999991416931,
+        -0.3499999940395355,
+        -0.009999999776482582
+      ],
+      "local_maximum": [
+        0.5333999991416931,
+        0.3499999940395355,
+        0.009999999776482582
+      ],
+      "triangles": 12,
+      "faces": 6,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.014935199387794739,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 6
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    },
+    "RearPit": {
+      "minimum": [
+        -1.7999999523162842,
+        19.19999885559082,
+        -0.3199999928474426
+      ],
+      "maximum": [
+        1.7999999523162842,
+        19.899999618530273,
+        -0.30000001192092896
+      ],
+      "dimensions": [
+        3.5999999046325684,
+        0.7000007629394531,
+        0.019999980926513672
+      ],
+      "local_center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "local_minimum": [
+        -1.7999999523162842,
+        -0.3499999940395355,
+        -0.009999999776482582
+      ],
+      "local_maximum": [
+        1.7999999523162842,
+        0.3499999940395355,
+        0.009999999776482582
+      ],
+      "triangles": 12,
+      "faces": 6,
+      "degenerate_faces": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "signed_volume": 0.05039999668002136,
+      "material_colors": [],
+      "material_face_counts": {
+        "0": 6
+      },
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "modifiers": [],
+      "finite": true
+    }
+  },
+  "scope": "Geometry findings plus explicit unresolved visual/delivery criteria; no repair or render was executed.",
+  "asset_source_job": "c3e6eb270cce4cdd82671452900849bc",
+  "validation_job": "cf75e2259d47472bab2dfc2d4f7230cd"
+}

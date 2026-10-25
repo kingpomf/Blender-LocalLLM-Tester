@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "source": "c3e6eb270cce4cdd82671452900849bc",
+  "checkpoint_sha256": "38411b0cf6add697e68d6f1ef9a507ab5c6dd230cd4b6f7fcc31c4a6fb7f496b",
+  "hard_streak": {},
+  "hard_failures": 4,
+  "api_corrections": 1,
+  "epoch": 0,
+  "pending_jobs": [],
+  "observed_jobs": []
+}

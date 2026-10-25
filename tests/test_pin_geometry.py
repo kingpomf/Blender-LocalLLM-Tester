@@ -29,9 +29,10 @@ class PinGeometryTests(unittest.TestCase):
                           for face,index in zip(faces,indices) if index==1})
         self.assertEqual(intervals,[(.270,.276),(.288,.294)])
 
-    def test_actual_worker_payload_matches_tested_geometry(self):
+    def test_archived_worker_payload_matches_tested_geometry(self):
         root=Path(__file__).resolve().parents[1]
-        tree=ast.parse((root/'artifacts/scripts/stage03_pins_corrected.py').read_text())
+        # Historical regression evidence is not an active script for the fresh model.
+        tree=ast.parse((root/'artifacts/archive/qwen36-final-before-qwen38-turbo-20261025/artifacts/scripts/stage03_pins_corrected.py').read_text())
         function=next(node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name=='run_stage')
         def assigns(node,name):
             return isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id==name for t in node.targets)

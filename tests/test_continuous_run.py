@@ -188,14 +188,16 @@ class ContinuousRunTests(unittest.TestCase):
             workflow(run,lambda:{'status':'NOT_STARTED','passed':set()},lambda:False,lambda:True)
         self.assertEqual(calls,['references'])
 
-    def test_primary_model_is_qwen36_for_every_command(self):
+    def test_primary_model_is_qwen38_turbo_for_every_command(self):
         import json
         from scripts.trial_settings import MODEL
         root=Path(__file__).resolve().parents[1]
-        self.assertEqual(MODEL,'z6-llama/qwen36-35b-a3b-mtp-q8')
+        self.assertEqual(MODEL,'z6-llama/qwen38-turbo')
         config=json.loads((root/'opencode.json').read_text())
         self.assertEqual(config['model'],MODEL)
         self.assertEqual(config['agent']['build']['model'],MODEL)
+        self.assertEqual(config['agent']['bowling-coder']['model'],MODEL)
+        self.assertEqual(config['provider']['z6-llama']['models']['qwen38-turbo']['limit'],{'context':139264,'output':16384})
         for name in ['bowling-run','bowling-references','bowling-start','bowling-continue']:
             self.assertIn('model: '+MODEL,(root/'.opencode/commands'/f'{name}.md').read_text())
 

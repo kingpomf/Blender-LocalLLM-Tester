@@ -1,0 +1,23 @@
+{
+  "authorization": "User authorized context recovery repairs, archived zero-error reset, commit/push all changes and new detached run.",
+  "model": "z6-llama/qwen38-turbo",
+  "agent": "bowling-coder",
+  "trial": "bowling52-qwen38-turbo-20261025-r1",
+  "source_job": "c3e6eb270cce4cdd82671452900849bc",
+  "checkpoint": "artifacts/blend/BowlingPair01.blend",
+  "checkpoint_sha256": "38411b0cf6add697e68d6f1ef9a507ab5c6dd230cd4b6f7fcc31c4a6fb7f496b",
+  "guard_rows_sha256": "86453e99595869b772b19d677f8fbeaf5d4ae586b76db61ff1d3af7624117b6e",
+  "validation_sha256": "23c53ee55e0231f3a25f301dfcd12d9174a7626aed52973dfdfb87b332cab530",
+  "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+  "limits": {
+    "per_source": 6,
+    "total": 20
+  },
+  "failure_budget_reset_id": 1,
+  "fresh_coding_session": true,
+  "workflow_managed": true,
+  "first_stage": "00",
+  "diagnostic_report": "testing/context-recovery-reset-20261025/HANDOFF.md",
+  "handoff": "CONTROLLED_CONTINUATION.md",
+  "scope": "Continue from the current verified checkpoint and completed references. Repair the FIRST failing stage, starting with actual root parenting/hierarchy, using compact scene_summary and validation_details. Avoid whole-file scene/report reads and repeated pin rewrites without measured progress. Context-only overflow may rotate sessions only after accepted-work reconciliation; preserve every hard STOP and uncertain ID."
+}

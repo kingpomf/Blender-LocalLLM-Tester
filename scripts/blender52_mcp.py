@@ -197,6 +197,16 @@ def server(qualification=False):
 
     if workflow:
         @app.tool()
+        async def blender_scene_summary(source_job: str | None = None,names: list[str] | None = None) -> dict:
+            """Compact current-scene inspection without a new job. Query at most6 exact object names for transforms/parents/topology. Prefer this to fetching/reading a full scene.json; keeps model context bounded."""
+            return await workflow.call('scene_summary',source_job=source_job,names=names)
+
+        @app.tool()
+        async def blender_validation_details(stage: str | None = None,check_ids: list[str] | None = None,offset: int = 0) -> dict:
+            """Read a bounded page of actual current validation measurements. Filter stage00..07 or up to4 check IDs, and follow next_offset. Full reports remain unchanged locally; never load them wholesale into context."""
+            return await workflow.call('validation_details',stage=stage,check_ids=check_ids,offset=offset)
+
+        @app.tool()
         async def blender_api_lookup(query: str) -> dict:
             """Look up the exact installed Blender5.2 API before coding. Query Mesh, Mesh.update, or bpy.ops.mesh.primitive_cube_add; returns supported members/keywords. API corrections are recoverable and do not consume the hard-failure budget."""
             return await workflow.call('api_lookup',query=query)
@@ -230,7 +240,7 @@ def server(qualification=False):
 
         @app.tool()
         async def blender_review_presentation() -> dict:
-            """Queue fixed pixel-based review of all four current beauty images. Poll its review- ID with job_status. Qwen3.6 stays the agent; an image-only helper records actual visibility and qualitative evidence, then refreshes measured validation."""
+            """Queue fixed pixel-based review of all four current beauty images. Poll its review- ID with job_status. The selected trial model stays the agent; an image-only helper records actual visibility and qualitative evidence, then refreshes measured validation."""
             return await workflow.call('review_presentation')
 
         @app.tool()

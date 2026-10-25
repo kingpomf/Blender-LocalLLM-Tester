@@ -8,7 +8,7 @@ import subprocess
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-from trial_settings import TRIAL, MODEL
+from trial_settings import TRIAL, MODEL, CONTEXT, OUTPUT, COMPACTION_RESERVE
 
 
 async def main():
@@ -17,7 +17,7 @@ async def main():
     result = subprocess.run(['opencode', 'debug', 'config'], cwd=root,
                             capture_output=True, text=True, check=True)
     config = json.loads(result.stdout)
-    assert config['model'] == 'z6-llama/qwen36-35b-a3b-mtp-q8'
+    assert config['model'] == MODEL
     assert config['small_model'] == config['model']
     assert config['agent']['build']['model'] == MODEL
     assert config['agent']['bowling-coder']['model']==MODEL
@@ -25,8 +25,9 @@ async def main():
     assert config['command']['bowling-start']['agent']=='bowling-coder'
     assert all(config['command'][name]['model']==MODEL for name in ['bowling-run','bowling-references','bowling-start','bowling-continue'])
     assert config['experimental']['continue_loop_on_deny'] is True
-    coding_context = config['provider']['z6-llama']['models']['qwen36-35b-a3b-mtp-q8']['limit']['context']
-    assert coding_context in {262144, 1009920}
+    model_profile=config['provider']['z6-llama']['models'][MODEL.split('/',1)[1]]
+    coding_context=model_profile['limit']['context']
+    assert coding_context == CONTEXT and model_profile['limit']['output']==OUTPUT
     assert config['mcp']['z6-blender-worker']['enabled'] is False
     assert config['mcp']['imageMCP']['enabled'] is True
     assert config['provider']['z6-llama']['models']['qwen38-27b']['attachment'] is True
@@ -35,14 +36,15 @@ async def main():
     assert config.get('agent',{}).get('build',{}).get('steps') is None
     assert config['compaction']['auto'] is True
     assert config['compaction']['prune'] is True
-    assert config['compaction']['reserved'] == 16384
+    assert config['compaction']['reserved'] == COMPACTION_RESERVE
+    assert config['tool_output']=={'max_lines':160,'max_bytes':12000}
     params = StdioServerParameters(command=mcp['command'][0], args=mcp['command'][1:],
                                    env=dict(os.environ), cwd=str(root))
     async with stdio_client(params) as streams:
         async with ClientSession(*streams, read_timeout_seconds=timedelta(seconds=90)) as session:
             await session.initialize()
             tools = await session.list_tools()
-            required={'blender_api_lookup','blender_workflow_status','blender_checkpoint','blender_validate','blender_render_view',
+            required={'blender_scene_summary','blender_validation_details','blender_api_lookup','blender_workflow_status','blender_checkpoint','blender_validate','blender_render_view',
                       'blender_publish_render','blender_review_presentation','blender_export_delivery','blender_finish_delivery'}
             assert required<={tool.name for tool in tools.tools}
             result = await session.call_tool('blender_capabilities', {})

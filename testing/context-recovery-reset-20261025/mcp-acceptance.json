@@ -1,0 +1,202 @@
+{
+  "passed": true,
+  "tools": [
+    "blender_capabilities",
+    "blender_scene_author",
+    "blender_scene_inspect",
+    "blender_export",
+    "blender_render",
+    "blender_job_status",
+    "blender_job_diagnostics",
+    "blender_job_cancel",
+    "blender_artifact_fetch",
+    "blender_scene_summary",
+    "blender_validation_details",
+    "blender_api_lookup",
+    "blender_workflow_status",
+    "blender_checkpoint",
+    "blender_validate",
+    "blender_render_view",
+    "blender_publish_render",
+    "blender_review_presentation",
+    "blender_export_delivery",
+    "blender_finish_delivery"
+  ],
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 32768
+  },
+  "tool_output": {
+    "max_lines": 160,
+    "max_bytes": 12000
+  },
+  "scene_summary": {
+    "source": "c3e6eb270cce4cdd82671452900849bc",
+    "blender_version": "5.2.3 LTS",
+    "units": {
+      "system": "METRIC",
+      "scale_length": 1.0
+    },
+    "active_camera": null,
+    "object_count": 32,
+    "object_index": [],
+    "index_truncated": false,
+    "objects": [
+      {
+        "dimensions": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "name": "BowlingPair01_ROOT",
+        "type": "EMPTY",
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "parent": null,
+        "collections": [
+          "Scene Collection"
+        ],
+        "materials": []
+      },
+      {
+        "dimensions": [
+          0.12099999934434891,
+          0.12099999934434891,
+          0.38100001215934753
+        ],
+        "name": "Pin_L_01",
+        "type": "MESH",
+        "location": [
+          -0.949999988079071,
+          18.288000106811523,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "parent": null,
+        "collections": [
+          "BP01_PINS",
+          "Scene Collection"
+        ],
+        "materials": [
+          "PinWhite.002",
+          "PinRedStripe.002"
+        ],
+        "topology": {
+          "vertices": 257,
+          "faces": 256,
+          "triangles": 480,
+          "watertight": false,
+          "volume_local": 0.002128346919757572
+        }
+      },
+      {
+        "dimensions": [
+          1.0667999982833862,
+          19.200000762939453,
+          0.05000000074505806
+        ],
+        "name": "Lane_L_Surface",
+        "type": "MESH",
+        "location": [
+          -0.949999988079071,
+          9.600000381469727,
+          -0.02500000037252903
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "parent": null,
+        "collections": [
+          "BP01_STATIC"
+        ],
+        "materials": [],
+        "topology": {
+          "vertices": 8,
+          "faces": 6,
+          "triangles": 12,
+          "watertight": true,
+          "volume_local": 1.024128054307938
+        }
+      }
+    ],
+    "missing_names": [],
+    "next": "Use exact names in scene_summary; validation_details returns selected failed measurements. Do not read a whole scene.json."
+  },
+  "validation_details": {
+    "source": "c3e6eb270cce4cdd82671452900849bc",
+    "total_matching": 1,
+    "checks": [
+      {
+        "id": "S00_hierarchy",
+        "stage": "00",
+        "status": "FAIL",
+        "expected": "all visual meshes descend from root",
+        "observed": [
+          "Lane_L_Surface",
+          "Lane_R_Surface",
+          "Approach_L",
+          "Approach_R",
+          "Gutter_L_Outer",
+          "Gutter_L_Inner",
+          "Gutter_R_Inner",
+          "Gutter_R_Outer",
+          "PinDeck_L",
+          "PinDeck_R",
+          "RearPit",
+          "Pin_L_01",
+          "...truncated"
+        ],
+        "tolerance": ""
+      }
+    ],
+    "next_offset": null,
+    "validation_job": "cf75e2259d47472bab2dfc2d4f7230cd"
+  },
+  "reconciliation": {
+    "passed": true,
+    "source": "c3e6eb270cce4cdd82671452900849bc",
+    "checkpoint_sha256": "38411b0cf6add697e68d6f1ef9a507ab5c6dd230cd4b6f7fcc31c4a6fb7f496b",
+    "hard_streak": {},
+    "hard_failures": 0,
+    "api_corrections": 0,
+    "epoch": 1,
+    "pending_jobs": [],
+    "observed_jobs": []
+  },
+  "attempt_rows_unchanged": true,
+  "response_bytes": {
+    "status": 4500,
+    "scene": 1520,
+    "details": 495
+  }
+}

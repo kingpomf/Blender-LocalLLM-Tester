@@ -1,0 +1,46 @@
+{
+  "state": "archived_fresh_state_ready",
+  "created": 1792931365.085005,
+  "old_model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "old_trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+  "new_model": "z6-llama/qwen38-turbo",
+  "new_trial": "bowling52-qwen38-turbo-20261025-r1",
+  "old_attempts": 108,
+  "old_failures": 33,
+  "preserved_tools": {
+    "artifacts/reports/blender-api-catalog-receipt.json": "acffd41197f51886b551f859b751bc79fbf6ca2655ecf65a005b3c2a56b727ea",
+    "artifacts/scripts/validate_bowling_pair01.py": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+    "artifacts/reports/blender-api-catalog.json": "5d4d4cc278e23b9852f17d51557f781a9874a7074a512c5441a8b8688b07c4c8"
+  },
+  "moves": [
+    "artifacts/blend",
+    "artifacts/downloads",
+    "artifacts/exports",
+    "artifacts/references",
+    "artifacts/renders",
+    "artifacts/reports",
+    "artifacts/scripts"
+  ],
+  "model_probe": {
+    "model": "z6-llama/qwen38-turbo",
+    "advertised": true,
+    "context": 139264,
+    "output": 16384,
+    "tool_call": true,
+    "reasoning": true,
+    "gateway_model": {
+      "id": "qwen38-turbo",
+      "object": "model",
+      "owned_by": "llamacpp",
+      "enabled": true,
+      "status": {
+        "value": "unloaded",
+        "failed": null,
+        "exit_code": null
+      }
+    }
+  },
+  "completed": 1792931365.108578,
+  "fresh_attempts": 0,
+  "fresh_asset_source": null
+}

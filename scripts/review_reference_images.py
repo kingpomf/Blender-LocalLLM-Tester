@@ -1,4 +1,4 @@
-"""Fixed pixel-description helper. Qwen3.6 remains the planning/coding agent."""
+"""Fixed pixel-description helper; the selected trial model remains planner/coder."""
 import base64
 import json
 from pathlib import Path
@@ -95,7 +95,7 @@ def main():
     temporary.write_text(json.dumps(manifest,indent=2)+'\n')
     temporary.replace(manifest_path)
     print(json.dumps({'reviewed':True,'helper_only':True,'reviewer':VISION_HELPER,
-                      'observations':observations,'next':'Qwen3.6: write DESIGN_GUIDE.md using these observations, then validate references.'},indent=2))
+                    'observations':observations,'next':'Trial agent: write DESIGN_GUIDE.md using these observations, then validate references.'},indent=2))
 
 
 if __name__=='__main__':

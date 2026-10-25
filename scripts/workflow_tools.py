@@ -30,6 +30,18 @@ def atomic_json(path,data):
     temporary.replace(path)
 
 
+def brief(value,depth=0):
+    if depth>=3:return str(value)[:240]
+    if isinstance(value,dict):
+        priority={'dimensions':0,'world_bounds':1,'local_bounds':2,'red_face_count':3,'bands':4,'height':5,'diameter':6}
+        keys=sorted(value,key=lambda key:priority.get(key,20))
+        result={key:brief(value[key],depth+1) for key in keys[:14]}
+        if len(keys)>14:result['_truncated_keys']=len(keys)-14
+        return result
+    if isinstance(value,list):return [brief(item,depth+1) for item in value[:12]]+(['...truncated'] if len(value)>12 else [])
+    return value[:400] if isinstance(value,str) else value
+
+
 class Workflow:
     def __init__(self,root,client,guard,validator_sha256=VALIDATOR_SHA256):
         self.root=Path(root);self.client=client;self.guard=guard
@@ -49,6 +61,47 @@ class Workflow:
         catalog=self.catalog()
         if catalog is None:return self.error('api_catalog_missing','Operator must capture the installed runtime API first.')
         return {'version':catalog['version'],'build_hash':catalog['build_hash'],**lookup(catalog,query)}
+
+    async def scene_summary(self,source_job=None,names=None):
+        selected=self.current(source_job)
+        if isinstance(selected,dict):return selected
+        if not selected:return self.error('source_required','No scene exists yet; start Stage00 after references pass.')
+        if names is not None and (len(names)>6 or any(not isinstance(name,str) or len(name)>100 for name in names)):
+            return self.error('bounded_query','Select at most6 exact object names per request.')
+        fetched=await self.client.fetch(selected,'scene.json');scene=json.loads(Path(fetched['path']).read_text())
+        objects=scene.get('objects',[])
+        chosen=[obj for obj in objects if obj.get('name') in names] if names else []
+        fields={'name','type','location','rotation','scale','dimensions','parent','collections','materials','topology','camera'}
+        return {'source':selected,'blender_version':scene.get('blender_version'),'units':scene.get('units'),
+            'active_camera':scene.get('active_camera'),'object_count':len(objects),
+            'object_index':[{'name':obj.get('name'),'type':obj.get('type'),'parent':obj.get('parent')} for obj in objects[:30]] if not names else [],
+            'index_truncated':not names and len(objects)>30,
+            'objects':[brief({key:value for key,value in obj.items() if key in fields}) for obj in chosen],
+            'missing_names':[name for name in names or [] if not any(obj.get('name')==name for obj in chosen)],
+            'next':'Use exact names in scene_summary; validation_details returns selected failed measurements. Do not read a whole scene.json.'}
+
+    async def validation_details(self,stage=None,check_ids=None,offset=0):
+        if stage is not None and not re.fullmatch('0[0-7]',stage):return self.error('invalid_stage','Use stage00..07.')
+        if check_ids is not None and (len(check_ids)>4 or any(not isinstance(key,str) or len(key)>120 for key in check_ids)):
+            return self.error('bounded_query','Select at most4 check IDs.')
+        if type(offset) is not int or not 0<=offset<=1000:return self.error('invalid_offset','Use offset0..1000.')
+        receipt=self.state.get('validation')
+        if not receipt or receipt['source_job']!=self.state.get('current_source'):
+            return self.error('validation_pending','Poll the current asset/validation job before reading measured details.')
+        path=self.root/receipt['path'];data=path.read_bytes()
+        if hashlib.sha256(data).hexdigest()!=receipt['sha256']:raise GuardBlocked('STOP: immutable validation receipt changed')
+        report=json.loads(data)
+        checks=[check for check in report['checks'] if (not stage or check['stage']==stage) and
+            (check['id'] in check_ids if check_ids else check['status']!='PASS')]
+        selected=[]
+        for check in checks[offset:offset+4]:
+            item={key:brief(check.get(key)) for key in ['id','stage','status','expected','observed','tolerance']}
+            if len(json.dumps(item))>1800:
+                item['observed']=json.dumps(item['observed'])[:700]+' [bounded preview]'
+                item['expected']=str(item['expected'])[:240];item['tolerance']=str(item['tolerance'])[:100]
+            selected.append(item)
+        return {'source':receipt['source_job'],'total_matching':len(checks),'checks':selected,
+            'next_offset':offset+4 if offset+4<len(checks) else None,'validation_job':receipt['job_id']}
 
     def load(self):
         self.state=json.loads(self.path.read_text()) if self.path.exists() else {'jobs':{},'views':{},'validations':{},'reviews':{}}
@@ -197,7 +250,8 @@ class Workflow:
         sync_ledgers(self.root)
         return {'id':row['id'],'state':'completed','operation':'validation','execution_succeeded':True,
                 'asset_passed':merged['passed'],'validation':self.state['validation'],
-                'remaining_checks':[{'id':c['id'],'status':c['status'],'observed':str(c['observed'])[:240]} for c in merged['checks'] if c['status']!='PASS']}
+                 'remaining_checks':[{'id':c['id'],'status':c['status'],'observed':str(c['observed'])[:240]} for c in merged['checks'] if c['status']!='PASS'][:12],
+                 'remaining_check_count':merged['fail_count']+merged['unresolved_count'],'next_tool':'blender_validation_details'}
 
     def sync_failure_mirrors(self):
         if self.state.get('validation') and self.state['validation']['source_job']==self.state.get('current_source') and not self.pending():
@@ -446,7 +500,7 @@ class Workflow:
                 raise GuardBlocked('STOP: machine-owned validation receipt changed; reconcile before work')
             (self.root/'artifacts/reports/validation.json').write_bytes(saved.read_bytes())
             if not self.pending():sync_ledgers(self.root)
-        if self.state.get('delivery',{}).get('source')==self.state.get('current_source'):
+        if self.state.get('delivery') and self.state['delivery']['source']==self.state.get('current_source'):
             self.complete_mirrors()
         summary=self.guard.summary()
         summary.pop('accepted_jobs',None)
@@ -457,7 +511,8 @@ class Workflow:
                         'observed':str(c.get('observed'))[:320]} for c in report['checks'] if c['status']!='PASS']
         return {'current_source':self.state.get('current_source'),'checkpoint':self.state.get('checkpoint'),
                 'validation':validation,'pending_jobs':self.pending(),'guard':summary,
-                'remaining_checks':remaining,
+                'remaining_checks':remaining[:12],'remaining_check_count':len(remaining),
+                'remaining_checks_truncated':len(remaining)>12,'next_tool':'blender_validation_details',
                 'reviews':{key:{k:value for k,value in row.items() if k in {'state','source','reason','warnings'}} for key,row in self.state['reviews'].items()},
                 'views':{key:{k:value for k,value in row.items() if k in {'role','state','render_job','camera_job'}} for key,row in self.state['views'].items()},
                 'instructions':'Use author for scene edits only. Poll every accepted ID. Checkpoints/validation/stage mirrors are automatic. Use render_view for queued views; never render inline or manually claim PASS.'}

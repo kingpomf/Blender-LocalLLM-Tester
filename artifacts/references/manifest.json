@@ -1,75 +1,76 @@
 {
-  "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
-  "inspection_method": "visual",
-  "reviewer_model": "z6-llama/qwen38-27b",
+  "trial": "bowling52-qwen38-turbo-20261025-r1",
+  "generated_at": "2026-10-25T00:00:00Z",
   "images": [
     {
       "role": "overview",
       "tool": "imageMCP",
       "provider": "elitedesk-wsl",
       "model": "qwen-image-2.1-q4",
-      "request_id": "bowling-ref-overview-36001",
-      "job_id": "edimg-eb0dd64f1ba74874b12300d94cc5632b",
+      "request_id": "bowling52-qwen38-turbo-20261025-r1-overview",
+      "job_id": "edimg-763d1cedb0864793ba681663ea7a11bb",
       "state": "completed",
-      "prompt": "A stylized-realistic bowling alley pair viewed from the approach side at a three-quarter angle, showing both lanes stretching toward the pins, the ball return centered between the approaches, seating areas behind, scoreboards mounted above each lane, and the full alley atmosphere with warm ambient lighting. Clean modular game-art aesthetic with readable silhouettes, wood-toned lanes, dark gutters, white pin racks, and a cohesive color palette. Composition shows the complete pair from a player's perspective looking down the lanes.",
-      "seed": 36001,
+      "prompt": "A cohesive modular two-lane ten-pin bowling alley asset kit in clean low-poly stylized-realistic game art. Three-quarter view from the approach area showing both lanes with wooden board variation along their length, visible foul lines, targeting arrows, approach dots, four concave gutters, pin decks, two complete triangular ten-pin racks with white pins and red neck bands, ball return hood and rack with three colorful bowling balls, two overhead scoreboards, seating benches behind the approaches, rear masking wall with lane labels, alley floor, and decorative wall stripes. Balanced indoor lighting, readable silhouettes, polished surfaces not blown out. Original generic design without external logos.",
+      "seed": 1001,
       "width": 512,
       "height": 512,
-      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-eb0dd64f1ba74874b12300d94cc5632b/image-0ed9cb56b87d37a21872ecda49a351415052afea9051f538f167ce5a95c8cfbb.png",
-      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-eb0dd64f1ba74874b12300d94cc5632b/receipt.json",
-      "bytes": 395268,
-      "sha256": "0ed9cb56b87d37a21872ecda49a351415052afea9051f538f167ce5a95c8cfbb"
+      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-763d1cedb0864793ba681663ea7a11bb/image-179073e5a20443842c15afb95e505a4fceeca1b43e3b0fb053be1c63b23b55c5.png",
+      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-763d1cedb0864793ba681663ea7a11bb/receipt.json",
+      "bytes": 379472,
+      "sha256": "179073e5a20443842c15afb95e505a4fceeca1b43e3b0fb053be1c63b23b55c5"
     },
     {
       "role": "layout",
       "tool": "imageMCP",
       "provider": "elitedesk-wsl",
       "model": "qwen-image-2.1-q4",
-      "request_id": "bowling-ref-layout-36002",
-      "job_id": "edimg-17a13eb70a6c4c1cb1f19007e294b2b2",
+      "request_id": "bowling52-qwen38-turbo-20261025-r1-layout",
+      "job_id": "edimg-d11df1df5e1f4176b3c42772537da4a3",
       "state": "completed",
-      "prompt": "An elevated top-down overview of a two-lane bowling alley showing the complete layout from behind the approach. Both lanes visible with their full length, parallel gutters on each side, flat decks at the pin area, recessed pit at the rear, the ball return unit centered between the approach corridors, benches behind the approach, and scoreboards above each lane. Clear top-down orthographic-style perspective showing precise lane alignment, gutter spacing, deck boundaries, pit depth, and overall alley footprint. Stylized-realistic game-art style with readable geometry.",
-      "seed": 36002,
+      "prompt": "Elevated top-down perspective layout diagram of a modular two-lane ten-pin bowling alley asset. Shows both lane surfaces side by side with gutters on all four edges, approach areas behind each lane, pin decks at the far end with triangular pin rack layouts, ball return system centered between approaches, seating area behind approaches, scoreboards overhead, rear catch pits, masking wall. Clean technical layout showing the modular arrangement, clear spacing, and functional zones. Stylized realistic game art style with labels implied by arrangement.",
+      "seed": 1002,
       "width": 512,
       "height": 512,
-      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-17a13eb70a6c4c1cb1f19007e294b2b2/image-d7cb3396a17a072e6760524f6351763b19a4416c00bcf02e19996d3cdefa801b.png",
-      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-17a13eb70a6c4c1cb1f19007e294b2b2/receipt.json",
-      "bytes": 288467,
-      "sha256": "d7cb3396a17a072e6760524f6351763b19a4416c00bcf02e19996d3cdefa801b"
+      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-d11df1df5e1f4176b3c42772537da4a3/image-38e22a73d6f3c31687e25383ddf8ce094d6d99b53ec24c44ab282a8b1a96a67b.png",
+      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-d11df1df5e1f4176b3c42772537da4a3/receipt.json",
+      "bytes": 304275,
+      "sha256": "38e22a73d6f3c31687e25383ddf8ce094d6d99b53ec24c44ab282a8b1a96a67b"
     },
     {
       "role": "details",
       "tool": "imageMCP",
       "provider": "elitedesk-wsl",
       "model": "qwen-image-2.1-q4",
-      "request_id": "bowling-ref-details-36003",
-      "job_id": "edimg-528cae6a52a04b609b94c94430d40322",
+      "request_id": "bowling52-qwen38-turbo-20261025-r1-details",
+      "job_id": "edimg-dbb1177e5a674a9d8ef53d4e053f1c10",
       "state": "completed",
-      "prompt": "A detail sheet of individual bowling alley elements in stylized-realistic game-art style, showing: a close-up of a ten-pin bowling pin with white body and two red bands around the neck; three bowling balls in distinct colors (blue, burgundy/red, green/teal) with visible recessed finger holes; a cross-section showing ball return rack cradle supporting balls; and a material palette swatch showing wood grain, white pin surface, red stripe, gutter metal, seat fabric, and screen panel colors. All elements on a clean neutral background with clear separation for use as reference.",
-      "seed": 36003,
+      "prompt": "Close-up details of modular bowling alley game assets in stylized-realistic low-poly art. Shows individual white bowling pins with red neck bands and proper ten-pin silhouette, colorful bowling balls (blue, burgundy, green) with visible recessed finger holes, ball return rack and cradle supporting the balls, wooden lane surface with board grain variation, dark concave gutter cross-section, targeting arrows and foul line markings, overhead scoreboard with grid display and lane labels, seating bench, and decorative alley wall paneling. Balanced lighting highlighting material differences and surface details.",
+      "seed": 1003,
       "width": 512,
       "height": 512,
-      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-528cae6a52a04b609b94c94430d40322/image-8eb756380deddfc00d5e4925aed730974e5898b9eb5fd32528b133a83b80bf23.png",
-      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-528cae6a52a04b609b94c94430d40322/receipt.json",
-      "bytes": 259992,
-      "sha256": "8eb756380deddfc00d5e4925aed730974e5898b9eb5fd32528b133a83b80bf23"
+      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-dbb1177e5a674a9d8ef53d4e053f1c10/image-facbd9bddf762e2b184ab2060441c3aa81da76774cb5da8f067fa533958e9827.png",
+      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-dbb1177e5a674a9d8ef53d4e053f1c10/receipt.json",
+      "bytes": 403461,
+      "sha256": "facbd9bddf762e2b184ab2060441c3aa81da76774cb5da8f067fa533958e9827"
     }
   ],
+  "inspection_method": "visual",
+  "reviewer_model": "z6-llama/qwen38-27b",
   "visual_review": [
     {
-      "sha256": "0ed9cb56b87d37a21872ecda49a351415052afea9051f538f167ce5a95c8cfbb",
+      "sha256": "179073e5a20443842c15afb95e505a4fceeca1b43e3b0fb053be1c63b23b55c5",
       "role": "overview",
-      "observations": "A wide, symmetrical view of a bowling alley with two lanes converging toward a pin deck. The lanes are light wood, separated by a long white and black ball return. Orange seating lines the sides, and two digital scoreboards hang on the far wall above the pins."
+      "observations": "A wide, low-angle view of a stylized bowling alley with multiple parallel wooden lanes, white pins with red stripes, gray gutters, and a central ball return tray holding a red ball. The background shows dark seating, colorful balls, and two blue hanging screens."
     },
     {
-      "sha256": "d7cb3396a17a072e6760524f6351763b19a4416c00bcf02e19996d3cdefa801b",
+      "sha256": "38e22a73d6f3c31687e25383ddf8ce094d6d99b53ec24c44ab282a8b1a96a67b",
       "role": "layout",
-      "observations": "A top-down orthographic view showing two parallel wooden lanes flanked by gray gutters and white ball returns. A central gray walkway contains a single bowling ball and a rectangular ball return unit, with a scoreboard structure visible at the top edge."
+      "observations": "A top-down, symmetrical technical view of a lane assembly showing four vertical metallic lane sections separated by light wood panels, with a central gray return mechanism and small orange components, framed by a white border and dark upper housing."
     },
     {
-      "sha256": "8eb756380deddfc00d5e4925aed730974e5898b9eb5fd32528b133a83b80bf23",
+      "sha256": "facbd9bddf762e2b184ab2060441c3aa81da76774cb5da8f067fa533958e9827",
       "role": "details",
-      "observations": "A collection of isolated assets on a white background, including a white pin with red stripes, three colored bowling balls (blue, maroon, green), a cream and black ball return machine, and two swatch panels showing wood grain and solid color blocks."
+      "observations": "A close-up of a gray ball return tray filled with blue, red, and green bowling balls, positioned beside a low-poly pinsetter and a cluster of white pins with red rings on a light wood floor marked with dark lines and arrows."
     }
   ],
   "vision_receipt": "artifacts/references/vision-helper.json"

@@ -1,13 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
-  "small_model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "model": "z6-llama/qwen38-turbo",
+  "small_model": "z6-llama/qwen38-turbo",
   "provider": {
     "z6-llama": {
       "models": {
-        "qwen36-35b-a3b-mtp-q8": {
-          "name": "Qwen3.6 35B A3B MTP UD-Q8_K_XL (256K)",
-          "limit": {"context": 262144, "output": 32768},
+        "qwen38-turbo": {
+          "name": "Qwen3.8 Turbo (136K) — fresh Blender trial",
+          "limit": {"context": 139264, "output": 16384},
           "tool_call": true,
           "reasoning": true,
           "modalities": {"input": ["text"], "output": ["text"]}
@@ -18,11 +18,11 @@
   "instructions": ["AGENTS.md"],
   "share": "disabled",
   "agent": {
-    "build": {"model": "z6-llama/qwen36-35b-a3b-mtp-q8"},
+    "build": {"model": "z6-llama/qwen38-turbo"},
     "bowling-coder": {
-      "description": "Qwen3.6 asset author using enforced MCP checkpoints, validation and render queues",
+      "description": "Qwen3.8 Turbo asset author using installed API guidance and enforced MCP validation/render queues",
       "mode": "primary",
-      "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+      "model": "z6-llama/qwen38-turbo",
       "tools": {"bash": false, "task": false},
       "permission": {
         "bash": "deny",
@@ -59,8 +59,9 @@
   "compaction": {
     "auto": true,
     "prune": true,
-    "reserved": 16384
+    "reserved": 32768
   },
+  "tool_output": {"max_lines": 160, "max_bytes": 12000},
   "watcher": {
     "ignore": [
       ".git/**",

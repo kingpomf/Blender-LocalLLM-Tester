@@ -109,6 +109,49 @@ class WorkflowTests(unittest.IsolatedAsyncioTestCase):
         await self.workflow.call('status',job_id=validation)
         return accepted['id'],validation
 
+    async def test_empty_fresh_trial_status_has_no_source_delivery_or_submissions(self):
+        status=await self.workflow.call('workflow_status')
+        self.assertIsNone(status['current_source'])
+        self.assertIsNone(status['checkpoint'])
+        self.assertEqual(status['pending_jobs'],[])
+        self.assertEqual(status['guard']['failed_count'],0)
+        self.assertEqual(self.guard.rows(),[])
+        self.assertEqual(self.client.submissions,[])
+
+    async def test_compact_scene_and_validation_reads_make_no_new_jobs(self):
+        source,_=await self.ready_asset();before=len(self.client.submissions)
+        scene=await self.workflow.call('scene_summary',names=['CAM_BowlingPair01_Overview'])
+        self.assertEqual(scene['source'],source);self.assertEqual(len(scene['objects']),1)
+        details=await self.workflow.call('validation_details',stage='05')
+        self.assertEqual(details['checks'][0]['status'],'FAIL')
+        self.assertEqual(len(self.client.submissions),before)
+        self.assertLess(len(json.dumps(scene)),12000);self.assertLess(len(json.dumps(details)),12000)
+
+    async def test_context_reconciliation_checks_pending_jobs_and_blocks_uncertainty_or_hard_streak(self):
+        from scripts.context_recovery import reconcile
+        from scripts.submission_guard import GuardBlocked
+        source,_=await self.ready_asset()
+        with patch('scripts.context_recovery.reference_check',return_value={'passed':True}),patch('scripts.context_recovery.resume_check',return_value={'passed':True}):
+            result=await reconcile(self.root,self.workflow,self.guard,timeout=1,poll_interval=0)
+            self.assertEqual(result['source'],source)
+            for index in range(2):
+                with self.guard.connect() as db:
+                    db.execute('INSERT INTO attempts VALUES(?,?,?,?,?)',(f'bad{index}',source,'author',f'{100+index:032x}','failed'))
+            with self.assertRaisesRegex(GuardBlocked,'two hard failures'):await reconcile(self.root,self.workflow,self.guard,timeout=1,poll_interval=0)
+
+    async def test_context_reconciliation_consumes_existing_pending_result_without_replay(self):
+        from scripts.context_recovery import reconcile
+        from scripts.submission_guard import GuardBlocked
+        source,_=await self.ready_asset()
+        accepted=await self.workflow.call('submit_native',spec={'operation':'inspect','source_job':source},role='inspect')
+        self.client.complete(accepted['id']);before=len(self.client.submissions)
+        with patch('scripts.context_recovery.reference_check',return_value={'passed':True}),patch('scripts.context_recovery.resume_check',return_value={'passed':True}):
+            result=await reconcile(self.root,self.workflow,self.guard,timeout=1,poll_interval=0)
+            self.assertIn(accepted['id'],[job['id'] for job in result['observed_jobs']])
+            self.assertEqual(len(self.client.submissions),before)
+            with self.guard.connect() as db:db.execute("INSERT INTO attempts VALUES('unknown','source','author',NULL,'uncertain')")
+            with self.assertRaisesRegex(GuardBlocked,'uncertain'):await reconcile(self.root,self.workflow,self.guard,timeout=1,poll_interval=0)
+
     async def saved_review(self):
         source,_=await self.ready_asset()
         review_id='review-'+'a'*32

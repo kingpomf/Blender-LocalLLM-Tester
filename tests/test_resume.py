@@ -24,6 +24,15 @@ class ResumeTests(unittest.TestCase):
     def test_clean_fresh_state(self):
         self.assertTrue(check(self.root)['passed'])
 
+    def test_fresh_state_allows_only_retained_api_validator_tooling_not_asset_outputs(self):
+        for relative in ['artifacts/scripts/validate_bowling_pair01.py','artifacts/reports/blender-api-catalog.json',
+                         'artifacts/reports/blender-api-catalog-receipt.json']:
+            path=self.root/relative;path.parent.mkdir(parents=True,exist_ok=True);path.write_text('tooling fixture')
+        result=check(self.root)
+        self.assertTrue(result['passed']);self.assertEqual(result['active_file_count'],0)
+        (self.root/'artifacts/reports/validation.json').write_text('{"old_asset":true}')
+        self.assertFalse(check(self.root)['passed'])
+
     def test_stale_native_checkpoint_cannot_match_a_new_source_by_markdown_only(self):
         self.write_state('IN_PROGRESS','PASS',self.job,self.job,'fixture stage proof')
         path=self.root/'artifacts/blend/BowlingPair01.blend'

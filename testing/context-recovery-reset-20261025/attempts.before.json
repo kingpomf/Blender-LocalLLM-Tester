@@ -1,0 +1,275 @@
+[
+  {
+    "fingerprint": "d5fece28f6332845e32110a90d99bac53e55901e7fc4cb050074ba9e956f319a",
+    "source": "EMPTY",
+    "operation": "author",
+    "job": "819f4da4cd034d63b8de3d667da26918",
+    "state": "failed"
+  },
+  {
+    "fingerprint": "3c27b60b742857bc48064b33ff59e86dc45fa556a198c31db0ab3540d71292eb",
+    "source": "EMPTY",
+    "operation": "author",
+    "job": "fc2f201ee2df474f91fa719cc444aa3b",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "1f4c79d642dfb49ff2e9746d3ab5b777452318502172d461de0428186c249b79",
+    "source": "fc2f201ee2df474f91fa719cc444aa3b",
+    "operation": "author",
+    "job": "01a404afb814410694570f67fc56f92d",
+    "state": "failed"
+  },
+  {
+    "fingerprint": "44b52d437e34957b99b459b2ebf4501ef0fa94d3a0bc32dc407d072d641e8bc6",
+    "source": "fc2f201ee2df474f91fa719cc444aa3b",
+    "operation": "author",
+    "job": "555107d2be954bedae6238e79d672d2e",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "d06b6b269b41f8898c3adb3f559ae165e37c1c8a3004e4da6224fec39dd9c7b5",
+    "source": "555107d2be954bedae6238e79d672d2e",
+    "operation": "author",
+    "job": "458cb411bcf04fc98150e7c8a8051725",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "56f0d819b0eebbaa8cb144b0add3985fd111147445eda9c3b8094eb5babec558",
+    "source": "555107d2be954bedae6238e79d672d2e",
+    "operation": "author",
+    "job": "4b0c82d346e444f598aa5168538d0609",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "c8ade0202781475d88ef0c0132c993d93dfc80ac8d5ed48aa2c8b4f6275b9099",
+    "source": "4b0c82d346e444f598aa5168538d0609",
+    "operation": "author",
+    "job": "3a633b9f15364f2dbc8f6ed09875d3e2",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "d07300806000b31f065d70255f1b6ec39e0981e33d8de5f00da83a209a45ea28",
+    "source": "4b0c82d346e444f598aa5168538d0609",
+    "operation": "author",
+    "job": "f8b997489e14416e9e982e4e2a09a8ae",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "ccc1c4fce5a8bc6a0bf972c6152e5c850815d28e143f115936abde0f2294fa32",
+    "source": "f8b997489e14416e9e982e4e2a09a8ae",
+    "operation": "author",
+    "job": "0365f115ad5142a1adfcb8daa56e774b",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "dc69c3c4f820d1a6241ea188eda32f083eaa10f15e8be94b4fa047311bb4f892",
+    "source": "f8b997489e14416e9e982e4e2a09a8ae",
+    "operation": "author",
+    "job": "228b7a9ea18b44b4a2eb80a886c78f70",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "60da7bf2f2680447bdaa45ddfcceeda5c4fa1e025b7e91f5a6c7a36195a2af0f",
+    "source": "228b7a9ea18b44b4a2eb80a886c78f70",
+    "operation": "author",
+    "job": "c0f1ebc6e87b46eaa20ad4219f93803a",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "3f057939a70a55f26753929d9404d3a38f339edd9982dad70dad73743ea63981",
+    "source": "228b7a9ea18b44b4a2eb80a886c78f70",
+    "operation": "author",
+    "job": "cc8a77a833294100bf565fa52a90f4e2",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "6866568bee27c7275f7c2f745ffd5e07c98c68ca443489e99450176d313798d7",
+    "source": "cc8a77a833294100bf565fa52a90f4e2",
+    "operation": "author",
+    "job": "4c86b26d25a34aefa3c5ac1a9c14e5e0",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "cea59c46c269d9e7530dbf41c345db8ffdfc3717caf57d24f9c45c118f294a50",
+    "source": "cc8a77a833294100bf565fa52a90f4e2",
+    "operation": "author",
+    "job": "75d5a46f1df14d9a9a007d57b81da328",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "69f179ee3247a9bbb9602722a17fe36a54ccc37833b16b86f0134ba258d31b7c",
+    "source": "75d5a46f1df14d9a9a007d57b81da328",
+    "operation": "author",
+    "job": "f00a00ca8ba6463085397f8f8c530112",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "c25208989a149b9aebbae275d5b3482adc9ff5edd3b9bf9a8a06c6102cad1c94",
+    "source": "75d5a46f1df14d9a9a007d57b81da328",
+    "operation": "author",
+    "job": "b09657773a0940bb892f7e4569380fdc",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "63c094196ea59a607b8e2c5f312fdad4e980b73d8e0eebe0b6672fbd9216a241",
+    "source": "b09657773a0940bb892f7e4569380fdc",
+    "operation": "author",
+    "job": "d9766279c8854861881167526fd69cc3",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "f808059384cbb7b6338b4648385f9b58ce72aae99dcf1e01a4b178260c17641a",
+    "source": "b09657773a0940bb892f7e4569380fdc",
+    "operation": "author",
+    "job": "d5a8cbf0b0c842d28c023258bc457621",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "8d139ad5d931aaefecc3bfee7caa9eb9e9a53a5023b9712cd3c0d70a58fa22bf",
+    "source": "d5a8cbf0b0c842d28c023258bc457621",
+    "operation": "author",
+    "job": "e4d04120abcc4a56b875da26b82a163e",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "80e868b0cac4ecd2de3b1b9342a9cf0b430226873fa2ca07cc11b8aa2ac60297",
+    "source": "d5a8cbf0b0c842d28c023258bc457621",
+    "operation": "author",
+    "job": "0198cc81ba674dd4a0b361d4c78a5ade",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "1f1f90f74936b823fc01e7db7a828f24946afae7f21247fe58b2df79b7e28e9f",
+    "source": "0198cc81ba674dd4a0b361d4c78a5ade",
+    "operation": "author",
+    "job": "ee1a86a958a74ea697e3b318431bed95",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "34d8d18ddda65cc49169bbd8ba53965166b56448a82d04f2b5613308365e7251",
+    "source": "0198cc81ba674dd4a0b361d4c78a5ade",
+    "operation": "author",
+    "job": "7324f5dc02f94af389dd34c88b8d05a8",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "82d2a4b39ddb0ee3530b84a0e6c30dff1d27e6ad726032153ec6a104c6cb5edf",
+    "source": "7324f5dc02f94af389dd34c88b8d05a8",
+    "operation": "author",
+    "job": "ebdc369c87424a35b7dae8c2d8eecf99",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "c52c36e63bacc1f609bf1fce786238c3e72b3150677b7fc0873548736ccf3aa1",
+    "source": "7324f5dc02f94af389dd34c88b8d05a8",
+    "operation": "author",
+    "job": "859248bde5f741b0abb2bf8d68b27cd5",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "dbbbbf5b87353d01a14218b8aaa65c723e949dcb1c34649b9e16f70939b3cece",
+    "source": "859248bde5f741b0abb2bf8d68b27cd5",
+    "operation": "author",
+    "job": "b4016e83a51e4e538222ceadaa028a02",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "3586c50f9e1899d1a03a77ed2a6e221ce04434f55cf6b928edcd3620b850cecb",
+    "source": "859248bde5f741b0abb2bf8d68b27cd5",
+    "operation": "author",
+    "job": "a5fa31912f8a41c681ad84b04c93300b",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "a0d9f5fe96cfe42911c232197d088a2f1362316d973b58a690f9033913e53765",
+    "source": "a5fa31912f8a41c681ad84b04c93300b",
+    "operation": "author",
+    "job": "8f57216693bf425db3fd52a9755bfb04",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "c00c4ebce6ce3e86d31ccc4dc9438f504eb9a98ca0758262b48ea30c0ffb4c1f",
+    "source": "a5fa31912f8a41c681ad84b04c93300b",
+    "operation": "author",
+    "job": "14c9dac0210342218e96834ad16501b0",
+    "state": "failed"
+  },
+  {
+    "fingerprint": "0841d1abdbc0d8ea0695c92e34dc48234f8efe8a9f4d86eed97cc5224e23b39f",
+    "source": "a5fa31912f8a41c681ad84b04c93300b",
+    "operation": "author",
+    "job": "f664d018a7e94a6990f23949cf2158b8",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "773c610a6146cbeeeb4868046e1924c311c2bd0bc7ba2617509324a37332583f",
+    "source": "f664d018a7e94a6990f23949cf2158b8",
+    "operation": "author",
+    "job": "20f18ccf6c014fe0838e1d0f26ed9f1e",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "0e66f7ea67c8f284142ae8149db2cc157939902751abfffe9e216cda72ff07ad",
+    "source": "f664d018a7e94a6990f23949cf2158b8",
+    "operation": "author",
+    "job": "774f0a6098004b8cb9fb73322c2bcae8",
+    "state": "failed"
+  },
+  {
+    "fingerprint": "ddbec153fc6ffca3fbcda0d9214ffe5ba314ccc6aa12fd74e28546697f807eb2",
+    "source": "f664d018a7e94a6990f23949cf2158b8",
+    "operation": "author",
+    "job": "273f82c414f0452d8c2ffd89424d689d",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "c5dd31eb0a3395cb2c061fde99c3d73a1fd09022074ad303a7d8ba6894761309",
+    "source": "273f82c414f0452d8c2ffd89424d689d",
+    "operation": "author",
+    "job": "4e31baaf40e44ac9b9e135b5a22ed469",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "16f0f8cbac925b9c1cf955619c562ac738c72d034532816ed2e859d5b5095dcd",
+    "source": "273f82c414f0452d8c2ffd89424d689d",
+    "operation": "author",
+    "job": "23154eb4d49d489e98dae186d8bde36b",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "fcf4c278a2a731883414a8a95a75fe1f09796f8122d075c3b8c59f63dab63cff",
+    "source": "23154eb4d49d489e98dae186d8bde36b",
+    "operation": "author",
+    "job": "c298305d64254bec8f1d314270c2af3f",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "cd9ef764b2c22d01458b4da895f9fdeb74ec2bd6f798e37666b470ce542aecbc",
+    "source": "23154eb4d49d489e98dae186d8bde36b",
+    "operation": "author",
+    "job": "790cfa10b5474e18a0ae74a40955235b",
+    "state": "failed"
+  },
+  {
+    "fingerprint": "b33bf5761eb2baa2ce7f1e19b556bbb2067952b4e2f0566303f10b14177f5971",
+    "source": "23154eb4d49d489e98dae186d8bde36b",
+    "operation": "author",
+    "job": "c3e6eb270cce4cdd82671452900849bc",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "d3dd71ab438c89a542ff416e5c11830d1592874f1f7effc7375c123080af80cf",
+    "source": "c3e6eb270cce4cdd82671452900849bc",
+    "operation": "author",
+    "job": "cf75e2259d47472bab2dfc2d4f7230cd",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "2e5c6cea14f922a4c4d381f247cd7acad6389598dcef26e2cff5da323a1419eb",
+    "source": "c3e6eb270cce4cdd82671452900849bc",
+    "operation": "inspect",
+    "job": "2189c2862eae4906b957a35c80772426",
+    "state": "completed"
+  }
+]

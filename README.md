@@ -1,86 +1,45 @@
-# Blender LocalLLM Tester — BowlingPair01
+# Blender local-model evaluation — fresh Qwen3.8 Turbo trial
 
-Test the selected local LLM against **Blender 5.2.3 LTS** with matching
-5.2 typing stubs, measured asset specifications and enforced retry limits.
-The selected coding model is **Qwen3.6 35B A3B MTP UD-Q8_K_XL (256K)**.
-The operator corrected the pin generator and reconciled the checkpoint. Measured
-Stages00–03 now pass. The user authorized zeroing current error counts and starting
-the detached continuation. All18 prior failures remain archived/in the ledger;
-limits are6/source20/total in the new epoch, starting with0 active errors. The
-remaining work is actual geometry/presentation repair and verified delivery.
+Current checkpoint-bound continuation and context-recovery/error-reset evidence:
+`testing/context-recovery-reset-20261025/`. The active asset/references are retained;
+the initial clean-trial reset below is historical. Read CONTROLLED_CONTINUATION.md
+and inspect status before launching; an existing state requires explicit authorized
+resume rather than a duplicate fresh controller.
 
-## Current controlled continuation
+Build the original modular BowlingPair01 two-lane asset defined under
+spec/bowling-pair-01/. The user requested a clean project restart using
+**z6-llama/qwen38-turbo** after retiring the previous Qwen3.6 evaluation.
 
-Read `CONTROLLED_CONTINUATION.md` and `testing/BALL_GENERATION_DIAGNOSTICS.md`.
-The assistant has been authorized to launch it detached. Check status first and
-do not launch a duplicate. For an explicitly reconciled/resumed run:
+## Run
 
-```sh
-python3 scripts/run_bowling.py --check-continuation
-python3 scripts/run_bowling.py --resume --continuation --detach
+From the project directory:
+
+```bash
+python3 scripts/run_bowling.py --detach
+python3 scripts/run_bowling.py --status
 ```
 
-Alternatively restart OpenCode and invoke **`/bowling-continue`**. This validates
-the known checkpoint and guard history, then supplies the explicit diagnostic
-handoff to the existing Qwen3.6 session. It does not reset the trial or regenerate
-references. Status remains available with `python3 scripts/run_bowling.py --status`.
+The controller first generates fresh design references, then launches a separate
+fresh asset-coding session and continues stages automatically with measured
+checkpoints. Do not launch a duplicate. Explicit resume requires reconciliation
+of any interruption/blocker and preservation of pending accepted IDs.
 
-## Fresh-run entry point (only after a separately authorized reset)
+## Current setup
 
-1. Fully quit/restart OpenCode in this repository on `project/bowling-alley-pair`.
-2. Open a **new Qwen3.6 MoE session** and run **`/bowling-run` once**. Launcher,
-   reference planner and coding sessions all select Qwen3.6. Image inspection is
-   a fixed helper tool, not a Qwen3.8 agent session.
-3. Confirm **bowling-blender52** is connected; the old **z6-blender-worker** is disabled.
-4. The coding phase completes/resumes **all remaining stages00–09** continuously,
-   checkpointing between them. It compacts when needed; no “next stage” prompts.
-5. If the tool reports STOP, review the blocker before continuing. Do not reset
-   the guard or blindly rerun. Review final renders, reports and exports.
+- Primary model: qwen38-turbo;139264 context/16384 output, automatic compaction.
+- Isolated trial: bowling52-qwen38-turbo-20261025-r1.
+- Blender5.2.3 LTS on Z6; CPU-only authoring/render queue.
+- Installed API lookup, source-linked soft API corrections, strict geometry and
+  acceptance validation, queued named renders and fixed image-review helpers.
+- Fresh asset/reference/state/guard/session history. All prior work preserved at
+  artifacts/archive/qwen36-final-before-qwen38-turbo-20261025/.
 
-The former60-step cap is removed. Unchanged failed scripts are
-rejected; six failures per source or twenty total exhaust the durable budget.
-Automatic compaction/pruning are enabled with a16,384-token reserve within the
-native262,144-token coding context. See `RUNTIME_52.md`
-for runtime identity, qualification evidence, operator recovery and limitations.
-Rendering is CPU-only, on the same 5.2 runtime as authoring.
+See AGENTS.md, CONTROLLED_CONTINUATION.md, REFERENCE_IMAGES.md and MODEL_SETUP.md.
+BUILD_STATUS.md/HANDOFF.md reflect measured active progress, not historical PASSs.
+Native execution success is not asset acceptance. Do not weaken the validator,
+invent image evidence, replay uncertain submissions or reset budgets automatically.
 
-Status: `python3 scripts/run_bowling.py --status`. Controller logs/session IDs
-live in `.runtime/autonomous-run/`. A terminal launch also works:
-`python3 scripts/run_bowling.py`. After a genuine interruption/blocker is reconciled,
-explicitly use `--resume` (and `--detach` for background operation). The controller
-allows two diagnostic repair turns for ordinary startup/validation problems,
-then stops rather than looping; it never resets the guard. `/bowling-references` and
-`/bowling-start` remain available as individual phase commands.
-
-## Assignment
-
-Build two adjacent lanes with approaches, markings, four gutters, decks and pits;
-twenty independently movable pins; three balls with real recessed finger holes;
-shared ball return, seating, scoreboards and alley dressing. Follow the ten
-files under `spec/bowling-pair-01/`. No implementation is supplied to the model.
-
-Deliver an editable Blender scene, assembled visual GLB, standalone pin and three
-ball GLBs, static collision GLB, four PNGs, measured validation, integration notes
-and a SHA-256 manifest. Lane/fixture objects stay separate within the full-pair
-export. Game logic and playable simulation are outside the assignment.
-
-## Files
-
-- `AGENTS.md`, `.opencode/commands/bowling-start.md` — active workflow.
-- `BUILD_STATUS.md`, `HANDOFF.md` — current trial ledger and next action.
-- `WORKER_GUIDE.md`, `RUNTIME_52.md`, `LSP_SETUP.md` — tool usage and evidence.
-- `scripts/blender52_mcp.py`, `scripts/submission_guard.py` — scoped MCP and circuit breaker.
-- `scripts/preflight_blender52.py` — actual runtime/config preflight with no build job.
-- `scripts/check_resume.py` — read-only ledger consistency check.
-- `REFERENCE_IMAGES.md`, `scripts/check_references.py` — imageMCP-first workflow and enforced authoring prerequisite.
-- `testing/blender52-guarded/` — separate runtime/guard qualification evidence.
-- `artifacts/{references,blend,exports,renders,downloads,reports,scripts}/` — fresh model outputs.
-- `artifacts/archive/nemotron-final-before-qwen36-2026-10-23/` — previous Nemotron trial, original ledger, native artifacts and guard state.
-- `.runtime/blender52/` — ignored, durable tool-owned guard state. Do not clear it mid-trial.
-- `artifacts/archive/bowling-loop-2026-10-22/` — preserved failed run and pre-reset tooling.
-- `artifacts/archive/blender52-specialist-final-2026-10-23/` — final old-model 5.2 attempt and exhausted guard before the Nemotron reset.
-- `spec/kart-01/`, older archives and session reviews — historical evidence only.
-
-The previous looping run used 4.5.14, despite its ledger saying 5.2, and submitted
-identical failed code 33 times. Its PASS claims are not this trial's evidence.
-Do not run `/init`; this repository already provides its instructions.
+Verification:
+`/Users/start/Development/blender-new-llm-setup/.venv/bin/python -m unittest discover -s tests`
+and `scripts/preflight_blender52.py` through that environment. Current reset and
+launch evidence is under testing/qwen38-turbo-fresh-20261025/.

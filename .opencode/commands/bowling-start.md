@@ -1,7 +1,7 @@
 ---
 description: Complete remaining asset work using enforced MCP state, validation and render queues
 agent: bowling-coder
-model: z6-llama/qwen36-35b-a3b-mtp-q8
+model: z6-llama/qwen38-turbo
 ---
 
 Continue BowlingPair01 from **blender_workflow_status**, the authoritative source
@@ -13,6 +13,9 @@ disabled. Do not edit BUILD_STATUS.md, HANDOFF.md, managed JSON receipts, valida
 guards, specifications or runtime state; the MCP workflow manages them.
 
 1. Call blender_workflow_status and capabilities. Use its current source.
+   Use blender_scene_summary for a few exact object names and
+   blender_validation_details for one stage/check page. Do not read whole
+   scene.json or validation JSON files; large tool output can overflow context.
    Before unfamiliar API use, query blender_api_lookup with an exact type/member
    or operator. Keep edits small and validate one change before expanding scope.
 2. Save a changed authoring script under artifacts/scripts and inspect LSP

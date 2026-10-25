@@ -39,9 +39,11 @@ def check(root):
     if run_status not in {'NOT_STARTED', 'IN_PROGRESS', 'FAIL', 'BLOCKED', 'COMPLETE'}:
         issues.append('Status must be NOT_STARTED, IN_PROGRESS, FAIL, BLOCKED, or COMPLETE.')
     active_files = []
+    tooling={'artifacts/scripts/check_z6_models.py','artifacts/scripts/validate_bowling_pair01.py',
+             'artifacts/reports/blender-api-catalog.json','artifacts/reports/blender-api-catalog-receipt.json'}
     for folder in ('blend', 'exports', 'renders', 'downloads', 'reports', 'scripts'):
         for path in (root / 'artifacts' / folder).rglob('*'):
-            if path.is_file() and path.name != '.gitkeep' and not (folder == 'scripts' and path.name == 'check_z6_models.py'):
+            if path.is_file() and path.name != '.gitkeep' and str(path.relative_to(root)) not in tooling:
                 active_files.append(str(path.relative_to(root)))
     if run_status == 'NOT_STARTED':
         if any(s[2] != 'NOT_STARTED' for s in stages) or source != 'none' or JOB.search(accepted):

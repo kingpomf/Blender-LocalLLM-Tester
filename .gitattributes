@@ -1,0 +1,4 @@
+# Preserve exact generated/accepted trial evidence instead of reformatting it.
+# Implementation code under scripts/ and tests/ keeps normal whitespace checks.
+artifacts/scripts/*.py whitespace=-blank-at-eol
+artifacts/archive/** -whitespace

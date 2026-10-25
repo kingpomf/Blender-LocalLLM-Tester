@@ -16,6 +16,8 @@ artifacts/archive/**/*.log
 artifacts/archive/**/*.jsonl
 artifacts/archive/**/*.sqlite*
 artifacts/archive/**/*.lock
+artifacts/archive/**/runtime/
+artifacts/archive/**/artifacts/downloads/
 artifacts/downloads/
 artifacts/blend/*.blend
 artifacts/exports/*.glb

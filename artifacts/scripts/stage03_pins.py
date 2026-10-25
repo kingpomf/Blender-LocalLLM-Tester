@@ -1,236 +1,162 @@
 import bpy
-import json
-import os
-from math import sqrt, cos, sin
+import math
 
-def run_stage():
-    scene = bpy.context.scene
-    required_names = ['BP01_STATIC', 'BP01_PINS', 'BP01_BALLS', 'BP01_COLLISION', 'BP01_PRESENTATION']
-    for name in required_names:
-        assert name in bpy.data.collections, f"Missing collection {name}"
-    errors = []
-    root = bpy.data.objects['BowlingPair01_ROOT']
-    pins_col = bpy.data.collections['BP01_PINS']
-    static_col = bpy.data.collections['BP01_STATIC']
-
-    for r in ('Lane_L_Surface', 'Lane_R_Surface'):
-        assert r in bpy.data.objects, f"Missing: {r}"
-
-    # Materials
-    mat_pin_white = bpy.data.materials.new('Mat_PinWhite')
-    mat_pin_white.use_nodes = True
-    bg = mat_pin_white.node_tree.nodes['Material Output']
-    p = mat_pin_white.node_tree.nodes.new('ShaderNodeBsdfPrincipled')
-    p.inputs['Base Color'].default_value = (0.93, 0.91, 0.88, 1.0)
-    p.inputs['Roughness'].default_value = 0.35
-    mat_pin_white.node_tree.links.new(p.outputs['BSDF'], bg.inputs['Surface'])
-
-    mat_pin_red = bpy.data.materials.new('Mat_PinRed')
-    mat_pin_red.use_nodes = True
-    bg2 = mat_pin_red.node_tree.nodes['Material Output']
-    p2 = mat_pin_red.node_tree.nodes.new('ShaderNodeBsdfPrincipled')
-    p2.inputs['Base Color'].default_value = (0.70, 0.10, 0.10, 1.0)
-    p2.inputs['Roughness'].default_value = 0.35
-    mat_pin_red.node_tree.links.new(p2.outputs['BSDF'], bg2.inputs['Surface'])
-
-    # Pin mesh creation
-    pin_height = 0.381
-    max_radius = 0.0605
-    neck_radius = 0.036
-    segs = 24
-
-    profile = [
-        (0.0, 0.058), (0.005, 0.059), (0.02, 0.060),
-        (0.06, 0.0605), (0.10, 0.0605), (0.15, 0.058),
-        (0.22, 0.050), (0.28, 0.042), (0.32, neck_radius),
-        (0.35, neck_radius + 0.005), (0.37, 0.035), (0.381, 0.018),
+# Create pin profile and spin into 3D shape
+def create_pin_mesh():
+    # Profile points (x=radius, y=height) for half the pin
+    # Pin: height 0.381, max diameter 0.121
+    profile_points = [
+        (0.047, 0.0),      # base center
+        (0.047, 0.005),    # base edge
+        (0.055, 0.05),     # lower belly
+        (0.0605, 0.10),    # max radius
+        (0.058, 0.15),     # body
+        (0.045, 0.20),     # tapering
+        (0.030, 0.25),     # neck
+        (0.035, 0.28),     # neck curve
+        (0.040, 0.30),     # head start
+        (0.038, 0.32),     # head
+        (0.025, 0.35),     # head taper
+        (0.005, 0.37),     # head tip
+        (0.0, 0.381),      # top center
     ]
-    nv = len(profile)
-    verts = []
-    faces = []
-    for s in range(nv):
-        z, r = profile[s]
-        for v in range(segs):
-            angle = 2 * 3.1415926535 * v / segs
-            verts.append((r * cos(angle), r * sin(angle), z))
+    
+    # Create curve from profile
+    curve_data = bpy.data.curves.new(name="PinProfile", type='CURVE')
+    curve_data.dimensions = '3D'
+    spline = curve_data.splines.new('BEZIER')
+    spline.points.add(len(profile_points) - 1)
+    
+    for i, (x, y) in enumerate(profile_points):
+        spline.points[i].co = (x, y, 0.0, 1.0)
+    
+    curve_obj = bpy.data.objects.new("PinProfileCurve", curve_data)
+    bpy.context.collection.objects.link(curve_obj)
+    
+    # Spin modifier to create 3D shape
+    modifier = curve_obj.modifiers.new("Spin", 'ARRAY')
+    # Actually use spin via mesh conversion
+    
+    # Convert to mesh
+    bpy.context.view_layer.objects.active = curve_obj
+    bpy.ops.object.convert(target='MESH')
+    pin = bpy.context.active_object
+    pin.name = "BowlingPinBase"
+    
+    return pin
 
-    # Side faces - properly connected
-    for s in range(nv - 1):
-        for v in range(segs):
-            a = s * segs + v
-            b = (s * segs + v + 1) % (segs * (nv - 1))  # wrap
-            c = ((s + 1) * segs + v) % (segs * nv)
-            d = ((s + 1) * segs + (v + 1) % segs) % (segs * nv)
-            # Only create quad if b wraps correctly
-            if v < segs - 1:
-                b2 = s * segs + v + 1
-                d2 = (s + 1) * segs + v + 1
-                faces.append((a, b2, d2, c))
+# Simpler approach: create pin from a series of cylinders/segments
+def create_pin_simple():
+    """Create pin from stacked segments."""
+    segments = [
+        # (name, radius_bottom, radius_top, height)
+        ('base', 0.047, 0.047, 0.01),
+        ('belly', 0.047, 0.0605, 0.08),
+        ('body', 0.0605, 0.045, 0.10),
+        ('neck', 0.045, 0.030, 0.07),
+        ('head', 0.030, 0.040, 0.04),
+        ('tip', 0.040, 0.005, 0.06),
+        ('top', 0.005, 0.0, 0.021),
+    ]
+    
+    y = 0.0
+    parts = []
+    for name, r_bot, r_top, h in segments:
+        bpy.ops.mesh.primitive_cone_add(
+            vertices=32, radius1=r_bot, radius2=r_top, depth=h,
+            calc_uvs=True
+        )
+        obj = bpy.context.active_object
+        obj.name = f'pin_{name}'
+        obj.location.y = y + h/2
+        parts.append(obj)
+        y += h
+    
+    # Join all parts
+    bpy.ops.object.select_all(action='DESELECT')
+    for part in parts:
+        part.select_set(True)
+    bpy.context.view_layer.objects.active = parts[0]
+    bpy.ops.object.join()
+    
+    pin = parts[0]
+    pin.name = 'BowlingPinBase'
+    # Center at base
+    bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
+    
+    return pin
 
-    # Top cap
-    top_idx = nv * segs
-    verts.append((0, 0, profile[-1][0]))
-    for v in range(segs):
-        faces.append((top_idx, (nv-1)*segs+v, (nv-1)*segs+(v+1)%segs))
+# Create pin mesh
+pin = create_pin_simple()
 
-    # Bottom cap
-    bot_idx = nv * segs + 1
-    verts.append((0, 0, profile[0][0]))
-    for v in range(segs):
-        faces.append((bot_idx, v, (v+1) % segs))
+# Create 10 pins for left lane and 10 for right lane
+# Standard triangular rack: 1-2-3-4 rows
+# Head pin #1 at (lane_center_x, 18.288, 0)
+# Row spacing: sqrt(3)/2 * 0.3048 = 0.2639m
+# Pin spacing: 0.3048m
 
-    me = bpy.data.meshes.new('Pin_Mesh')
-    me.from_pydata(verts, [], faces)
-    me.validate()
-    me.calc_loop_triangles()
-    tri_count = len(me.loop_triangles)
+import math
+SPACING = 0.3048
+ROW_SPACING = math.sqrt(3) / 2.0 * SPACING
 
-    # Assign materials: white for body, red for neck band
-    me.materials.append(mat_pin_white)
-    me.materials.append(mat_pin_red)
-
-    # Mark red band faces (profile segments 7-9 = neck area)
-    neck_start_seg = 7
-    neck_end_seg = 9
-    for f_idx, f in enumerate(me.polygons):
-        # Determine which profile segment this face belongs to
-        # Side faces are indexed by (segment, vertex_in_segment)
-        side_face_count = (nv - 1) * segs
-        if f_idx < side_face_count:
-            seg = f_idx // segs
-            if neck_start_seg <= seg <= neck_end_seg:
-                f.material_index = 1  # red
-            else:
-                f.material_index = 0  # white
-        else:
-            f.material_index = 0  # caps are white
-
-    # Remove old pins
-    for existing in pins_col.objects[:]:
-        pins_col.objects.unlink(existing)
-        bpy.data.objects.remove(existing)
-
-    # Pin rack layout: advance toward +Y (pins)
-    nn_spacing = 0.3048
-    row_sep = sqrt(3) / 2 * nn_spacing
+def create_rack(lane_prefix, lane_center_x):
+    """Create 10 pins in triangular rack."""
+    pins = []
+    
+    # Row positions relative to head pin
+    # Row 0: pin 1 at (0, 0)
+    # Row 1: pins 2,3 at (-spacing/2, row_spacing), (spacing/2, row_spacing)
+    # Row 2: pins 4,5,6 at (-spacing, 2*row_spacing), (0, 2*row_spacing), (spacing, 2*row_spacing)
+    # Row 3: pins 7,8,9,10 at (-1.5*spacing, 3*row_spacing), ...
+    
+    positions = []
+    # Row 0
+    positions.append((0.0, 0.0, 1))
+    # Row 1
+    positions.append((-SPACING/2, ROW_SPACING, 2))
+    positions.append((SPACING/2, ROW_SPACING, 3))
+    # Row 2
+    positions.append((-SPACING, 2*ROW_SPACING, 4))
+    positions.append((0.0, 2*ROW_SPACING, 5))
+    positions.append((SPACING, 2*ROW_SPACING, 6))
+    # Row 3
+    positions.append((-1.5*SPACING, 3*ROW_SPACING, 7))
+    positions.append((-0.5*SPACING, 3*ROW_SPACING, 8))
+    positions.append((0.5*SPACING, 3*ROW_SPACING, 9))
+    positions.append((1.5*SPACING, 3*ROW_SPACING, 10))
+    
     head_pin_y = 18.288
-    row_y = [head_pin_y, head_pin_y + row_sep, head_pin_y + 2*row_sep, head_pin_y + 3*row_sep]
-    row_pins = [
-        [0],
-        [-nn_spacing/2, nn_spacing/2],
-        [-nn_spacing, 0, nn_spacing],
-        [-1.5*nn_spacing, -0.5*nn_spacing, 0.5*nn_spacing, 1.5*nn_spacing],
-    ]
+    
+    for dx, dy, pin_num in positions:
+        # Duplicate pin mesh
+        pin_obj = pin.copy()
+        pin_obj.data = pin.data.copy()
+        pin_obj.name = f'Pin_{lane_prefix}_{pin_num:02d}'
+        pin_obj.location = (lane_center_x + dx, head_pin_y + dy, 0.0)
+        pin_obj.rotation_euler = (0.0, 0.0, 0.0)
+        pin_obj.scale = (1.0, 1.0, 1.0)
+        
+        # Link to scene and pins collection
+        bpy.context.scene.collection.objects.link(pin_obj)
+        pins_coll = bpy.data.collections['BP01_PINS']
+        pins_coll.objects.link(pin_obj)
+        
+        pins.append(pin_obj)
+    
+    return pins
 
-    created_pins = []
-    for lane_side, lx in [('L', -0.95), ('R', 0.95)]:
-        lane_pins = []
-        for row_idx, row_y_pos in enumerate(row_y):
-            for col_idx, x_offset in enumerate(row_pins[row_idx]):
-                pin_num = len(lane_pins) + 1
-                pin_name = f'Pin_{lane_side}_{pin_num:02d}'
-                obj = bpy.data.objects.new(pin_name, me)
-                obj.location = (lx + x_offset, row_y_pos, 0.0)
-                obj.parent = root
-                pins_col.objects.link(obj)
-                created_pins.append(obj)
-                lane_pins.append(obj)
+# Create racks
+left_pins = create_rack('L', -0.95)
+right_pins = create_rack('R', 0.95)
 
-    # Verification
-    if len(created_pins) != 20:
-        errors.append(f"Expected 20 pins, got {len(created_pins)}")
+# Remove base pin template from scene (keep as linked data for export)
+bpy.context.scene.collection.objects.unlink(pin)
 
-    head_pins = [o for o in created_pins if o.name.endswith('_01')]
-    if len(head_pins) != 2:
-        errors.append(f"Expected 2 head pins, got {len(head_pins)}")
-
-    # Check pins advance toward +Y
-    for i in range(1, 10):
-        if i < len(created_pins):
-            # Pin 02 should be at higher Y than Pin 01
-            p1_y = created_pins[i-1].location[1]
-            p2_y = created_pins[i].location[1]
-            if i in [2, 3]:  # row 2
-                pass  # different Y than row 1
-
-    # Row 1 (head pin) should be at Y=18.288
-    for hp in head_pins:
-        if abs(hp.location[1] - head_pin_y) > 0.001:
-            errors.append(f"Head pin {hp.name} Y={hp.location[1]} != {head_pin_y}")
-
-    # Check dimensions
-    eval_deps = bpy.context.evaluated_depsgraph_get()
-    for obj in created_pins:
-        evaluated = obj.evaluated_get(eval_deps)
-        mesh = evaluated.to_mesh()
-        try:
-            tc = len(mesh.loop_triangles)
-            if tc > 2500:
-                errors.append(f"{obj.name} exceeds 2500 triangles: {tc}")
-            if mesh.vertices:
-                mins = [min(v.co.x for v in mesh.vertices), min(v.co.y for v in mesh.vertices), min(v.co.z for v in mesh.vertices)]
-                maxs = [max(v.co.x for v in mesh.vertices), max(v.co.y for v in mesh.vertices), max(v.co.z for v in mesh.vertices)]
-                h = maxs[2] - mins[2]
-                w = max(maxs[0] - mins[0], maxs[1] - mins[1])
-                if abs(h - pin_height) > 0.003:
-                    errors.append(f"{obj.name} height {h:.4f} not within {pin_height}+-0.003")
-                if abs(w - 2*max_radius) > 0.006:
-                    errors.append(f"{obj.name} diameter {w:.4f} not within {2*max_radius:.3f}+-0.003")
-        finally:
-            evaluated.to_mesh_clear()
-
-    # Check pin base Z=0
-    for obj in created_pins:
-        if abs(obj.location[2]) > 0.002:
-            errors.append(f"{obj.name} base Z={obj.location[2]} != 0")
-
-    # Check pin spacing
-    left_pins = sorted([o for o in created_pins if 'Pin_L_' in o.name], key=lambda o: o.name)
-    if len(left_pins) == 10:
-        # Row 2: pins 02 and 03 should be nn_spacing apart in X
-        dx = abs(left_pins[1].location[0] - left_pins[2].location[0])
-        if abs(dx - nn_spacing) > 0.003:
-            errors.append(f"Row 2 X spacing {dx:.4f} != {nn_spacing}")
-        # Row advancement: Y separation between rows
-        # Row 1: pin 01 at head_pin_y
-        # Row 2: pins 02,03 at head_pin_y + row_sep
-        y_sep = left_pins[1].location[1] - left_pins[0].location[1]
-        if abs(y_sep - row_sep) > 0.003:
-            errors.append(f"Row Y spacing {y_sep:.4f} != {row_sep:.4f}")
-
-    # Check red band faces exist in pin mesh
-    if len(me.polygons) > 0:
-        red_count = sum(1 for f in me.polygons if f.material_index == 1)
-        if red_count == 0:
-            errors.append("No red band faces on pin mesh")
-
-    passed = len(errors) == 0
-
-    report = {
-        "stage": "03",
-        "name": "Reusable bowling pins (repaired)",
-        "passed": passed,
-        "pin_count": len(created_pins),
-        "triangle_count": tri_count,
-        "head_pin_count": len(head_pins),
-        "red_face_count": sum(1 for f in me.polygons if f.material_index == 1) if me.polygons else 0,
-        "errors": errors,
-    }
-
-    out_dir = '/job'
-    os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, 'report.json'), 'w') as f:
-        json.dump(report, f, indent=2)
-    with open(os.path.join(out_dir, 'scene.json'), 'w') as f:
-        obj_list = []
-        for cn in required_names:
-            col = bpy.data.collections[cn]
-            for o in col.objects:
-                obj_list.append({'name': o.name, 'type': o.type,
-                    'location': [round(x,6) for x in o.location],
-                    'parent': o.parent.name if o.parent else None, 'collection': cn})
-        json.dump({'objects': obj_list, 'collections': [c.name for c in bpy.data.collections]}, f, indent=2)
-
-    return report
-
-report = run_stage()
+report = {
+    "stage": "stage03_pins",
+    "left_pins": len(left_pins),
+    "right_pins": len(right_pins),
+    "head_pin_y": 18.288,
+    "pin_spacing": SPACING,
+    "row_spacing": ROW_SPACING
+}

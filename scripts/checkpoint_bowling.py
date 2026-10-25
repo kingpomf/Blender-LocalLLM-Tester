@@ -15,6 +15,7 @@ sys.path.insert(0,str(ROOT))
 from scripts.check_resume import fields
 from scripts.continuation_preflight import guard_rows
 from scripts.submission_guard import budget_accounting
+from scripts.trial_settings import TRIAL
 
 STAGES=['Contract and scene safety','Lane pair and markings','Gutters, decks and pit',
         'Reusable bowling pins','Reusable bowling balls','Return, seating and alley dressing',
@@ -97,13 +98,15 @@ def sync_ledgers(root):
     controller=json.loads(controller_path.read_text()) if controller_path.exists() else {}
     run_status='BLOCKED' if controller.get('state') in {'blocked','interrupted'} else 'IN_PROGRESS'
     common={'Reference phase':'READY','Pending reference job':'none','Pending job':'none','Pending source job':'none',
+            'Actual model used':controller.get('model','not observed'),
             'Validation state':'completed current-source measurements; see artifacts/reports/validation.json',
             'Operator validation pending':'none',
             'Checkpoint SHA-256':receipt['sha256'],
             'API corrections':str(len(accounting['api_corrections']))+' recoverable API errors excluded from hard-failure budget; original jobs preserved',
             'Failure budget':f'6 per source / 20 total; current failures {failure_count}; {source_failures} on current source; {historical_failures} historical failures preserved; reset epoch {accounting["reset_id"]}',
             'Controller':'RUNNING; continue current session' if controller.get('state')=='running' else 'STOPPED; awaiting explicit operator continuation',
-            'Operator intervention':('Operator supplied and verified pin-profile/cap/band correction; user authorized archived counter reset; all original jobs preserved'
+            'Operator intervention':('Fresh Qwen3.8 Turbo trial; previous asset and sessions archived; installed API/workflow tooling retained'
+                if TRIAL.startswith('bowling52-qwen38-turbo-') else 'Operator supplied and verified pin-profile/cap/band correction; user authorized archived counter reset; all original jobs preserved'
                 if (root/'testing/pin-correction-reset-20261024/pin-report.json').exists() else
                 'Latest native scene and renders reconciled; fixed read-only validation; history preserved'),
             'Next action':f'Read CONTROLLED_CONTINUATION.md and the active handoff report; repair Stage {next_stage:02d} and dependencies; use verified checkpoint tools.'}

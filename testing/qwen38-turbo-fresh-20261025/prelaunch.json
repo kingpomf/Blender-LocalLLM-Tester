@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "model_probe": {
+    "model": "z6-llama/qwen38-turbo",
+    "advertised": true,
+    "context": 139264,
+    "output": 16384,
+    "tool_call": true,
+    "reasoning": true,
+    "gateway_model": {
+      "id": "qwen38-turbo",
+      "object": "model",
+      "owned_by": "llamacpp",
+      "enabled": true,
+      "status": {
+        "value": "unloaded",
+        "failed": null,
+        "exit_code": null
+      }
+    }
+  },
+  "model": "z6-llama/qwen38-turbo",
+  "trial": "bowling52-qwen38-turbo-20261025-r1",
+  "context": 139264,
+  "output": 16384,
+  "consistency": {
+    "passed": true,
+    "run_status": "NOT_STARTED",
+    "next_stage": "00",
+    "last_verified_source": "none",
+    "pending_job": "none",
+    "issues": [],
+    "active_file_count": 0,
+    "candidate_jobs_to_inspect": [],
+    "pending_reference_jobs": [],
+    "note": "Consistency only: inspect actual scenes/reports/hashes before accepting or resuming work."
+  },
+  "status": {
+    "current_source": null,
+    "checkpoint": null,
+    "validation": null,
+    "pending_jobs": [],
+    "guard": {
+      "uncertain_submissions": [],
+      "failed_count": 0,
+      "api_correction_count": 0,
+      "historical_failed_count": 0,
+      "failure_budget_reset_id": 0,
+      "failure_limit_per_source": 6,
+      "failure_limit_total": 20
+    },
+    "remaining_checks": [],
+    "reviews": {},
+    "views": {},
+    "instructions": "Use author for scene edits only. Poll every accepted ID. Checkpoints/validation/stage mirrors are automatic. Use render_view for queued views; never render inline or manually claim PASS."
+  },
+  "capabilities": {
+    "runtime_verified": true,
+    "actual_version": "Blender 5.2.3 LTS",
+    "binary": "/home/kingpomf/Development/blender-new-llm-setup/tools/blender-5.2.3-linux-x64/blender",
+    "root": "/home/kingpomf/Development/blender-new-llm-setup/var/bowling52-qwen38-turbo-20261025-r1",
+    "runners": [],
+    "authoring": {
+      "available": true,
+      "fresh_scene_objects": [],
+      "execution_name": "__blender_author__"
+    },
+    "render_devices": [
+      "CPU"
+    ],
+    "guard": {
+      "uncertain_submissions": [],
+      "failed_count": 0,
+      "api_correction_count": 0,
+      "historical_failed_count": 0,
+      "failure_budget_reset_id": 0,
+      "failure_limit_per_source": 6,
+      "failure_limit_total": 20,
+      "accepted_job_count": 0,
+      "pending_jobs": []
+    },
+    "workflow_tools_available": true
+  },
+  "api_lookup": {
+    "version": "5.2.3 LTS",
+    "build_hash": "e13b728c6880",
+    "query": "Object.children",
+    "available": true,
+    "function": null,
+    "property": null,
+    "runtime_return": {
+      "python_type": "tuple",
+      "members": [
+        "count",
+        "index"
+      ],
+      "element_type": "Object",
+      "guidance": "Parent/child relationships are changed through obj.parent. To delete an object use bpy.data.objects.remove(obj, do_unlink=True); do not unlink through Object.children."
+    },
+    "suggestions": [
+      "children",
+      "hide_render",
+      "children_recursive"
+    ]
+  },
+  "preserved_tool_hashes_verified": true,
+  "old_attempts_archived": 108,
+  "old_failures_archived": 33,
+  "no_old_asset_or_session": true,
+  "new_attempts": 0
+}

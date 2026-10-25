@@ -1,12 +1,12 @@
 ---
 description: Launch the full image-reference-to-Blender workflow without per-stage prompts
 agent: build
-model: z6-llama/qwen36-35b-a3b-mtp-q8
+model: z6-llama/qwen38-turbo
 ---
 
 Start the operator-authorized continuous BowlingPair01 workflow by running
-`python3 scripts/run_bowling.py --detach`. The controller uses Qwen3.6 MoE for
-reference preparation and a Qwen3.6 MoE session for all remaining
+`python3 scripts/run_bowling.py --detach`. The controller uses Qwen3.8 Turbo for
+reference preparation and a fresh Qwen3.8 Turbo coding session for all
 Blender stages. It checkpoints and handles successful stage-to-stage continuation
 automatically. Do not also submit image/Blender work from this launcher session.
 

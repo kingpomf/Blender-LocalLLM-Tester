@@ -1,0 +1,76 @@
+{
+  "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+  "inspection_method": "visual",
+  "reviewer_model": "z6-llama/qwen38-27b",
+  "images": [
+    {
+      "role": "overview",
+      "tool": "imageMCP",
+      "provider": "elitedesk-wsl",
+      "model": "qwen-image-2.1-q4",
+      "request_id": "bowling-ref-overview-36001",
+      "job_id": "edimg-eb0dd64f1ba74874b12300d94cc5632b",
+      "state": "completed",
+      "prompt": "A stylized-realistic bowling alley pair viewed from the approach side at a three-quarter angle, showing both lanes stretching toward the pins, the ball return centered between the approaches, seating areas behind, scoreboards mounted above each lane, and the full alley atmosphere with warm ambient lighting. Clean modular game-art aesthetic with readable silhouettes, wood-toned lanes, dark gutters, white pin racks, and a cohesive color palette. Composition shows the complete pair from a player's perspective looking down the lanes.",
+      "seed": 36001,
+      "width": 512,
+      "height": 512,
+      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-eb0dd64f1ba74874b12300d94cc5632b/image-0ed9cb56b87d37a21872ecda49a351415052afea9051f538f167ce5a95c8cfbb.png",
+      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-eb0dd64f1ba74874b12300d94cc5632b/receipt.json",
+      "bytes": 395268,
+      "sha256": "0ed9cb56b87d37a21872ecda49a351415052afea9051f538f167ce5a95c8cfbb"
+    },
+    {
+      "role": "layout",
+      "tool": "imageMCP",
+      "provider": "elitedesk-wsl",
+      "model": "qwen-image-2.1-q4",
+      "request_id": "bowling-ref-layout-36002",
+      "job_id": "edimg-17a13eb70a6c4c1cb1f19007e294b2b2",
+      "state": "completed",
+      "prompt": "An elevated top-down overview of a two-lane bowling alley showing the complete layout from behind the approach. Both lanes visible with their full length, parallel gutters on each side, flat decks at the pin area, recessed pit at the rear, the ball return unit centered between the approach corridors, benches behind the approach, and scoreboards above each lane. Clear top-down orthographic-style perspective showing precise lane alignment, gutter spacing, deck boundaries, pit depth, and overall alley footprint. Stylized-realistic game-art style with readable geometry.",
+      "seed": 36002,
+      "width": 512,
+      "height": 512,
+      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-17a13eb70a6c4c1cb1f19007e294b2b2/image-d7cb3396a17a072e6760524f6351763b19a4416c00bcf02e19996d3cdefa801b.png",
+      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-17a13eb70a6c4c1cb1f19007e294b2b2/receipt.json",
+      "bytes": 288467,
+      "sha256": "d7cb3396a17a072e6760524f6351763b19a4416c00bcf02e19996d3cdefa801b"
+    },
+    {
+      "role": "details",
+      "tool": "imageMCP",
+      "provider": "elitedesk-wsl",
+      "model": "qwen-image-2.1-q4",
+      "request_id": "bowling-ref-details-36003",
+      "job_id": "edimg-528cae6a52a04b609b94c94430d40322",
+      "state": "completed",
+      "prompt": "A detail sheet of individual bowling alley elements in stylized-realistic game-art style, showing: a close-up of a ten-pin bowling pin with white body and two red bands around the neck; three bowling balls in distinct colors (blue, burgundy/red, green/teal) with visible recessed finger holes; a cross-section showing ball return rack cradle supporting balls; and a material palette swatch showing wood grain, white pin surface, red stripe, gutter metal, seat fabric, and screen panel colors. All elements on a clean neutral background with clear separation for use as reference.",
+      "seed": 36003,
+      "width": 512,
+      "height": 512,
+      "path": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-528cae6a52a04b609b94c94430d40322/image-8eb756380deddfc00d5e4925aed730974e5898b9eb5fd32528b133a83b80bf23.png",
+      "receipt": "artifacts/references/7ae40354f097ebd80ae05e49/edimg-528cae6a52a04b609b94c94430d40322/receipt.json",
+      "bytes": 259992,
+      "sha256": "8eb756380deddfc00d5e4925aed730974e5898b9eb5fd32528b133a83b80bf23"
+    }
+  ],
+  "visual_review": [
+    {
+      "sha256": "0ed9cb56b87d37a21872ecda49a351415052afea9051f538f167ce5a95c8cfbb",
+      "role": "overview",
+      "observations": "A wide, symmetrical view of a bowling alley with two lanes converging toward a pin deck. The lanes are light wood, separated by a long white and black ball return. Orange seating lines the sides, and two digital scoreboards hang on the far wall above the pins."
+    },
+    {
+      "sha256": "d7cb3396a17a072e6760524f6351763b19a4416c00bcf02e19996d3cdefa801b",
+      "role": "layout",
+      "observations": "A top-down orthographic view showing two parallel wooden lanes flanked by gray gutters and white ball returns. A central gray walkway contains a single bowling ball and a rectangular ball return unit, with a scoreboard structure visible at the top edge."
+    },
+    {
+      "sha256": "8eb756380deddfc00d5e4925aed730974e5898b9eb5fd32528b133a83b80bf23",
+      "role": "details",
+      "observations": "A collection of isolated assets on a white background, including a white pin with red stripes, three colored bowling balls (blue, maroon, green), a cream and black ball return machine, and two swatch panels showing wood grain and solid color blocks."
+    }
+  ],
+  "vision_receipt": "artifacts/references/vision-helper.json"
+}

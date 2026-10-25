@@ -1,0 +1,12 @@
+{
+  "source_job": "c3e6eb270cce4cdd82671452900849bc",
+  "path": "artifacts/blend/BowlingPair01.blend",
+  "sha256": "38411b0cf6add697e68d6f1ef9a507ab5c6dd230cd4b6f7fcc31c4a6fb7f496b",
+  "bytes": 106764,
+  "scene_json": {
+    "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/c3e6eb270cce4cdd82671452900849bc/scene.json",
+    "bytes": 40552,
+    "sha256": "4425a069a8adaa2040581cf9c2d8de4001dfb43a453858fea0e69d2b8c1207d2",
+    "name": "scene.json"
+  }
+}

@@ -1,4 +1,4 @@
-"""One launch for reference review followed by continuous MTP coding; no GPU controls."""
+"""One launch for reference review followed by continuous selected-model coding; no GPU controls."""
 import argparse
 import fcntl
 import json
@@ -15,6 +15,7 @@ sys.path.insert(0,str(ROOT))
 from scripts.check_references import check as reference_check
 from scripts.check_resume import check as resume_check, fields
 from scripts.trial_settings import MODEL
+from scripts.context_recovery import is_context_overflow,context_exit_recoverable,recovery_prompt,MAX_CONTEXT_RECOVERIES
 
 
 def hard_native_streak(root,failures):
@@ -197,7 +198,7 @@ def main():
             state['operator_continuation']=plan
             if plan.get('fresh_coding_session') and 'coding' in state['sessions']:
                 state.setdefault('session_history',[]).append({'phase':'coding','session':state['sessions'].pop('coding'),
-                    'reason':'Operator-corrected pin geometry and authorized counter reset; avoid stale failed-session assumptions'})
+                    'reason':'Operator authorized checkpoint-bound fresh coding session; avoid stale failed-session assumptions'})
             state['recovery_context']=(
                 f"The operator explicitly authorized this reconciled continuation with failure limits {plan['limits']['per_source']}/source and {plan['limits']['total']}/total. "
                 'All prior failures remain. Read CONTROLLED_CONTINUATION.md and '+plan['diagnostic_report']+' before any submission. '
@@ -228,7 +229,7 @@ def main():
         def stopped(signum,frame):
             raise KeyboardInterrupt('Explicit controller stop')
         signal.signal(signal.SIGTERM,stopped)
-        def run_phase(phase):
+        def run_client_once(phase):
             retained=state.get('native_failures_since_progress',{})
             native_failures=hard_native_streak(ROOT,retained)
             if native_failures!=retained:
@@ -250,7 +251,7 @@ def main():
                 command.append(state.pop('recovery_context'))
             if state.get('last_errors'):
                 state.setdefault('previous_turn_errors',[]).append({'phase':state.get('phase'),'turn':state['turns'],'errors':state['last_errors']})
-            state.update(phase=phase,model=model,turns=state['turns']+1,last_errors=[])
+            state.update(phase=phase,model=model,turns=state['turns']+1,last_errors=[],context_recovery_state=None)
             state.pop('reason',None)
             save()
             events=runtime/f"{state['turns']:03d}-{phase}.jsonl"
@@ -261,6 +262,8 @@ def main():
                 state['client_pid']=process.pid
                 save()
                 hard_stop=False
+                context_errors=0
+                fatal_error=False
                 errors=[]
                 try:
                     assert process.stdout is not None
@@ -283,8 +286,13 @@ def main():
                             if len(native_failures)>=2:
                                 raise RuntimeError('STOP: two distinct native jobs failed/cancelled without a published asset advance; client stopped immediately for diagnosis, no automatic retry.')
                         if event.get('type')=='error':
-                            hard_stop=True
-                            errors.append(str(event.get('error','Client error'))[:1500])
+                            if is_context_overflow(event):
+                                context_errors+=1
+                                errors.append('Context overflow; checkpoint reconciliation required before a fresh-context continuation.')
+                            else:
+                                fatal_error=True;hard_stop=True
+                                errors.append(str(event.get('error','Client error'))[:1500])
+                            state['last_errors']=errors[-4:];save()
                         if event.get('type')=='tool_use' and event.get('part',{}).get('state',{}).get('status')=='error':
                             error=str(event['part']['state'].get('error',''))
                             errors.append(error[:1500])
@@ -292,12 +300,17 @@ def main():
                             save()
                             if any(marker in error.lower() for marker in ['stop:', 'circuit-breaker', 'failure budget exhausted','doom_loop']):
                                 hard_stop=True
+                            if any(marker in error.lower() for marker in ['ssh bridge','transport','connection','timed out','timeout','broken pipe','unexpected eof']):
+                                fatal_error=True;hard_stop=True
                         if event.get('sessionID'):
                             state['sessions'][phase]=event['sessionID']
                             save()
                         if event.get('type')=='text':
                             print(event.get('part',{}).get('text',''),flush=True)
                     code=process.wait()
+                    if context_exit_recoverable(code,context_errors,fatal_error,hard_stop):
+                        state['last_errors']=errors[-4:];save()
+                        return {'context_recovery':True,'exit_code':code,'context_errors':context_errors,'hard_stop':False}
                     if code:
                         raise RuntimeError(f'{phase} client exited {code}; no automatic replay')
                     state['last_errors']=errors[-4:]
@@ -311,6 +324,31 @@ def main():
                             process.wait()
                     state.pop('client_pid',None)
                     save()
+        def run_phase(phase):
+            while True:
+                outcome=run_client_once(phase)
+                if not outcome.get('context_recovery'):return outcome
+                state['context_recovery_state']='reconciling accepted jobs';save()
+                config=json.loads((ROOT/'opencode.json').read_text())
+                python=config['mcp']['bowling-blender52']['command'][0]
+                result=subprocess.run([python,str(ROOT/'scripts/reconcile_context_checkpoint.py'),'--phase',phase],cwd=ROOT,
+                    capture_output=True,text=True,timeout=300,check=True)
+                receipt=json.loads(result.stdout)
+                if receipt.get('passed') is not True or receipt.get('pending_jobs'):
+                    raise RuntimeError('STOP: context checkpoint reconciliation did not verify a safe continuation')
+                previous=state.get('context_recovery_checkpoint')
+                count=state.get('consecutive_context_recoveries',0) if previous==receipt['source'] else 0
+                if count>=MAX_CONTEXT_RECOVERIES:
+                    raise RuntimeError('STOP: repeated context failures without a new verified checkpoint; operator diagnosis required')
+                old_session=state['sessions'].pop(phase,None)
+                state.setdefault('session_history',[]).append({'phase':phase,'session':old_session,
+                    'reason':'Confirmed context overflow; accepted work reconciled before fresh context'})
+                state.setdefault('context_recoveries',[]).append({'at':time.time(),'phase':phase,'previous_session':old_session,
+                    'receipt':receipt,'exit_code':outcome['exit_code']})
+                state.update(consecutive_context_recoveries=count+1,context_recovery_checkpoint=receipt['source'],
+                    native_failures_since_progress=receipt['hard_streak'],last_errors=[],
+                    recovery_context=recovery_prompt(receipt,phase),context_recovery_state='starting fresh context')
+                save()
         def recover(phase,reason):
             checks=reference_check(ROOT) if phase=='references' else resume_check(ROOT)
             state.setdefault('recoveries',[]).append({'phase':phase,'reason':reason,'issues':checks['issues'],'errors':state.get('last_errors',[])})
