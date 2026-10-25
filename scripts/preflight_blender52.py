@@ -42,7 +42,7 @@ async def main():
         async with ClientSession(*streams, read_timeout_seconds=timedelta(seconds=90)) as session:
             await session.initialize()
             tools = await session.list_tools()
-            required={'blender_workflow_status','blender_checkpoint','blender_validate','blender_render_view',
+            required={'blender_api_lookup','blender_workflow_status','blender_checkpoint','blender_validate','blender_render_view',
                       'blender_publish_render','blender_review_presentation','blender_export_delivery','blender_finish_delivery'}
             assert required<={tool.name for tool in tools.tools}
             result = await session.call_tool('blender_capabilities', {})

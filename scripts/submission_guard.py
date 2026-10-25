@@ -34,6 +34,18 @@ class SubmissionGuard:
         with self.connect() as db:
             db.execute('CREATE TABLE IF NOT EXISTS attempts (fingerprint TEXT PRIMARY KEY, source TEXT NOT NULL, operation TEXT NOT NULL, job TEXT UNIQUE, state TEXT NOT NULL)')
             db.execute('CREATE TABLE IF NOT EXISTS failure_budget_resets (id INTEGER PRIMARY KEY AUTOINCREMENT, cutoff_rowid INTEGER NOT NULL, reason TEXT NOT NULL, created REAL NOT NULL)')
+            db.execute('CREATE TABLE IF NOT EXISTS api_corrections (job TEXT PRIMARY KEY, evidence TEXT NOT NULL)')
+
+    def api_correction(self,job):
+        with self.connect() as db:
+            row=db.execute('SELECT evidence FROM api_corrections WHERE job=?',(job,)).fetchone()
+            return json.loads(row['evidence']) if row else None
+
+    def record_api_correction(self,job,evidence):
+        assert evidence['category']=='api_correction'
+        with self.connect() as db:
+            assert db.execute("SELECT 1 FROM attempts WHERE job=? AND state='failed'",(job,)).fetchone()
+            db.execute('INSERT OR IGNORE INTO api_corrections VALUES(?,?)',(job,json.dumps(evidence,sort_keys=True)))
 
     @contextmanager
     def connect(self):
@@ -72,6 +84,7 @@ class SubmissionGuard:
         return {'accepted_jobs': [r for r in rows if r['job']],
                 'uncertain_submissions': [r['fingerprint'] for r in rows if not r['job']],
                 'failed_count': len(accounting['counted_failures']),
+                'api_correction_count':len(accounting['api_corrections']),
                 'historical_failed_count':sum(r['state'] in ('failed','cancelled') for r in rows),
                 'failure_budget_reset_id':accounting['reset_id'],
                 'failure_limit_per_source': FAILURE_LIMIT_PER_SOURCE, 'failure_limit_total': FAILURE_LIMIT_TOTAL}
@@ -119,7 +132,10 @@ def budget_accounting(path,rows) -> dict:
         reset=db.execute('SELECT id,cutoff_rowid FROM failure_budget_resets ORDER BY id DESC LIMIT 1').fetchone() if exists else None
         reset_id,cutoff=reset if reset else (0,0)
         fingerprints={r[0] for r in db.execute('SELECT fingerprint FROM attempts WHERE rowid>?',(cutoff,))}
+        has_api=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='api_corrections'").fetchone()
+        api_jobs={r[0] for r in db.execute('SELECT job FROM api_corrections')} if has_api else set()
         return {'reset_id':reset_id,'cutoff_rowid':cutoff,
-                'counted_failures':[row for row in rows if row['fingerprint'] in fingerprints and row['state'] in {'failed','cancelled'}]}
+                'api_corrections':[row for row in rows if row['fingerprint'] in fingerprints and row['state']=='failed' and row['job'] in api_jobs],
+                'counted_failures':[row for row in rows if row['fingerprint'] in fingerprints and row['state'] in {'failed','cancelled'} and row['job'] not in api_jobs]}
     finally:
         db.close()

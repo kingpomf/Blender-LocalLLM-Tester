@@ -1,0 +1,23 @@
+{
+  "authorization": "User requested committing API-aware correction/recovery changes and launching a new detached run; no budget reset.",
+  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "agent": "bowling-coder",
+  "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+  "source_job": "2b37b77ce016462c943a217f67fb9418",
+  "checkpoint": "artifacts/blend/BowlingPair01.blend",
+  "checkpoint_sha256": "9ff9753dc34b0aa0f20512d39e7f3a8fd4b9f1a36d947b9dfeac7f3198819d6b",
+  "guard_rows_sha256": "12f531b1295853b2290d528cb83f625bb1cebd191eee43e40c3e6358376a776b",
+  "validation_sha256": "27d0f7444ae3b58f2aedea41a411ae2a2eb2676459bd573267de10baef8c2cde",
+  "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+  "limits": {
+    "per_source": 6,
+    "total": 20
+  },
+  "failure_budget_reset_id": 2,
+  "fresh_coding_session": true,
+  "workflow_managed": true,
+  "first_stage": "04",
+  "diagnostic_report": "testing/api-aware-relaunch/HANDOFF.md",
+  "handoff": "CONTROLLED_CONTINUATION.md",
+  "scope": "Use installed API lookups and recoverable API feedback to self-correct. Preserve current verified source and passing foundations. Repair actual gutter/collision/support/framing findings with small validated edits, then finish real-image review and measured delivery through MCP tools."
+}

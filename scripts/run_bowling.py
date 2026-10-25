@@ -17,8 +17,18 @@ from scripts.check_resume import check as resume_check, fields
 from scripts.trial_settings import MODEL
 
 
+def hard_native_streak(root,failures):
+    path=Path(root)/'.runtime/blender52/submissions.sqlite'
+    if not path.exists():return dict(failures)
+    from scripts.submission_guard import budget_accounting
+    from scripts.continuation_preflight import guard_rows
+    api_jobs={row['job'] for row in budget_accounting(path,guard_rows(root))['api_corrections']}
+    return {job:reason for job,reason in failures.items() if job not in api_jobs}
+
+
 def live_status(root,state) -> dict:
     result=dict(state)
+    result['effective_hard_native_streak']=hard_native_streak(root,state.get('native_failures_since_progress',{}))
     path=Path(root)/'.runtime/blender52/submissions.sqlite'
     if path.exists():
         from scripts.continuation_preflight import guard_rows
@@ -26,6 +36,7 @@ def live_status(root,state) -> dict:
         rows=guard_rows(root)
         accounting=budget_accounting(path,rows)
         result['live_failure_budget']={'current_failures':len(accounting['counted_failures']),
+            'recoverable_api_corrections':len(accounting['api_corrections']),
             'historical_failures_preserved':sum(r['state'] in {'failed','cancelled'} for r in rows),
             'per_source_limit':FAILURE_LIMIT_PER_SOURCE,'total_limit':FAILURE_LIMIT_TOTAL,
             'reset_id':accounting['reset_id']}
@@ -57,6 +68,7 @@ def native_outcome(event,failures,progress):
     try:result=json.loads(part.get('state',{}).get('output',''))
     except (ValueError,TypeError):return None
     if not isinstance(result,dict):return None
+    if result.get('failure_category')=='api_correction' and result.get('hard_failure') is False:return None
     job=result.get('id')
     native_state=result.get('state')
     if result.get('operation')=='asset' and result.get('state')=='completed' and result.get('execution_succeeded'):
@@ -194,14 +206,14 @@ def main():
                 'This handoff supersedes the previous exhausted trial budget only; current guard limits and uncertainty checks still apply.')
             if plan.get('workflow_managed'):
                 state['recovery_context']=(
-                    'The user authorized this enforced-workflow continuation and reset epoch2 with preserved archives. '
+                    'The user authorized this enforced-workflow continuation with preserved failure history. '
                     'Use bowling-blender52 MCP tools, not shell commands or manual ledger edits. '
-                    'Read CONTROLLED_CONTINUATION.md and testing/WORKFLOW_HARDENING.md, then call blender_workflow_status. '
+                    'Read CONTROLLED_CONTINUATION.md and '+plan['diagnostic_report']+', then call blender_workflow_status. '
                     'The authoritative source is '+plan['source_job']+'. Author scene/cameras only; inline rendering is rejected before submission. '
                     'Poll completed asset edits AND their auto-queued validation_job. Use blender_render_view and poll view- IDs for actual queued CPU renders/publication. '
                     'Use blender_review_presentation, blender_export_delivery and blender_finish_delivery for evidence and final package. '
                     'No Bash/Task tools or managed-file edits are available. Recoverable wrong-tool/pending-work feedback consumes no attempt; follow it. '
-                    'Current failures are0, limits6/source20/total. All26 old failures remain historical and still reject identical replay. '
+                    f"Current counted failures: {plan.get('failures_retained','query workflow status')}; historical failed/cancelled jobs: {plan.get('historical_failures_preserved','preserved')}. Limits remain6/source20/total. "
                     'Do not reset counters, restart empty, regenerate references or repeat old wrong APIs. Scope: '+plan['scope'])
         state.update(state='running',controller_pid=os.getpid())
         def save():
@@ -213,9 +225,13 @@ def main():
             raise KeyboardInterrupt('Explicit controller stop')
         signal.signal(signal.SIGTERM,stopped)
         def run_phase(phase):
-            if len(state.get('native_failures_since_progress',{}))>=2:
+            retained=state.get('native_failures_since_progress',{})
+            native_failures=hard_native_streak(ROOT,retained)
+            if native_failures!=retained:
+                state.setdefault('reclassified_api_streak_history',[]).append(dict(retained))
+                state['native_failures_since_progress']=dict(native_failures);save()
+            if len(native_failures)>=2:
                 raise RuntimeError('STOP: retained native failure streak requires operator reconciliation before another client starts.')
-            native_failures=dict(state.get('native_failures_since_progress',{}))
             progress=state.setdefault('native_progress',{'asset_jobs':[],'failed_jobs':list(native_failures)})
             receipt=ROOT/'artifacts/reports/checkpoint.json'
             if receipt.exists():

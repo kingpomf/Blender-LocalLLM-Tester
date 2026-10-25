@@ -1,0 +1,257 @@
+{
+  "current_source": "2b37b77ce016462c943a217f67fb9418",
+  "checkpoint": {
+    "source_job": "2b37b77ce016462c943a217f67fb9418",
+    "path": "artifacts/blend/BowlingPair01.blend",
+    "sha256": "9ff9753dc34b0aa0f20512d39e7f3a8fd4b9f1a36d947b9dfeac7f3198819d6b",
+    "bytes": 222151,
+    "scene_json": {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/2b37b77ce016462c943a217f67fb9418/scene.json",
+      "bytes": 152022,
+      "sha256": "a225b4961341d13db45886ea4658e98b8830c798f202c74ee3a288e4fa2b5dce",
+      "name": "scene.json"
+    }
+  },
+  "validation": {
+    "source_job": "2b37b77ce016462c943a217f67fb9418",
+    "job_id": "fb4c08fbb60f4c0fb747502c1ed23411",
+    "sha256": "27d0f7444ae3b58f2aedea41a411ae2a2eb2676459bd573267de10baef8c2cde",
+    "path": ".runtime/workflow/validated-reports/27d0f7444ae3b58f2aedea41a411ae2a2eb2676459bd573267de10baef8c2cde.json",
+    "stage_results": {
+      "00": "PASS",
+      "01": "PASS",
+      "02": "PASS",
+      "03": "PASS",
+      "04": "UNRESOLVED",
+      "05": "FAIL",
+      "06": "FAIL",
+      "07": "FAIL"
+    },
+    "passed": false,
+    "fail_count": 15,
+    "unresolved_count": 6
+  },
+  "pending_jobs": [],
+  "guard": {
+    "uncertain_submissions": [],
+    "failed_count": 2,
+    "historical_failed_count": 28,
+    "failure_budget_reset_id": 2,
+    "failure_limit_per_source": 6,
+    "failure_limit_total": 20
+  },
+  "remaining_checks": [
+    {
+      "id": "S04_Ball_01_holes_visual",
+      "stage": "04",
+      "status": "UNRESOLVED",
+      "expected": "visible open grip sockets in actual props render",
+      "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+    },
+    {
+      "id": "S04_Ball_02_holes_visual",
+      "stage": "04",
+      "status": "UNRESOLVED",
+      "expected": "visible open grip sockets in actual props render",
+      "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+    },
+    {
+      "id": "S04_Ball_03_holes_visual",
+      "stage": "04",
+      "status": "UNRESOLVED",
+      "expected": "visible open grip sockets in actual props render",
+      "observed": "Requires render-based inspection; depth vertices alone do not prove usable openings"
+    },
+    {
+      "id": "S05_Ball_03_rack_contact",
+      "stage": "05",
+      "status": "FAIL",
+      "expected": "surface contact within0.005m and no penetration",
+      "observed": "{'nearest_rack_distance': 0.44723594188690186, 'ball_radius': 0.10800012297380647}"
+    },
+    {
+      "id": "S05_return_opening",
+      "stage": "05",
+      "status": "UNRESOLVED",
+      "expected": "visible hood opening and supporting cradle",
+      "observed": "Requires actual visual/portable label evidence"
+    },
+    {
+      "id": "S05_scoreboard_labels",
+      "stage": "05",
+      "status": "UNRESOLVED",
+      "expected": "different readable01/02 and score grid",
+      "observed": "Requires actual visual/portable label evidence"
+    },
+    {
+      "id": "S05_masking_labels",
+      "stage": "05",
+      "status": "UNRESOLVED",
+      "expected": "01/02 labels behind racks",
+      "observed": "Requires actual visual/portable label evidence"
+    },
+    {
+      "id": "S06_Gutter_L_Outer_collision",
+      "stage": "06",
+      "status": "FAIL",
+      "expected": "concave profile aligns within0.01m; not flat bridge",
+      "observed": "{'minimum': [-1.7333999872207642, 0.0, -0.10999999940395355], 'maximum': [-1.4833999872207642, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [-1.6083999872207642, 9.600000381469727, -0.0949999988079071], 'local_minimum': [-1.7333999872207642, "
+    },
+    {
+      "id": "S06_Gutter_L_Inner_collision",
+      "stage": "06",
+      "status": "FAIL",
+      "expected": "concave profile aligns within0.01m; not flat bridge",
+      "observed": "{'minimum': [-0.6665999889373779, 0.0, -0.10999999940395355], 'maximum': [-0.41659998893737793, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [-0.5415999889373779, 9.600000381469727, -0.0949999988079071], 'local_minimum': [-0.6665999889373779,"
+    },
+    {
+      "id": "S06_Gutter_R_Inner_collision",
+      "stage": "06",
+      "status": "FAIL",
+      "expected": "concave profile aligns within0.01m; not flat bridge",
+      "observed": "{'minimum': [0.41659998893737793, 0.0, -0.10999999940395355], 'maximum': [0.6665999889373779, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [0.5415999889373779, 9.600000381469727, -0.0949999988079071], 'local_minimum': [0.41659998893737793, 0."
+    },
+    {
+      "id": "S06_Gutter_R_Outer_collision",
+      "stage": "06",
+      "status": "FAIL",
+      "expected": "concave profile aligns within0.01m; not flat bridge",
+      "observed": "{'minimum': [1.4833999872207642, 0.0, -0.10999999940395355], 'maximum': [1.7333999872207642, 19.200000762939453, -0.07999999821186066], 'dimensions': [0.25, 19.200000762939453, 0.030000001192092896], 'local_center': [1.6083999872207642, 9.600000381469727, -0.0949999988079071], 'local_minimum': [1.4833999872207642, 0.0,"
+    },
+    {
+      "id": "S06_lane_collision_L",
+      "stage": "06",
+      "status": "FAIL",
+      "expected": "bounds and top align within0.01m",
+      "observed": "{'minimum': [-1.5499999523162842, 0.0, -0.009999999776482582], 'maximum': [-0.3499999940395355, 19.200000762939453, 0.0010000000474974513], 'dimensions': [1.1999999582767487, 19.200000762939453, 0.010999999823980033], 'local_center': [-0.9499999731779099, 9.600000381469727, -0.004499999864492565], 'local_minimum': [-1."
+    },
+    {
+      "id": "S06_lane_collision_R",
+      "stage": "06",
+      "status": "FAIL",
+      "expected": "bounds and top align within0.01m",
+      "observed": "{'minimum': [0.3499999940395355, 0.0, -0.009999999776482582], 'maximum': [1.5499999523162842, 19.200000762939453, 0.0010000000474974513], 'dimensions': [1.1999999582767487, 19.200000762939453, 0.010999999823980033], 'local_center': [0.9499999731779099, 9.600000381469727, -0.004499999864492565], 'local_minimum': [0.3499"
+    },
+    {
+      "id": "S06_normals_and_static_origins",
+      "stage": "06",
+      "status": "FAIL",
+      "expected": "outward surfaces; documented useful static pivots",
+      "observed": "{'id': 'S06_normals_and_static_origins', 'passed': False, 'observations': 'Geometry facts show negative signed volumes for Divider_Cap, Pit_Catch, OuterRail_R, and all Gutter components, indicating inverted normals on closed surfaces. Additionally, ArrowTri and Dot components have zero volume and non-manifold edges.', "
+    },
+    {
+      "id": "S07_Overview_framing",
+      "stage": "07",
+      "status": "FAIL",
+      "expected": "all required target bounds inside positive camera frustum",
+      "observed": "{'Divider_Cap': 0.0, 'PinDeck_L': 0.0, 'PinDeck_R': 0.5, 'Pit_Catch': 0.5, 'OuterRail_L': 0.0, 'OuterRail_R': 0.5, 'Lane_L_Surface': 0.0, 'Lane_R_Surface': 0.25, 'Approach_L': 0.0, 'Approach_R': 0.0, 'Foul_L': 0.0, 'Foul_R': 0.0, 'ArrowStrip_L': 0.0, 'ArrowStrip_R': 0.0, 'ArrowTri_L_01': 0.0, 'ArrowTri_L_02': 0.0, 'Arr"
+    },
+    {
+      "id": "S07_Player_framing",
+      "stage": "07",
+      "status": "FAIL",
+      "expected": "all required target bounds inside positive camera frustum",
+      "observed": "{'Lane_L_Surface': 0.5}"
+    },
+    {
+      "id": "S07_Props_framing",
+      "stage": "07",
+      "status": "FAIL",
+      "expected": "all required target bounds inside positive camera frustum",
+      "observed": "{'Ball_01': 0.0, 'Ball_02': 0.0, 'Ball_03': 0.0}"
+    },
+    {
+      "id": "S07_local_overview_visibility",
+      "stage": "07",
+      "status": "FAIL",
+      "expected": "verified same-asset four distinct1280x720 renders with visual review",
+      "observed": "{'sha256': 'df02e1b293c29d5f1d13895a56a3400a4b42779f8b310b0280e3dfd850bf0ed7', 'passed': False, 'observations': 'The image is a close-up of a ceiling and wall corner. Only a small portion of the pin deck and pins are visible in the bottom left. The lanes, approaches, seating, return racks, and scoreboards are completel"
+    },
+    {
+      "id": "S07_local_player_visibility",
+      "stage": "07",
+      "status": "FAIL",
+      "expected": "verified same-asset four distinct1280x720 renders with visual review",
+      "observed": "{'sha256': 'c42b990acac7c8568645c8cbd96f7ac3eecfa11686c28e33d64d6f442aa44338', 'passed': False, 'observations': 'The view shows the right lane and the divider, but the left lane is obscured by a large grey wall on the left side of the frame. While pins are visible in the distance, the lane markings (arrows/dots) and gu"
+    },
+    {
+      "id": "S07_local_pindeck_visibility",
+      "stage": "07",
+      "status": "FAIL",
+      "expected": "verified same-asset four distinct1280x720 renders with visual review",
+      "observed": "{'sha256': 'a9b3761056209e71baab4d775b5d0209449374053d721ea85e52da425d507e57', 'passed': False, 'observations': 'The image shows the pin deck area with pins and a red band on the left. However, the right side of the pin deck is obscured by a large grey structure, and the pit area is not clearly visible or distinct enou"
+    },
+    {
+      "id": "S07_local_props_visibility",
+      "stage": "07",
+      "status": "FAIL",
+      "expected": "verified same-asset four distinct1280x720 renders with visual review",
+      "observed": "{'sha256': 'db605d10bd1d9b6a3d518c3409b19802c27be69b7f29d01af20de43b10013b05', 'passed': False, 'observations': 'The image shows a close-up of a beige wall and a dark horizontal bar. No bowling balls, return racks, or grip sockets are visible in this frame.', 'reviewer': 'fixed pixel helper qwen38-27b'}"
+    }
+  ],
+  "reviews": {
+    "review-ffc5c5a8c3e748e4982fb2f13968a4a1": {
+      "state": "completed",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "warnings": [
+        {
+          "id": "S04_Ball_01_holes_visual",
+          "reason": "Insufficient detailed observations; criterion remains unresolved, never treated as PASS."
+        },
+        {
+          "id": "S04_Ball_02_holes_visual",
+          "reason": "Insufficient detailed observations; criterion remains unresolved, never treated as PASS."
+        },
+        {
+          "id": "S04_Ball_03_holes_visual",
+          "reason": "Insufficient detailed observations; criterion remains unresolved, never treated as PASS."
+        },
+        {
+          "id": "S05_return_opening",
+          "reason": "Insufficient detailed observations; criterion remains unresolved, never treated as PASS."
+        },
+        {
+          "id": "S05_scoreboard_labels",
+          "reason": "Insufficient detailed observations; criterion remains unresolved, never treated as PASS."
+        },
+        {
+          "id": "S05_masking_labels",
+          "reason": "Insufficient detailed observations; criterion remains unresolved, never treated as PASS."
+        }
+      ]
+    }
+  },
+  "views": {
+    "view-a6ce6e0bcd5b4b98bd35d8c64d1b921b": {
+      "role": "overview",
+      "state": "completed",
+      "camera_job": "0739f3cf03934d2d997690acfa76c72a",
+      "render_job": "993e8c59fc684b49b92afc678906b43d"
+    },
+    "view-3a4ae3f951234aa28c832a5440fa3eac": {
+      "role": "overview",
+      "state": "completed",
+      "camera_job": "0a79d9da529646b19491d05373301bcd",
+      "render_job": "bba6712c295c43e5964bfc9fd708e17e"
+    },
+    "view-f33a47ebefe6449daf42ba83118898df": {
+      "role": "player",
+      "state": "completed",
+      "camera_job": "7f9b2f6b9c0c4e78a60c6447c2066c07",
+      "render_job": "59c548ccaff44b5a9bc122e6ac6eed2a"
+    },
+    "view-27ec596fb8894ca6877386db76165954": {
+      "role": "pindeck",
+      "state": "completed",
+      "camera_job": "87e67ee8c2214246ba3f6060c57a6fa5",
+      "render_job": "43dcb0be139347bf8a940dac42d9eccb"
+    },
+    "view-cd542f05ddc2475ea48fa4fbf7aa4493": {
+      "role": "props",
+      "state": "completed",
+      "camera_job": "15a56ed19ca1420c9e40c85ffd98b2c0",
+      "render_job": "15d9a3dcc455487c92a16c022a4062ec"
+    }
+  },
+  "instructions": "Use author for scene edits only. Poll every accepted ID. Checkpoints/validation/stage mirrors are automatic. Use render_view for queued views; never render inline or manually claim PASS."
+}

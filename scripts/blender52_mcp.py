@@ -197,6 +197,11 @@ def server(qualification=False):
 
     if workflow:
         @app.tool()
+        async def blender_api_lookup(query: str) -> dict:
+            """Look up the exact installed Blender5.2 API before coding. Query Mesh, Mesh.update, or bpy.ops.mesh.primitive_cube_add; returns supported members/keywords. API corrections are recoverable and do not consume the hard-failure budget."""
+            return await workflow.call('api_lookup',query=query)
+
+        @app.tool()
         async def blender_workflow_status() -> dict:
             """Read authoritative current source, checkpoint, measured stages, current budget and pending IDs. Restores managed stage mirrors; no inference/render submission."""
             return await workflow.call('workflow_status')

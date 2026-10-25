@@ -100,6 +100,7 @@ def sync_ledgers(root):
             'Validation state':'completed current-source measurements; see artifacts/reports/validation.json',
             'Operator validation pending':'none',
             'Checkpoint SHA-256':receipt['sha256'],
+            'API corrections':str(len(accounting['api_corrections']))+' recoverable API errors excluded from hard-failure budget; original jobs preserved',
             'Failure budget':f'6 per source / 20 total; current failures {failure_count}; {source_failures} on current source; {historical_failures} historical failures preserved; reset epoch {accounting["reset_id"]}',
             'Controller':'RUNNING; continue current session' if controller.get('state')=='running' else 'STOPPED; awaiting explicit operator continuation',
             'Operator intervention':('Operator supplied and verified pin-profile/cap/band correction; user authorized archived counter reset; all original jobs preserved'

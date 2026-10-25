@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "tools": [
+    "blender_capabilities",
+    "blender_scene_author",
+    "blender_scene_inspect",
+    "blender_export",
+    "blender_render",
+    "blender_job_status",
+    "blender_job_diagnostics",
+    "blender_job_cancel",
+    "blender_artifact_fetch",
+    "blender_api_lookup",
+    "blender_workflow_status",
+    "blender_checkpoint",
+    "blender_validate",
+    "blender_render_view",
+    "blender_publish_render",
+    "blender_review_presentation",
+    "blender_export_delivery",
+    "blender_finish_delivery"
+  ],
+  "unsupported_lookup": {
+    "version": "5.2.3 LTS",
+    "build_hash": "e13b728c6880",
+    "query": "Mesh.calc_normals_use_fit_sharp",
+    "available": false,
+    "function": null,
+    "property": null,
+    "suggestions": []
+  },
+  "supported_lookup": {
+    "version": "5.2.3 LTS",
+    "build_hash": "e13b728c6880",
+    "query": "Mesh.update",
+    "available": true,
+    "function": {
+      "calc_edges": {
+        "type": "BOOLEAN",
+        "required": false
+      },
+      "calc_edges_loose": {
+        "type": "BOOLEAN",
+        "required": false
+      }
+    },
+    "property": null,
+    "suggestions": [
+      "update",
+      "update_tag",
+      "update_gpu_tag"
+    ]
+  },
+  "preflight": {
+    "ok": false,
+    "recoverable": true,
+    "submitted": false,
+    "attempt_consumed": false,
+    "code": "api_correction",
+    "message": "Correct unsupported API use against the installed runtime, then submit changed code. No native attempt was made.",
+    "issues": [
+      {
+        "line": 103,
+        "code": "unsupported_member",
+        "api": "Mesh.calc_normals_use_fit_sharp",
+        "message": "This member is absent from the installed Blender API. Unknown receiver types are not rejected.",
+        "suggestions": [],
+        "next_tool": "blender_api_lookup"
+      },
+      {
+        "line": 110,
+        "code": "unsupported_member",
+        "api": "Mesh.calc_normals_use_fit_sharp",
+        "message": "This member is absent from the installed Blender API. Unknown receiver types are not rejected.",
+        "suggestions": [],
+        "next_tool": "blender_api_lookup"
+      }
+    ],
+    "next_tool": "blender_api_lookup"
+  },
+  "runtime_api_correction": {
+    "id": "6a3c128b6ab54880b0f6449b85e2fab0",
+    "state": "failed",
+    "error": "blender_exit_1; see blender.log",
+    "progress": null,
+    "diagnostics": {
+      "tool": "blender_job_diagnostics",
+      "next_action": "Terminal job: read diagnostics once. Completed-artifact fetch cannot retrieve failed outputs; repair code in a new revision or report the blocker."
+    },
+    "recoverable": true,
+    "hard_failure": false,
+    "failure_category": "api_correction",
+    "hard_failure_budget_consumed": false,
+    "correction": {
+      "category": "api_correction",
+      "diagnostics_sha256": "f3fa2e814a5e78dd22e91cb43de96318965c7d46d5dc625fe29311702c1e5c14",
+      "member": "calc_normals_use_fit_sharp",
+      "message": "Mesh.calc_normals_use_fit_sharp is absent from Blender 5.2.3 LTS",
+      "suggestions": [],
+      "type": "Mesh"
+    },
+    "next_tool": "blender_api_lookup"
+  },
+  "geometry_failure": {
+    "id": "82d3d39a52f34fce88177515528a1998",
+    "state": "failed",
+    "error": "blender_exit_1; see blender.log",
+    "progress": null,
+    "diagnostics": {
+      "tool": "blender_job_diagnostics",
+      "next_action": "Terminal job: read diagnostics once. Completed-artifact fetch cannot retrieve failed outputs; repair code in a new revision or report the blocker."
+    }
+  },
+  "guard": {
+    "uncertain_submissions": [],
+    "failed_count": 3,
+    "api_correction_count": 1,
+    "historical_failed_count": 30,
+    "failure_budget_reset_id": 2,
+    "failure_limit_per_source": 6,
+    "failure_limit_total": 20
+  },
+  "attempt_rows_unchanged": true,
+  "asset_source_unchanged": true,
+  "source": "2b37b77ce016462c943a217f67fb9418"
+}

@@ -1,0 +1,23 @@
+{
+  "authorization": "User explicitly requested another detached run after reviewed native-failure fixes; no failure-budget reset.",
+  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "agent": "bowling-coder",
+  "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+  "source_job": "756846c5415e4c5e92f159389a87eeb0",
+  "checkpoint": "artifacts/blend/BowlingPair01.blend",
+  "checkpoint_sha256": "6b352b5ba0c22b8b69e124ce602133b771fb84e821ed68075f5a5821d6a98810",
+  "guard_rows_sha256": "fcb655df5c35009b78cdcc16efe9d0b33950ee3985c640e8ed08188431250922",
+  "validation_sha256": "f11995615eff3f1be6b8a6f93ea3139b005acf454e0193ede427a20f376fc4be",
+  "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+  "limits": {
+    "per_source": 6,
+    "total": 20
+  },
+  "failure_budget_reset_id": 2,
+  "fresh_coding_session": true,
+  "workflow_managed": true,
+  "first_stage": "04",
+  "diagnostic_report": "testing/native-failure-relaunch/HANDOFF.md",
+  "handoff": "CONTROLLED_CONTINUATION.md",
+  "scope": "Follow the retry handoff. Start with one small geometry correction and its automatic measured validation. Preserve prior passing stages. Repair remaining acceptance through MCP tools; do not repeat broad failed scripts or unsafe deletion order."
+}

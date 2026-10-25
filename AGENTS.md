@@ -19,6 +19,15 @@ No external mesh packs or unrelated game code. Preserve original artifacts/histo
 
 ## Required tool flow
 
+- Use **blender_api_lookup** before unfamiliar Blender calls: query `Mesh`,
+  `Mesh.update` or `bpy.ops.mesh.primitive_cube_add`. This reference was captured
+  from the installed5.2.3 runtime. Do not read the entire large catalog into context.
+- Confirmed unsupported APIs return recoverable guidance; correct the code and
+  continue. Preflight rejections consume no native attempt. Runtime-confirmed API
+  mismatches remain audited but do not consume the hard-failure budget or trigger
+  the two-hard-failure stop. Identical failed API submissions are not replayed.
+  Geometry failures, cancellations, uncertainty and genuine STOPs remain hard errors.
+
 1. Read workflow_status, CONTROLLED_CONTINUATION.md and the relevant specifications.
 2. Save changed geometry/camera Python in artifacts/scripts; use LSP diagnostics.
    Fix confirmed APIs instead of declaring every diagnostic a false positive.

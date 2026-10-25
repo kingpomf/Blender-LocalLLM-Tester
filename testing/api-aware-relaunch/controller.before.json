@@ -1,0 +1,258 @@
+{
+  "sessions": {
+    "references": "ses_e9469c0feffeeExKhG0WWizf8I",
+    "coding": "ses_e8f5acee7ffeuBpGACaoEPzfyM"
+  },
+  "turns": 11,
+  "state": "blocked",
+  "phase": "coding",
+  "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+  "last_errors": [
+    "Native job 6a3c128b6ab54880b0f6449b85e2fab0 failed: blender_exit_1; see blender.log",
+    "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+    "Native job 82d3d39a52f34fce88177515528a1998 failed: blender_exit_1; see blender.log"
+  ],
+  "prior_stop": {
+    "state": "blocked",
+    "reason": "Coding client reported an explicit tool/transport STOP",
+    "last_errors": [
+      "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+      "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+      "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+      "Error executing tool blender_scene_author: STOP: durable failure budget exhausted (3 per source / 6 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry."
+    ],
+    "controller_pid": 5412
+  },
+  "reconciliation_plan": "testing/review-recovery-relaunch/continuation.json",
+  "continuation_command": "python3 scripts/run_bowling.py --resume --continuation --detach",
+  "stop_history": [
+    {
+      "reason": "Coding client reported an explicit tool/transport STOP",
+      "last_errors": [
+        "The user rejected permission to use this specific tool call.",
+        "The user rejected permission to use this specific tool call.",
+        "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+        "Error executing tool blender_scene_author: STOP: durable failure budget exhausted (6 per source / 12 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry."
+      ],
+      "controller_pid": 9728
+    },
+    {
+      "reason": "Coding client reported an explicit tool/transport STOP",
+      "last_errors": [
+        "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+        "Error executing tool blender_scene_author: STOP: unchanged submission already failed; job f7e8d3761bb14ccaacc78fecb2956fec. Read diagnostics and make a real code change, or report BLOCKED. No new job was submitted.",
+        "Error executing tool blender_scene_author: STOP: durable failure budget exhausted (6 per source / 20 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry.",
+        "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings."
+      ],
+      "controller_pid": 17190
+    },
+    {
+      "reason": "Coding client reported an explicit tool/transport STOP",
+      "last_errors": [
+        "The user rejected permission to use this specific tool call.",
+        "Could not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.",
+        "The user rejected permission to use this specific tool call.",
+        "Error executing tool blender_scene_author: STOP: durable failure budget exhausted (6 per source / 20 total). Report BLOCKED and ask the operator. Do not change source, clear state, or retry."
+      ],
+      "controller_pid": 21993
+    },
+    {
+      "reason": "Explicit controller stop",
+      "last_errors": [],
+      "native_failures_since_progress": {},
+      "controller_pid": 26551
+    },
+    {
+      "reason": "Coding returned without a verified stage advance after two recovery turns; stop instead of looping",
+      "last_errors": [],
+      "controller_pid": 27568
+    }
+  ],
+  "prepared_continuation": {
+    "passed": true,
+    "authorization": "User authorized fixing stuck review handling, automatic review recovery and detached relaunch; no counter reset.",
+    "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+    "agent": "bowling-coder",
+    "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+    "source_job": "2b37b77ce016462c943a217f67fb9418",
+    "checkpoint": "artifacts/blend/BowlingPair01.blend",
+    "checkpoint_sha256": "9ff9753dc34b0aa0f20512d39e7f3a8fd4b9f1a36d947b9dfeac7f3198819d6b",
+    "guard_rows_sha256": "53143d501efa16199459b9ec0b2117857d166175895bf10ec2e2c59ac3d81cc4",
+    "validation_sha256": "27d0f7444ae3b58f2aedea41a411ae2a2eb2676459bd573267de10baef8c2cde",
+    "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+    "limits": {
+      "per_source": 6,
+      "total": 20
+    },
+    "failure_budget_reset_id": 2,
+    "fresh_coding_session": true,
+    "workflow_managed": true,
+    "first_stage": "04",
+    "diagnostic_report": "testing/review-recovery-relaunch/HANDOFF.md",
+    "handoff": "CONTROLLED_CONTINUATION.md",
+    "scope": "Follow active recovery handoff. Preserve prior verified foundations and latest checkpoint. Fix actual camera occlusion/framing and remaining collision/support criteria in small validated edits, then review changed real images and finish measured delivery through fixed MCP tools.",
+    "failures_retained": 2,
+    "source_failures_retained": 0,
+    "historical_failures_preserved": 28,
+    "remaining_total": 18,
+    "remaining_on_source": 6
+  },
+  "operator_continuation_history": [
+    {
+      "passed": true,
+      "authorization": "User requested reconciling latest scene/renders, repairing validation/checkpoints and raising total failures to20.",
+      "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+      "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+      "source_job": "6b947366ef42484291a8ee70a19c32e6",
+      "checkpoint": "artifacts/blend/BowlingPair01.blend",
+      "checkpoint_sha256": "26ba8ed54bb6af9f9b9d0c8ce6007b459230491f09c5b0f81b7e2c52bcd10e07",
+      "guard_rows_sha256": "29e10b22ed19427cd4d5136daf4c5461c853c06af3da68a56e55d70eb931bd9f",
+      "validation_sha256": "be18484b5ebcc2b8c340d7133d93822fc8539232ef76dc5f18394c3d66d3e86f",
+      "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+      "limits": {
+        "per_source": 6,
+        "total": 20
+      },
+      "diagnostic_report": "testing/VALIDATION_RECONCILIATION_V2.md",
+      "handoff": "CONTROLLED_CONTINUATION.md",
+      "first_stage": "02",
+      "scope": "Preserve measured Stage00/01 passes; repair Stage02 gutter adjacency, Stage03 pin topology/bands, Stage04 grip visibility, Stage05 floor/return/dressing, Stage06 collision, Stage07 framing/occlusion. Revalidate Stage08 and finish Stage09 only after all required checks pass. Do not restart or repeat solved ball API failures.",
+      "failures_retained": 12,
+      "source_failures_retained": 2,
+      "remaining_total": 8,
+      "remaining_on_source": 4
+    }
+  ],
+  "operator_continuation": {
+    "passed": true,
+    "authorization": "User authorized fixing stuck review handling, automatic review recovery and detached relaunch; no counter reset.",
+    "model": "z6-llama/qwen36-35b-a3b-mtp-q8",
+    "agent": "bowling-coder",
+    "trial": "bowling52-qwen36-mtp-q8-20261023-r2",
+    "source_job": "2b37b77ce016462c943a217f67fb9418",
+    "checkpoint": "artifacts/blend/BowlingPair01.blend",
+    "checkpoint_sha256": "9ff9753dc34b0aa0f20512d39e7f3a8fd4b9f1a36d947b9dfeac7f3198819d6b",
+    "guard_rows_sha256": "53143d501efa16199459b9ec0b2117857d166175895bf10ec2e2c59ac3d81cc4",
+    "validation_sha256": "27d0f7444ae3b58f2aedea41a411ae2a2eb2676459bd573267de10baef8c2cde",
+    "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+    "limits": {
+      "per_source": 6,
+      "total": 20
+    },
+    "failure_budget_reset_id": 2,
+    "fresh_coding_session": true,
+    "workflow_managed": true,
+    "first_stage": "04",
+    "diagnostic_report": "testing/review-recovery-relaunch/HANDOFF.md",
+    "handoff": "CONTROLLED_CONTINUATION.md",
+    "scope": "Follow active recovery handoff. Preserve prior verified foundations and latest checkpoint. Fix actual camera occlusion/framing and remaining collision/support criteria in small validated edits, then review changed real images and finish measured delivery through fixed MCP tools.",
+    "failures_retained": 2,
+    "source_failures_retained": 0,
+    "historical_failures_preserved": 28,
+    "remaining_total": 18,
+    "remaining_on_source": 6
+  },
+  "session_history": [
+    {
+      "phase": "coding",
+      "session": "ses_e94571c7dffeB37vlLQTvFqRLV",
+      "reason": "Operator-corrected pin geometry and authorized counter reset; avoid stale failed-session assumptions"
+    },
+    {
+      "phase": "coding",
+      "session": "ses_e906ff281ffeo5sm1176vwECWJ",
+      "reason": "Operator-corrected pin geometry and authorized counter reset; avoid stale failed-session assumptions"
+    },
+    {
+      "phase": "coding",
+      "session": "ses_e8fd2898dffejP9GEwx0p9wz7y",
+      "reason": "Operator-corrected pin geometry and authorized counter reset; avoid stale failed-session assumptions"
+    },
+    {
+      "phase": "coding",
+      "session": "ses_e8fb1db6affeiGvWwMCYi2M39Q",
+      "reason": "Operator-corrected pin geometry and authorized counter reset; avoid stale failed-session assumptions"
+    }
+  ],
+  "events_file": ".runtime/autonomous-run/011-coding.jsonl",
+  "native_progress": {
+    "asset_jobs": [
+      "756846c5415e4c5e92f159389a87eeb0",
+      "7960bdced2a64ed38f5f10090dfd5759",
+      "0dbf0fac68c7422bb0b1d0b354b79819",
+      "c504b6852c6c402c84bf1500f89383ac",
+      "44bf17c8df7548cab030d4bbb365eeec",
+      "8912e28d73d64c2c8e9ba75a62f7ef77",
+      "ea8b846235704bb8923c4fc60cd0d23b",
+      "48adf7b88e8e4815807a33ba84258d2a",
+      "bf69cd62c989456cbe2202d9922371eb",
+      "cf37fbc4af9e4ba88e2188b94626ace1",
+      "432e0f9e828c4819a9937942af138ed5",
+      "2b37b77ce016462c943a217f67fb9418"
+    ],
+    "failed_jobs": [
+      "6a3c128b6ab54880b0f6449b85e2fab0",
+      "82d3d39a52f34fce88177515528a1998"
+    ]
+  },
+  "native_failures_since_progress": {
+    "6a3c128b6ab54880b0f6449b85e2fab0": "Native job 6a3c128b6ab54880b0f6449b85e2fab0 failed: blender_exit_1; see blender.log",
+    "82d3d39a52f34fce88177515528a1998": "Native job 82d3d39a52f34fce88177515528a1998 failed: blender_exit_1; see blender.log"
+  },
+  "previous_turn_errors": [
+    {
+      "phase": "coding",
+      "turn": 7,
+      "errors": [
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: "
+      ]
+    },
+    {
+      "phase": "coding",
+      "turn": 8,
+      "errors": [
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: "
+      ]
+    },
+    {
+      "phase": "coding",
+      "turn": 9,
+      "errors": [
+        "Error executing tool blender_review_presentation: ",
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: "
+      ]
+    }
+  ],
+  "recoveries": [
+    {
+      "phase": "coding",
+      "reason": "No verified stage advance yet. Inspect diagnostics/checkpoints and repair the concrete issue; preserve accepted jobs and all failure limits.",
+      "issues": [],
+      "errors": [
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: "
+      ]
+    },
+    {
+      "phase": "coding",
+      "reason": "No verified stage advance yet. Inspect diagnostics/checkpoints and repair the concrete issue; preserve accepted jobs and all failure limits.",
+      "issues": [],
+      "errors": [
+        "Error executing tool blender_review_presentation: ",
+        "Error executing tool blender_job_status: ",
+        "Error executing tool blender_job_status: "
+      ]
+    }
+  ],
+  "controller_pid": 31314,
+  "reason": "STOP: two distinct native jobs failed/cancelled without a published asset advance; client stopped immediately for diagnosis, no automatic retry."
+}

@@ -39,6 +39,22 @@ class ContinuousRunTests(unittest.TestCase):
         self.assertIsNone(run_bowling.native_outcome(cancelled_view,failures,progress))
         self.assertEqual(set(failures),{'b'*32})
 
+    def test_confirmed_api_correction_does_not_count_toward_hard_stop(self):
+        failures={};progress={}
+        correction=self.native_event('a'*32,failure_category='api_correction',hard_failure=False,recoverable=True)
+        self.assertIsNone(run_bowling.native_outcome(correction,failures,progress))
+        self.assertEqual(failures,{})
+        self.assertIn('failed',run_bowling.native_outcome(self.native_event('b'*32),failures,progress) or '')
+
+    def test_previously_classified_api_failure_is_not_a_retained_hard_failure(self):
+        from scripts.submission_guard import SubmissionGuard
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);guard=SubmissionGuard(root/'.runtime/blender52/submissions.sqlite')
+            with guard.connect() as db:
+                db.execute("INSERT INTO attempts VALUES('api','source','author','api-job','failed')")
+            guard.record_api_correction('api-job',{'category':'api_correction','message':'Verified API mismatch'})
+            self.assertEqual(run_bowling.hard_native_streak(root,{'api-job':'api','geometry-job':'geometry'}),{'geometry-job':'geometry'})
+
     def test_retained_failure_streak_blocks_client_spawn(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);state=root/'.runtime/autonomous-run/state.json'

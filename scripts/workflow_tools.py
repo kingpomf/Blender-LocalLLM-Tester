@@ -13,6 +13,7 @@ import shutil
 import time
 
 from scripts.authoring_preflight import inspect_authoring
+from scripts.blender_api import load_catalog,inspect_api,lookup,classify_api_error
 from scripts.checkpoint_bowling import publish_source,publish_render,sync_ledgers,update_fields,backup_and_write,replace_stage_table
 from scripts.check_references import check as reference_check
 from scripts.submission_guard import fingerprint,GuardBlocked
@@ -38,6 +39,16 @@ class Workflow:
         self.validator_sha256=validator_sha256
         self.state={}
         self.review_processes={}
+        self.api_catalog=None
+
+    def catalog(self):
+        if self.api_catalog is None:self.api_catalog=load_catalog(self.root)
+        return self.api_catalog
+
+    async def api_lookup(self,query):
+        catalog=self.catalog()
+        if catalog is None:return self.error('api_catalog_missing','Operator must capture the installed runtime API first.')
+        return {'version':catalog['version'],'build_hash':catalog['build_hash'],**lookup(catalog,query)}
 
     def load(self):
         self.state=json.loads(self.path.read_text()) if self.path.exists() else {'jobs':{},'views':{},'validations':{},'reviews':{}}
@@ -57,7 +68,9 @@ class Workflow:
                 except BlockingIOError:
                     return self.error('workflow_busy','Another workflow operation is publishing state. Retry status; no submission occurred.')
                 self.load()
-                try:return await getattr(self,method)(**arguments)
+                try:
+                    await self.reconcile_reviews()
+                    return await getattr(self,method)(**arguments)
                 finally:self.save()
 
     @staticmethod
@@ -125,12 +138,21 @@ class Workflow:
     async def author(self,code,source_job=None):
         inspected=inspect_authoring(code)
         if not inspected['ok']:return inspected
+        catalog=self.catalog()
+        if catalog is None:return self.error('api_catalog_missing','Installed API catalog is required before asset authoring; operator must capture it.',next_tool='blender_api_lookup')
+        if catalog:
+            issues=inspect_api(code,catalog)
+            if issues:return self.error('api_correction','Correct unsupported API use against the installed runtime, then submit changed code. No native attempt was made.',issues=issues,next_tool='blender_api_lookup')
         references=reference_check(self.root)
         if not references['passed']:
             return self.error('references_required','Complete the verified image reference phase first.',issues=references['issues'])
         selected=self.current(source_job)
         if isinstance(selected,dict):return selected
-        return await self.submit_native({'operation':'author','code':code,**({'source_job':selected} if selected else {})},'asset')
+        spec={'operation':'author','code':code,**({'source_job':selected} if selected else {})}
+        previous=next((row for row in self.guard.rows() if row['fingerprint']==fingerprint(spec)),None)
+        if previous and self.guard.api_correction(previous['job']):
+            return self.error('unchanged_api_correction','This exact request already failed with a confirmed API mismatch. Look up the API and change the code; identical replay is not submitted.',previous_job=previous['job'],correction=self.guard.api_correction(previous['job']),next_tool='blender_api_lookup')
+        return await self.submit_native(spec,'asset')
 
     async def queue_validation(self,source):
         path=self.root/'artifacts/scripts/validate_bowling_pair01.py'
@@ -185,11 +207,22 @@ class Workflow:
         for attempt in self.guard.rows():
             if attempt['job']==row['id']:self.guard.update(attempt['fingerprint'],row)
         metadata=self.state['jobs'].get(row['id'])
+        correction=None
+        if row['state']=='failed' and metadata and metadata['role']=='asset' and self.catalog():
+            correction=self.guard.api_correction(row['id'])
+            if correction is None:
+                diagnostics=await self.cached_diagnostics(row['id'])
+                correction=classify_api_error(self.catalog(),diagnostics)
+                if correction:
+                    correction['diagnostics_sha256']=hashlib.sha256(json.dumps(diagnostics,sort_keys=True).encode()).hexdigest()
+                    self.guard.record_api_correction(row['id'],correction)
         if row['state'] in {'failed','cancelled'}:
             self.clear_pending(row['id'])
             self.sync_failure_mirrors()
         if row['state']!='completed' or metadata is None:
-            return {k:row[k] for k in ['id','state','error','progress','diagnostics'] if k in row}
+            result={k:row[k] for k in ['id','state','error','progress','diagnostics'] if k in row}
+            if correction:result.update(recoverable=True,hard_failure=False,failure_category='api_correction',hard_failure_budget_consumed=False,correction=correction,next_tool='blender_api_lookup')
+            return result
         self.clear_pending(row['id'])
         role=metadata['role']
         if role=='validation':return await self.publish_validation(row)
@@ -353,6 +386,14 @@ class Workflow:
         row=await self.client.rpc('cancel',{'job_id':job_id})
         return await self.observe(row)
 
+    async def cached_diagnostics(self,job_id):
+        assert re.fullmatch('[a-f0-9]{32}',job_id)
+        path=self.directory/'diagnostics'/(job_id+'.json')
+        if path.exists():return json.loads(path.read_text())
+        result=await self.client.rpc('diagnostics',{'job_id':job_id})
+        atomic_json(path,result)
+        return result
+
     async def diagnostics(self,job_id):
         if job_id.startswith('view-'):
             view=self.state['views'].get(job_id)
@@ -366,7 +407,7 @@ class Workflow:
             with path.open('rb') as file:
                 file.seek(max(0,path.stat().st_size-16384))
                 return {'id':job_id,'state':review['state'],'log':file.read(16384).decode(errors='replace')}
-        return await self.client.rpc('diagnostics',{'job_id':job_id})
+        return await self.cached_diagnostics(job_id)
 
     async def workflow_status(self):
         # Machine-owned report restores accidental edits to the stage mirrors.
@@ -389,6 +430,7 @@ class Workflow:
         return {'current_source':self.state.get('current_source'),'checkpoint':self.state.get('checkpoint'),
                 'validation':validation,'pending_jobs':self.pending(),'guard':summary,
                 'remaining_checks':remaining,
+                'reviews':{key:{k:value for k,value in row.items() if k in {'state','source','reason','warnings'}} for key,row in self.state['reviews'].items()},
                 'views':{key:{k:value for k,value in row.items() if k in {'role','state','render_job','camera_job'}} for key,row in self.state['views'].items()},
                 'instructions':'Use author for scene edits only. Poll every accepted ID. Checkpoints/validation/stage mirrors are automatic. Use render_view for queued views; never render inline or manually claim PASS.'}
 
@@ -435,38 +477,66 @@ class Workflow:
     async def review_status(self,review_id):
         review=self.state['reviews'].get(review_id)
         if not review:return self.error('unknown_review','Unknown review ID; no replay was performed.')
+        if review['state'] in {'completed','failed','cancelled'}:
+            return {'id':review_id,'state':review['state'],**{key:review[key] for key in ['result','warnings','reason'] if key in review},'replayed':False}
         folder=self.root/review['folder'];path=folder/'result.json'
         if not path.exists():
             process=self.review_processes.get(review_id)
             if process is not None and process.poll() is not None or time.time()-review.get('created',time.time())>650:
-                review['state']='failed';self.save()
-                return {'id':review_id,'state':'failed','reason':'Review helper ended or exceeded its bounded wait without a completed receipt; preserve request and reconcile, never replay automatically.','log':str(folder/'helper.log')}
+                review.update(state='failed',reason='Review helper ended or exceeded its bounded wait without a completed receipt; request preserved, never replay automatically.');self.save()
+                return {'id':review_id,'state':'failed','reason':review['reason'],'log':str(folder/'helper.log')}
             try:os.kill(review['pid'],0)
             except (OSError,KeyError):
-                review['state']='failed';self.save()
-                return {'id':review_id,'state':'failed','reason':'Image helper exited without completion. Preserve request/uncertainty; operator reconciliation required.','log':str(folder/'helper.log')}
+                review.update(state='failed',reason='Image helper exited without completion. Request/uncertainty preserved; no automatic replay.');self.save()
+                return {'id':review_id,'state':'failed','reason':review['reason'],'log':str(folder/'helper.log')}
             return {'id':review_id,'state':'running','operation':'pixel_review'}
+        try:
+            self.publish_review(review_id)
+        except (ValueError,TypeError,KeyError,AssertionError,StopIteration,OSError) as error:
+            review.update(state='failed',reason='Review result rejected: '+type(error).__name__+': '+str(error)[:600]);self.save()
+            return {'id':review_id,'state':'failed','reason':review['reason'],'replayed':False}
+        measured=await self.queue_validation(review['source'])
+        return {'id':review_id,'state':'completed','review':review['result'],'warnings':review['warnings'],'measured_validation':measured}
+
+    async def reconcile_reviews(self):
+        # Run before admission/status: a finished helper must not retain a pending lock.
+        # This only consumes saved results or detects terminal helpers; it never starts one.
+        for review_id,review in list(self.state['reviews'].items()):
+            if review['state'] not in {'completed','failed','cancelled'}:
+                await self.review_status(review_id)
+
+    def publish_review(self,review_id):
+        review=self.state['reviews'][review_id];folder=self.root/review['folder'];path=folder/'result.json'
         result=json.loads(path.read_text());request=json.loads((folder/'request.json').read_text())
-        if request['asset_source']!=self.state.get('current_source'):
-            review['state']='failed';return self.error('stale_review','Asset changed; review cannot approve current images.')
+        assert isinstance(result,dict) and isinstance(request,dict),'Review receipt/request must be objects'
+        assert result.get('state')=='completed',result.get('error','Helper did not produce a completed review')
+        assert request['asset_source']==review['source']==self.state.get('current_source'),'Asset changed; old review cannot approve current images'
         manifest_path=self.root/'artifacts/reports/render-manifest.json';manifest=json.loads(manifest_path.read_text())
+        assert manifest['asset_source']==review['source'],'Render manifest belongs to another source'
         by_role={i['role']:i for i in request['images']}
-        for item in result['review']['views']:
+        views=result['review']['views']
+        assert len(views)==4 and {item['role'] for item in views}==set(ROLES),'Four distinct named view reviews required'
+        assert len(manifest['images'])==4 and {i['role'] for i in manifest['images']}==set(ROLES)
+        for item in views:
+            assert type(item['passed']) is bool and isinstance(item['observations'],str) and len(item['observations'].strip())>=80,'View review needs detailed actual pixel observations'
             image=next(i for i in manifest['images'] if i['role']==item['role'])
             assert image['sha256']==by_role[item['role']]['sha256']
             image['visual_review']={'sha256':image['sha256'],'passed':item['passed'],'observations':item['observations'],'reviewer':'fixed pixel helper '+result['model']}
-        atomic_json(manifest_path,manifest)
-        criteria=[]
+        criteria=[];warnings=[];seen=set()
         allowed={'S04_Ball_01_holes_visual','S04_Ball_02_holes_visual','S04_Ball_03_holes_visual',
                  'S05_return_opening','S05_scoreboard_labels','S05_masking_labels','S06_normals_and_static_origins'}
         for item in result['review'].get('criteria',[]):
-            assert item['id'] in allowed and item['role'] in ROLES and type(item['passed']) is bool and len(item['observations'])>=80
+            assert item['id'] in allowed and item['role'] in ROLES and type(item['passed']) is bool and isinstance(item['observations'],str)
+            assert item['id'] not in seen,'Duplicate criterion review';seen.add(item['id'])
+            if len(item['observations'].strip())<80:
+                warnings.append({'id':item['id'],'reason':'Insufficient detailed observations; criterion remains unresolved, never treated as PASS.'})
+                continue
             criteria.append({'id':item['id'],'passed':item['passed'],'observations':item['observations'],
                 'reviewer':'fixed pixel/geometry helper '+result['model'],'render_sha256':by_role[item['role']]['sha256']})
+        # Validate the entire receipt before changing any published evidence.
+        atomic_json(manifest_path,manifest)
         atomic_json(self.root/'artifacts/reports/qualitative-evidence.json',{'asset_source':review['source'],'criteria':criteria})
-        review.update(state='completed',result=result['review']);self.save()
-        measured=await self.queue_validation(review['source'])
-        return {'id':review_id,'state':'completed','review':result['review'],'measured_validation':measured}
+        review.update(state='completed',result=result['review'],warnings=warnings);self.save()
 
     async def export_delivery(self):
         measured=self.state.get('validation')

@@ -40,6 +40,7 @@
           "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/scripts/validate_bowling_pair01.py": "deny",
           "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/scripts/accepted_*.py": "deny",
           "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/validation.json": "deny",
+          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/blender-api-catalog*.json": "deny",
           "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/checkpoint.json": "deny",
           "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/render-manifest.json": "deny",
           "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/qualitative-evidence.json": "deny",

@@ -1,0 +1,381 @@
+{
+  "jobs": {
+    "756846c5415e4c5e92f159389a87eeb0": {
+      "role": "asset",
+      "source": "9322aa8b09454873a84141920c5bd552",
+      "published": true
+    },
+    "3640e30f913f403aa37992dd24e9f72f": {
+      "role": "validation",
+      "source": "756846c5415e4c5e92f159389a87eeb0"
+    },
+    "0739f3cf03934d2d997690acfa76c72a": {
+      "role": "view_camera",
+      "source": "756846c5415e4c5e92f159389a87eeb0",
+      "view_id": "view-a6ce6e0bcd5b4b98bd35d8c64d1b921b"
+    },
+    "993e8c59fc684b49b92afc678906b43d": {
+      "role": "view_render",
+      "source": "0739f3cf03934d2d997690acfa76c72a",
+      "view_id": "view-a6ce6e0bcd5b4b98bd35d8c64d1b921b"
+    },
+    "d647a3b108ae467abe26a4431cc59b4c": {
+      "role": "asset",
+      "source": "756846c5415e4c5e92f159389a87eeb0"
+    },
+    "4b5ba2cb92d049daad1a9f5af648205e": {
+      "role": "asset",
+      "source": "756846c5415e4c5e92f159389a87eeb0"
+    },
+    "989835dba4ef47d0bb41c110e7d4949b": {
+      "role": "inspect",
+      "source": "756846c5415e4c5e92f159389a87eeb0"
+    },
+    "7960bdced2a64ed38f5f10090dfd5759": {
+      "role": "asset",
+      "source": "756846c5415e4c5e92f159389a87eeb0",
+      "published": true
+    },
+    "968f71d9fc924c8a88f26992598083f6": {
+      "role": "validation",
+      "source": "7960bdced2a64ed38f5f10090dfd5759"
+    },
+    "0dbf0fac68c7422bb0b1d0b354b79819": {
+      "role": "asset",
+      "source": "7960bdced2a64ed38f5f10090dfd5759",
+      "published": true
+    },
+    "5b77b203627248ceafd3dffc2c33315d": {
+      "role": "validation",
+      "source": "0dbf0fac68c7422bb0b1d0b354b79819"
+    },
+    "c504b6852c6c402c84bf1500f89383ac": {
+      "role": "asset",
+      "source": "0dbf0fac68c7422bb0b1d0b354b79819",
+      "published": true
+    },
+    "4e1bad02111a42cc9b3b932c45b67e1f": {
+      "role": "validation",
+      "source": "c504b6852c6c402c84bf1500f89383ac"
+    },
+    "44bf17c8df7548cab030d4bbb365eeec": {
+      "role": "asset",
+      "source": "c504b6852c6c402c84bf1500f89383ac",
+      "published": true
+    },
+    "65370b2d13f14c5cb851866f256d834b": {
+      "role": "validation",
+      "source": "44bf17c8df7548cab030d4bbb365eeec"
+    },
+    "8912e28d73d64c2c8e9ba75a62f7ef77": {
+      "role": "asset",
+      "source": "44bf17c8df7548cab030d4bbb365eeec",
+      "published": true
+    },
+    "06a2415de6f1471c99db5f63ceada6f7": {
+      "role": "validation",
+      "source": "8912e28d73d64c2c8e9ba75a62f7ef77"
+    },
+    "ea8b846235704bb8923c4fc60cd0d23b": {
+      "role": "asset",
+      "source": "8912e28d73d64c2c8e9ba75a62f7ef77",
+      "published": true
+    },
+    "9f02cc10d5e343018dc2747150c52ac2": {
+      "role": "validation",
+      "source": "ea8b846235704bb8923c4fc60cd0d23b"
+    },
+    "48adf7b88e8e4815807a33ba84258d2a": {
+      "role": "asset",
+      "source": "ea8b846235704bb8923c4fc60cd0d23b",
+      "published": true
+    },
+    "dd10c923652840bf9624a8a7da5efab2": {
+      "role": "validation",
+      "source": "48adf7b88e8e4815807a33ba84258d2a"
+    },
+    "bf69cd62c989456cbe2202d9922371eb": {
+      "role": "asset",
+      "source": "48adf7b88e8e4815807a33ba84258d2a",
+      "published": true
+    },
+    "7010433c1c724a99a75f1f76886d4734": {
+      "role": "validation",
+      "source": "bf69cd62c989456cbe2202d9922371eb"
+    },
+    "cf37fbc4af9e4ba88e2188b94626ace1": {
+      "role": "asset",
+      "source": "bf69cd62c989456cbe2202d9922371eb",
+      "published": true
+    },
+    "90a714c2a628469aa18b604aad91993c": {
+      "role": "validation",
+      "source": "cf37fbc4af9e4ba88e2188b94626ace1"
+    },
+    "432e0f9e828c4819a9937942af138ed5": {
+      "role": "asset",
+      "source": "cf37fbc4af9e4ba88e2188b94626ace1",
+      "published": true
+    },
+    "b7e6d701d0b4481ca7cd9fd3442e2d39": {
+      "role": "validation",
+      "source": "432e0f9e828c4819a9937942af138ed5"
+    },
+    "2b37b77ce016462c943a217f67fb9418": {
+      "role": "asset",
+      "source": "432e0f9e828c4819a9937942af138ed5",
+      "published": true
+    },
+    "fb4c08fbb60f4c0fb747502c1ed23411": {
+      "role": "validation",
+      "source": "2b37b77ce016462c943a217f67fb9418"
+    },
+    "0a79d9da529646b19491d05373301bcd": {
+      "role": "view_camera",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "view_id": "view-3a4ae3f951234aa28c832a5440fa3eac"
+    },
+    "bba6712c295c43e5964bfc9fd708e17e": {
+      "role": "view_render",
+      "source": "0a79d9da529646b19491d05373301bcd",
+      "view_id": "view-3a4ae3f951234aa28c832a5440fa3eac"
+    },
+    "7f9b2f6b9c0c4e78a60c6447c2066c07": {
+      "role": "view_camera",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "view_id": "view-f33a47ebefe6449daf42ba83118898df"
+    },
+    "59c548ccaff44b5a9bc122e6ac6eed2a": {
+      "role": "view_render",
+      "source": "7f9b2f6b9c0c4e78a60c6447c2066c07",
+      "view_id": "view-f33a47ebefe6449daf42ba83118898df"
+    },
+    "87e67ee8c2214246ba3f6060c57a6fa5": {
+      "role": "view_camera",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "view_id": "view-27ec596fb8894ca6877386db76165954"
+    },
+    "43dcb0be139347bf8a940dac42d9eccb": {
+      "role": "view_render",
+      "source": "87e67ee8c2214246ba3f6060c57a6fa5",
+      "view_id": "view-27ec596fb8894ca6877386db76165954"
+    },
+    "15a56ed19ca1420c9e40c85ffd98b2c0": {
+      "role": "view_camera",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "view_id": "view-cd542f05ddc2475ea48fa4fbf7aa4493"
+    },
+    "15d9a3dcc455487c92a16c022a4062ec": {
+      "role": "view_render",
+      "source": "15a56ed19ca1420c9e40c85ffd98b2c0",
+      "view_id": "view-cd542f05ddc2475ea48fa4fbf7aa4493"
+    }
+  },
+  "views": {
+    "view-a6ce6e0bcd5b4b98bd35d8c64d1b921b": {
+      "request_key": "996cfc89313ef259568154c566bc5cff82078dc9c8ca4a128de543e02555cee8",
+      "source": "756846c5415e4c5e92f159389a87eeb0",
+      "role": "overview",
+      "resolution": [
+        1280,
+        720
+      ],
+      "samples": 4,
+      "state": "completed",
+      "camera_job": "0739f3cf03934d2d997690acfa76c72a",
+      "render_job": "993e8c59fc684b49b92afc678906b43d",
+      "artifact": {
+        "role": "overview",
+        "job_id": "993e8c59fc684b49b92afc678906b43d",
+        "source_job": "0739f3cf03934d2d997690acfa76c72a",
+        "asset_source": "756846c5415e4c5e92f159389a87eeb0",
+        "path": "artifacts/renders/BowlingPair01_overview.png",
+        "bytes": 893433,
+        "sha256": "3177ecb3944b25d50f2246bce455b2223948af5d7862a23db0787e8e88662d05",
+        "width": 1280,
+        "height": 720,
+        "next": "Inspect actual pixels and record visual_review for this image hash; publication alone does not imply PASS."
+      }
+    },
+    "view-3a4ae3f951234aa28c832a5440fa3eac": {
+      "request_key": "eb672dee08092d0d87a644a6139ac92cda1bbecb26f27f76793c54280c2b2090",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "role": "overview",
+      "resolution": [
+        1280,
+        720
+      ],
+      "samples": 8,
+      "state": "completed",
+      "camera_job": "0a79d9da529646b19491d05373301bcd",
+      "render_job": "bba6712c295c43e5964bfc9fd708e17e",
+      "artifact": {
+        "role": "overview",
+        "job_id": "bba6712c295c43e5964bfc9fd708e17e",
+        "source_job": "0a79d9da529646b19491d05373301bcd",
+        "asset_source": "2b37b77ce016462c943a217f67fb9418",
+        "path": "artifacts/renders/BowlingPair01_overview.png",
+        "bytes": 898295,
+        "sha256": "df02e1b293c29d5f1d13895a56a3400a4b42779f8b310b0280e3dfd850bf0ed7",
+        "width": 1280,
+        "height": 720,
+        "next": "Inspect actual pixels and record visual_review for this image hash; publication alone does not imply PASS."
+      }
+    },
+    "view-f33a47ebefe6449daf42ba83118898df": {
+      "request_key": "22abad1a3ee38106eab072bc21e536b3b4a830e48349825dc9e60e952af2463d",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "role": "player",
+      "resolution": [
+        1280,
+        720
+      ],
+      "samples": 8,
+      "state": "completed",
+      "camera_job": "7f9b2f6b9c0c4e78a60c6447c2066c07",
+      "render_job": "59c548ccaff44b5a9bc122e6ac6eed2a",
+      "artifact": {
+        "role": "player",
+        "job_id": "59c548ccaff44b5a9bc122e6ac6eed2a",
+        "source_job": "7f9b2f6b9c0c4e78a60c6447c2066c07",
+        "asset_source": "2b37b77ce016462c943a217f67fb9418",
+        "path": "artifacts/renders/BowlingPair01_player.png",
+        "bytes": 979064,
+        "sha256": "c42b990acac7c8568645c8cbd96f7ac3eecfa11686c28e33d64d6f442aa44338",
+        "width": 1280,
+        "height": 720,
+        "next": "Inspect actual pixels and record visual_review for this image hash; publication alone does not imply PASS."
+      }
+    },
+    "view-27ec596fb8894ca6877386db76165954": {
+      "request_key": "598a3a16afdfb83b9bb60d873faf2c620e078ab838c6303dfb2737c6e69f6b18",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "role": "pindeck",
+      "resolution": [
+        1280,
+        720
+      ],
+      "samples": 8,
+      "state": "completed",
+      "camera_job": "87e67ee8c2214246ba3f6060c57a6fa5",
+      "render_job": "43dcb0be139347bf8a940dac42d9eccb",
+      "artifact": {
+        "role": "pindeck",
+        "job_id": "43dcb0be139347bf8a940dac42d9eccb",
+        "source_job": "87e67ee8c2214246ba3f6060c57a6fa5",
+        "asset_source": "2b37b77ce016462c943a217f67fb9418",
+        "path": "artifacts/renders/BowlingPair01_pindeck.png",
+        "bytes": 972054,
+        "sha256": "a9b3761056209e71baab4d775b5d0209449374053d721ea85e52da425d507e57",
+        "width": 1280,
+        "height": 720,
+        "next": "Inspect actual pixels and record visual_review for this image hash; publication alone does not imply PASS."
+      }
+    },
+    "view-cd542f05ddc2475ea48fa4fbf7aa4493": {
+      "request_key": "7335fa2ae67f61fcc4286ee705b73c972bd3834c44ee9fe12a2d7b7b8b616620",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "role": "props",
+      "resolution": [
+        1280,
+        720
+      ],
+      "samples": 8,
+      "state": "completed",
+      "camera_job": "15a56ed19ca1420c9e40c85ffd98b2c0",
+      "render_job": "15d9a3dcc455487c92a16c022a4062ec",
+      "artifact": {
+        "role": "props",
+        "job_id": "15d9a3dcc455487c92a16c022a4062ec",
+        "source_job": "15a56ed19ca1420c9e40c85ffd98b2c0",
+        "asset_source": "2b37b77ce016462c943a217f67fb9418",
+        "path": "artifacts/renders/BowlingPair01_props.png",
+        "bytes": 921053,
+        "sha256": "db605d10bd1d9b6a3d518c3409b19802c27be69b7f29d01af20de43b10013b05",
+        "width": 1280,
+        "height": 720,
+        "next": "Inspect actual pixels and record visual_review for this image hash; publication alone does not imply PASS."
+      }
+    }
+  },
+  "reviews": {
+    "review-ffc5c5a8c3e748e4982fb2f13968a4a1": {
+      "state": "running",
+      "source": "2b37b77ce016462c943a217f67fb9418",
+      "request_key": "3e651c1f8978af97947713a548ecb4ba5228a9d2c11f2db1a8cc7c3952e03c4a",
+      "folder": ".runtime/workflow/reviews/review-ffc5c5a8c3e748e4982fb2f13968a4a1",
+      "created": 1792887571.8403132,
+      "pid": 30001
+    }
+  },
+  "validations": {
+    "756846c5415e4c5e92f159389a87eeb0:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "3640e30f913f403aa37992dd24e9f72f"
+    },
+    "7960bdced2a64ed38f5f10090dfd5759:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "968f71d9fc924c8a88f26992598083f6"
+    },
+    "0dbf0fac68c7422bb0b1d0b354b79819:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "5b77b203627248ceafd3dffc2c33315d"
+    },
+    "c504b6852c6c402c84bf1500f89383ac:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "4e1bad02111a42cc9b3b932c45b67e1f"
+    },
+    "44bf17c8df7548cab030d4bbb365eeec:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "65370b2d13f14c5cb851866f256d834b"
+    },
+    "8912e28d73d64c2c8e9ba75a62f7ef77:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "06a2415de6f1471c99db5f63ceada6f7"
+    },
+    "ea8b846235704bb8923c4fc60cd0d23b:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "9f02cc10d5e343018dc2747150c52ac2"
+    },
+    "48adf7b88e8e4815807a33ba84258d2a:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "dd10c923652840bf9624a8a7da5efab2"
+    },
+    "bf69cd62c989456cbe2202d9922371eb:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "7010433c1c724a99a75f1f76886d4734"
+    },
+    "cf37fbc4af9e4ba88e2188b94626ace1:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "90a714c2a628469aa18b604aad91993c"
+    },
+    "432e0f9e828c4819a9937942af138ed5:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "b7e6d701d0b4481ca7cd9fd3442e2d39"
+    },
+    "2b37b77ce016462c943a217f67fb9418:3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493": {
+      "id": "fb4c08fbb60f4c0fb747502c1ed23411"
+    }
+  },
+  "current_source": "2b37b77ce016462c943a217f67fb9418",
+  "checkpoint": {
+    "source_job": "2b37b77ce016462c943a217f67fb9418",
+    "path": "artifacts/blend/BowlingPair01.blend",
+    "sha256": "9ff9753dc34b0aa0f20512d39e7f3a8fd4b9f1a36d947b9dfeac7f3198819d6b",
+    "bytes": 222151,
+    "scene_json": {
+      "path": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads/2b37b77ce016462c943a217f67fb9418/scene.json",
+      "bytes": 152022,
+      "sha256": "a225b4961341d13db45886ea4658e98b8830c798f202c74ee3a288e4fa2b5dce",
+      "name": "scene.json"
+    }
+  },
+  "validation": {
+    "source_job": "2b37b77ce016462c943a217f67fb9418",
+    "job_id": "fb4c08fbb60f4c0fb747502c1ed23411",
+    "sha256": "6045c8fe3f267e9462c9077a6a3e5bd5a3a38602a191f51ed4634a8108ffe6df",
+    "path": ".runtime/workflow/validated-reports/6045c8fe3f267e9462c9077a6a3e5bd5a3a38602a191f51ed4634a8108ffe6df.json",
+    "stage_results": {
+      "00": "PASS",
+      "01": "PASS",
+      "02": "PASS",
+      "03": "PASS",
+      "04": "UNRESOLVED",
+      "05": "FAIL",
+      "06": "FAIL",
+      "07": "FAIL"
+    },
+    "passed": false,
+    "fail_count": 14,
+    "unresolved_count": 7
+  }
+}

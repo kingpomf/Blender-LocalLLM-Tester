@@ -1,5 +1,34 @@
 # Enforced-workflow continuation — Qwen3.6 remains the asset agent
 
+## Active API-aware retry
+
+The user authorized committing the installed-API/self-correction changes and
+another detached run. Read `testing/api-aware-relaunch/HANDOFF.md` first. Use
+blender_api_lookup, then make small verified edits from the authoritative MCP
+source. Current accounting is **3 hard failures +1 recoverable API correction**,
+epoch2 unchanged; historical30 failed jobs remain preserved. Earlier retry notes
+below are historical. Wrong API calls now receive recoverable guidance, not a
+hard-error charge, when confirmed against the installed catalog.
+
+## Active retry after automatic review recovery
+
+Read `testing/review-recovery-relaunch/HANDOFF.md` for the current retry. The
+latest source is **2b37b77ce016462c943a217f67fb9418**, not the earlier sources
+below. The saved negative image review has been recovered without regeneration;
+status/admission now reconciles completed/invalid/expired reviews automatically.
+The two counted failures and epoch2 remain unchanged. Earlier starting points
+and retry notes below are historical; MCP workflow state is authoritative.
+
+## Previous retry after reviewed native-failure fixes
+
+The user authorized another detached run after commit `bfa62a6`. Read
+`testing/native-failure-relaunch/HANDOFF.md` for the active retry instructions.
+The checkpoint below is unchanged, but **2 failures are now counted** and **28
+historical failed jobs are preserved** in epoch2. No additional budget reset was
+authorized. The zero-failure starting point below describes the earlier launch.
+Begin with one small scene correction, then poll its automatic validation before
+another edit. Do not resubmit the earlier multi-stage correction scripts.
+
 The user authorized the workflow repair, another archived error-counter reset,
 commit/push and detached relaunch. This is the same assisted r2 asset trial.
 

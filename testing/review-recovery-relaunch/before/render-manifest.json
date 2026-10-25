@@ -1,0 +1,73 @@
+{
+  "asset_source": "2b37b77ce016462c943a217f67fb9418",
+  "images": [
+    {
+      "role": "overview",
+      "job_id": "bba6712c295c43e5964bfc9fd708e17e",
+      "source_job": "0a79d9da529646b19491d05373301bcd",
+      "asset_source": "2b37b77ce016462c943a217f67fb9418",
+      "path": "artifacts/renders/BowlingPair01_overview.png",
+      "bytes": 898295,
+      "sha256": "df02e1b293c29d5f1d13895a56a3400a4b42779f8b310b0280e3dfd850bf0ed7",
+      "width": 1280,
+      "height": 720,
+      "visual_review": {
+        "sha256": "df02e1b293c29d5f1d13895a56a3400a4b42779f8b310b0280e3dfd850bf0ed7",
+        "passed": false,
+        "observations": "The image is a close-up of a ceiling and wall corner. Only a small portion of the pin deck and pins are visible in the bottom left. The lanes, approaches, seating, return racks, and scoreboards are completely missing from the frame.",
+        "reviewer": "fixed pixel helper qwen38-27b"
+      }
+    },
+    {
+      "role": "player",
+      "job_id": "59c548ccaff44b5a9bc122e6ac6eed2a",
+      "source_job": "7f9b2f6b9c0c4e78a60c6447c2066c07",
+      "asset_source": "2b37b77ce016462c943a217f67fb9418",
+      "path": "artifacts/renders/BowlingPair01_player.png",
+      "bytes": 979064,
+      "sha256": "c42b990acac7c8568645c8cbd96f7ac3eecfa11686c28e33d64d6f442aa44338",
+      "width": 1280,
+      "height": 720,
+      "visual_review": {
+        "sha256": "c42b990acac7c8568645c8cbd96f7ac3eecfa11686c28e33d64d6f442aa44338",
+        "passed": false,
+        "observations": "The view shows the right lane and the divider, but the left lane is obscured by a large grey wall on the left side of the frame. While pins are visible in the distance, the lane markings (arrows/dots) and gutters on the visible lane are not clearly readable or distinct.",
+        "reviewer": "fixed pixel helper qwen38-27b"
+      }
+    },
+    {
+      "role": "pindeck",
+      "job_id": "43dcb0be139347bf8a940dac42d9eccb",
+      "source_job": "87e67ee8c2214246ba3f6060c57a6fa5",
+      "asset_source": "2b37b77ce016462c943a217f67fb9418",
+      "path": "artifacts/renders/BowlingPair01_pindeck.png",
+      "bytes": 972054,
+      "sha256": "a9b3761056209e71baab4d775b5d0209449374053d721ea85e52da425d507e57",
+      "width": 1280,
+      "height": 720,
+      "visual_review": {
+        "sha256": "a9b3761056209e71baab4d775b5d0209449374053d721ea85e52da425d507e57",
+        "passed": false,
+        "observations": "The image shows the pin deck area with pins and a red band on the left. However, the right side of the pin deck is obscured by a large grey structure, and the pit area is not clearly visible or distinct enough to verify both racks and pits as required.",
+        "reviewer": "fixed pixel helper qwen38-27b"
+      }
+    },
+    {
+      "role": "props",
+      "job_id": "15d9a3dcc455487c92a16c022a4062ec",
+      "source_job": "15a56ed19ca1420c9e40c85ffd98b2c0",
+      "asset_source": "2b37b77ce016462c943a217f67fb9418",
+      "path": "artifacts/renders/BowlingPair01_props.png",
+      "bytes": 921053,
+      "sha256": "db605d10bd1d9b6a3d518c3409b19802c27be69b7f29d01af20de43b10013b05",
+      "width": 1280,
+      "height": 720,
+      "visual_review": {
+        "sha256": "db605d10bd1d9b6a3d518c3409b19802c27be69b7f29d01af20de43b10013b05",
+        "passed": false,
+        "observations": "The image shows a close-up of a beige wall and a dark horizontal bar. No bowling balls, return racks, or grip sockets are visible in this frame.",
+        "reviewer": "fixed pixel helper qwen38-27b"
+      }
+    }
+  ]
+}

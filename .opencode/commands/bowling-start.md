@@ -13,6 +13,8 @@ disabled. Do not edit BUILD_STATUS.md, HANDOFF.md, managed JSON receipts, valida
 guards, specifications or runtime state; the MCP workflow manages them.
 
 1. Call blender_workflow_status and capabilities. Use its current source.
+   Before unfamiliar API use, query blender_api_lookup with an exact type/member
+   or operator. Keep edits small and validate one change before expanding scope.
 2. Save a changed authoring script under artifacts/scripts and inspect LSP
    diagnostics. Call blender_scene_author for geometry, materials, lights/cameras
    only. Never call bpy.ops.render in authoring or create output directories.
@@ -22,6 +24,9 @@ guards, specifications or runtime state; the MCP workflow manages them.
 4. Correct the concrete remaining geometry findings. Recoverable preflight,
    stale-source and pending-work responses consume no attempt; follow their
    next_tool/ID guidance rather than stopping or resubmitting accepted work.
+   Confirmed API errors are recoverable: consult blender_api_lookup, change the
+   code and continue. They do not consume the hard-error budget. Never replay an
+   identical failed request or assume a suggested similarly named API is equivalent.
 5. For presentation call blender_render_view(role), one role at a time. Poll its
    **view- ID**, which drives camera selection, queued CPU rendering and verified
    publication. Do not call render operators yourself. Use8 samples initially.

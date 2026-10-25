@@ -5,7 +5,8 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch,AsyncMock
+import time
 
 from PIL import Image
 from scripts.authoring_preflight import inspect_authoring
@@ -96,6 +97,7 @@ class WorkflowTests(unittest.IsolatedAsyncioTestCase):
         self.client=FakeClient(self.root/'native')
         self.guard=SubmissionGuard(self.root/'.runtime/blender52/submissions.sqlite')
         self.workflow=Workflow(self.root,self.client,self.guard,hashlib.sha256(b'report = {}').hexdigest())
+        self.workflow.api_catalog={'version':'5.2.3 LTS','build_hash':'fixture','types':{},'operators':{},'data_collections':{},'extras':{},'bmesh_ops':[],'errors':{}}
         self.references=patch('scripts.workflow_tools.reference_check',return_value={'passed':True,'issues':[]})
         self.references.start();self.addCleanup(self.references.stop)
 
@@ -107,11 +109,105 @@ class WorkflowTests(unittest.IsolatedAsyncioTestCase):
         await self.workflow.call('status',job_id=validation)
         return accepted['id'],validation
 
+    async def saved_review(self):
+        source,_=await self.ready_asset()
+        review_id='review-'+'a'*32
+        folder=self.root/'.runtime/workflow/reviews'/review_id;folder.mkdir(parents=True)
+        images=[{'role':role,'sha256':role+'hash','path':'artifacts/renders/'+role+'.png'} for role in ['overview','player','pindeck','props']]
+        request={'asset_source':source,'images':images}
+        (folder/'request.json').write_text(json.dumps(request))
+        (self.root/'artifacts/reports/render-manifest.json').write_text(json.dumps({**request}))
+        result={'state':'completed','model':'vision-fixture','review':{'views':[
+            {'role':image['role'],'passed':False,'observations':'Actual pixel evidence shows an obstructing wall and prevents verifying the required bowling objects in this view.'} for image in images],
+            'criteria':[{'id':'S04_Ball_01_holes_visual','role':'props','passed':False,'observations':'No balls are visible.'}]}}
+        (folder/'result.json').write_text(json.dumps(result))
+        self.workflow.state['reviews'][review_id]={'state':'running','source':source,'request_key':'fixture','folder':str(folder.relative_to(self.root)),'created':time.time(),'pid':123456}
+        self.workflow.save()
+        return review_id,folder,result
+
+    async def test_status_recovers_short_criterion_receipt_without_replay_or_false_pass(self):
+        review_id,_,_=await self.saved_review()
+        with patch.object(self.workflow,'queue_validation',new_callable=AsyncMock) as validate,patch('scripts.workflow_tools.subprocess.Popen') as spawn:
+            status=await self.workflow.call('workflow_status')
+            self.assertEqual(status['pending_jobs'],[])
+            self.assertEqual(status['reviews'][review_id]['state'],'completed')
+            self.assertEqual(len(status['reviews'][review_id]['warnings']),1)
+            self.assertEqual(json.loads((self.root/'artifacts/reports/qualitative-evidence.json').read_text())['criteria'],[])
+            await self.workflow.call('status',job_id=review_id)
+            validate.assert_awaited_once();spawn.assert_not_called()
+        self.assertTrue(all(i['visual_review']['passed'] is False for i in json.loads((self.root/'artifacts/reports/render-manifest.json').read_text())['images']))
+
+    async def test_malformed_review_is_terminal_and_does_not_partially_publish_or_block_author(self):
+        review_id,folder,result=await self.saved_review()
+        manifest=self.root/'artifacts/reports/render-manifest.json';before=manifest.read_bytes()
+        result['review']['criteria'][0]['id']='UNAUTHORIZED_CHECK'
+        (folder/'result.json').write_text(json.dumps(result))
+        response=await self.workflow.call('author',code="report={'after_review_error':True}")
+        self.assertIn('id',response)
+        self.assertEqual(self.workflow.state['reviews'][review_id]['state'],'failed')
+        self.assertEqual(manifest.read_bytes(),before)
+        self.assertFalse((self.root/'artifacts/reports/qualitative-evidence.json').exists())
+
+    async def test_expired_review_releases_lock_without_replaying_request(self):
+        review_id,folder,_=await self.saved_review();(folder/'result.json').unlink()
+        self.workflow.state['reviews'][review_id]['created']=time.time()-700;self.workflow.save()
+        with patch('scripts.workflow_tools.subprocess.Popen') as spawn:
+            status=await self.workflow.call('workflow_status')
+            self.assertEqual(status['pending_jobs'],[])
+            self.assertEqual(status['reviews'][review_id]['state'],'failed')
+            spawn.assert_not_called()
+
+    async def test_short_positive_review_cannot_approve_criterion(self):
+        _,folder,result=await self.saved_review()
+        result['review']['criteria'][0]['passed']=True
+        (folder/'result.json').write_text(json.dumps(result))
+        with patch.object(self.workflow,'queue_validation',new_callable=AsyncMock):
+            await self.workflow.call('workflow_status')
+        self.assertEqual(json.loads((self.root/'artifacts/reports/qualitative-evidence.json').read_text())['criteria'],[])
+
     async def test_preflight_rejection_consumes_no_guard_or_network_submission(self):
         for code in ['import bpy\nbpy.ops.render.render()', 'import bpy\nbpy.data.meshes.remove(existing.data)']:
             result=await self.workflow.call('author',code=code)
             self.assertFalse(result['ok']);self.assertTrue(result['recoverable'])
             self.assertEqual(self.guard.rows(),[]);self.assertEqual(self.client.submissions,[])
+
+    async def test_runtime_api_error_is_audited_recoverable_and_changed_code_can_continue(self):
+        await self.ready_asset()
+        self.workflow.api_catalog={'version':'5.2.3 LTS','build_hash':'fixture','types':{'Mesh':{'members':['update'],'properties':{},'functions':{}}},'operators':{},'data_collections':{},'extras':{},'bmesh_ops':[],'errors':{}}
+        code='def use(mesh):\n    mesh.calc_normals_use_fit_sharp()\nuse(runtime_mesh)\nreport={}'
+        accepted=await self.workflow.call('author',code=code)
+        self.client.rows[accepted['id']].update(state='failed',error='blender_exit_1')
+        original=self.client.rpc
+        async def rpc(action,request):
+            if action=='diagnostics':return {'id':request['job_id'],'state':'failed','logs':{'blender.log':{'text':"AttributeError: 'Mesh' object has no attribute 'calc_normals_use_fit_sharp'"}}}
+            return await original(action,request)
+        with patch.object(self.client,'rpc',side_effect=rpc):
+            result=await self.workflow.call('status',job_id=accepted['id'])
+        self.assertFalse(result['hard_failure']);self.assertTrue(result['recoverable'])
+        self.assertEqual(self.guard.summary()['failed_count'],0)
+        self.assertEqual(self.guard.summary()['api_correction_count'],1)
+        self.assertEqual(self.guard.rows()[-1]['state'],'failed')
+        before=len(self.client.submissions)
+        duplicate=await self.workflow.call('author',code=code)
+        self.assertEqual(duplicate['code'],'unchanged_api_correction')
+        self.assertEqual(len(self.client.submissions),before)
+        revised=await self.workflow.call('author',code="report={'corrected_api':True}")
+        self.assertIn('id',revised)
+
+    async def test_catalog_api_rejection_makes_no_submission(self):
+        await self.ready_asset()
+        self.workflow.api_catalog={'version':'5.2.3 LTS','types':{},'operators':{},'data_collections':{},'extras':{},'bmesh_ops':[],'errors':{}}
+        before=len(self.client.submissions)
+        result=await self.workflow.call('author',code='import bpy\nbpy.ops.mesh.fake_operator()')
+        self.assertEqual(result['code'],'api_correction');self.assertFalse(result['attempt_consumed'])
+        self.assertEqual(len(self.client.submissions),before)
+
+    async def test_missing_catalog_cannot_silently_disable_api_admission(self):
+        self.workflow.api_catalog=None
+        with patch('scripts.workflow_tools.load_catalog',return_value=None):
+            result=await self.workflow.call('author',code='report={}')
+        self.assertEqual(result['code'],'api_catalog_missing')
+        self.assertEqual(self.guard.rows(),[])
 
     async def test_failure_updates_budget_mirrors_and_status_cannot_unpause_controller(self):
         await self.ready_asset()
