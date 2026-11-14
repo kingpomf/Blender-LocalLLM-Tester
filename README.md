@@ -1,5 +1,9 @@
 # Blender LocalLLM Tester — simplified kart
 
+The retained trial is numerically checked but remains **BLOCKED** on visual
+acceptance. See [CLEANUP_REVIEW.md](CLEANUP_REVIEW.md), `RUN_STATE.json`, and
+[the original report](artifacts/reports/BUILD_REPORT.md) before continuing.
+
 This branch tests an agent constructing a low-poly kart with supplied primitive helpers, independent numeric validation, and a fixed presentation rig. The agent still designs and authors the kart. No complete kart generator is supplied.
 
 ## Start when other testing has stopped

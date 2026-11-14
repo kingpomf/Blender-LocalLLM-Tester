@@ -1,12 +1,158 @@
 {
   "schema_version": 1,
-  "status": "NOT_STARTED",
-  "phase": "BUILD",
-  "model": null,
+  "status": "BLOCKED",
+  "phase": "DELIVER",
+  "model": "qwen38-flash-next (z6-llama, via Strata)",
   "pending_job": null,
-  "verified_source": null,
-  "checkpoint": null,
-  "jobs": [],
-  "evidence": {},
-  "next_action": "Check worker capabilities, then author a fresh kart using the simplified specification."
+  "verified_source": "6078c288fd7b4de38c095a4fd071ab5c",
+  "checkpoint": {
+    "path": "artifacts/blend/Kart01.blend",
+    "sha256": "fb21bfd1ec8ba67e05b603258a6b9ffcd9334cfb8298a1acd66d96780e97c87f",
+    "source_job": "21441e32a2474324bc0898ba1a2cddaa",
+    "note": "uncompressed re-save (compress=False) of immutable asset source 6078c288 (compressed scene.blend sha 313fb2557eb52e32a374d4cb23b3a60b19c1826d28ad768bbb6ae9a0850f8ae3); header BLENDER1, 17 meshes, root intact"
+  },
+  "jobs": [
+    {
+      "id": "0093b3ff3ec046e2a5c85af3fe464ece",
+      "kind": "scene_author",
+      "purpose": "BUILD initial full kart (helpers + authored body from artifacts/scripts/build.py)",
+      "source": null,
+      "submitted": "2026-10-25T20:52:18Z",
+      "state": "failed",
+      "diagnostic": "TypeError in box_shells: faces list contained generator objects (no len) at from_pydata; Blender 5.2.3 LTS; diagnosed once"
+    },
+    {
+      "id": "6078c288fd7b4de38c095a4fd071ab5c",
+      "kind": "scene_author",
+      "purpose": "BUILD rev2: generators replaced with tuples; completed, Blender 5.2.3, wall 3.07s",
+      "source": null,
+      "submitted": "2026-10-25T20:54:29Z",
+      "state": "completed",
+      "scene_blend_sha256": "313fb2557eb52e32a374d4cb23b3a60b19c1826d28ad768bbb6ae9a0850f8ae3",
+      "report": "all 17 required meshes, 4 two-slot wheels, 5 materials, missing_parts=[]"
+    },
+    {
+      "id": "ec42914ecc074926a928b1a94f28c5c7",
+      "kind": "scene_author",
+      "purpose": "REVIEW: helpers + supplied presentation.py + unchanged validate.py (saved artifacts/scripts/review.py) against build source",
+      "source": "6078c288fd7b4de38c095a4fd071ab5c",
+      "submitted": "2026-10-25T20:59:24Z",
+      "state": "completed",
+      "report_sha256": "4187e2e20f4327c5ac002cdbf4be3404539e136c92ba6ff32836b29c8af7a070",
+      "result": "validator passed=true, 0 failed checks, triangles=1192, envelope=[1.10,1.785,0.94], chassis clearance=0.17, framing+markers pass for all 4 cameras"
+    },
+    {
+      "id": "6f8b6d395bf54b51ac8967a0b4ff99c4",
+      "kind": "render",
+      "purpose": "REVIEW renders frames 1-4 (perspective/front/side/rear markers) 512x512 samples 32, device CPU (gateway 422 avoided; no protected work disturbed)",
+      "source": "ec42914ecc074926a928b1a94f28c5c7",
+      "submitted": "2026-10-25T21:02:19Z",
+      "state": "completed",
+      "result": "4/4 frames 512x512, distinct sha256 per frame: f1 c887c349..., f2 c89c9f6e..., f3 fa29f24e..., f4 e8d511f5...; fetched to artifacts/downloads/6f8b6d395bf54b51ac8967a0b4ff99c4/"
+    },
+    {
+      "id": "95976681ae5545fa97bd02b13cc25d4a",
+      "kind": "export",
+      "purpose": "DELIVER: GLB export from pure asset scene (no presentation objects exist in source)",
+      "source": "6078c288fd7b4de38c095a4fd071ab5c",
+      "submitted": "2026-10-25T21:04:55Z",
+      "state": "completed",
+      "result": "scene.glb 50216 bytes sha256 4dbec85f96d9da671d052bc25595c42c0957c90b30e0b1e736ef4eae1ecc3bf5; copied to artifacts/exports/Kart01.glb (hash verified)"
+    },
+    {
+      "id": "5fc9810769034fc1a1727530a7eb6748",
+      "kind": "scene_author",
+      "purpose": "DELIVER round-trip: export GLB to /job in isolated job (copy of final source, immutable), purge, reimport, compare geometry/materials/wheel slots/presentation absence",
+      "source": "6078c288fd7b4de38c095a4fd071ab5c",
+      "submitted": "2026-10-25T21:07Z",
+      "state": "completed",
+      "result": "names/tris/materials/wheel-slots/presentation-absent/root all pass; bbox worst delta 2.98e-08; overall passed=false ONLY because verts_match compared raw vertex counts (glTF legitimately re-indexes vertices)"
+    },
+    {
+      "id": "5518fc08437c451d9caf5caeec1d5532",
+      "kind": "scene_author",
+      "purpose": "DELIVER round-trip rev2 (artifacts/scripts/roundtrip.py): compares unique rounded world positions instead of raw vertex counts",
+      "source": "6078c288fd7b4de38c095a4fd071ab5c",
+      "submitted": "2026-10-25T21:08:53Z",
+      "state": "completed",
+      "report_sha256": "e8af169ae9194bed2a2ee3c3abceb66f4ac7a6c4761e1d047ef217d8ffdc4bbd",
+      "result": "round-trip PASSED: all 17 names match, per-mesh tris/materials/unique-position sets match exactly, 4 two-slot wheels, 5 materials, root EMPTY reimported, presentation absent; in-job GLB 68344 bytes"
+    },
+    {
+      "id": "bc6f026e0eb242678c3fc4fbdac89410",
+      "kind": "scene_author",
+      "purpose": "DELIVER: re-save asset scene uncompressed (check_delivery requires 'BLENDER' header; worker default is compressed) - geometry untouched",
+      "source": "6078c288fd7b4de38c095a4fd071ab5c",
+      "submitted": "2026-10-25T21:10Z",
+      "state": "failed",
+      "diagnostic": "AttributeError: Preferences has no 'file' in Blender 5.2.3; diagnosed once; correction via API introspection"
+    },
+    {
+      "id": "bd1c8f0a37db445fb30ce022da0642a3",
+      "kind": "scene_author",
+      "purpose": "Introspect preferences/save operator properties for uncompressed save (fresh scene, no asset)",
+      "source": null,
+      "submitted": "2026-10-25T21:11Z",
+      "state": "completed",
+      "result": "5.2 save operator exposes 'compress'; no preferences.file"
+    },
+    {
+      "id": "21441e32a2474324bc0898ba1a2cddaa",
+      "kind": "scene_author",
+      "purpose": "DELIVER re-save rev2: save_as_mainfile compress=False to /job/scene.blend + /job/Kart01_uncompressed.blend; geometry untouched",
+      "source": "6078c288fd7b4de38c095a4fd071ab5c",
+      "submitted": "2026-10-25T21:12Z",
+      "state": "completed",
+      "result": "Kart01_uncompressed.blend 723333 bytes sha fb21bfd1ec8ba67e05b603258a6b9ffcd9334cfb8298a1acd66d96780e97c87f header BLENDER1; worker auto-save overwrote /job/scene.blend with compressed variant so extra path used; copied to artifacts/blend/Kart01.blend"
+    }
+  ],
+  "rejected_submissions": [
+    {
+      "attempt": "blender_render CUDA frames 1-4 512x512 samples 32 from ec42914ecc074926a928b1a94f28c5c7",
+      "outcome": "Gateway HTTP 422, request not retried, no job ID returned; capabilities recheck showed active_requests=0 (nothing queued); 2026-10-25T21:01Z"
+    }
+  ],
+  "evidence": {
+    "assistance": "support/kart/helpers.py, presentation.py, validate.py supplied; authored by model",
+    "model_started": "2026-10-25T20:48:01Z",
+    "worker_capabilities": "authoring available, diagnostics tool present, fresh scene zero objects",
+    "repair_count_same_issue": "geometry build 1, round-trip measurement 1, blend save 2 (all < 3)",
+    "build_execution_note": "worker execution success only; asset acceptance pending validator",
+    "numeric_validation": "PASS via validator report (ec42914ecc074926a928b1a94f28c5c7): passed=true, 0 failures, triangles=1192/4500, envelope 1.10x1.785x0.94 within 1.20x1.80x1.05, wheel dims/track/wheelbase/contact pass, chassis clearance 0.17",
+    "numeric": {
+      "passed": true,
+      "report": "artifacts/reports/validation.json",
+      "sha256": "4187e2e20f4327c5ac002cdbf4be3404539e136c92ba6ff32836b29c8af7a070"
+    },
+    "visual": {
+      "passed": false,
+      "status": "BLOCKED",
+      "reason": "qwen38-flash-next via Strata has no image input; four 512x512 frames rendered (job 6f8b6d39), fetched, hash-distinct and saved to artifacts/renders/, but pixel content was never inspected by the model; no visual verdict claimed",
+      "renders_sha256": {
+        "perspective": "c887c3491fa62e152c78789a34a8ea90e0d6743d314126739d56fa42d603e1e9",
+        "front": "c89c9f6eae8af7aaa7d953f6cd4c1cb08d71c3efe8feb1034821b9639e9678cc",
+        "side": "fa29f24e8ce52383b75614f1262fe60bffdfb50454744f569420bc0c3afc80a3",
+        "rear": "e8d511f5e0fda3b80d66b484d375557de4f61aa15ae03d50b122217febc79f3e"
+      }
+    },
+    "round_trip": {
+      "passed": true,
+      "job": "5518fc08437c451d9caf5caeec1d5532",
+      "report_sha256": "e8af169ae9194bed2a2ee3c3abceb66f4ac7a6c4761e1d047ef217d8ffdc4bbd",
+      "detail": "17/17 names, tris, materials and unique world-position sets match after real GLB export->purge->import in isolated job; root EMPTY; 4 two-slot wheels; presentation absent; bbox delta <=3e-08; glTF +Yup conversion applied by exporter (export_yup=True)"
+    },
+    "delivery": {
+      "passed": true,
+      "check_delivery": "scripts/check_delivery.py passed=true (structure only; hashes in BUILD_REPORT.md and above)",
+      "check_resume": "scripts/check_resume.py PASS",
+      "deliverables": {
+        "blend": "fb21bfd1ec8ba67e05b603258a6b9ffcd9334cfb8298a1acd66d96780e97c87f",
+        "glb": "4dbec85f96d9da671d052bc25595c42c0957c90b30e0b1e736ef4eae1ecc3bf5",
+        "validation": "4187e2e20f4327c5ac002cdbf4be3404539e136c92ba6ff32836b29c8af7a070",
+        "build_report": "f481ddb8b7a43da4aea68c6c870a41956aa4eded101a394919e01a76079b2bd6"
+      },
+      "finalized": "2026-10-25T21:14:20Z"
+    }
+  },
+  "next_action": "Operator with vision must inspect artifacts/renders/Kart01_{perspective,front,side,rear}.png (subjective checks listed in validation.json). If visual review passes, set status COMPLETE; visual cannot be certified by this model. No commits/pushes without authorization."
 }

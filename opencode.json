@@ -1,15 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "z6-llama/qwen38-blender-35b",
-  "small_model": "z6-llama/qwen38-blender-35b",
+  "model": "z6-llama/qwen38-flash-next",
+  "small_model": "z6-llama/qwen38-flash-next",
   "provider": {
     "z6-llama": {
       "models": {
-        "qwen38-blender-35b": {
-          "name": "Qwen3.8 35B A3B Blender v1 (256K)",
-          "limit": {"context": 262144, "output": 16384},
+        "qwen38-flash-next": {
+          "name": "Qwen3.8 Flash-Next IQ3_S — Strata (256K)",
+          "limit": {"context": 262144, "output": 32768},
           "tool_call": true,
           "reasoning": true,
+          "interleaved": {"field": "reasoning_content"},
           "modalities": {"input": ["text"], "output": ["text"]}
         }
       }
@@ -17,11 +18,14 @@
   },
   "instructions": ["AGENTS.md"],
   "share": "disabled",
+  "agent": {"build": {"model": "z6-llama/qwen38-flash-next", "tools": {"task": false}, "permission": {"task": "deny"}}},
+  "experimental": {"continue_loop_on_deny": true},
   "compaction": {
     "auto": true,
     "prune": true,
-    "reserved": 8000
+    "reserved": 49152
   },
+  "tool_output": {"max_lines": 160, "max_bytes": 12000},
   "watcher": {
     "ignore": [
       ".git/**",
@@ -47,7 +51,11 @@
       ],
       "enabled": true,
       "environment": {
-        "BLENDER_DOWNLOADS": "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/downloads"
+        "BLENDER_SSH_TARGET": "kingpomf@z6-llm",
+        "BLENDER_REMOTE_APP": "/home/kingpomf/Development/blender-new-llm-setup",
+        "BLENDER_REMOTE_ROOT": "/home/kingpomf/Development/blender-new-llm-setup/var/kart-simplified-flash-next-strata-20261025-r1",
+        "BLENDER_REMOTE_BINARY": "/home/kingpomf/Development/blender-new-llm-setup/tools/blender-5.2.3-linux-x64/blender",
+        "BLENDER_DOWNLOADS": "/Users/start/Development/Blender-Kart-Simplified/artifacts/downloads"
       }
     }
   },
@@ -56,7 +64,17 @@
     "read": "allow",
     "glob": "allow",
     "grep": "allow",
-    "edit": "allow",
+    "edit": {
+      "*": "allow",
+      "/Users/start/Development/Blender-Kart-Simplified/support/**": "deny",
+      "/Users/start/Development/Blender-Kart-Simplified/spec/**": "deny",
+      "/Users/start/Development/Blender-Kart-Simplified/opencode.json": "deny",
+      "/Users/start/Development/Blender-Kart-Simplified/.opencode/**": "deny",
+      "/Users/start/Development/Blender-Kart-Simplified/.runtime/**": "deny",
+      "/Users/start/Development/Blender-Kart-Simplified/scripts/check_resume.py": "deny",
+      "/Users/start/Development/Blender-Kart-Simplified/scripts/check_delivery.py": "deny",
+      "/Users/start/Development/Blender-Kart-Simplified/scripts/run_kart.py": "deny"
+    },
     "todowrite": "allow",
     "question": "allow",
     "skill": "allow",
@@ -79,10 +97,19 @@
       "python artifacts/scripts/*": "allow",
       "python3 artifacts/scripts/*": "allow",
       "python3 scripts/check_resume.py": "allow",
+      "python3 scripts/check_delivery.py": "allow",
+      "sleep 1": "allow",
+      "sleep 2": "allow",
+      "sleep 5": "allow",
+      "sleep 10": "allow",
+      "sleep 15": "allow",
+      "date -u": "allow",
+      "date -u +%Y-%m-%dT%H:%M:%SZ": "allow",
       "sips *": "allow",
       "file artifacts/*": "allow",
       "du *": "allow",
       "cp artifacts/downloads/* artifacts/*": "allow",
+      "cp /Users/start/Development/Blender-Kart-Simplified/artifacts/downloads/* /Users/start/Development/Blender-Kart-Simplified/artifacts/*": "allow",
       "shasum -a 256 artifacts/*": "allow"
     },
     "z6-blender-worker_*": "allow"
