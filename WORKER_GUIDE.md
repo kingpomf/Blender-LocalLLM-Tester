@@ -1,21 +1,19 @@
-# Fresh-trial worker guide
+# EliteDesk worker flow
 
-Use bowling-blender52 only. The selected trial is
-bowling52-qwen38-turbo-20261025-r1; runtime is Blender5.2.3 LTS on Z6, CPU only.
-The queue is distinct from all retired trials, with an empty active guard DB.
+Use bowling-blender52 only, Blender5.2.3 LTS. The tool exposes the configured host,
+CPU authoring and CUDA rendering. All source/camera/checkpoint IDs are local to
+the EliteDesk CPU queue; rendered job IDs may have gpu- prefix. Keep host lineage.
 
-Call blender_capabilities and blender_workflow_status. Use blender_api_lookup for
-the installed API/return types. Stage00 starts empty only after reference review.
-Later author edits use the current completed source. Poll all accepted native,
-view- and review- IDs. Checkpoint/validation/ledger publication is automatic.
+Start with workflow_status, capabilities and targeted API lookups. New references
+must pass before the first source-free authoring. Later edits use current source.
+Poll every native/view-/review- ID. Checkpoints and measured ledgers are automatic.
+Read compact scene_summary/validation_details, never entire scene/validation JSON.
 
-No inline rendering or output subdirectories. Use blender_render_view for actual
-queued PNGs; fixed pixel-review and export/reimport tools gate acceptance/delivery.
-API mistakes are soft only when verified by runtime/source evidence. Geometry
-failures, arbitrary Python errors, cancellations and uncertain work remain hard.
-Limits6 hard/source20 total; two current hard failures without asset advancement
-stop the client. Never bypass STOP, replay identical failures or release leases.
+Never render inline. Named views select cameras, enqueue shared CUDA work and
+publish verified bytes from the same asset. Do not create a private GPU scheduler,
+interrupt other GPU work or release leases. GPU failure diagnostics may require
+operator log review; do not fetch completed artifacts from failed jobs.
 
-The fixed validator and hash-verified installed API catalog are retained tooling,
-not old asset geometry. All older scripts, native assets, references, downloaded
-artifacts and controller databases were moved into the retired trial archive.
+Geometry/visual acceptance is distinct from execution success. Eight unchanged
+validated revisions halt authoring for operator diagnosis. Preserve all budgets,
+failed fingerprints, pending IDs and genuine STOPs. No arbitrary shell/delegation.

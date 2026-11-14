@@ -16,7 +16,7 @@ import blender52_mcp as worker
 async def main():
     parser=argparse.ArgumentParser();parser.add_argument('--phase',choices=['coding','references'],default='coding');args=parser.parse_args()
     guard=SubmissionGuard(ROOT/'.runtime/blender52/submissions.sqlite')
-    client=worker.ProjectTransport('kingpomf@z6-llm',worker.REMOTE_APP,worker.REMOTE_APP+'/var/'+worker.TRIAL,worker.BINARY,str(ROOT/'artifacts/downloads'))
+    client=worker.ProjectTransport(worker.WORKER_HOST,worker.REMOTE_APP,worker.WORKER_ROOT,worker.BINARY,str(ROOT/'artifacts/downloads'),dedicated_gpu=worker.DEDICATED_GPU)
     print(json.dumps(await reconcile(ROOT,Workflow(ROOT,client,guard),guard,phase=args.phase)))
 
 

@@ -1,24 +1,16 @@
-# Selected model — Qwen3.8 Turbo fresh trial
+# Flash-Next / Strata bowling profile
 
-- OpenCode model ID: **z6-llama/qwen38-turbo**.
-- Installed gateway advertises it enabled; model state was unloaded at discovery.
-- Configured context139264, output16384; tool calls and reasoning enabled.
-- Both reference planner (build) and asset coder (bowling-coder) use this model.
-  The coding agent has no shell/delegation tools and uses enforced MCP workflows.
-- Compaction/pruning enabled,32768 reserve, no configured step cap; tool outputs
-  capped at160 lines/12000 bytes. The native139264 context remains accurately set.
-- Confirmed context-only failures use bounded checkpoint reconciliation and a
-  fresh coding context; they are not treated as native Blender failures.
-- Fixed pixel-description helper remains qwen38-27b and is separately attributed;
-  concepts are generated using qwen-image-2.1-q4 on EliteDesk WSL.
+Primary model z6-llama/qwen38-flash-next through the existing Z6 Strata gateway.
+Configured context262144/output32768, interleaved reasoning_content support,
+compaction/pruning with49152 reserve and bounded tool output. Neither weights,
+sampling, native context, protected leases nor gateway ownership are changed.
 
-`scripts/trial_settings.py` owns model/queue identities; opencode.json and all four
-bowling command profiles must agree. `scripts/preflight_blender52.py` verifies the
-fresh effective OpenCode config and live MCP tool/runtime catalog. Use
-`scripts/probe_coding_model.py z6-llama/qwen38-turbo` for read-only model discovery.
-Discovery does not prove inference success; verify the detached session's actual
-model/tool activity separately. Existing interactive OpenCode processes require
-a quit/restart to load these model/config changes.
+Blender runs on EliteDesk, not the Z6 GPUs: installed/qualified5.2.3 LTS, CPU
+scene authoring/validation, CUDA rendering on the existing shared dedicated queue.
+Active worker code is the immutable elitedesk52-runtime-65703d9 snapshot; queue
+root stays /home/kingpomf/blender-new-llm-setup/var/mcp-worker so all EliteDesk GPU
+operations remain serialized. The trial's own guard/progress IDs are isolated
+locally. Old jobs from other clients are never chosen as starting asset sources.
 
-The previous Qwen3.6 trial was archived in full. No old session, source file or
-asset acceptance is active. Do not copy archived meshes into the clean trial.
+Fresh OpenCode processes load the selected profile. Existing interactive OpenCode
+processes must restart for the upgraded global EliteDesk worker configuration.

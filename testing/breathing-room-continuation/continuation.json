@@ -1,0 +1,20 @@
+{
+  "authorization": "User requested 120-second MCP timeout, clearing this block, fivefold hard-failure headroom and detached continuation.",
+  "model": "z6-llama/qwen38-flash-next",
+  "trial": "bowling52-flash-next-elitedesk-20261025-r1",
+  "source_job": "cf9e9c33d60a4f99ae69e149236e0acf",
+  "checkpoint": "artifacts/blend/BowlingPair01.blend",
+  "checkpoint_sha256": "d570cdb362925a57cb33b1a54e080dbd2e35d7763317726463ebcbff08bbf57c",
+  "guard_rows_sha256": "15ab3d19020eb2aa99f438bdc522f998895fb2a0b9af5e9e0414b0f21c064d79",
+  "validator_sha256": "3cac4d432bf99f6fcaf4193737b629fa9edf083cffe1431096c409d3decc3493",
+  "limits": {
+    "per_source": 30,
+    "total": 100
+  },
+  "without_progress_limit": 10,
+  "failure_budget_reset_id": 0,
+  "fresh_coding_session": true,
+  "workflow_managed": true,
+  "diagnostic_report": "CONTROLLED_CONTINUATION.md",
+  "scope": "Resume the completed Stage00 source. Repair lane slab boundary indices/material-slot consistency in a changed asset revision, then poll automatic validation. Initial empty-scene validation crashed; do not replay it or weaken the validator. References are READY. Continue measured construction and delivery through MCP tools. Two hard failures remain counted; limits30/source100/total and10 without a published asset advance. No reset or empty rebuild."
+}

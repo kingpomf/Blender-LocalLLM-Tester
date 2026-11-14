@@ -53,11 +53,12 @@ class PreflightTests(unittest.TestCase):
 
 class FakeClient:
     def __init__(self,folder):
-        self.folder=Path(folder);self.rows={};self.submissions=[]
+        self.folder=Path(folder);self.rows={};self.submissions=[];self.prefix_gpu=False
 
     async def rpc(self,action,request):
         if action=='submit':
             job=f'{len(self.rows)+1:032x}'
+            if request['operation']=='render' and getattr(self,'prefix_gpu',False):job='gpu-'+job
             self.rows[job]={'id':job,'state':'queued','spec':copy.deepcopy(request),'manifest':None}
             self.submissions.append(copy.deepcopy(request))
             return copy.deepcopy(self.rows[job])
@@ -118,6 +119,30 @@ class WorkflowTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.guard.rows(),[])
         self.assertEqual(self.client.submissions,[])
 
+    async def test_gpu_render_id_publishes_without_replacing_cpu_asset_source(self):
+        source,_=await self.ready_asset();self.client.prefix_gpu=True
+        accepted=await self.workflow.call('render',source_job=source,frames=[1],resolution=[1280,720],samples=8)
+        self.assertTrue(accepted['id'].startswith('gpu-'))
+        self.client.complete(accepted['id'])
+        result=await self.workflow.call('status',job_id=accepted['id'])
+        self.assertEqual(result['artifact']['job_id'],accepted['id'])
+        self.assertEqual(self.workflow.state['current_source'],source)
+
+    async def test_eight_unchanged_validations_stop_new_authoring_without_error_charge(self):
+        from scripts.submission_guard import GuardBlocked
+        await self.ready_asset()
+        for revision in range(7):
+            accepted=await self.workflow.call('author',code=f'report={{"revision":{revision}}}')
+            self.client.complete(accepted['id'])
+            row=await self.workflow.call('status',job_id=accepted['id'])
+            self.client.complete(row['validation_job']['id'])
+            await self.workflow.call('status',job_id=row['validation_job']['id'])
+        before=len(self.client.submissions)
+        self.assertEqual(self.workflow.state['stagnation']['revisions'],8)
+        with self.assertRaisesRegex(GuardBlocked,'stagnation'):await self.workflow.call('author',code='report={"another":True}')
+        self.assertEqual(len(self.client.submissions),before)
+        self.assertEqual(self.guard.summary()['failed_count'],0)
+
     async def test_compact_scene_and_validation_reads_make_no_new_jobs(self):
         source,_=await self.ready_asset();before=len(self.client.submissions)
         scene=await self.workflow.call('scene_summary',names=['CAM_BowlingPair01_Overview'])
@@ -134,10 +159,10 @@ class WorkflowTests(unittest.IsolatedAsyncioTestCase):
         with patch('scripts.context_recovery.reference_check',return_value={'passed':True}),patch('scripts.context_recovery.resume_check',return_value={'passed':True}):
             result=await reconcile(self.root,self.workflow,self.guard,timeout=1,poll_interval=0)
             self.assertEqual(result['source'],source)
-            for index in range(2):
+            for index in range(10):
                 with self.guard.connect() as db:
                     db.execute('INSERT INTO attempts VALUES(?,?,?,?,?)',(f'bad{index}',source,'author',f'{100+index:032x}','failed'))
-            with self.assertRaisesRegex(GuardBlocked,'two hard failures'):await reconcile(self.root,self.workflow,self.guard,timeout=1,poll_interval=0)
+            with self.assertRaisesRegex(GuardBlocked,'10 hard failures'):await reconcile(self.root,self.workflow,self.guard,timeout=1,poll_interval=0)
 
     async def test_context_reconciliation_consumes_existing_pending_result_without_replay(self):
         from scripts.context_recovery import reconcile

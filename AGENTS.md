@@ -1,4 +1,4 @@
-# BowlingPair01 — fresh Qwen3.8 Turbo trial
+# BowlingPair01 — fresh Flash-Next / EliteDesk trial
 
 Build the original modular two-lane bowling asset defined by all ten files under
 spec/bowling-pair-01/. Specifications are acceptance requirements. No mesh packs,
@@ -6,23 +6,25 @@ old trial assets or unrelated game code. The previous trial is archived.
 
 ## Selected model and scope
 
-- Primary planner/coder: **z6-llama/qwen38-turbo**,139264 context/16384 output.
-  Automatic compaction/pruning,32768 reserve, no configured step cap. Tool outputs
+- Primary planner/coder: **z6-llama/qwen38-flash-next** through Strata on Z6,
+  262144 context/32768 output. Automatic compaction/pruning,49152 reserve, no configured step cap. Tool outputs
   are capped at160 lines/12000 bytes to leave context headroom.
-- Trial: **bowling52-qwen38-turbo-20261025-r1**. Use only bowling-blender52:
-  Blender5.2.3 LTS, CPU rendering, its new isolated trial queue.
-- Start from **no scene and no accepted stages**. New references come first, then
-  a fresh Stage00 scene. Do not reuse the archived native file, meshes or scripts.
+- Trial: **bowling52-flash-next-elitedesk-20261025-r1**. Use only bowling-blender52:
+  Blender5.2.3 LTS on EliteDesk, CPU authoring/validation and CUDA rendering on its
+  shared serialized RTX3060 queue. All scene/job IDs stay on that host; Z6 runs Strata.
+- This trial began with no scene or accepted stages. On continuation, use the
+  current verified source from blender_workflow_status; never restart empty.
+  Do not reuse the archived trial's native file, meshes or scripts.
 - Keep the selected primary model. Fixed pixel-only helpers may use the installed
   vision model; they supply evidence, not asset code. Never release coding leases.
 
 ## Phases
 
-1. Reference planner (build/Qwen3.8 Turbo): follow REFERENCE_IMAGES.md. Generate
+1. Reference planner (build/Flash-Next): follow REFERENCE_IMAGES.md. Generate
    three fresh imageMCP concepts on EliteDesk, save accepted IDs/receipts, use the
    fixed pixel helper and write DESIGN_GUIDE.md. Only reference-phase metadata may
    be updated directly. Run fixed reference/resume checks. No Blender jobs yet.
-2. Coding agent (bowling-coder/Qwen3.8 Turbo): **no Bash or Task tools**. Read
+2. Coding agent (bowling-coder/Flash-Next): **no Bash or Task tools**. Read
    CONTROLLED_CONTINUATION.md and call blender_workflow_status before editing.
    Use current machine state after compaction; remembered summaries are not proof.
 
@@ -80,12 +82,15 @@ old trial assets or unrelated game code. The previous trial is archived.
   runtime mismatch is soft only with installed API evidence and, for builtin
   return types, accepted-source/traceback proof. Correct code and continue.
 - Soft API errors remain audited but do not count toward hard budgets or the
-  two-hard-failure streak. Identical failed requests are never replayed. Arbitrary
+  hard-failure streak. Identical failed requests are never replayed. Arbitrary
   Python mistakes, geometry failures, cancellations and uncertainty remain hard.
-- Limits6 hard failures/source20 total. Two current hard failures without a new
+- Operator-authorized limits:30 hard failures/source100 total. Ten current hard failures without a new
   published asset edit stop the client. Never bypass a STOP or reset counters.
   Read cached diagnostics and fix the cause; failed jobs never become sources.
 - Old trial history stays archived. A reset requires explicit operator authority.
+  Eight distinct validated revisions with identical remaining check statuses and
+  accepted-stage results stop further authoring for operator diagnosis, even if
+  every execution succeeded. Stagnation does not charge the native hard-error budget.
   A confirmed context-only overflow may automatically reconcile pending accepted
   IDs and verify the checkpoint before continuing in a fresh coding session. It
   does not reset counters or replay jobs; uncertainty/transport errors still stop.

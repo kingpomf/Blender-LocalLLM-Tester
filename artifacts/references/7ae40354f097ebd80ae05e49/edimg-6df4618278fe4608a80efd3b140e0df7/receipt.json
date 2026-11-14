@@ -1,0 +1,20 @@
+{
+  "job_id": "edimg-6df4618278fe4608a80efd3b140e0df7",
+  "status": "succeeded",
+  "model": "qwen-image-2.1-q4",
+  "seed": 41003,
+  "elapsed_seconds": 107.63632745097857,
+  "artifacts": [
+    {
+      "id": "image",
+      "sha256": "0381f4c687a190f007109b67de877859e9f2b722326efa2fb09ddf13c3998ab8",
+      "bytes": 376591,
+      "media_type": "image/png",
+      "width": 512,
+      "height": 512,
+      "local_path": "/Users/start/Development/Blender-Bowling-FlashNext/artifacts/references/7ae40354f097ebd80ae05e49/edimg-6df4618278fe4608a80efd3b140e0df7/image-0381f4c687a190f007109b67de877859e9f2b722326efa2fb09ddf13c3998ab8.png"
+    }
+  ],
+  "provider_identity": "fleet:z6:749cbf12c8a090baae221bfa:elitedesk-wsl:{\"app\": \"/home/kingpomf/blender-new-llm-setup\", \"blender\": \"/home/kingpomf/blender-new-llm-setup/tools/blender-4.5.14-linux-x64/blender\", \"root\": \"/home/kingpomf/blender-new-llm-setup/var/mcp-worker\", \"target\": \"elitedesk-3060\", \"z6_monitor\": {\"app\": \"/home/kingpomf/Development/z6-gpu-gateway/current\", \"target\": \"kingpomf@z6-llm\"}}",
+  "execution_host": "elitedesk-3060"
+}

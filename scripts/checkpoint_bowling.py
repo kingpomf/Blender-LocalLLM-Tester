@@ -14,7 +14,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from scripts.check_resume import fields
 from scripts.continuation_preflight import guard_rows
-from scripts.submission_guard import budget_accounting
+from scripts.submission_guard import budget_accounting, FAILURE_LIMIT_PER_SOURCE, FAILURE_LIMIT_TOTAL
 from scripts.trial_settings import TRIAL
 
 STAGES=['Contract and scene safety','Lane pair and markings','Gutters, decks and pit',
@@ -72,22 +72,33 @@ def backup_and_write(root,name,text):
 def sync_ledgers(root):
     root=Path(root)
     receipt=json.loads((root/'artifacts/reports/checkpoint.json').read_text())
-    validation=json.loads((root/'artifacts/reports/validation.json').read_text())
+    validation_path=root/'artifacts/reports/validation.json'
+    validation=json.loads(validation_path.read_text()) if validation_path.exists() else None
     source=receipt['source_job']
-    assert validation['asset_source_job']==source, 'Validation is for another scene'
+    if validation is not None:assert validation['asset_source_job']==source, 'Validation is for another scene'
     assert checksum(root/receipt['path'])==receipt['sha256'], 'Canonical scene changed'
     attempts=guard_rows(root)
     assert all(r['job'] and r['state'] in {'completed','failed','cancelled'} for r in attempts), 'Reconcile pending/uncertain jobs before ledger synchronization'
     assert any(r['job']==source and r['state']=='completed' for r in attempts)
     rows=[]
-    for i in range(8):
+    for i in range(8) if validation is not None else []:
+        assert validation is not None
         result=validation['stage_results'][f'{i:02d}']
         state='IN_PROGRESS' if result=='UNRESOLVED' else result
         relevant=[c for c in validation['checks'] if c['stage']==f'{i:02d}' and c['status']!='PASS']
         evidence=('Measured PASS' if not relevant else f'{len(relevant)} failed/unresolved checks: '+', '.join(c['id'] for c in relevant[:4]))
         rows.append((state,evidence+'; artifacts/reports/validation.json; validation job '+validation['validation_job']))
-    rows.append(('PASS' if validation['passed'] else 'FAIL',
-        f"Read-only validator completed: {validation['pass_count']} PASS, {validation['fail_count']} FAIL, {validation['unresolved_count']} unresolved; source {source}."))
+    if validation is not None:
+        rows.append(('PASS' if validation['passed'] else 'FAIL',
+            f"Read-only validator completed: {validation['pass_count']} PASS, {validation['fail_count']} FAIL, {validation['unresolved_count']} unresolved; source {source}."))
+    else:
+        workflow=json.loads((root/'.runtime/workflow/state.json').read_text())
+        failed_validations=[job for job,info in workflow['jobs'].items()
+            if info.get('role')=='validation' and info.get('source')==source
+            and any(r['job']==job and r['state']=='failed' for r in attempts)]
+        assert failed_validations,'Missing measured report without a reconciled failed validator'
+        rows=[('IN_PROGRESS','No measured acceptance: current-source validator failed; '+', '.join(failed_validations)) for _ in range(8)]
+        rows.append(('FAIL','Validator execution failed; no acceptance report exists. Repair the asset and validate a changed revision.'))
     rows.append(('NOT_STARTED','No qualified final export/round-trip delivery yet.'))
     next_stage=next((i for i,(state,_) in enumerate(rows) if state!='PASS'),9)
     accounting=budget_accounting(root/'.runtime/blender52/submissions.sqlite',attempts)
@@ -99,11 +110,12 @@ def sync_ledgers(root):
     run_status='BLOCKED' if controller.get('state') in {'blocked','interrupted'} else 'IN_PROGRESS'
     common={'Reference phase':'READY','Pending reference job':'none','Pending job':'none','Pending source job':'none',
             'Actual model used':controller.get('model','not observed'),
-            'Validation state':'completed current-source measurements; see artifacts/reports/validation.json',
+            'Validation state':('completed current-source measurements; see artifacts/reports/validation.json'
+                if validation is not None else 'FAILED execution; no measured acceptance report; repair asset before revalidation'),
             'Operator validation pending':'none',
             'Checkpoint SHA-256':receipt['sha256'],
             'API corrections':str(len(accounting['api_corrections']))+' recoverable API errors excluded from hard-failure budget; original jobs preserved',
-            'Failure budget':f'6 per source / 20 total; current failures {failure_count}; {source_failures} on current source; {historical_failures} historical failures preserved; reset epoch {accounting["reset_id"]}',
+            'Failure budget':f'{FAILURE_LIMIT_PER_SOURCE} per source / {FAILURE_LIMIT_TOTAL} total; current failures {failure_count}; {source_failures} on current source; {historical_failures} historical failures preserved; reset epoch {accounting["reset_id"]}',
             'Controller':'RUNNING; continue current session' if controller.get('state')=='running' else 'STOPPED; awaiting explicit operator continuation',
             'Operator intervention':('Fresh Qwen3.8 Turbo trial; previous asset and sessions archived; installed API/workflow tooling retained'
                 if TRIAL.startswith('bowling52-qwen38-turbo-') else 'Operator supplied and verified pin-profile/cap/band correction; user authorized archived counter reset; all original jobs preserved'
@@ -119,7 +131,9 @@ def sync_ledgers(root):
         'Pending source job':'none','Latest verified local checkpoint':receipt['path']})
     # Reconciled reports supersede old forward-looking text rather than leaving
     # contradictory restart/source instructions below the current metadata.
-    build=build[:build.index('## Next action')]+'## Next action\n\n'+common['Next action']+'\n\n## Evidence\n\nNative and local measurements are in artifacts/reports/validation.json.\nHistorical ledgers, jobs, guard backups and operator assistance are preserved\nunder testing/. Only current measured PASS results may be carried forward.\n'
+    evidence=('Native and local measurements are in artifacts/reports/validation.json.' if validation is not None
+        else 'Current-source validator execution failed. No measured acceptance report or stage PASS is available.')
+    build=build[:build.index('## Next action')]+'## Next action\n\n'+common['Next action']+'\n\n## Evidence\n\n'+evidence+'\nHistorical ledgers, jobs, guard backups and operator assistance are preserved\nunder testing/. Only current measured PASS results may be carried forward.\n'
     header=handoff.split('\n\n',1)[0]
     metadata='\n'.join(line for line in handoff.splitlines() if line.startswith('- '))
     handoff=header+'\n\n'+metadata+'\n\nThe current source is a completed integrity-verified repair base, not a claim\nthat all stages passed. Use the measured validator and render reviews. Failed\njobs never become sources. Preserve all historical failures and all real STOPs.\n'
@@ -135,7 +149,7 @@ async def publish_source(root,source,client=None):
     sys.path.insert(0,str(root/'scripts'))
     if client is None:
         import blender52_mcp as worker
-        client=worker.ProjectTransport('kingpomf@z6-llm',worker.REMOTE_APP,worker.REMOTE_APP+'/var/'+worker.TRIAL,worker.BINARY,str(root/'artifacts/downloads'))
+        client=worker.ProjectTransport(worker.WORKER_HOST,worker.REMOTE_APP,worker.WORKER_ROOT,worker.BINARY,str(root/'artifacts/downloads'),dedicated_gpu=worker.DEDICATED_GPU)
     attempts=guard_rows(root)
     assert any(row['job']==source and row['state']=='completed' and row['operation']=='author' for row in attempts), 'Source must be a completed authoring job in this trial'
     status=await client.rpc('status',{'job_id':source})
@@ -165,11 +179,11 @@ async def publish_source(root,source,client=None):
 async def publish_render(root,role,job_id,asset_source,client=None):
     root=Path(root)
     assert role in {'overview','player','pindeck','props'}
-    assert all(re.fullmatch('[a-f0-9]{32}',value) for value in [job_id,asset_source])
+    assert re.fullmatch('(?:gpu-)?[a-f0-9]{32}',job_id) and re.fullmatch('[a-f0-9]{32}',asset_source)
     sys.path.insert(0,str(root/'scripts'))
     if client is None:
         import blender52_mcp as worker
-        client=worker.ProjectTransport('kingpomf@z6-llm',worker.REMOTE_APP,worker.REMOTE_APP+'/var/'+worker.TRIAL,worker.BINARY,str(root/'artifacts/downloads'))
+        client=worker.ProjectTransport(worker.WORKER_HOST,worker.REMOTE_APP,worker.WORKER_ROOT,worker.BINARY,str(root/'artifacts/downloads'),dedicated_gpu=worker.DEDICATED_GPU)
     render=await client.rpc('status',{'job_id':job_id})
     assert render['state']=='completed' and render['spec']['operation']=='render'
     camera_source=render['spec']['source_job']

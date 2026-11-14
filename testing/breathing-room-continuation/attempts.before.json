@@ -1,0 +1,23 @@
+[
+  {
+    "fingerprint": "194fa49b96daea781d6538708351196973ef723a9023820ec9c7736788f2d8bd",
+    "source": "EMPTY",
+    "operation": "author",
+    "job": "cf9e9c33d60a4f99ae69e149236e0acf",
+    "state": "completed"
+  },
+  {
+    "fingerprint": "e828e5386c03fd6a060054b26ff5669d9696c510fe7aaa07baeabff69a64278f",
+    "source": "cf9e9c33d60a4f99ae69e149236e0acf",
+    "operation": "author",
+    "job": "6e09df5e4ee44777992c84642acee888",
+    "state": "failed"
+  },
+  {
+    "fingerprint": "e11a3c2a155c31fc6db31cb1af6a402249e78d52bb94b049b6a1526a12ed3d53",
+    "source": "cf9e9c33d60a4f99ae69e149236e0acf",
+    "operation": "author",
+    "job": "7fc377d0c47349a0aec7da962e316905",
+    "state": "failed"
+  }
+]

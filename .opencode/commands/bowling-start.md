@@ -1,7 +1,7 @@
 ---
 description: Complete remaining asset work using enforced MCP state, validation and render queues
 agent: bowling-coder
-model: z6-llama/qwen38-turbo
+model: z6-llama/qwen38-flash-next
 ---
 
 Continue BowlingPair01 from **blender_workflow_status**, the authoritative source

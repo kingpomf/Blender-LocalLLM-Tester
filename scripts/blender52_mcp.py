@@ -9,9 +9,9 @@ from typing import Literal
 
 PROJECT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(PROJECT))
-from scripts.submission_guard import SubmissionGuard
+from scripts.submission_guard import SubmissionGuard, FAILURE_LIMIT_PER_SOURCE, FAILURE_LIMIT_TOTAL
 from scripts.check_references import check as check_references
-from scripts.trial_settings import TRIAL
+from scripts.trial_settings import TRIAL,WORKER_HOST,WORKER_APP,WORKER_ROOT,WORKER_BINARY,DEDICATED_GPU
 from scripts.workflow_tools import Workflow
 
 APP = '/Users/start/Development/blender-new-llm-setup'
@@ -20,16 +20,18 @@ from mcp.server.fastmcp import FastMCP
 from blender_worker.transport import SSHTransport
 from blender_worker.schema import validate
 
-REMOTE_APP = '/home/kingpomf/Development/blender-new-llm-setup'
-BINARY = REMOTE_APP + '/tools/blender-5.2.3-linux-x64/blender'
+REMOTE_APP = WORKER_APP
+BINARY = WORKER_BINARY
 EXPECTED = '5.2.3 LTS'
 
 # Read-only host probe: verifies the executable and any runner owning this queue.
 PROBE = '''
-import json,subprocess,sys
+import json,subprocess,sys,os
 from pathlib import Path
 binary,root=sys.argv[1:]
-version=subprocess.check_output([binary,'--version'],text=True).splitlines()[0]
+libraries=Path(binary).parent.parent/'sandbox-runtime/usr/lib/x86_64-linux-gnu'
+env={**os.environ,**({'LD_LIBRARY_PATH':str(libraries)} if libraries.is_dir() else {})}
+version=subprocess.check_output([binary,'--version'],env=env,text=True).splitlines()[0]
 runners=[]
 for p in Path('/proc').glob('[0-9]*/cmdline'):
     try: args=p.read_bytes().decode().split('\\0')
@@ -67,7 +69,7 @@ class ProjectTransport(SSHTransport):
         return checked_runtime(json.loads(stdout))
 
     async def rpc(self, action, request):
-        if action.startswith('gpu-') or str(request.get('job_id', '')).startswith('gpu-'):
+        if not self.dedicated_gpu and (action.startswith('gpu-') or str(request.get('job_id', '')).startswith('gpu-')):
             raise ValueError('STOP: this trial is CPU-only; no GPU gateway routing.')
         if action == 'submit':
             await self.probe()
@@ -83,6 +85,8 @@ class ProjectTransport(SSHTransport):
                         f"exec(compile({original!r}, '/job/submitted.py', 'exec'), globals())\n")
                 request = {**request, 'code': code}
                 validate(request)
+            if request['operation']=='render' and self.dedicated_gpu:
+                action='gpu-submit';request={**request,'backend':'CUDA'}
         result = await super().rpc(action, request)
         if result.get('state') == 'completed' and (result.get('manifest') or {}).get('blender_version') != EXPECTED:
             raise RuntimeError('STOP: completed job has the wrong runtime; operator review required.')
@@ -93,16 +97,16 @@ def server(qualification=False):
     # Keep existing infrastructure fixtures in their original queue. They are
     # never sources or budget entries for a fresh model evaluation.
     queue = 'bowling52-guarded-20261022-qualification' if qualification else TRIAL
-    root = REMOTE_APP + '/var/' + queue
+    root = WORKER_ROOT if not qualification else '/home/kingpomf/blender-new-llm-setup/var/'+queue
     local = PROJECT / ('testing/blender52-guarded' if qualification else '.runtime/blender52')
     downloads = local / 'downloads' if qualification else PROJECT / 'artifacts/downloads'
-    client = ProjectTransport('kingpomf@z6-llm', REMOTE_APP, root, BINARY, str(downloads))
+    client = ProjectTransport(WORKER_HOST, REMOTE_APP, root, BINARY, str(downloads),dedicated_gpu=DEDICATED_GPU and not qualification)
     guard = SubmissionGuard(local / 'submissions.sqlite')
     workflow = None if qualification else Workflow(PROJECT,client,guard)
     app = FastMCP('bowling-blender52', instructions=(
-        'Blender 5.2.3 LTS on Z6, version-locked CPU-only trial. '
+        'Blender 5.2.3 LTS on EliteDesk: CPU authoring/validation and shared serialized CUDA render queue. '
         'On any STOP/circuit-breaker error, checkpoint and return BLOCKED to the user; do not loop. '
-        'Six failed submissions per source or twenty total require operator review. '
+        f'{FAILURE_LIMIT_PER_SOURCE} failed submissions per source or {FAILURE_LIMIT_TOTAL} total require operator review. '
         'Unchanged failed code is rejected, uncertain submissions never replayed. '
         'Start with blender_workflow_status for the authoritative current source and measured stage results. '
         'Author scene/cameras only: inline rendering and output subdirectories are rejected before any attempt. '
@@ -122,7 +126,7 @@ def server(qualification=False):
 
     @app.tool()
     async def blender_capabilities() -> dict:
-        """Verify actual installed Blender and queue runner; report durable submission state. Read-only, no scene job."""
+        """Verify installed Blender/queue runner and selected host/device; report durable submission state. Read-only, no scene job."""
         evidence = await client.probe()
         summary=guard.summary()
         if workflow:
@@ -132,7 +136,7 @@ def server(qualification=False):
         return {'runtime_verified': True, 'actual_version': evidence['version'],
                 'binary': BINARY, 'root': root, 'runners': evidence['runners'],
                 'authoring': {'available': True, 'fresh_scene_objects': [], 'execution_name': '__blender_author__'},
-                'render_devices': ['CPU'], 'guard': summary,
+                'render_devices': ['CPU','CUDA'] if client.dedicated_gpu else ['CPU'], 'default_render_device':'CUDA' if client.dedicated_gpu else 'CPU', 'execution_host':WORKER_HOST,'guard': summary,
                 'workflow_tools_available':workflow is not None}
 
     @app.tool()
@@ -159,9 +163,11 @@ def server(qualification=False):
 
     @app.tool()
     async def blender_render(source_job: str, frames: list[int] = [1], resolution: list[int] = [1280,720],
-                             samples: int = 8, device: Literal['CPU'] = 'CPU') -> dict:
-        """Render actual scene on 5.2 CPU. Max 60 frames, 2048 pixels/side. Prefer one view per job."""
-        if workflow:return await workflow.call('render',source_job=source_job,frames=frames,resolution=resolution,samples=samples)
+                             samples: int = 8, device: Literal['CPU','CUDA'] = 'CUDA') -> dict:
+        """Render on the configured5.2 device/host. Max60 frames,2048 pixels/side. Prefer named render_view for verified camera selection."""
+        if workflow:
+            if device!=('CUDA' if client.dedicated_gpu else 'CPU'):return workflow.error('configured_render_device','Use the configured render device, or named render_view; no silent device substitution.')
+            return await workflow.call('render',source_job=source_job,frames=frames,resolution=resolution,samples=samples)
         return await submit({'operation': 'render', 'source_job': source_job, 'frames': frames,
                              'resolution': resolution, 'samples': samples})
 
@@ -229,7 +235,7 @@ def server(qualification=False):
         @app.tool()
         async def blender_render_view(role: Literal['overview','player','pindeck','props'], source_job: str | None = None,
                                       resolution: list[int] = [1280,720], samples: int = 8) -> dict:
-            """Render one named view through the CPU queue. Returns a view- ID; poll it with blender_job_status. Camera-selection and render IDs are checkpointed automatically; completed image publishes with hash/provenance. Never render inline."""
+            """Render one named view through the configured CUDA queue. Returns a view- ID; poll it with job_status. Camera-selection/render IDs and verified publication are automatic. Never render inline."""
             return await workflow.call('render_view',role=role,source_job=source_job,resolution=resolution,samples=samples)
 
         @app.tool()

@@ -68,7 +68,7 @@ class ContinuousRunTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);state=root/'.runtime/autonomous-run/state.json'
             state.parent.mkdir(parents=True)
-            state.write_text(json.dumps({'sessions':{},'turns':1,'state':'blocked','native_failures_since_progress':{'a'*32:'failed','b'*32:'failed'}}))
+            state.write_text(json.dumps({'sessions':{},'turns':1,'state':'blocked','native_failures_since_progress':{f'{i:032x}':'failed' for i in range(run_bowling.FAILURE_LIMIT_WITHOUT_PROGRESS)}}))
             with patch.object(run_bowling,'ROOT',root),patch('sys.argv',['run_bowling.py','--resume']),patch.object(run_bowling,'workflow',lambda run,*args:run('coding')),patch.object(run_bowling.subprocess,'Popen') as spawn:
                 with self.assertRaisesRegex(RuntimeError,'retained native failure streak'):
                     run_bowling.main()
@@ -84,24 +84,24 @@ class ContinuousRunTests(unittest.TestCase):
             state=json.loads((root/'.runtime/autonomous-run/state.json').read_text())
             self.assertEqual(state['state'],'blocked')
 
-    def test_two_native_failures_terminate_client_before_another_event(self):
+    def test_native_failure_limit_terminates_client_before_another_event(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);process=Mock(pid=12345)
             consumed=[]
             def events():
-                for job in ['a'*32,'b'*32,'c'*32]:
+                for job in [f'{i:032x}' for i in range(run_bowling.FAILURE_LIMIT_WITHOUT_PROGRESS+1)]:
                     consumed.append(job)
                     yield json.dumps(self.native_event(job))+'\n'
             process.stdout=events();process.poll.return_value=None
             def run_only_coding(run,*args):return run('coding')
             with patch.object(run_bowling,'ROOT',root),patch('sys.argv',['run_bowling.py']),patch.object(run_bowling,'workflow',run_only_coding),patch.object(run_bowling.subprocess,'Popen',return_value=process),patch.object(run_bowling.os,'killpg') as kill:
-                with self.assertRaisesRegex(RuntimeError,'two distinct native jobs'):
+                with self.assertRaisesRegex(RuntimeError,'10 distinct native jobs'):
                     run_bowling.main()
                 kill.assert_called_once_with(12345,run_bowling.signal.SIGTERM)
-            self.assertEqual(consumed,['a'*32,'b'*32])
+            self.assertEqual(len(consumed),10)
             state=json.loads((root/'.runtime/autonomous-run/state.json').read_text())
             self.assertEqual(state['state'],'blocked')
-            self.assertEqual(len(state['last_errors']),2)
+            self.assertEqual(len(state['last_errors']),4)
             self.assertNotIn('client_pid',state)
 
     def test_reference_then_coding_and_verified_stage_continuation(self):
@@ -188,16 +188,16 @@ class ContinuousRunTests(unittest.TestCase):
             workflow(run,lambda:{'status':'NOT_STARTED','passed':set()},lambda:False,lambda:True)
         self.assertEqual(calls,['references'])
 
-    def test_primary_model_is_qwen38_turbo_for_every_command(self):
+    def test_primary_model_is_flash_next_for_every_command(self):
         import json
         from scripts.trial_settings import MODEL
         root=Path(__file__).resolve().parents[1]
-        self.assertEqual(MODEL,'z6-llama/qwen38-turbo')
+        self.assertEqual(MODEL,'z6-llama/qwen38-flash-next')
         config=json.loads((root/'opencode.json').read_text())
         self.assertEqual(config['model'],MODEL)
         self.assertEqual(config['agent']['build']['model'],MODEL)
         self.assertEqual(config['agent']['bowling-coder']['model'],MODEL)
-        self.assertEqual(config['provider']['z6-llama']['models']['qwen38-turbo']['limit'],{'context':139264,'output':16384})
+        self.assertEqual(config['provider']['z6-llama']['models']['qwen38-flash-next']['limit'],{'context':262144,'output':32768})
         for name in ['bowling-run','bowling-references','bowling-start','bowling-continue']:
             self.assertIn('model: '+MODEL,(root/'.opencode/commands'/f'{name}.md').read_text())
 
@@ -223,7 +223,7 @@ class ContinuousRunTests(unittest.TestCase):
             result=run_bowling.live_status(root,{'state':'running'})
             self.assertEqual(result['live_failure_budget']['current_failures'],0)
             self.assertEqual(result['live_failure_budget']['historical_failures_preserved'],1)
-            self.assertEqual(result['live_failure_budget']['total_limit'],20)
+            self.assertEqual(result['live_failure_budget']['total_limit'],100)
 
 
 if __name__=='__main__':

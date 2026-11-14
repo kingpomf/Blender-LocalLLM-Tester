@@ -5,11 +5,38 @@ import tempfile
 import unittest
 
 from PIL import Image
-from scripts.checkpoint_bowling import update_fields, replace_stage_table, saved_mesh_signature
+from scripts.checkpoint_bowling import update_fields, replace_stage_table, saved_mesh_signature, sync_ledgers
+from scripts.submission_guard import SubmissionGuard
 from scripts.validate_checkpoint import local_render_checks, merge_report, qualitative_evidence
 
 
 class CheckpointTests(unittest.TestCase):
+    def test_failed_initial_validator_allows_honest_sync_without_inventing_passes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);source='a'*32;failed='b'*32
+            guard=SubmissionGuard(root/'.runtime/blender52/submissions.sqlite')
+            with guard.connect() as db:
+                db.execute('INSERT INTO attempts VALUES(?,?,?,?,?)',('source','EMPTY','author',source,'completed'))
+                db.execute('INSERT INTO attempts VALUES(?,?,?,?,?)',('validation',source,'author',failed,'failed'))
+            (root/'artifacts/reports').mkdir(parents=True)
+            scene=root/'scene.blend';scene.write_bytes(b'verified fixture')
+            (root/'artifacts/reports/checkpoint.json').write_text(json.dumps({'source_job':source,'path':'scene.blend',
+                'sha256':hashlib.sha256(scene.read_bytes()).hexdigest()}))
+            (root/'.runtime/workflow').mkdir()
+            state=root/'.runtime/workflow/state.json'
+            state.write_text(json.dumps({'jobs':{}}))
+            for filename in ['BUILD_STATUS.md','HANDOFF.md']:
+                (root/filename).write_text('# Fixture\n\n## Stage ledger\n\n## Next action\n')
+            with self.assertRaisesRegex(AssertionError,'reconciled failed validator'):sync_ledgers(root)
+            state.write_text(json.dumps({'jobs':{failed:{'role':'validation','source':source}}}))
+            result=sync_ledgers(root)
+            self.assertEqual(result['failure_count'],1)
+            self.assertEqual(result['next_stage'],'00')
+            text=(root/'BUILD_STATUS.md').read_text()
+            self.assertNotIn('| PASS |',text)
+            self.assertIn('FAILED execution',text)
+            self.assertFalse((root/'artifacts/reports/validation.json').exists())
+
     def test_camera_revision_ignores_unused_material_purge_but_checks_used_materials(self):
         base={'objects':[{'name':'Cube','type':'MESH','materials':['Wood'],'location':[0,0,0]}],
               'materials':[{'name':'Wood','color':[1,0,0]},{'name':'Unused','color':[0,1,0]}]}

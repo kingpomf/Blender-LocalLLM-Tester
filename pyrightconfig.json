@@ -1,7 +1,7 @@
 {
   "include": ["artifacts/scripts", "scripts", "tests"],
   "exclude": ["artifacts/archive", ".opencode", ".venv"],
-  "venvPath": ".",
+  "venvPath": "/Users/start/Development/Blender-LocalLLM-Tester",
   "venv": ".venv",
   "extraPaths": [
     "/Users/start/Development/blender-new-llm-setup",

@@ -1,7 +1,7 @@
 ---
 description: Launch the full image-reference-to-Blender workflow without per-stage prompts
 agent: build
-model: z6-llama/qwen38-turbo
+model: z6-llama/qwen38-flash-next
 ---
 
 Start the operator-authorized continuous BowlingPair01 workflow by running

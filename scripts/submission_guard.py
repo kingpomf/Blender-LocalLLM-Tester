@@ -11,8 +11,9 @@ import json
 from pathlib import Path
 import sqlite3
 
-FAILURE_LIMIT_PER_SOURCE = 6
-FAILURE_LIMIT_TOTAL = 20
+FAILURE_LIMIT_PER_SOURCE = 30
+FAILURE_LIMIT_TOTAL = 100
+FAILURE_LIMIT_WITHOUT_PROGRESS = 10
 
 
 class GuardBlocked(RuntimeError):

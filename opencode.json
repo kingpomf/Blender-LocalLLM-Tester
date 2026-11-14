@@ -1,15 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "z6-llama/qwen38-turbo",
-  "small_model": "z6-llama/qwen38-turbo",
+  "model": "z6-llama/qwen38-flash-next",
+  "small_model": "z6-llama/qwen38-flash-next",
   "provider": {
     "z6-llama": {
       "models": {
-        "qwen38-turbo": {
-          "name": "Qwen3.8 Turbo (136K) — fresh Blender trial",
-          "limit": {"context": 139264, "output": 16384},
+        "qwen38-flash-next": {
+          "name": "Qwen3.8 Flash-Next IQ3_S — Strata (256K)",
+          "limit": {"context": 262144, "output": 32768},
           "tool_call": true,
           "reasoning": true,
+          "interleaved": {"field":"reasoning_content"},
           "modalities": {"input": ["text"], "output": ["text"]}
         }
       }
@@ -18,11 +19,11 @@
   "instructions": ["AGENTS.md"],
   "share": "disabled",
   "agent": {
-    "build": {"model": "z6-llama/qwen38-turbo"},
+    "build": {"model": "z6-llama/qwen38-flash-next"},
     "bowling-coder": {
-      "description": "Qwen3.8 Turbo asset author using installed API guidance and enforced MCP validation/render queues",
+      "description": "Flash-Next bowling author with installed API guidance; EliteDesk CPU/CUDA worker",
       "mode": "primary",
-      "model": "z6-llama/qwen38-turbo",
+      "model": "z6-llama/qwen38-flash-next",
       "tools": {"bash": false, "task": false},
       "permission": {
         "bash": "deny",
@@ -30,36 +31,31 @@
         "imageMCP_*": "deny",
         "edit": {
           "*": "allow",
-          "/Users/start/Development/Blender-LocalLLM-Tester/BUILD_STATUS.md": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/HANDOFF.md": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/scripts/**": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/spec/**": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/.runtime/**": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/.opencode/**": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/opencode.json": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/scripts/validate_bowling_pair01.py": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/scripts/accepted_*.py": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/validation.json": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/blender-api-catalog*.json": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/checkpoint.json": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/render-manifest.json": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/qualitative-evidence.json": "deny",
-          "/Users/start/Development/Blender-LocalLLM-Tester/artifacts/reports/DELIVERY_MANIFEST.json": "deny"
+          "/Users/start/Development/Blender-Bowling-FlashNext/BUILD_STATUS.md": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/HANDOFF.md": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/scripts/**": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/spec/**": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/.runtime/**": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/.opencode/**": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/opencode.json": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/artifacts/scripts/validate_bowling_pair01.py": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/artifacts/scripts/accepted_*.py": "deny",
+          "/Users/start/Development/Blender-Bowling-FlashNext/artifacts/reports/*.json": "deny"
         }
       }
     }
   },
-  "experimental": {"continue_loop_on_deny": true},
+  "experimental": {"continue_loop_on_deny": true, "mcp_timeout": 120000},
   "lsp": {
     "pyright": {
-      "command": ["./.venv/bin/pyright-langserver", "--stdio"],
+      "command": ["/Users/start/Development/Blender-LocalLLM-Tester/.venv/bin/pyright-langserver", "--stdio"],
       "extensions": [".py", ".pyi"]
     }
   },
   "compaction": {
     "auto": true,
     "prune": true,
-    "reserved": 32768
+    "reserved": 49152
   },
   "tool_output": {"max_lines": 160, "max_bytes": 12000},
   "watcher": {
@@ -78,16 +74,22 @@
     "blenderMCP": { "enabled": false },
     "audioMCP": { "enabled": false },
     "appleCreatorMCP": { "enabled": false },
-    "imageMCP": {"enabled": true},
+    "imageMCP": {
+      "type": "local",
+      "command": ["/Users/start/Development/imageMCP/.venv/bin/imagemcp", "--env-file", "/Users/start/Development/imageMCP/.env"],
+      "enabled": true,
+      "timeout": 120000
+    },
     "elitedesk-blender-worker": { "enabled": false },
     "z6-blender-worker": {"enabled": false},
     "bowling-blender52": {
       "type": "local",
       "command": [
         "/Users/start/Development/blender-new-llm-setup/.venv/bin/python",
-        "/Users/start/Development/Blender-LocalLLM-Tester/scripts/blender52_mcp.py"
+        "/Users/start/Development/Blender-Bowling-FlashNext/scripts/blender52_mcp.py"
       ],
-      "enabled": true
+      "enabled": true,
+      "timeout": 120000
     }
   },
   "permission": {

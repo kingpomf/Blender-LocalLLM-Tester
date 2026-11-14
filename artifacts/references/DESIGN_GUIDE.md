@@ -1,70 +1,97 @@
-# BowlingPair01 Design Guide — Qwen3.8 Turbo Trial
+# BowlingPair01 — DESIGN_GUIDE (trial bowling52-flash-next-elitedesk-20261025-r1)
 
-Trial: bowling52-qwen38-turbo-20261025-r1
-Reference images generated via imageMCP (backend: elitedesk, model: qwen-image-2.1-q4, 512x512, 25 steps) and inspected by the qwen38-27b vision helper.
+Planner: z6-llama/qwen38-flash-next. Pixel observations supplied by the fixed
+image-only helper (`scripts/review_reference_images.py`, reviewer
+`z6-llama/qwen38-27b`, hash-bound in `vision-helper.json`). Concepts were
+generated with imageMCP on EliteDesk (model `qwen-image-2.1-q4`, 512x512,
+25 steps, seeds 41001/41002/41003). These are design inputs only; the written
+specification values override anything visible in the images, and the concepts
+are never evidence for a Blender render.
 
-## Reference Images
+## image 1 — overview — `image-c2505b9c9fb4649614ce5ce38a034f6020be04a2422024e12a8d52a4ea3c464a.png`
 
-### Overview — image-179073e5a20443842c15afb95e505a4fceeca1b43e3b0fb053be1c63b23b55c5.png
-Observed: Wide, low-angle view of a stylized bowling alley with parallel wooden lanes, white pins with red stripes, gray gutters, and a central ball return tray holding a red ball. Dark seating, colorful balls, and two blue hanging screens in the background.
-
-Useful construction features:
-- Establishes the overall composition: two lanes side-by-side with approach areas, pin decks, and seating behind
-- Ball return is positioned between approaches, consistent with the spec's centered return rack
-- Overhead scoreboards shown as hanging screens above lanes
-- Wood-toned lane surfaces with visible board grain variation
-- Color palette: wood tones for lanes, dark gray for gutters, white/red for pins, colorful balls
-
-Corrections to apply during construction:
-- Image shows multiple lanes; spec requires exactly two lanes
-- Screen colors (blue) are artistic; spec requires readable lane labels "01" and "02"
-- Pin details are small; spec dimensions (0.381m height, 0.121m max diameter, neck < 65% of body) must be measured, not inferred
-
-### Layout — image-38e22a73d6f3c31687e25383ddf8ce094d6d99b53ec24c44ab282a8b1a96a67b.png
-Observed: Top-down, symmetrical technical view of lane assembly showing four vertical metallic lane sections separated by light wood panels, with a central gray return mechanism and small orange components, framed by white border and dark upper housing.
+Job `edimg-29f0a8afdbb04cbe95d60cfce1e69d77`, seed 41001. Helper observed a wide
+high-angle view of two parallel light-wood lanes with dark side gutters and a
+central divider, plus dark scoring consoles/overhead structures at the far end.
 
 Useful construction features:
-- Clear layout showing lane spacing and gutter placement on all four sides
-- Central return mechanism positioning validated
-- Symmetrical arrangement of the two-lane pair
-- Visual separation of functional zones (lanes, gutters, return, approaches)
+- Three-quarter framing from behind the approaches matches the required
+  CAM overview composition; both racks, approaches, return and scoreboards read
+  as one cohesive module.
+- Warm wood lane surfaces with lengthwise board grain, dark recessed gutters and
+  a lighter divider cap give the material palette: oiled wood, charcoal gutter,
+  teal/dark accent panels.
+- Overhead scoreboard housings and rear masking wall confirm the vertical
+  silhouette (screen bottoms well above head height).
 
-Corrections to apply during construction:
-- Image shows four lane sections; spec requires two lanes with four gutters (inner pair shared)
-- Metallic lane appearance is artistic; spec requires wood with board variation along Y
-- Lane width (1.0668m), center X positions (±0.95m), and Y extents (0 to 19.20) must be built to spec dimensions
+Corrections against the specs:
+- The helper reads "two ball return trays holding white pins": in the concept
+  the pins appear associated with the return/deck area ambiguously. Actual
+  build must place twenty racked pins on the pin decks (head pin Y=18.288,
+  0.3048 m spacing) and keep balls, not pins, on the return rack.
+- Perspective hides true proportions; do not derive any measurement from this
+  image. Lane width 1.0668 m, centers ±0.95 m and pair envelope X=±1.80 m come
+  only from 01-LANES.
 
-### Details — image-facbd9bddf762e2b184ab2060441c3aa81da76774cb5da8f067fa533958e9827.png
-Observed: Close-up of gray ball return tray with blue, red, and green bowling balls, positioned beside a low-poly pinsetter and a cluster of white pins with red rings on light wood floor marked with dark lines and arrows.
+## image 2 — layout — `image-fd8cf33bbadf4598dd051c1d8f17c78a15a106e1c319cd31d33e61f0e62b4c65.png`
+
+Job `edimg-2404a901d5ad41df8cfcacc32f35b419`, seed 41002. Helper observed a
+top-down symmetrical lane geometry, a prominent central mechanical track
+running between the lanes, pin clusters near the far lane ends and dark
+rectangular panels along the top edge.
 
 Useful construction features:
-- Ball colors validated: blue, burgundy/red, green/teal match spec requirements
-- Ball return tray/cradle geometry supports multiple balls
-- Lane markings (dark lines, arrows) visible on approach surface
-- Pin silhouette with red neck bands confirmed
-- Low-poly aesthetic matches the target art style
+- Confirms the plan arrangement we must build: two parallel lanes, four gutters
+  with a capped central divider, decks and recessed pits beyond Y=19.20,
+  benches and floor fields, rear wall panels.
+- The grid-like symmetry supports a mirrored, modular construction approach
+  (one lane kit mirrored/reused for the second) with shared central elements.
 
-Corrections to apply during construction:
-- Finger holes on balls must be actual open recess geometry (≥0.015m depth), not painted
-- Pin neck ratio must be measured: <65% of maximum body diameter
-- Ball diameter (0.216m) and pin height (0.381m) must be exact spec values
-- Pin rack spacing: 0.3048m nearest-neighbor, sqrt(3)/2 × 0.3048m row separation
+Corrections against the specs:
+- The "central mechanical track between the lanes" is wrong for this asset: the
+  shared ball-return hood/rack must sit between the two *approaches*
+  (X=-0.40..0.40, Y=-4.30..-0.30, per 05-ALLEY-DRESSING), while the space
+  between the lanes is only the capped inner-gutter divider. Do not build a
+  machinery trench between the lanes.
+- Dark top-edge panels are generic; actual masking wall must carry readable
+  `01`/`02` lane IDs with >=0.60 m clearance above standing pin tops.
+- Image spacing is not to scale; rack geometry must use the exact triangular
+  rows (1/2/3/4, row separation sqrt(3)/2 x 0.3048 m).
 
-## Design Decisions for Construction
+## image 3 — details — `image-0381f4c687a190f007109b67de877859e9f2b722326efa2fb09ddf13c3998ab8.png`
 
-1. **Art Style**: Stylized-realistic low-poly with clean silhouettes. Avoid overly detailed textures; use flat colors with material variation (wood grain, glossy balls, matte pins).
+Job `edimg-6df4618278fe4608a80efd3b140e0df7`, seed 41003. Helper observed glossy
+white pins with red double stripes in a triangular rack on a wooden surface,
+with blue/red/green balls in a dark return area behind and a black tray edge in
+the foreground.
 
-2. **Modular Organization**: Separate object groups for lanes, gutters, decks, pins, balls, return, seating, scoreboards, and dressing. All descend from BowlingPair01_ROOT.
+Useful construction features:
+- Pin silhouette to imitate: flat base, broad lower belly, narrow neck, rounded
+  head, two red neck bands — matching 03-PINS. Bands sit on the neck and stay
+  attached to the body.
+- Ball color identity (blue, burgundy/red, green/teal) and glossy polished
+  finish match 04-BALLS; balls resting in return cradles is the required final
+  placement.
+- Dark return mouth and lane/gutter material contrast support the Stage 06
+  material list (white pin, red stripe, three ball colors, wood, gutter/metal).
 
-3. **Material Strategy**: Use Principled PBR values with embedded textures for required appearance features (wood grain, pin stripes, ball colors). Procedural nodes only for optional variation.
+Corrections against the specs:
+- The visible finger-hole arrangement is not verifiable at this angle; actual
+  balls need three genuinely recessed holes (>=0.015 m deep open/socket
+  geometry) with the grip oriented toward the props camera.
+- The rack shown is partial/ambiguous; delivery requires twenty distinct pin
+  objects with the standard numbered rack and each pin one mesh object.
+- Pin/ball proportions in the image are stylized; enforce 0.381 m pin height,
+  0.121 m pin diameter, 0.216 m ball diameter from the specs.
 
-4. **Lighting**: Balanced indoor alley lighting. Avoid blown-out highlights on polished ball surfaces. Readable silhouettes from all four presentation camera views.
+## Shared construction takeaways
 
-5. **Dimensions**: All measurements follow the spec tables exactly. Lane width 1.0668m, lane length 18.288m foul-to-headpin, approach 4.572m, pin deck coverage, gutter cross-section 0.08–0.12m below lane.
-
-## Visual Inspection Limitations
-
-- Generated concept images are design inputs only, not final evidence of constructed geometry
-- Precise dimensions, counts, and clearances must be measured in Blender, not inferred from images
-- Material appearances in images may differ from final PBR material results
-- Image resolution (512x512) limits visibility of small details like arrow markings and pin band widths
+- Cohesive stylized-realistic low/mid-poly kit: warm wood surfaces, charcoal
+  concave gutters, dark accent walls, three saturated ball colors, white/red
+  pins. All must survive GLB export as Principled PBR material assignments.
+- Composition: pair open at front and one side for review cameras; dressing
+  elements (benches, scoreboards, masking wall, stripes/light bars) frame the
+  pair without obstructing lane surfaces.
+- Concepts are inputs only: all counts, dimensions, budgets and acceptance
+  criteria come from spec/bowling-pair-01/; the four Stage 07 PNGs from the
+  real Blender scene remain the only visual evidence for the asset.

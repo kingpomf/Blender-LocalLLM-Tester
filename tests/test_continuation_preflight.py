@@ -34,7 +34,7 @@ class ContinuationPreflightTests(unittest.TestCase):
             'checkpoint':'artifacts/blend/BowlingPair01.blend',
             'checkpoint_sha256':hashlib.sha256(self.checkpoint.read_bytes()).hexdigest(),
             'guard_rows_sha256':preflight.rows_hash(preflight.guard_rows(self.root)),
-            'limits':{'per_source':6,'total':20}}
+            'limits':{'per_source':30,'total':100}}
         self.plan_path.write_text(json.dumps(self.plan))
 
     def validate(self):
@@ -45,8 +45,8 @@ class ContinuationPreflightTests(unittest.TestCase):
         before=preflight.guard_rows(self.root)
         result=self.validate()
         self.assertEqual(result['failures_retained'],2)
-        self.assertEqual(result['remaining_on_source'],4)
-        self.assertEqual(result['remaining_total'],18)
+        self.assertEqual(result['remaining_on_source'],28)
+        self.assertEqual(result['remaining_total'],98)
         self.assertEqual(before,preflight.guard_rows(self.root))
 
     def test_changed_checkpoint_blocks(self):

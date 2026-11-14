@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from scripts.submission_guard import GuardBlocked, SubmissionGuard
+from scripts.submission_guard import GuardBlocked, SubmissionGuard, FAILURE_LIMIT_PER_SOURCE, FAILURE_LIMIT_TOTAL
 
 
 class GuardTests(unittest.IsolatedAsyncioTestCase):
@@ -39,29 +39,29 @@ class GuardTests(unittest.IsolatedAsyncioTestCase):
             await restarted.submit(self.request('# fake repair\nx = 1\n'), self.rpc)
         self.assertEqual(self.calls, 1)
 
-    async def test_real_changed_code_allowed_until_sixth_failure(self):
-        for n in range(6):
+    async def test_real_changed_code_allowed_until_per_source_limit(self):
+        for n in range(FAILURE_LIMIT_PER_SOURCE):
             await self.fail(f'x={n}')
         with self.assertRaisesRegex(GuardBlocked, 'budget exhausted'):
             await self.guard.submit(self.request('x=99'), self.rpc)
-        self.assertEqual(self.calls, 6)
+        self.assertEqual(self.calls, FAILURE_LIMIT_PER_SOURCE)
 
     async def test_total_budget_cannot_be_evaded_with_different_sources(self):
-        for n in range(20):
+        for n in range(FAILURE_LIMIT_TOTAL):
             await self.fail(f'x={n}', f'{n:032x}')
         with self.assertRaisesRegex(GuardBlocked, 'budget exhausted'):
             await self.guard.submit(self.request('x=99', 'f' * 32), self.rpc)
-        self.assertEqual(self.calls, 20)
+        self.assertEqual(self.calls, FAILURE_LIMIT_TOTAL)
 
-    async def test_existing_failures_are_retained_under_doubled_limits(self):
+    async def test_existing_failures_are_retained_under_raised_limits(self):
         for n in range(3):
             await self.fail(f'x={n}')
         restarted=SubmissionGuard(self.path)
         row=await restarted.submit(self.request('x=3'),self.rpc)
         self.assertEqual(row['state'],'queued')
         self.assertEqual(restarted.summary()['failed_count'],3)
-        self.assertEqual(restarted.summary()['failure_limit_per_source'],6)
-        self.assertEqual(restarted.summary()['failure_limit_total'],20)
+        self.assertEqual(restarted.summary()['failure_limit_per_source'],30)
+        self.assertEqual(restarted.summary()['failure_limit_total'],100)
 
     async def test_authorized_budget_epoch_zeroes_count_but_retains_history_and_deduplication(self):
         for n in range(3):

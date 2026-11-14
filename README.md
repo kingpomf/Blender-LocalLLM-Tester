@@ -1,45 +1,30 @@
-# Blender local-model evaluation — fresh Qwen3.8 Turbo trial
+# BowlingPair01 — Flash-Next / Strata with EliteDesk Blender5.2 CUDA
 
-Current checkpoint-bound continuation and context-recovery/error-reset evidence:
-`testing/context-recovery-reset-20261025/`. The active asset/references are retained;
-the initial clean-trial reset below is historical. Read CONTROLLED_CONTINUATION.md
-and inspect status before launching; an existing state requires explicit authorized
-resume rather than a duplicate fresh controller.
+The retained completed trial and November repository checks are summarized in
+[CLEANUP_REVIEW.md](CLEANUP_REVIEW.md) and [BUILD_REPORT.md](BUILD_REPORT.md).
+The setup instructions below describe how this trial began; do not restart it empty.
 
-Build the original modular BowlingPair01 two-lane asset defined under
-spec/bowling-pair-01/. The user requested a clean project restart using
-**z6-llama/qwen38-turbo** after retiring the previous Qwen3.6 evaluation.
+Fresh trial bowling52-flash-next-elitedesk-20261025-r1, linked worktree branch
+trial/bowling-flash-next-elitedesk. The original Turbo bowling trial remains paused
+and the completed kart review package remains separate; neither is an input here.
 
-## Run
+Primary planner/coder: z6-llama/qwen38-flash-next through Strata on Z6,262144 context
+and32768 output. Blender5.2.3 runs on EliteDesk: CPU authoring/validation and actual
+CUDA rendering on its shared serialized RTX3060 queue. No Z6 model/GPU eviction is
+needed for Blender renders. Image reference generation shares the EliteDesk queue.
 
-From the project directory:
+The asset must satisfy all ten files under spec/bowling-pair-01/. Fresh references
+come first, then a new scene. Existing API/return-type lookup, read-only validation,
+automatic checkpointing, soft API correction policy, context recovery and fixed
+pixel-review/export tools are retained. Eight unchanged validated revisions now
+stop new authoring for diagnosis without charging a native error.
 
-```bash
-python3 scripts/run_bowling.py --detach
-python3 scripts/run_bowling.py --status
-```
+Run `python3 scripts/run_bowling.py --detach` once after preflight. Monitor with
+`python3 scripts/run_bowling.py --status` and the report at
+http://z6-llm:8088/blender-trial/. Do not launch duplicate controllers. Read AGENTS.md,
+CONTROLLED_CONTINUATION.md, REFERENCE_IMAGES.md and WORKER_GUIDE.md.
 
-The controller first generates fresh design references, then launches a separate
-fresh asset-coding session and continues stages automatically with measured
-checkpoints. Do not launch a duplicate. Explicit resume requires reconciliation
-of any interruption/blocker and preservation of pending accepted IDs.
-
-## Current setup
-
-- Primary model: qwen38-turbo;139264 context/16384 output, automatic compaction.
-- Isolated trial: bowling52-qwen38-turbo-20261025-r1.
-- Blender5.2.3 LTS on Z6; CPU-only authoring/render queue.
-- Installed API lookup, source-linked soft API corrections, strict geometry and
-  acceptance validation, queued named renders and fixed image-review helpers.
-- Fresh asset/reference/state/guard/session history. All prior work preserved at
-  artifacts/archive/qwen36-final-before-qwen38-turbo-20261025/.
-
-See AGENTS.md, CONTROLLED_CONTINUATION.md, REFERENCE_IMAGES.md and MODEL_SETUP.md.
-BUILD_STATUS.md/HANDOFF.md reflect measured active progress, not historical PASSs.
-Native execution success is not asset acceptance. Do not weaken the validator,
-invent image evidence, replay uncertain submissions or reset budgets automatically.
-
-Verification:
-`/Users/start/Development/blender-new-llm-setup/.venv/bin/python -m unittest discover -s tests`
-and `scripts/preflight_blender52.py` through that environment. Current reset and
-launch evidence is under testing/qwen38-turbo-fresh-20261025/.
+124 unit tests pass; worker CUDA qualification evidence is local under
+.runtime/elitedesk-qualification/. The real small fixture confirmed Blender5.2.3,
+CUDA RTX3060 execution with cpu_enabled=false, and verified PNG hashes. It is not
+a game asset or proof that the bowling deliverable has passed acceptance.

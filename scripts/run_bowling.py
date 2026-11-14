@@ -15,6 +15,7 @@ sys.path.insert(0,str(ROOT))
 from scripts.check_references import check as reference_check
 from scripts.check_resume import check as resume_check, fields
 from scripts.trial_settings import MODEL
+from scripts.submission_guard import FAILURE_LIMIT_WITHOUT_PROGRESS, FAILURE_LIMIT_PER_SOURCE, FAILURE_LIMIT_TOTAL
 from scripts.context_recovery import is_context_overflow,context_exit_recoverable,recovery_prompt,MAX_CONTEXT_RECOVERIES
 
 
@@ -41,7 +42,8 @@ def live_status(root,state) -> dict:
         result['live_failure_budget']={'current_failures':len(accounting['counted_failures']),
             'recoverable_api_corrections':len(accounting['api_corrections']),
             'historical_failures_preserved':sum(r['state'] in {'failed','cancelled'} for r in rows),
-            'per_source_limit':FAILURE_LIMIT_PER_SOURCE,'total_limit':FAILURE_LIMIT_TOTAL,
+             'per_source_limit':FAILURE_LIMIT_PER_SOURCE,'total_limit':FAILURE_LIMIT_TOTAL,
+             'without_progress_limit':FAILURE_LIMIT_WITHOUT_PROGRESS,
             'reset_id':accounting['reset_id']}
     return result
 
@@ -84,7 +86,7 @@ def native_outcome(event,failures,progress):
     if isinstance(job,str) and job.startswith('view-'):
         job=result.get('native_job')
         native_state=result.get('native_state',native_state)
-    if native_state not in {'failed','cancelled'} or not isinstance(job,str) or not re.fullmatch('[a-f0-9]{32}',job) or job in failures:return None
+    if native_state not in {'failed','cancelled'} or not isinstance(job,str) or not re.fullmatch('(?:gpu-)?[a-f0-9]{32}',job) or job in failures:return None
     if job in progress.setdefault('failed_jobs',[]):return None
     progress['failed_jobs'].append(job)
     message=f"Native job {job} {native_state}: {result.get('error') or 'read native diagnostics'}"
@@ -215,10 +217,10 @@ def main():
                     'Use bowling-blender52 MCP tools, not shell commands or manual ledger edits. '
                     'Read CONTROLLED_CONTINUATION.md and '+plan['diagnostic_report']+', then call blender_workflow_status. '
                     'The authoritative source is '+plan['source_job']+'. Author scene/cameras only; inline rendering is rejected before submission. '
-                    'Poll completed asset edits AND their auto-queued validation_job. Use blender_render_view and poll view- IDs for actual queued CPU renders/publication. '
+                    'Poll completed asset edits AND their auto-queued validation_job. Use blender_render_view and poll view- IDs for actual queued renders/publication. '
                     'Use blender_review_presentation, blender_export_delivery and blender_finish_delivery for evidence and final package. '
                     'No Bash/Task tools or managed-file edits are available. Recoverable wrong-tool/pending-work feedback consumes no attempt; follow it. '
-                    f"Current counted failures: {plan.get('failures_retained','query workflow status')}; historical failed/cancelled jobs: {plan.get('historical_failures_preserved','preserved')}. Limits remain6/source20/total. "
+                     f"Current counted failures: {plan.get('failures_retained','query workflow status')}; historical failed/cancelled jobs: {plan.get('historical_failures_preserved','preserved')}. Limits {FAILURE_LIMIT_PER_SOURCE}/source {FAILURE_LIMIT_TOTAL}/total; {FAILURE_LIMIT_WITHOUT_PROGRESS} without progress. "
                     'Do not reset counters, restart empty, regenerate references or repeat old wrong APIs. Scope: '+plan['scope'])
         state.update(state='running',controller_pid=os.getpid())
         def save():
@@ -235,7 +237,7 @@ def main():
             if native_failures!=retained:
                 state.setdefault('reclassified_api_streak_history',[]).append(dict(retained))
                 state['native_failures_since_progress']=dict(native_failures);save()
-            if len(native_failures)>=2:
+            if len(native_failures)>=FAILURE_LIMIT_WITHOUT_PROGRESS:
                 raise RuntimeError('STOP: retained native failure streak requires operator reconciliation before another client starts.')
             progress=state.setdefault('native_progress',{'asset_jobs':[],'failed_jobs':list(native_failures)})
             receipt=ROOT/'artifacts/reports/checkpoint.json'
@@ -283,8 +285,8 @@ def main():
                             state['last_errors']=errors[-4:]
                             state['native_failures_since_progress']=dict(native_failures)
                             save()
-                            if len(native_failures)>=2:
-                                raise RuntimeError('STOP: two distinct native jobs failed/cancelled without a published asset advance; client stopped immediately for diagnosis, no automatic retry.')
+                            if len(native_failures)>=FAILURE_LIMIT_WITHOUT_PROGRESS:
+                                raise RuntimeError(f'STOP: {FAILURE_LIMIT_WITHOUT_PROGRESS} distinct native jobs failed/cancelled without a published asset advance; client stopped immediately for diagnosis, no automatic retry.')
                         if event.get('type')=='error':
                             if is_context_overflow(event):
                                 context_errors+=1
@@ -300,6 +302,7 @@ def main():
                             save()
                             if any(marker in error.lower() for marker in ['stop:', 'circuit-breaker', 'failure budget exhausted','doom_loop']):
                                 hard_stop=True
+                                if 'stagnation' in error.lower():raise RuntimeError('STOP: verified acceptance stagnation; client paused for operator diagnosis without charging a native failure.')
                             if any(marker in error.lower() for marker in ['ssh bridge','transport','connection','timed out','timeout','broken pipe','unexpected eof']):
                                 fatal_error=True;hard_stop=True
                         if event.get('sessionID'):

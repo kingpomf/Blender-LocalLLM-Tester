@@ -11,6 +11,7 @@ import os
 import sys
 import shutil
 import time
+from typing import Any
 
 from scripts.authoring_preflight import inspect_authoring
 from scripts.blender_api import load_catalog,inspect_api,lookup,classify_api_error,terminal_exception
@@ -49,7 +50,7 @@ class Workflow:
         self.directory.mkdir(parents=True,exist_ok=True)
         self.path=self.directory/'state.json';self.lock=asyncio.Lock()
         self.validator_sha256=validator_sha256
-        self.state={}
+        self.state:dict[str,Any]={}
         self.review_processes={}
         self.api_catalog=None
 
@@ -106,6 +107,7 @@ class Workflow:
     def load(self):
         self.state=json.loads(self.path.read_text()) if self.path.exists() else {'jobs':{},'views':{},'validations':{},'reviews':{}}
         self.state.setdefault('reviews',{})
+        self.state.setdefault('validation_history',[])
         if not self.state.get('current_source'):
             receipt=self.root/'artifacts/reports/checkpoint.json'
             if receipt.exists():
@@ -189,6 +191,8 @@ class Workflow:
         return {'id':row['id'],'state':row['state'],'operation':role,'next_tool':'blender_job_status'}
 
     async def author(self,code,source_job=None):
+        if self.state.get('stagnation'):
+            raise GuardBlocked('STOP: acceptance stagnation across8 validated revisions; inspect measured subconditions with the operator before further authoring. No error budget was charged.')
         inspected=inspect_authoring(code)
         if not inspected['ok']:return inspected
         catalog=self.catalog()
@@ -246,12 +250,20 @@ class Workflow:
         self.state['validation']={'source_job':source,'job_id':row['id'],'sha256':digest,
             'path':str(archive.relative_to(self.root)),'stage_results':merged['stage_results'],
             'passed':merged['passed'],'fail_count':merged['fail_count'],'unresolved_count':merged['unresolved_count']}
+        signature=hashlib.sha256(json.dumps(sorted((c['id'],c['status']) for c in merged['checks'] if c['status']!='PASS')).encode()).hexdigest()
+        history=self.state['validation_history']
+        point={'source':source,'signature':signature,'stage_results':merged['stage_results']}
+        if history and history[-1]['source']==source:history[-1]=point
+        else:history.append(point)
+        self.state['validation_history']=history[-8:]
+        if len(history)>=8 and len({p['source'] for p in history[-8:]})==8 and all((p['signature'],p['stage_results'])==(signature,merged['stage_results']) for p in history[-8:]) and not merged['passed']:
+            self.state['stagnation']={'revisions':8,'signature':signature,'reason':'Identical remaining-check statuses and accepted stages; operator diagnosis required, not another successful no-op.'}
         self.save()
         sync_ledgers(self.root)
         return {'id':row['id'],'state':'completed','operation':'validation','execution_succeeded':True,
                 'asset_passed':merged['passed'],'validation':self.state['validation'],
                  'remaining_checks':[{'id':c['id'],'status':c['status'],'observed':str(c['observed'])[:240]} for c in merged['checks'] if c['status']!='PASS'][:12],
-                 'remaining_check_count':merged['fail_count']+merged['unresolved_count'],'next_tool':'blender_validation_details'}
+                 'remaining_check_count':merged['fail_count']+merged['unresolved_count'],'next_tool':'blender_validation_details','stagnation':self.state.get('stagnation')}
 
     def sync_failure_mirrors(self):
         if self.state.get('validation') and self.state['validation']['source_job']==self.state.get('current_source') and not self.pending():
@@ -347,7 +359,7 @@ class Workflow:
                 **({'workflow_id':metadata['view_id']} if metadata.get('view_id') else {})}
 
     async def native_status(self,job_id):
-        assert re.fullmatch('[a-f0-9]{32}',job_id)
+        assert re.fullmatch('(?:gpu-)?[a-f0-9]{32}',job_id)
         return await self.observe(await self.client.rpc('status',{'job_id':job_id}))
 
     async def status(self,job_id):
@@ -463,6 +475,9 @@ class Workflow:
         return await self.observe(row)
 
     async def cached_diagnostics(self,job_id):
+        if job_id.startswith('gpu-'):
+            row=await self.client.rpc('status',{'job_id':job_id})
+            return {'id':job_id,'state':row['state'],'error':row.get('error'),'logs':{},'gpu_diagnostics':'Operator GPU log review required; do not fetch failed artifacts or replay the job.'}
         assert re.fullmatch('[a-f0-9]{32}',job_id)
         path=self.directory/'diagnostics'/(job_id+'.json')
         if path.exists():return json.loads(path.read_text())
@@ -510,7 +525,7 @@ class Workflow:
             remaining=[{'id':c['id'],'stage':c['stage'],'status':c['status'],'expected':c.get('expected'),
                         'observed':str(c.get('observed'))[:320]} for c in report['checks'] if c['status']!='PASS']
         return {'current_source':self.state.get('current_source'),'checkpoint':self.state.get('checkpoint'),
-                'validation':validation,'pending_jobs':self.pending(),'guard':summary,
+                'validation':validation,'pending_jobs':self.pending(),'guard':summary,'stagnation':self.state.get('stagnation'),
                 'remaining_checks':remaining[:12],'remaining_check_count':len(remaining),
                 'remaining_checks_truncated':len(remaining)>12,'next_tool':'blender_validation_details',
                 'reviews':{key:{k:value for k,value in row.items() if k in {'state','source','reason','warnings'}} for key,row in self.state['reviews'].items()},

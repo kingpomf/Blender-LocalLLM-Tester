@@ -25,6 +25,12 @@ class ContextRecoveryTests(unittest.TestCase):
             refs=root/'artifacts/references';refs.mkdir(parents=True)
             (refs/'manifest.json').write_text(json.dumps({'images':[{'job_id':'edimg-known','state':'running'}]}))
             self.assertEqual(reference_receipt(root)['reference_job_ids'],['edimg-known'])
+            event['part']['state']['output']=json.dumps({'id':'edimg-known'})
+            events.write_text(json.dumps(event)+'\n')
+            self.assertEqual(reference_receipt(root)['reference_job_ids'],['edimg-known'])
+            event['part']['state']['output']=json.dumps({'id':'edimg-other','job_id':'edimg-known'})
+            events.write_text(json.dumps(event)+'\n')
+            with self.assertRaisesRegex(GuardBlocked,'conflicting'):reference_receipt(root)
             event['part']['state']['status']='error';events.write_text(json.dumps(event)+'\n')
             with self.assertRaisesRegex(GuardBlocked,'outcome uncertain'):reference_receipt(root)
     def test_only_confirmed_context_failures_allow_recovery(self):

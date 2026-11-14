@@ -1,12 +1,12 @@
-# Fresh references first; Qwen3.8 Turbo asset coding second
+# Fresh references first; Flash-Next asset coding second
 
-The current trial is **bowling52-qwen38-turbo-20261025-r1**. Qwen3.8 Turbo remains
+The current trial is **bowling52-flash-next-elitedesk-20261025-r1**. Flash-Next remains
 the planner/coder throughout. Old reference images, receipts and design guides are
 archived and must not be reused as the current trial's work.
 
 The automatic entry point is `python3 scripts/run_bowling.py --detach` or
-/bowling-run. The controller runs /bowling-references in build/Qwen3.8 Turbo,
-then a separate fresh /bowling-start session in bowling-coder/Qwen3.8 Turbo.
+/bowling-run. The controller runs /bowling-references in build/Flash-Next,
+then a separate fresh /bowling-start session in bowling-coder/Flash-Next.
 Do not launch a second controller or code asset meshes during reference planning.
 
 ## Execution and provenance
@@ -20,7 +20,10 @@ Do not launch a second controller or code asset meshes during reference planning
   final evidence for a Blender render or completed asset.
 - Discover live capabilities/models. Preserve stable request IDs before submitting;
   EliteDesk supports exact-request lookup. Record accepted edimg- IDs immediately,
-  poll those IDs, and never replay an uncertain request or silently change hosts.
+   poll those IDs, and never replay an uncertain request or silently change hosts.
+   The OpenCode MCP call deadline is120 seconds. Keep wait_image_job timeout_seconds
+   at100 or less to leave response overhead. A wait timeout does not cancel or fail the accepted image job;
+   query the same job with image_job_status and fetch it after success.
 - Fetch completed verified bytes and receipt.json under this project's
   artifacts/references. Do not claim a prompt-only description is visual review.
 - Do not release coding leases or evict other workloads. Preserve an accepted

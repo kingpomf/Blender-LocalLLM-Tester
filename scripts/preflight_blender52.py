@@ -8,7 +8,8 @@ import subprocess
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-from trial_settings import TRIAL, MODEL, CONTEXT, OUTPUT, COMPACTION_RESERVE
+from trial_settings import TRIAL, MODEL, CONTEXT, OUTPUT, COMPACTION_RESERVE, WORKER_ROOT
+from submission_guard import FAILURE_LIMIT_PER_SOURCE, FAILURE_LIMIT_TOTAL
 
 
 async def main():
@@ -52,9 +53,9 @@ async def main():
             value = result.structuredContent or json.loads(next(item.text for item in result.content if item.type == 'text'))
             assert value and value['runtime_verified']
             assert value['actual_version'] == 'Blender 5.2.3 LTS'
-            assert value['root'].endswith('/var/'+TRIAL)
-            assert value['guard']['failure_limit_per_source']==6
-            assert value['guard']['failure_limit_total']==20
+            assert value['root']==WORKER_ROOT
+            assert value['guard']['failure_limit_per_source']==FAILURE_LIMIT_PER_SOURCE
+            assert value['guard']['failure_limit_total']==FAILURE_LIMIT_TOTAL
             evidence = {'passed': True, 'server': 'bowling-blender52',
                                'selected_model': config['model'], 'context_size': coding_context,
                                'max_agent_steps': None, 'compaction':config['compaction'],

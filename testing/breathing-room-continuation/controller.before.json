@@ -1,0 +1,79 @@
+{
+  "sessions": {
+    "references": "ses_e8aa483bbffeiuJDuXkabskS70",
+    "coding": "ses_e8a9018feffeWk8BKhDaFWS2JG"
+  },
+  "turns": 2,
+  "state": "blocked",
+  "controller_pid": 64097,
+  "native_progress": {
+    "asset_jobs": [
+      "cf9e9c33d60a4f99ae69e149236e0acf"
+    ],
+    "failed_jobs": [
+      "6e09df5e4ee44777992c84642acee888",
+      "7fc377d0c47349a0aec7da962e316905"
+    ]
+  },
+  "phase": "coding",
+  "model": "z6-llama/qwen38-flash-next",
+  "last_errors": [
+    "Native job 6e09df5e4ee44777992c84642acee888 failed: blender_exit_1; see blender.log",
+    "Ripgrep JSON record exceeded 65536 bytes",
+    "Native job 7fc377d0c47349a0aec7da962e316905 failed: blender_exit_1; see blender.log"
+  ],
+  "context_recovery_state": null,
+  "events_file": ".runtime/autonomous-run/002-coding.jsonl",
+  "operator_recoveries": [
+    {
+      "at": 1792971621.350713,
+      "authorization": "User requested checking/clearing the blocker and a new detached process.",
+      "cause": "Read-only image waits exceeded the MCP 60-second call deadline; all accepted images subsequently completed.",
+      "receipt": {
+        "passed": true,
+        "source": null,
+        "checkpoint_sha256": null,
+        "pending_jobs": [],
+        "hard_streak": {},
+        "reference_job_ids": [
+          "edimg-2404a901d5ad41df8cfcacc32f35b419",
+          "edimg-29f0a8afdbb04cbe95d60cfce1e69d77",
+          "edimg-6df4618278fe4608a80efd3b140e0df7"
+        ],
+        "phase": "references"
+      },
+      "checks": {
+        "references": {
+          "passed": true,
+          "issues": [],
+          "manifest": "/Users/start/Development/Blender-Bowling-FlashNext/artifacts/references/manifest.json"
+        },
+        "resume": {
+          "passed": true,
+          "run_status": "BLOCKED",
+          "next_stage": "00",
+          "last_verified_source": "none",
+          "pending_job": "none",
+          "issues": [],
+          "active_file_count": 0,
+          "candidate_jobs_to_inspect": [],
+          "pending_reference_jobs": [],
+          "note": "Consistency only: inspect actual scenes/reports/hashes before accepting or resuming work."
+        }
+      },
+      "prior_errors": [
+        "MCP error -32001: Request timed out",
+        "MCP error -32001: Request timed out",
+        "MCP error -32001: Request timed out"
+      ],
+      "prior_reason": "Reference phase reported an explicit STOP/BLOCKED/FAIL",
+      "archive": ".runtime/autonomous-run/reference-wait-recovery-1792971621349801000",
+      "counters_reset": false
+    }
+  ],
+  "native_failures_since_progress": {
+    "6e09df5e4ee44777992c84642acee888": "Native job 6e09df5e4ee44777992c84642acee888 failed: blender_exit_1; see blender.log",
+    "7fc377d0c47349a0aec7da962e316905": "Native job 7fc377d0c47349a0aec7da962e316905 failed: blender_exit_1; see blender.log"
+  },
+  "reason": "STOP: two distinct native jobs failed/cancelled without a published asset advance; client stopped immediately for diagnosis, no automatic retry."
+}

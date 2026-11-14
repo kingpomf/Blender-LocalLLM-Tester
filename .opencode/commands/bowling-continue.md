@@ -1,7 +1,7 @@
 ---
 description: Explicitly resume the current Qwen3.8 Turbo trial after reconciliation
 agent: build
-model: z6-llama/qwen38-turbo
+model: z6-llama/qwen38-flash-next
 ---
 
 Inspect `python3 scripts/run_bowling.py --status`. Do not start a duplicate.

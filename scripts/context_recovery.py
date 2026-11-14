@@ -6,7 +6,7 @@ import time
 
 from scripts.check_references import check as reference_check
 from scripts.check_resume import check as resume_check
-from scripts.submission_guard import budget_accounting,GuardBlocked,FAILURE_LIMIT_PER_SOURCE,FAILURE_LIMIT_TOTAL
+from scripts.submission_guard import budget_accounting,GuardBlocked,FAILURE_LIMIT_PER_SOURCE,FAILURE_LIMIT_TOTAL,FAILURE_LIMIT_WITHOUT_PROGRESS
 
 MAX_CONTEXT_RECOVERIES=3
 
@@ -52,7 +52,9 @@ def reference_receipt(root):
         if saved.get('status')!='completed':raise GuardBlocked('STOP: reference generation outcome uncertain; preserve its request, no replay')
         try:result=json.loads(saved.get('output',''))
         except ValueError:raise GuardBlocked('STOP: reference generation acknowledgement cannot be verified') from None
-        job=result.get('job_id') if isinstance(result,dict) else None
+        job=(result.get('job_id') or result.get('id')) if isinstance(result,dict) else None
+        if isinstance(result,dict) and result.get('job_id') and result.get('id') and result['job_id']!=result['id']:
+            raise GuardBlocked('STOP: conflicting reference generation acknowledgement IDs')
         if not job or job not in known:raise GuardBlocked('STOP: accepted reference ID is not recorded in manifest; reconcile before retry')
     return {'passed':True,'source':None,'checkpoint_sha256':None,'pending_jobs':[],
             'hard_streak':{},'reference_job_ids':sorted(known),'phase':'references'}
@@ -96,7 +98,7 @@ async def reconcile(root,workflow,guard,timeout:float=240.0,poll_interval:float=
     source_index=next((i for i,row in enumerate(rows) if row['job']==source),-1)
     after_source={r['job'] for r in rows[source_index+1:]}
     streak={r['job']:'Hard failure observed during context reconciliation' for r in hard if r['job'] in after_source}
-    if len(streak)>=2:raise GuardBlocked('STOP: two hard failures without asset advance; context recovery cannot bypass the circuit breaker')
+    if len(streak)>=FAILURE_LIMIT_WITHOUT_PROGRESS:raise GuardBlocked(f'STOP: {FAILURE_LIMIT_WITHOUT_PROGRESS} hard failures without asset advance; context recovery cannot bypass the circuit breaker')
     checkpoint=json.loads((root/'artifacts/reports/checkpoint.json').read_text()) if source else {}
     return {'passed':True,'source':source,'checkpoint_sha256':checkpoint.get('sha256'),'hard_streak':streak,
         'hard_failures':len(hard),'api_corrections':len(accounting['api_corrections']),

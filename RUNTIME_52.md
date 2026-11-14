@@ -1,16 +1,21 @@
-# Version-locked Blender runtime
+# EliteDesk Blender5.2.3 runtime
 
-The fresh Qwen3.8 Turbo trial uses the existing installed **Blender5.2.3 LTS**
-binary at tools/blender-5.2.3-linux-x64/blender on Z6. The operator MCP transport
-checks the actual executable and its queue runner; authoring also asserts the
-version inside the isolated CPU sandbox. Fresh scenes contain zero objects.
+Installed binary /home/kingpomf/blender-new-llm-setup/tools/blender-5.2.3-linux-x64/blender,
+portable libraries under tools/sandbox-runtime/usr/lib/x86_64-linux-gnu. Direct
+host version probes need that library path; isolated worker commands mount it
+automatically. This is an existing qualified runtime, not a new download.
 
-Queue: var/bowling52-qwen38-turbo-20261025-r1. No old queue job may be used as an
-asset source. The new guard starts with no attempts/failures and keeps all accepted
-IDs durably. Retired jobs and databases remain archived, not deleted.
+Worker code snapshot: var/elitedesk52-runtime-65703d9. The existing shared CPU/GPU
+queue root var/mcp-worker is retained so GPU work remains serialized. Idle CPU/GPU
+runners were replaced only after admission transactions proved both queues empty,
+no live warm GPU session existed and no GPU compute process was present. Queue
+histories/databases were backed up; no Z6 service/lease was touched.
 
-Source-free Stage00 is allowed after fresh reference acceptance. Later use the
-machine-owned current source and poll automatic validation. The read-only native
-validator and installed API/return-type catalog are unchanged tooling. Captured
-API metadata may retain provenance to its original read-only capture job; it is
-never an authored scene or acceptance claim for the fresh trial.
+The fresh bowling guard tracks only this trial's accepted IDs. Its authoritative
+asset source is always a completed EliteDesk CPU job; render IDs may be gpu-
+prefixed. Version/lineage/hash checks remain enforced. Never import a Z6 source ID.
+
+A separate real CPU-author/CUDA-render fixture passed: CPU job5be7ced08d644157af0ebc8eabbf14f1,
+GPU jobgpu-d3aa492287204d10bdd52b47676395dd, actual RTX3060 CUDA/cpu_enabled=false,
+Blender5.2.3 LTS,512x512/8 samples, wall2.90s. This is infrastructure qualification,
+not a comparative full-asset performance benchmark or bowling acceptance evidence.
