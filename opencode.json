@@ -48,7 +48,7 @@
   "experimental": {"continue_loop_on_deny": true, "mcp_timeout": 120000},
   "lsp": {
     "pyright": {
-      "command": ["/Users/start/Development/Blender-LocalLLM-Tester/.venv/bin/pyright-langserver", "--stdio"],
+      "command": ["pyright-langserver", "--stdio"],
       "extensions": [".py", ".pyi"]
     }
   },
