@@ -1,5 +1,8 @@
 # Selected model — Qwen3.8 Turbo fresh trial
 
+**Historical setup:** This model and its weights have been removed from Z6.
+This trial cannot be resumed as configured.
+
 - OpenCode model ID: **z6-llama/qwen38-turbo**.
 - Installed gateway advertises it enabled; model state was unloaded at discovery.
 - Configured context139264, output16384; tool calls and reasoning enabled.

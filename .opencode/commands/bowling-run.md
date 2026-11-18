@@ -1,8 +1,10 @@
 ---
-description: Launch the full image-reference-to-Blender workflow without per-stage prompts
+description: Report why the full bowling workflow is paused
 agent: build
-model: z6-llama/qwen38-turbo
 ---
+
+Do not execute the historical workflow below. Tell the user that the original
+Z6 model was retired and the trial requires explicit migration.
 
 Start the operator-authorized continuous BowlingPair01 workflow by running
 `python3 scripts/run_bowling.py --detach`. The controller uses Qwen3.8 Turbo for

@@ -1,5 +1,9 @@
 # BowlingPair01 — fresh Qwen3.8 Turbo trial
 
+**Trial paused:** Z6 no longer serves `qwen38-turbo`. The instructions below
+record the original trial; do not launch or resume its controller or substitute
+another model without an explicit trial migration.
+
 Build the original modular two-lane bowling asset defined by all ten files under
 spec/bowling-pair-01/. Specifications are acceptance requirements. No mesh packs,
 old trial assets or unrelated game code. The previous trial is archived.

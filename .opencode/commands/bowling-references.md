@@ -1,8 +1,10 @@
 ---
-description: Create fresh reference images and a pixel-reviewed guide before Blender coding
+description: Report why the bowling reference phase is paused
 agent: build
-model: z6-llama/qwen38-turbo
 ---
+
+Do not execute the historical workflow below. Tell the user that the original
+Z6 model was retired and the trial requires explicit migration.
 
 Complete the reference phase using Qwen3.8 Turbo. Read AGENTS.md,
 REFERENCE_IMAGES.md, BUILD_STATUS.md, HANDOFF.md and all ten bowling specifications.

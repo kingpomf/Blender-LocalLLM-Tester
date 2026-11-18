@@ -1,8 +1,10 @@
 ---
-description: Complete remaining asset work using enforced MCP state, validation and render queues
-agent: bowling-coder
-model: z6-llama/qwen38-turbo
+description: Report why bowling asset authoring is paused
+agent: build
 ---
+
+Do not execute the historical workflow below. Tell the user that the original
+Z6 model was retired and the trial requires explicit migration.
 
 Continue BowlingPair01 from **blender_workflow_status**, the authoritative source
 and measured results. Read AGENTS.md, CONTROLLED_CONTINUATION.md and the relevant

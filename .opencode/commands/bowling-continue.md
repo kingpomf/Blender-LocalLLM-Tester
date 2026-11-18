@@ -1,8 +1,10 @@
 ---
-description: Explicitly resume the current Qwen3.8 Turbo trial after reconciliation
+description: Report why the bowling trial is paused
 agent: build
-model: z6-llama/qwen38-turbo
 ---
+
+Do not execute the historical continuation instructions below. Tell the user
+that the original Z6 model was retired and the trial requires explicit migration.
 
 Inspect `python3 scripts/run_bowling.py --status`. Do not start a duplicate.
 Resume only when the operator explicitly requested it and the recorded blocker
