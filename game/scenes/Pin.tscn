@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/BowlingPin01.glb" id="1_pinmesh"]
+[ext_resource type="Script" path="res://scripts/pin.gd" id="2_pinscript"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pin"]
+height = 0.38
+radius = 0.058
+
+[node name="Pin" type="RigidBody3D"]
+script = ExtResource("2_pinscript")
+mass = 1.5
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.07, 0)
+contact_monitor = true
+max_contacts_reported = 4
+
+[node name="PinMesh" parent="." instance=ExtResource("1_pinmesh")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19, 0)
+shape = SubResource("CylinderShape3D_pin")

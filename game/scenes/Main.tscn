@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_game"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_game")
+
+[node name="Alley" type="Node3D" parent="."]
+
+[node name="Pins" type="Node3D" parent="."]
+
+[node name="BallSpawn" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+shadow_enabled = true
+directional_shadow_max_distance = 30.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+current = true
+fov = 60.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
